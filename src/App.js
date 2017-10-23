@@ -1,6 +1,9 @@
 import { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+/*eslint-disable no-unused-vars*/
+const React = require('react');
+/*eslint-enable no-unused-vars*/
 
 class App extends Component {
   render() {
