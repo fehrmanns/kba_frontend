@@ -1,9 +1,10 @@
-import { Component } from 'react';
+/*eslint-disable no-unused-vars*/
+import  React, { Component } from 'react';
+import { Button, ButtonToolbar } from 'react-bootstrap';
+/*eslint-enable no-unused-vars*/
 import logo from './logo.svg';
 import './App.css';
-/*eslint-disable no-unused-vars*/
-const React = require('react');
-/*eslint-enable no-unused-vars*/
+
 
 class App extends Component {
   render() {
@@ -16,6 +17,7 @@ class App extends Component {
         <p className="App-intro">
           To get started, edit <code>src/App.js</code> and save to reload.
         </p>
+        <Button bsStyle="primary">Bootstrap Button</Button>
       </div>
     );
   }
