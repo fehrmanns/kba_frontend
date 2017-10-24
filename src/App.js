@@ -1,7 +1,7 @@
 /*eslint-disable no-unused-vars*/
 import  React, { Component } from 'react';
-import { Button, ButtonToolbar } from 'react-bootstrap';
 /*eslint-enable no-unused-vars*/
+import { Button } from 'react-bootstrap';
 import logo from './logo.svg';
 import './App.css';
 
