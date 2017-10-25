@@ -3,24 +3,26 @@ import  React, { Component } from 'react';
 /*eslint-enable no-unused-vars*/
 import { Button } from 'react-bootstrap';
 import logo from './logo.svg';
-import './App.css';
+import './app.css';
+import BasicExample from './Router';
 
-class App extends Component {
+class app extends Component {
 
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
+      <div className="app">
+        <header className="app-header">
+          <img src={logo} className="app-logo" alt="logo" />
+          <h1 className="app-title">Welcome to React</h1>
         </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
+        <p className="app-intro">
+          To get started, edit <code>src/app.js</code> and save to reload.
         </p>
         <Button bsStyle="primary">Bootstrap Button</Button>
+        <BasicExample />
       </div>
     );
   }
 }
 
-export default App;
+export default app;
