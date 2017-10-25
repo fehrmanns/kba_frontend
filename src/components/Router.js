@@ -1,22 +1,27 @@
 import React from 'react'
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 import Header from './Header'
+import Sitebar from './Sitebar'
 
 const Mainframe = () => (
   <Router>
     <div>
+      
       <Header />
+      <Sitebar />
+
       <div className="container">
 
-      <div className="starter-template">
-        <h1>Bootstrap starter template</h1>
-        <p className="lead">Use this document as a way to quickly start any new project.<br /> All you get is this text and a mostly barebones HTML document.</p>
-      </div>
-      <Route exact path="/" component={Home}/>
-      <Route path="/about" component={About}/>
-      <Route path="/topics" component={Topics}/>
+        <div className="starter-template">
+          <h1>Bootstrap starter template</h1>
+          <p className="lead">Use this document as a way to quickly start any new project.<br /> All you get is this text and a mostly barebones HTML document.</p>
+        </div>
 
-    </div>
+        <Route exact path="/" component={Home} />
+        <Route path="/about" component={About} />
+        <Route path="/topics" component={Topics} />
+
+      </div>
     </div>
   </Router>
 )
@@ -54,10 +59,10 @@ const Topics = ({ match }) => (
       </li>
     </ul>
 
-    <Route path={`${match.url}/:topicId`} component={Topic}/>
+    <Route path={`${match.url}/:topicId`} component={Topic} />
     <Route exact path={match.url} render={() => (
       <h3>Please select a topic.</h3>
-    )}/>
+    )} />
   </div>
 )
 

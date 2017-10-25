@@ -11,14 +11,7 @@ const Header = () => (
                     <span className="icon-bar"></span>
                     <span className="icon-bar"></span>
                 </button>
-                <a className="navbar-brand" href="#">Project name</a>
-            </div>
-            <div id="navbar" className="collapse navbar-collapse">
-                <ul className="nav navbar-nav">
-                    <li><Link to="/">Home</Link></li>
-                    <li><Link to="/about">About</Link></li>
-                    <li><Link to="/topics">Topics</Link></li>
-                </ul>
+                <Link className="navbar-brand" to="/">Klarios Biometrics Analytics</Link>
             </div>
         </div>
     </nav>

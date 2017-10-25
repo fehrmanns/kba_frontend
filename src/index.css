@@ -3,3 +3,31 @@ body {
   padding: 50px 0 0;
   font-family: sans-serif;
 }
+.navbar-brand, .navbar-toggle {
+  float: none !important;
+  display: inline-block !important;
+}
+@media (max-width:768px) {
+  .navbar-toggle {
+    margin-left: 15px;
+  }
+}
+.container {
+  width: auto !important;
+}
+
+.sitebar {
+  padding: 10px 15px;
+  float: left;
+  width: 200px;
+  height: 100vh;
+}
+.sitebar ul {
+  list-style: none;
+  list-style-position: outside;
+  padding-left: 10px;
+}
+        
+.sitebar li {
+  margin-top: 10px;
+}
