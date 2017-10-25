@@ -1,24 +1,22 @@
 import React from 'react'
-import {
-  BrowserRouter as Router,
-  Route,
-  Link
-} from 'react-router-dom'
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
+import Header from './Header'
 
-const BasicExample = () => (
+const Mainframe = () => (
   <Router>
     <div>
-      <ul>
-        <li><Link to="/">Home</Link></li>
-        <li><Link to="/about">About</Link></li>
-        <li><Link to="/topics">Topics</Link></li>
-      </ul>
+      <Header />
+      <div className="container">
 
-      <hr/>
-
+      <div className="starter-template">
+        <h1>Bootstrap starter template</h1>
+        <p className="lead">Use this document as a way to quickly start any new project.<br /> All you get is this text and a mostly barebones HTML document.</p>
+      </div>
       <Route exact path="/" component={Home}/>
       <Route path="/about" component={About}/>
       <Route path="/topics" component={Topics}/>
+
+    </div>
     </div>
   </Router>
 )
@@ -69,4 +67,4 @@ const Topic = ({ match }) => (
   </div>
 )
 
-export default BasicExample
+export default Mainframe

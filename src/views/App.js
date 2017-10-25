@@ -2,9 +2,9 @@
 import  React, { Component } from 'react';
 /*eslint-enable no-unused-vars*/
 import { Button } from 'react-bootstrap';
-import logo from './logo.svg';
+import logo from './../logo.svg';
 import './app.css';
-import BasicExample from './Router';
+import BasicExample from './../components/Router';
 
 class app extends Component {
 
