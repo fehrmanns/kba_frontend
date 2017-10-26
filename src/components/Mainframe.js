@@ -11,7 +11,8 @@ class Mainframe extends React.Component {
     super(props)
     
     this.state = {
-      sitebar: getStorage("sitebar") 
+      sitebar: getStorage("sitebar"),
+      loginSuccess: false
     };
   }
   
@@ -27,7 +28,7 @@ class Mainframe extends React.Component {
       <Router>
         <div className="mainframe">
           <Header toggleMenu={() => this.toggleMenu()} />
-          <Sitebar show={this.state.sitebar} />
+          { this.state.loginSuccess && <Sitebar show={this.state.sitebar} /> }
 
           <div className={(this.state.sitebar === "true") ? 'show container' : 'container'}>
             <Route exact path="/" component={Home} />
