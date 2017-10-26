@@ -2,6 +2,7 @@ import React from 'react'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 import Header from './Header'
 import Sitebar from './Sitebar'
+import Login from './../views/Login'
 import Home from './../views/Home'
 import {toggleItem as toggleSitebar, getItem as getStorage} from './../utilities/storage'
 
@@ -24,15 +25,20 @@ class Mainframe extends React.Component {
   } 
 
   render() {
+
+    const application = <div className={(this.state.sitebar === "true") ? 'show container' : 'container'}>
+                        <Route exact path="/" component={Home} />
+                      </div>
+
+    const login = <Route path="/" component={Login} />
+
     return (
       <Router>
         <div className="mainframe">
           <Header toggleMenu={() => this.toggleMenu()} />
           { this.state.loginSuccess && <Sitebar show={this.state.sitebar} /> }
 
-          <div className={(this.state.sitebar === "true") ? 'show container' : 'container'}>
-            <Route exact path="/" component={Home} />
-          </div>
+          { this.state.loginSuccess ? application : login }
         </div>
       </Router>
     );
