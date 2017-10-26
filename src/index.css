@@ -52,8 +52,8 @@ body {
 }
 .mainframe > .container {
   position: absolute;
+  animation: hide-menu-content 0.125s ease-out;
   left: 0;
-  animation: hide-menu-content 0.25s ease-out;
 }
 .mainframe .show.container {
   animation: show-menu-content 0.25s ease-out;
@@ -62,11 +62,11 @@ body {
 
 .sitebar {
   position: absolute;
-  left: -200px;
   padding: 10px 15px;
   width: 200px;
   height: 100vh;
-  animation: hide-menu 0.25s ease-out;
+  animation: hide-menu 0.125s ease-out;
+  left: -200px;
 }
 .show.sitebar {
   animation: show-menu 0.25s ease-out;
