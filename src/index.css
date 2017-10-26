@@ -12,15 +12,65 @@ body {
     margin-left: 15px;
   }
 }
+
+
 .container {
   width: auto !important;
 }
 
+@keyframes show-menu {
+  0% {
+    left: -200px;
+  }
+  100% {
+    left: 0;
+  }
+}
+@keyframes hide-menu {
+  0% {
+    left: 0;
+  }
+  100% {
+    left: -200px;
+  }
+}
+@keyframes show-menu-content {
+  0% {
+    left: 0;
+  }
+  100% {
+    left: 200px;
+  }
+}
+@keyframes hide-menu-content {
+  0% {
+    left: 200px;
+  }
+  100% {
+    left: 0;
+  }
+}
+.mainframe > .container {
+  position: absolute;
+  left: 0;
+  animation: hide-menu-content 0.25s ease-out;
+}
+.mainframe .show.container {
+  animation: show-menu-content 0.25s ease-out;
+  left: 200px;
+}
+
 .sitebar {
+  position: absolute;
+  left: -200px;
   padding: 10px 15px;
-  float: left;
   width: 200px;
   height: 100vh;
+  animation: hide-menu 0.25s ease-out;
+}
+.show.sitebar {
+  animation: show-menu 0.25s ease-out;
+  left: 0;
 }
 .sitebar ul {
   list-style: none;
