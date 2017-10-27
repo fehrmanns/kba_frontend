@@ -3,8 +3,6 @@ import React from 'react'
 {window.btoa( "Baumhaus" )}
 */
 
-
-
 class Login extends React.Component {
 
     render() {
@@ -24,7 +22,7 @@ class Login extends React.Component {
                     <div className="checkbox">
                         <label>
                             <input type="checkbox" value="remember-me" /> Remember me
-                    </label>
+                        </label>
                     </div>
                     <button className="btn btn-primary btn-block" type="submit">Sign in</button>
                 </form>
