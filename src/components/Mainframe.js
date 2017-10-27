@@ -36,6 +36,12 @@ class Mainframe extends React.Component {
       <Router>
         <div className="mainframe">
           <Header toggleMenu={() => this.toggleMenu()} />
+          <div className="progress">
+            <div className="progress-bar progress-bar-danger progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100">
+              <span className="sr-only">45% Complete</span>
+            </div>
+          </div>
+
           { this.state.loginSuccess && <Sitebar show={this.state.sitebar} /> }
 
           { this.state.loginSuccess ? application : login }

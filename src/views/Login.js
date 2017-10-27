@@ -1,9 +1,30 @@
-import React from 'react'
+import React, { Component } from 'react'
 /*
 {window.btoa( "Baumhaus" )}
 */
+const API = 'https://hn.algolia.com/api/v1/search?query=';
+const DEFAULT_QUERY = 'redux';
+/* Login Uniform Resource Identifier */
+// eslint-disable-next-line
+const LURI = 'http://localhost:8080/kba_backend_frontend/rest/login';
 
-class Login extends React.Component {
+class Login extends Component {
+
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            hits: []
+        }
+    }
+
+    componentDidMount() {
+        fetch(API + DEFAULT_QUERY)
+          .then( response => response.json() )
+          .then( data => this.setState({ hits: data.hits }) )
+          .then( () => console.log( "we have: " + JSON.stringify(this.state.hits) ) )
+          .catch( () => console.log( "error" ) );
+      }
 
     render() {
         return (
