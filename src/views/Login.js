@@ -54,19 +54,15 @@ class Login extends Component {
     }
 
     sendData() {
-        
-        const encodeLogin = "Basic " + btoa(this.state.username + ":" + this.state.password);
-        console.log("login: " + encodeLogin);
-        let loginHeader = new Headers();
-        //loginHeader.append("Content-Type", "application/json");
-        loginHeader.append("authentication", "Basic " + encodeLogin);
 
-        console.log("header: " + loginHeader);
+        const encodeLogin = "Basic " + btoa(this.state.username + ":" + this.state.password);
+        let loginHeader = new Headers();
+        loginHeader.append("authentication", encodeLogin);
+
         var fetchInit = {
             method: 'GET',
             headers: loginHeader,
-            mode: 'no-cors',
-            cache: 'default'
+            mode: 'none'
         };
 
         fetch(LURI, fetchInit)
