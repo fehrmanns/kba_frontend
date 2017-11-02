@@ -16,8 +16,8 @@ body::after {
   z-index: -1;   
 }
 .navbar-brand, .navbar-toggle {
-  float: none !important;
-  display: inline-block !important;
+  float: left;
+  display: block !important;
 }
 @media (max-width:768px) {
   .navbar-toggle {
@@ -77,7 +77,7 @@ body::after {
   left: 0;
 }
 .mainframe .show.container {
-  animation: show-menu-content 0.25s ease-out;
+  animation: show-menu-content 0.225s ease-out;
   left: 200px;
 }
 
@@ -85,12 +85,11 @@ body::after {
   position: absolute;
   padding: 10px 15px;
   width: 200px;
-  height: 100vh;
   animation: hide-menu 0.125s ease-out;
   left: -200px;
 }
 .show.sitebar {
-  animation: show-menu 0.25s ease-out;
+  animation: show-menu 0.225s ease-out;
   left: 0;
 }
 .sitebar ul {
@@ -114,4 +113,8 @@ body::after {
 }
 .progress-bar-striped {
   width: 100%
+}
+.input-group-addon {
+  width: 1em;
+  position: initial;
 }

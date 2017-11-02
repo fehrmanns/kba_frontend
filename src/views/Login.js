@@ -2,8 +2,6 @@ import React, { Component } from 'react'
 /*
 {window.btoa( "Baumhaus" )}
 */
-const API = 'https://hn.algolia.com/api/v1/search?query=';
-const DEFAULT_QUERY = 'redux';
 /* Login Uniform Resource Identifier */
 // eslint-disable-next-line
 const LURI = 'http://localhost:8080/kba_backend_frontend/rest/login';
@@ -14,36 +12,95 @@ class Login extends Component {
         super(props);
 
         this.state = {
-            hits: []
+            username: '',
+            password: ''
         }
     }
 
     componentDidMount() {
-        fetch(API + DEFAULT_QUERY)
-          .then( response => response.json() )
-          .then( data => this.setState({ hits: data.hits }) )
-          .then( () => console.log( "we have: " + JSON.stringify(this.state.hits) ) )
-          .catch( () => console.log( "error" ) );
-      }
+        /*
+                fetch(API + DEFAULT_QUERY)
+                    .then(response => response.json())
+                    .then(data => this.setState({ hits: data.hits }))
+                    .then(() => console.log("we have: " + JSON.stringify(this.state.hits)))
+                    .catch(() => console.log("error"));
+        */
+    }
+
+    handleChange(event) {
+
+        const targetName = event.target.id.replace('input', '').toLowerCase();
+
+        switch (targetName) {
+            case 'username':
+                this.setState({
+                    username: event.target.value
+                });
+                break;
+            case 'password':
+                this.setState({
+                    password: event.target.value
+                });
+                break;
+            default:
+                return
+        }
+    }
+
+    handleSubmit(event) {
+
+        event.preventDefault();
+        this.sendData();
+    }
+
+    sendData() {
+        
+        const encodeLogin = "Basic " + btoa(this.state.username + ":" + this.state.password);
+        console.log("login: " + encodeLogin);
+        let loginHeader = new Headers();
+        loginHeader.append("Content-Type", "application/json");
+        loginHeader.append("authentication", "Basic " + encodeLogin);
+
+        console.log("header: " + loginHeader);
+        var fetchInit = {
+            method: 'GET',
+            headers: loginHeader,
+            mode: 'no-cors',
+            cache: 'default'
+        };
+
+        fetch(LURI, fetchInit)
+            .then(this.handleErrors)
+            .then(response => console.log("ok"))
+            .catch(error => console.log(error));
+    }
+
+    handleErrors(response) {
+        if (!response.ok) {
+            throw Error(response.statusText);
+        }
+        return response;
+    }
 
     render() {
         return (
             <div className="flex-container">
 
-                <form className="form-signin">
+                <form className="form-signin" onSubmit={this.handleSubmit.bind(this)}>
                     <h2 className="form-signin-heading">Please sign in</h2>
                     <div className="form-group">
-                        <label htmlFor="inputEmail" className="sr-only">Email address</label>
-                        <input type="email" id="inputEmail" className="form-control" placeholder="Email address" required="" autoFocus="" />
+                        <div className="input-group">
+                            <span className="input-group-addon glyphicon glyphicon-user" id="sizing-addon2"></span>
+                            <input type="text" id="inputUsername" className="form-control" placeholder="User name" required="" autoFocus="" onChange={this.handleChange.bind(this)} value={this.state.username} />
+                        </div>
+                        <label htmlFor="inputUsername" className="sr-only">User name</label>
                     </div>
                     <div className="form-group">
+                        <div className="input-group">
+                            <span className="input-group-addon glyphicon glyphicon-asterisk" id="sizing-addon2"></span>
+                            <input type="password" id="inputPassword" className="form-control" placeholder="Password" required="" onChange={this.handleChange.bind(this)} value={this.state.password} />
+                        </div>
                         <label htmlFor="inputPassword" className="sr-only">Password</label>
-                        <input type="password" id="inputPassword" className="form-control" placeholder="Password" required="" />
-                    </div>
-                    <div className="checkbox">
-                        <label>
-                            <input type="checkbox" value="remember-me" /> Remember me
-                        </label>
                     </div>
                     <button className="btn btn-primary btn-block" type="submit">Sign in</button>
                 </form>
