@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 */
 /* Login Uniform Resource Identifier */
 // eslint-disable-next-line
-const LURI = 'http://localhost:8080/kba_backend_frontend/rest/login';
+const LURI = 'http://localhost:8080/befe/rest/login';
 
 class Login extends Component {
 
@@ -58,7 +58,7 @@ class Login extends Component {
         const encodeLogin = "Basic " + btoa(this.state.username + ":" + this.state.password);
         console.log("login: " + encodeLogin);
         let loginHeader = new Headers();
-        loginHeader.append("Content-Type", "application/json");
+        //loginHeader.append("Content-Type", "application/json");
         loginHeader.append("authentication", "Basic " + encodeLogin);
 
         console.log("header: " + loginHeader);
