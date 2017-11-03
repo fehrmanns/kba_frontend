@@ -1,12 +1,44 @@
-.log-status.wrong-entry {
-    animation( wrong-log 0.3s);
-   }
-   
-@keyframes wrong-log {
-    0%, 100% { 
-        left: 0px; 
-    },
-    20% , 60% { left: 15px; }
-    40% , 80% { left: -15px; }
+  .form-signin {
+      background: white;
+      padding: 5px 30px 30px;
+      border-radius: 5px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
   }
+
+  .input-group-addon {
+      width: 1em;
+      position: initial;
+  }
+
+  @keyframes wrong-log {
+      0%,
+      100% {
+          margin-left: 0px;
+      }
+      20%,
+      60% {
+          margin-left: 15px;
+      }
+      40%,
+      80% {
+          margin-left: -15px;
+      }
+  }
+
+  .form-signin.unauthorized {
+      animation: wrong-log 0.3s;
+  }
+  /*
   
+@keyframes show-menu {
+    0% {
+        left: -200px;
+    }
+    100% {
+        left: 0;
+    }
+}
+
+   
+
+  */

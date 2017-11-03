@@ -1,121 +1,62 @@
 body {
-  margin: 0;
-  padding: 50px 0 0;
-  font-family: sans-serif;
-  background-color: transparent;
+    margin: 0;
+    padding: 50px 0 0;
+    font-family: sans-serif;
+    background-color: transparent;
 }
+
 body::after {
-  content: "";
-  background: url(./media/bg-strange-bulleye.png) repeat;
-  opacity: 0.5;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  position: absolute;
-  z-index: -1;   
+    content: "";
+    background: url(./media/bg-strange-bulleye.png) repeat;
+    opacity: 0.5;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    z-index: -1;
 }
-.navbar-brand, .navbar-toggle {
-  float: left;
-  display: block !important;
+
+.navbar-brand,
+.navbar-toggle {
+    float: left;
+    display: block !important;
 }
+
 @media (max-width:768px) {
-  .navbar-toggle {
-    margin-left: 15px;
-  }
+    .navbar-toggle {
+        margin-left: 15px;
+    }
 }
 
 .flex-container {
-  height: 80vh;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+    height: 80vh;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
-
 
 .container {
-  width: auto !important;
+    width: auto !important;
 }
 
-@keyframes show-menu {
-  0% {
-    left: -200px;
-  }
-  100% {
+.mainframe>.container {
+    position: absolute;
+    animation: hide-menu-content 0.125s ease-out;
     left: 0;
-  }
-}
-@keyframes hide-menu {
-  0% {
-    left: 0;
-  }
-  100% {
-    left: -200px;
-  }
-}
-@keyframes show-menu-content {
-  0% {
-    left: 0;
-  }
-  100% {
-    left: 200px;
-  }
-}
-@keyframes hide-menu-content {
-  0% {
-    left: 200px;
-  }
-  100% {
-    left: 0;
-  }
 }
 
-.mainframe > .container {
-  position: absolute;
-  animation: hide-menu-content 0.125s ease-out;
-  left: 0;
-}
 .mainframe .show.container {
-  animation: show-menu-content 0.225s ease-out;
-  left: 200px;
+    animation: show-menu-content 0.225s ease-out;
+    left: 200px;
 }
 
-.sitebar {
-  position: absolute;
-  padding: 10px 15px;
-  width: 200px;
-  animation: hide-menu 0.125s ease-out;
-  left: -200px;
-}
-.show.sitebar {
-  animation: show-menu 0.225s ease-out;
-  left: 0;
-}
-.sitebar ul {
-  list-style: none;
-  list-style-position: outside;
-  padding-left: 10px;
-}
-        
-.sitebar li {
-  margin-top: 10px;
-}
-
-.form-signin {
-  background: white;
-  padding: 5px 30px 30px;
-  border-radius: 5px;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.4);
-}
 .progress {
-  height: 5px
+    height: 5px
 }
+
 .progress-bar-striped {
-  width: 100%
-}
-.input-group-addon {
-  width: 1em;
-  position: initial;
+    width: 100%
 }

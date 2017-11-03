@@ -1,9 +1,7 @@
 import React, { Component } from 'react'
-/*
-{window.btoa( "Baumhaus" )}
-*/
+import './login.css'; 
+
 /* Login Uniform Resource Identifier */
-// eslint-disable-next-line
 const LURI = 'http://localhost:8080/befe/rest/login';
 
 class Login extends Component {
@@ -13,17 +11,21 @@ class Login extends Component {
 
         this.state = {
             username: '',
-            password: ''
+            password: '',
+            data: '',
+            signinClass: "form-signin"
         }
+
+        this.handleErrors = this.handleErrors.bind(this);
     }
 
     componentDidMount() {
         /*
-                fetch(API + DEFAULT_QUERY)
-                    .then(response => response.json())
-                    .then(data => this.setState({ hits: data.hits }))
-                    .then(() => console.log("we have: " + JSON.stringify(this.state.hits)))
-                    .catch(() => console.log("error"));
+        fetch(API + DEFAULT_QUERY)
+            .then(response => response.json())
+            .then(data => this.setState({ hits: data.hits }))
+            .then(() => console.log("we have: " + JSON.stringify(this.state.hits)))
+            .catch(() => console.log("error"));
         */
     }
 
@@ -45,6 +47,10 @@ class Login extends Component {
             default:
                 return
         }
+
+        this.setState({
+            signinClass: "form-signin"
+        });
     }
 
     handleSubmit(event) {
@@ -67,13 +73,15 @@ class Login extends Component {
 
         fetch(LURI, fetchInit)
             .then(this.handleErrors)
-            .then(response => console.log("ok"))
-            .catch(error => console.log(error));
+            .then(response => console.log("ok"));
     }
 
     handleErrors(response) {
         if (!response.ok) {
-            throw Error(response.statusText);
+            //throw Error(response.statusText);
+            this.setState({
+                signinClass: this.state.signinClass + " " + response.statusText.toLowerCase()
+            })
         }
         return response;
     }
@@ -82,7 +90,7 @@ class Login extends Component {
         return (
             <div className="flex-container">
 
-                <form className="form-signin" onSubmit={this.handleSubmit.bind(this)}>
+                <form className={this.state.signinClass} onSubmit={this.handleSubmit.bind(this)}>
                     <h2 className="form-signin-heading">Please sign in</h2>
                     <div className="form-group">
                         <div className="input-group">
