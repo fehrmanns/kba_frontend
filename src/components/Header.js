@@ -3,13 +3,15 @@ import { Link } from 'react-router-dom'
 
 
 class Header extends React.Component {
-
+    
     render() {
+        const { renderOnLogin } = this.props
+
         return (
             <nav className="navbar navbar-inverse navbar-fixed-top">
                 <div className="container">
                     <div className="navbar-header">
-                        {this.props.renderOnLogin &&
+                        {renderOnLogin &&
                             <button type="button" className="navbar-toggle collapsed" onClick={() => this.props.toggleMenu()}>
                                 <span className="sr-only">Toggle navigation</span>
                                 <span className="icon-bar"></span>
