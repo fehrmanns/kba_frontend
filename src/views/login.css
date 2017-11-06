@@ -5,9 +5,29 @@
       box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
   }
 
+  .form-signin.unauthorized {
+      animation: wrong-log 0.3s;
+  }
+
   .input-group-addon {
       width: 1em;
       position: initial;
+  }
+
+  .error-label {
+      display: block;
+      height: 1em;
+      opacity: 0;
+  }
+
+  .unauthorized .error-label {
+      animation: show-error 0.3s;
+      opacity: 1;
+  }
+
+  .error-label .label {
+      position: relative;
+      top: -1em;
   }
 
   @keyframes wrong-log {
@@ -25,20 +45,11 @@
       }
   }
 
-  .form-signin.unauthorized {
-      animation: wrong-log 0.3s;
+  @keyframes show-error {
+      0% {
+          opacity: 0;
+      }
+      100% {
+          opacity: 1;
+      }
   }
-  /*
-  
-@keyframes show-menu {
-    0% {
-        left: -200px;
-    }
-    100% {
-        left: 0;
-    }
-}
-
-   
-
-  */
