@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import './login.css'; 
+import './login.css';
 
 /* Login Uniform Resource Identifier */
 const LURI = 'http://localhost:8080/befe/rest/login';
@@ -89,8 +89,9 @@ class Login extends Component {
     render() {
         return (
             <div className="flex-container">
-
+                
                 <form className={this.state.signinClass} onSubmit={this.handleSubmit.bind(this)}>
+                
                     <h2 className="form-signin-heading">Please sign in</h2>
                     <div className="form-group">
                         <div className="input-group">
@@ -105,6 +106,9 @@ class Login extends Component {
                             <input type="password" id="inputPassword" className="form-control" placeholder="Password" required="" onChange={this.handleChange.bind(this)} value={this.state.password} />
                         </div>
                         <label htmlFor="inputPassword" className="sr-only">Password</label>
+                    </div>
+                    <div className="error-label text-right">
+                        <span className="label label-danger">Login failed!</span>
                     </div>
                     <button className="btn btn-primary btn-block" type="submit">Sign in</button>
                 </form>
