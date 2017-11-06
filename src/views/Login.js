@@ -47,13 +47,13 @@ class Login extends Component {
             default:
                 return
         }
+    }
+
+    handleSubmit(event) {
 
         this.setState({
             signinClass: "form-signin"
         });
-    }
-
-    handleSubmit(event) {
 
         event.preventDefault();
         this.sendData();
@@ -65,7 +65,7 @@ class Login extends Component {
         let loginHeader = new Headers();
         loginHeader.append("authentication", encodeLogin);
 
-        var fetchInit = {
+        let fetchInit = {
             method: 'GET',
             headers: loginHeader,
             mode: 'none'
