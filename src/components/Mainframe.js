@@ -35,7 +35,7 @@ class Mainframe extends React.Component {
     return (
       <Router>
         <div className="mainframe">
-          <Header toggleMenu={() => this.toggleMenu()} />
+          <Header toggleMenu={() => this.toggleMenu()} renderOnLogin={this.state.loginSuccess}/>
           <div className="progress">
             <div className="progress-bar progress-bar-danger progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100">
               <span className="sr-only">45% Complete</span>
