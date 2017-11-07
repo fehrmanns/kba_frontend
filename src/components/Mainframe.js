@@ -31,7 +31,7 @@ class Mainframe extends React.Component {
     render() {
 
         const { dispatch, isAuthenticated, errorMessage } = this.props
-        const login = <Login dispatch={dispatch} error={errorMessage} />
+        const login = <Login dispatch={dispatch} errorMessage={errorMessage} />
         const application = (
             <div className={(this.state.sitebar === "true") ? 'show container' : 'container'}>
                 <button onClick={() => dispatch(logoutUser())}>logout</button>

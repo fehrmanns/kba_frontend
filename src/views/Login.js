@@ -11,14 +11,13 @@ class Login extends Component {
             username: '',
             password: '',
             data: '',
-            signinClass: "form-signin"
+            errorMessage: ''
         }
-
-        this.handleErrors = this.handleErrors.bind(this);
     }
 
     handleChange(event) {
 
+        this.setState({ errorMessage: '' });
         const targetName = event.target.id.replace('input', '').toLowerCase();
 
         switch (targetName) {
@@ -39,10 +38,7 @@ class Login extends Component {
 
     handleSubmit(event) {
 
-        this.setState({
-            signinClass: "form-signin"
-        });
-
+        this.setState({ errorMessage: '' });
         event.preventDefault();
         this.sendData();
     }
@@ -58,25 +54,21 @@ class Login extends Component {
         let loginHeader = new Headers();
         loginHeader.append("authentication", encodeLogin);
 
-        dispatch(loginUser(creds));
+        dispatch(loginUser(creds)).then(() => this.handleUnauth(this.props.errorMessage));
     }
 
-    handleErrors(response) {
-        if (!response.ok) {
-            //throw Error(response.statusText);
-            this.setState({
-                signinClass: this.state.signinClass + " " + response.statusText.toLowerCase()
-            })
-        }
-        return response;
+    handleUnauth(msg) {
+        this.setState({
+            errorMessage: msg
+        });
     }
-
 
     render() {
+
         return (
             <div className="flex-container">
 
-                <form className={this.state.signinClass} onSubmit={this.handleSubmit.bind(this)}>
+                <form className={ this.state.errorMessage ? "form-signin unauthorized" : "form-signin"} onSubmit={this.handleSubmit.bind(this)}>
 
                     <h2 className="form-signin-heading">Please sign in</h2>
                     <div className="form-group">
@@ -94,7 +86,7 @@ class Login extends Component {
                         <label htmlFor="inputPassword" className="sr-only">Password</label>
                     </div>
                     <div className="error-label text-right">
-                        <span className="label label-danger">{this.props.error}!</span>
+                        { this.state.errorMessage && <span className="label label-danger">{this.state.errorMessage}</span> }
                     </div>
                     <button className="btn btn-primary btn-block" type="submit">Sign in</button>
                 </form>
