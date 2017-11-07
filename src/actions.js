@@ -60,8 +60,9 @@ function receiveLogout() {
 export function logoutUser() {
     return dispatch => {
         dispatch(requestLogout())
-        localStorage.removeItem('id_token')
-        localStorage.removeItem('access_token')
+        localStorage.removeItem('profile')
+        localStorage.removeItem('auth_token')
+        localStorage.removeItem('refresh_token')
         dispatch(receiveLogout())
     }
 }
@@ -96,7 +97,6 @@ export function loginUser(creds) {
                     return Promise.reject(user)
                 } else {
                     // If login was successful, set the token in local storage
-                    console.log("success", user)
                     localStorage.setItem('profile', JSON.stringify(user.kbaUser))
                     localStorage.setItem('auth_token', user.authtoken)
                     localStorage.setItem('refresh_token', user.refreshtoken)
