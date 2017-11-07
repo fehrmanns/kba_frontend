@@ -85,24 +85,30 @@ export function loginUser(creds) {
         dispatch(requestLogin(creds))
 
         return fetch('http://localhost:8080/befe/rest/login', config)
-            .then(response =>
+            .then(response => {
+                switch (response.status) {
+                    // TODO: add correct messages
+                    case 500: console.error('Some server error'); break;
+                    case 400: dispatch(loginError("Dumm gelaufen")); break;
+                    case 401: dispatch(loginError("Dumm gelaufen")); break;
+                    default: response.json()
+                        .then(user => ({ user, response }))
+                        .then(({ user, response }) => {
+                            if (!response.ok) {
+                                // If there was a problem, we want to
+                                // dispatch the error condition
+                                dispatch(loginError("Dumm gelaufen"))
+                                return Promise.reject(user)
+                            } else {
+                                // If login was successful, set the token in local storage
+                                localStorage.setItem('profile', JSON.stringify(user.kbaUser))
+                                localStorage.setItem('auth_token', user.authtoken)
+                                localStorage.setItem('refresh_token', user.refreshtoken)
 
-                response.json().then(user => ({ user, response }))
-            ).then(({ user, response }) => {
-                if (!response.ok) {
-                    // If there was a problem, we want to
-                    // dispatch the error condition
-                    console.log("fail ",response);
-                    dispatch(loginError(user.message))
-                    return Promise.reject(user)
-                } else {
-                    // If login was successful, set the token in local storage
-                    localStorage.setItem('profile', JSON.stringify(user.kbaUser))
-                    localStorage.setItem('auth_token', user.authtoken)
-                    localStorage.setItem('refresh_token', user.refreshtoken)
-
-                    // Dispatch the success action
-                    dispatch(receiveLogin(user))
+                                // Dispatch the success action
+                                dispatch(receiveLogin(user))
+                            }
+                        })
                 }
             }).catch(err => console.log("Error: ", err))
     }
