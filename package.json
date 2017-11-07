@@ -4,17 +4,13 @@
   "private": true,
   "dependencies": {
     "bootstrap": "^3.3.7",
-    "prop-types": "^15.6.0",
     "react": "^15.6.1",
     "react-bootstrap": "^0.31.3",
     "react-dom": "^15.6.2",
-    "react-redux": "^5.0.6",
+    "react-intl": "^2.4.0",
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
-    "react-scripts": "1.0.14",
-    "redux": "^3.7.2",
-    "redux-auth-wrapper": "^2.0.2",
-    "redux-thunk": "^2.2.0"
+    "react-scripts": "1.0.14"
   },
   "devDependencies": {
     "eslint": "^4.9.0",

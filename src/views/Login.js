@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
-import { loginUser } from '../actions'
-import './login.css'
+import './login.css';
+import {FormattedMessage} from 'react-intl';
+
+/* Login Uniform Resource Identifier */
+const LURI = 'http://localhost:8080/befe/rest/login';
 
 class Login extends Component {
 
@@ -15,6 +18,16 @@ class Login extends Component {
         }
 
         this.handleErrors = this.handleErrors.bind(this);
+    }
+
+    componentDidMount() {
+        /*
+        fetch(API + DEFAULT_QUERY)
+            .then(response => response.json())
+            .then(data => this.setState({ hits: data.hits }))
+            .then(() => console.log("we have: " + JSON.stringify(this.state.hits)))
+            .catch(() => console.log("error"));
+        */
     }
 
     handleChange(event) {
@@ -49,17 +62,10 @@ class Login extends Component {
 
     sendData() {
 
-        const {dispatch} = this.props;
         const encodeLogin = "Basic " + btoa(this.state.username + ":" + this.state.password);
-        const creds = {
-            username: this.state.username,
-            password: this.state.password
-        }
         let loginHeader = new Headers();
         loginHeader.append("authentication", encodeLogin);
 
-        dispatch(loginUser(creds));
-/*
         let fetchInit = {
             method: 'GET',
             headers: loginHeader,
@@ -69,7 +75,6 @@ class Login extends Component {
         fetch(LURI, fetchInit)
             .then(this.handleErrors)
             .then(response => console.log("ok"));
-*/
     }
 
     handleErrors(response) {
@@ -88,25 +93,35 @@ class Login extends Component {
                 
                 <form className={this.state.signinClass} onSubmit={this.handleSubmit.bind(this)}>
                 
-                    <h2 className="form-signin-heading">Please sign in</h2>
+                    <h2 className="form-signin-heading">
+                        <FormattedMessage id='login.input.heading'/>
+                    </h2>
                     <div className="form-group">
                         <div className="input-group">
                             <span className="input-group-addon glyphicon glyphicon-user" id="sizing-addon2"></span>
                             <input type="text" id="inputUsername" className="form-control" placeholder="User name" required="" autoFocus="" onChange={this.handleChange.bind(this)} value={this.state.username} />
                         </div>
-                        <label htmlFor="inputUsername" className="sr-only">User name</label>
+                        <label htmlFor="inputUsername" className="sr-only">
+                            <FormattedMessage id='login.input.username'/>
+                        </label>
                     </div>
                     <div className="form-group">
                         <div className="input-group">
                             <span className="input-group-addon glyphicon glyphicon-asterisk" id="sizing-addon2"></span>
                             <input type="password" id="inputPassword" className="form-control" placeholder="Password" required="" onChange={this.handleChange.bind(this)} value={this.state.password} />
                         </div>
-                        <label htmlFor="inputPassword" className="sr-only">Password</label>
+                        <label htmlFor="inputPassword" className="sr-only">
+                            <FormattedMessage id='login.input.password'/>
+                        </label>
                     </div>
                     <div className="error-label text-right">
-                        <span className="label label-danger">Login failed!</span>
+                        <span className="label label-danger">
+                            <FormattedMessage id='login.label.fail'/>
+                        </span>
                     </div>
-                    <button className="btn btn-primary btn-block" type="submit">Sign in</button>
+                    <button className="btn btn-primary btn-block" type="submit">
+                        <FormattedMessage id='login.button.submit'/>
+                    </button>
                 </form>
 
             </div>

@@ -1,0 +1,9 @@
+{
+    "de": {
+        "login.input.heading": "Bitte anmelden",
+        "login.input.username": "Nutzername",
+        "login.input.password": "Passwort",
+        "login.label.fail": "Anmeldung fehlgeschlagen",
+        "login.button.submit": "Absenden"
+    }
+}

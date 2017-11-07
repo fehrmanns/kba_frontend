@@ -1,0 +1,9 @@
+{
+    "en": {
+        "login.input.heading": "Please sign in",
+        "login.input.username": "User name",
+        "login.input.password": "Password",
+        "login.label.fail": "Login failed",
+        "login.button.submit": "Submit"
+    }
+}
