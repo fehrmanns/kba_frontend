@@ -8,7 +8,7 @@ import Sitebar from './Sitebar'
 import Login from './../views/Login'
 import Home from './../views/Home'
 import { toggleItem as toggleSitebar, getItem as getStorage } from './../utilities/storage'
-import {addLocaleData,IntlProvider} from 'react-intl';
+import { addLocaleData, IntlProvider } from 'react-intl';
 import intlEN from 'react-intl/locale-data/en';
 import intlDE from 'react-intl/locale-data/de';
 import en from '../i18n/messages_en.json';
@@ -17,7 +17,7 @@ import de from '../i18n/messages_de.json';
 addLocaleData([...intlEN, ...intlDE]);
 //TODO: replace EN with the calculated language
 let lang = "de"
-const localeMessages = Object.assign( {} , en, de)
+const localeMessages = Object.assign({}, en, de)
 console.log("localeMessages:", localeMessages);
 const langMsg = localeMessages[lang];
 console.log("lanMsg:", langMsg);
@@ -40,7 +40,7 @@ class Mainframe extends React.Component {
         })
     }
 
-
+    render() {
         const { dispatch, isAuthenticated, errorMessage } = this.props
         const login = <Login dispatch={dispatch} errorMessage={errorMessage} />
         const application = (
@@ -50,23 +50,23 @@ class Mainframe extends React.Component {
             </div>
         )
 
-    return (
-      <IntlProvider key={lang} locale={lang} messages={langMsg}>
-        <Router>
-        <div className="mainframe">
-          <Header toggleMenu={() => this.toggleMenu()} renderOnLogin={isAuthenticated} />
-          <div className="progress">
-            <div className="progress-bar progress-bar-danger progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100">
-              <span className="sr-only">45% Complete</span>
-            </div>
-          </div>
+        return (
+            <IntlProvider key={lang} locale={lang} messages={langMsg}>
+                <Router>
+                    <div className="mainframe">
+                        <Header toggleMenu={() => this.toggleMenu()} renderOnLogin={isAuthenticated} />
+                        <div className="progress">
+                            <div className="progress-bar progress-bar-danger progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100">
+                                <span className="sr-only">45% Complete</span>
+                            </div>
+                        </div>
 
-          {isAuthenticated && <Sitebar show={this.state.sitebar} />}
-          {isAuthenticated ? application : login}
-        </div>
-      </Router>
-    </IntlProvider>)
-  };
+                        {isAuthenticated && <Sitebar show={this.state.sitebar} />}
+                        {isAuthenticated ? application : login}
+                    </div>
+                </Router>
+            </IntlProvider>)
+    };
 }
 Mainframe.propTypes = {
     dispatch: PropTypes.func.isRequired,
