@@ -17,7 +17,7 @@ class Mainframe extends React.Component {
 
     this.state = {
       sitebar: getStorage("sitebar"),
-      loginSuccess: true
+      loginSuccess: false
     };
   }
 
@@ -32,7 +32,7 @@ class Mainframe extends React.Component {
   render() {
 
     const { dispatch, quote, isAuthenticated, errorMessage, isSecretQuote } = this.props
-    const login = <Route path="/" component={Login} />
+    const login = <Login dispatch={dispatch} />
     const application = ({ store }) => (
       <div className={(this.state.sitebar === "true") ? 'show container' : 'container'}>
         <Route exact path="/" component={Home} />
@@ -49,8 +49,8 @@ class Mainframe extends React.Component {
               <span className="sr-only">45% Complete</span>
             </div>
           </div>
-          {this.state.loginSuccess && <Sitebar show={this.state.sitebar} />}
-          {this.state.loginSuccess ? application : login}
+          {isAuthenticated && <Sitebar show={this.state.sitebar} />}
+          {isAuthenticated ? application : login}
         </div>
       </Router>
     )

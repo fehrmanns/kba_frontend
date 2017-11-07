@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
-import './login.css';
-
-/* Login Uniform Resource Identifier */
-const LURI = 'http://localhost:8080/befe/rest/login';
+import { loginUser } from '../actions'
+import './login.css'
 
 class Login extends Component {
 
@@ -17,16 +15,6 @@ class Login extends Component {
         }
 
         this.handleErrors = this.handleErrors.bind(this);
-    }
-
-    componentDidMount() {
-        /*
-        fetch(API + DEFAULT_QUERY)
-            .then(response => response.json())
-            .then(data => this.setState({ hits: data.hits }))
-            .then(() => console.log("we have: " + JSON.stringify(this.state.hits)))
-            .catch(() => console.log("error"));
-        */
     }
 
     handleChange(event) {
@@ -61,10 +49,17 @@ class Login extends Component {
 
     sendData() {
 
+        const {dispatch} = this.props;
         const encodeLogin = "Basic " + btoa(this.state.username + ":" + this.state.password);
+        const creds = {
+            username: this.state.username,
+            password: this.state.password
+        }
         let loginHeader = new Headers();
         loginHeader.append("authentication", encodeLogin);
 
+        dispatch(loginUser(creds));
+/*
         let fetchInit = {
             method: 'GET',
             headers: loginHeader,
@@ -74,6 +69,7 @@ class Login extends Component {
         fetch(LURI, fetchInit)
             .then(this.handleErrors)
             .then(response => console.log("ok"));
+*/
     }
 
     handleErrors(response) {
