@@ -17,7 +17,7 @@
   .error-label {
       display: block;
       height: 1em;
-      opacity: 0;
+      opacity: 1;
   }
 
   .unauthorized .error-label {

@@ -49,7 +49,7 @@ class Login extends Component {
 
     sendData() {
 
-        const {dispatch} = this.props;
+        const { dispatch } = this.props;
         const encodeLogin = "Basic " + btoa(this.state.username + ":" + this.state.password);
         const creds = {
             username: this.state.username,
@@ -59,17 +59,6 @@ class Login extends Component {
         loginHeader.append("authentication", encodeLogin);
 
         dispatch(loginUser(creds));
-/*
-        let fetchInit = {
-            method: 'GET',
-            headers: loginHeader,
-            mode: 'none'
-        };
-
-        fetch(LURI, fetchInit)
-            .then(this.handleErrors)
-            .then(response => console.log("ok"));
-*/
     }
 
     handleErrors(response) {
@@ -82,12 +71,13 @@ class Login extends Component {
         return response;
     }
 
+
     render() {
         return (
             <div className="flex-container">
-                
+
                 <form className={this.state.signinClass} onSubmit={this.handleSubmit.bind(this)}>
-                
+
                     <h2 className="form-signin-heading">Please sign in</h2>
                     <div className="form-group">
                         <div className="input-group">
@@ -104,7 +94,7 @@ class Login extends Component {
                         <label htmlFor="inputPassword" className="sr-only">Password</label>
                     </div>
                     <div className="error-label text-right">
-                        <span className="label label-danger">Login failed!</span>
+                        <span className="label label-danger">{this.props.error}!</span>
                     </div>
                     <button className="btn btn-primary btn-block" type="submit">Sign in</button>
                 </form>
