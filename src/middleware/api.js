@@ -1,4 +1,6 @@
-const BASE_URL = 'http://localhost:8080/befe/rest/login'
+
+/* Login Uniform Resource Identifier */
+const LURI = 'http://localhost:8080/befe/rest/login';
 
 function callApi(endpoint, authenticated) {
 
@@ -16,7 +18,7 @@ function callApi(endpoint, authenticated) {
         }
     }
 
-    return fetch(BASE_URL + endpoint, config)
+    return fetch(LURI + endpoint, config)
         .then(response =>
             response.text().then(text => ({ text, response }))
         ).then(({ text, response }) => {

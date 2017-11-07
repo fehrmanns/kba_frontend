@@ -5,11 +5,14 @@ import { CALL_API } from './middleware/api'
 export const LOGIN_REQUEST = 'LOGIN_REQUEST'
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
 export const LOGIN_FAILURE = 'LOGIN_FAILURE'
+
 export const LOGOUT_REQUEST = 'LOGOUT_REQUEST'
 export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS'
+
 export const QUOTE_REQUEST = 'QUOTE_REQUEST'
 export const QUOTE_SUCCESS = 'QUOTE_SUCCESS'
 export const QUOTE_FAILURE = 'QUOTE_FAILURE'
+
 
 function requestLogin(creds) {
     return {
@@ -66,18 +69,21 @@ export function logoutUser() {
 // Calls the API to get a token and
 // dispatches actions along the way
 export function loginUser(creds) {
-
+    
+    const encodeLogin = "Basic " + btoa(creds.username + ":" + creds.password);
+    let loginHeader = new Headers();
+    loginHeader.append("authentication", encodeLogin);
     let config = {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: `username=${creds.username}&password=${creds.password}`
+        method: 'GET',
+        headers: loginHeader,
+        mode: 'none'
     }
 
     return dispatch => {
         // We dispatch requestLogin to kickoff the call to the API
         dispatch(requestLogin(creds))
 
-        return fetch('http://localhost:3001/sessions/create', config)
+        return fetch('http://localhost:8080/befe/rest/login', config)
             .then(response =>
                 response.json().then(user => ({ user, response }))
             ).then(({ user, response }) => {

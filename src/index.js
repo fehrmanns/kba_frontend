@@ -16,13 +16,16 @@ import Mainframe from './components/Mainframe'
 
 // https://auth0.com/blog/secure-your-react-and-redux-app-with-jwt-authentication/
 let createStoreWithMiddleware = applyMiddleware(thunkMiddleware, api)(createStore);
-let store = createStoreWithMiddleware(kbaApp);
+let store = createStoreWithMiddleware(
+    kbaApp,
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+);
 let rootElement = document.getElementById('root');
 
 ReactDOM.render(
     <Provider store={store}>
         <Mainframe />
     </Provider>,
-    document.getElementById('root')
+    rootElement
 );
 registerServiceWorker();
