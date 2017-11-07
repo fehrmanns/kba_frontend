@@ -69,7 +69,7 @@ export function logoutUser() {
 // Calls the API to get a token and
 // dispatches actions along the way
 export function loginUser(creds) {
-    
+
     const encodeLogin = "Basic " + btoa(creds.username + ":" + creds.password);
     let loginHeader = new Headers();
     loginHeader.append("authentication", encodeLogin);
@@ -85,17 +85,22 @@ export function loginUser(creds) {
 
         return fetch('http://localhost:8080/befe/rest/login', config)
             .then(response =>
+
                 response.json().then(user => ({ user, response }))
             ).then(({ user, response }) => {
                 if (!response.ok) {
                     // If there was a problem, we want to
                     // dispatch the error condition
+                    console.log("fail ",response);
                     dispatch(loginError(user.message))
                     return Promise.reject(user)
                 } else {
                     // If login was successful, set the token in local storage
-                    localStorage.setItem('id_token', user.id_token)
-                    localStorage.setItem('id_token', user.access_token)
+                    console.log("success", user)
+                    localStorage.setItem('profile', JSON.stringify(user.kbaUser))
+                    localStorage.setItem('auth_token', user.authtoken)
+                    localStorage.setItem('refresh_token', user.refreshtoken)
+
                     // Dispatch the success action
                     dispatch(receiveLogin(user))
                 }
@@ -105,23 +110,23 @@ export function loginUser(creds) {
 
 // Uses the API middlware to get a quote
 export function fetchQuote() {
-  return {
-    [CALL_API]: {
-      endpoint: 'random-quote',
-      types: [QUOTE_REQUEST, QUOTE_SUCCESS, QUOTE_FAILURE]
+    return {
+        [CALL_API]: {
+            endpoint: 'random-quote',
+            types: [QUOTE_REQUEST, QUOTE_SUCCESS, QUOTE_FAILURE]
+        }
     }
-  }
 }
 
 // Same API middlware is used to get a
 // secret quote, but we set authenticated
 // to true so that the auth header is sent
 export function fetchSecretQuote() {
-  return {
-    [CALL_API]: {
-      endpoint: 'protected/random-quote',
-      authenticated: true,
-      types: [QUOTE_REQUEST, QUOTE_SUCCESS, QUOTE_FAILURE]
+    return {
+        [CALL_API]: {
+            endpoint: 'protected/random-quote',
+            authenticated: true,
+            types: [QUOTE_REQUEST, QUOTE_SUCCESS, QUOTE_FAILURE]
+        }
     }
-  }
 }
