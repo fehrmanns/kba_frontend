@@ -9,7 +9,7 @@ import api from './middleware/api'
 import registerServiceWorker from './utilities/registerServiceWorker'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap/dist/css/bootstrap-theme.css'
-import './index.css'
+import './css/index.css'
 import Mainframe from './components/Mainframe'
 // Put any other imports below so that CSS from your
 // components takes precedence over default styles.
