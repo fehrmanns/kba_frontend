@@ -88,9 +88,9 @@ export function loginUser(creds) {
             .then(response => {
                 switch (response.status) {
                     // TODO: add correct messages
-                    case 500: console.error('Some server error'); break;
-                    case 400: dispatch(loginError("Dumm gelaufen")); break;
-                    case 401: dispatch(loginError("Dumm gelaufen")); break;
+                    case 500: console.error('500 Some server error'); break;
+                    case 400: dispatch(loginError("400")); break;
+                    case 401: dispatch(loginError("401")); break;
                     default: response.json()
                         .then(user => ({ user, response }))
                         .then(({ user, response }) => {

@@ -1,0 +1,58 @@
+.sitebar {
+    position: absolute;
+    padding: 10px 15px;
+    width: 200px;
+    animation: hide-menu 0.125s ease-out;
+    left: -200px;
+}
+
+.show.sitebar {
+    animation: show-menu 0.225s ease-out;
+    left: 0;
+}
+
+.sitebar ul {
+    list-style: none;
+    list-style-position: outside;
+    padding-left: 10px;
+}
+
+.sitebar li {
+    margin-top: 10px;
+}
+
+@keyframes show-menu {
+    0% {
+        left: -200px;
+    }
+    100% {
+        left: 0;
+    }
+}
+
+@keyframes hide-menu {
+    0% {
+        left: 0;
+    }
+    100% {
+        left: -200px;
+    }
+}
+
+@keyframes show-menu-content {
+    0% {
+        left: 0;
+    }
+    100% {
+        left: 200px;
+    }
+}
+
+@keyframes hide-menu-content {
+    0% {
+        left: 200px;
+    }
+    100% {
+        left: 0;
+    }
+}

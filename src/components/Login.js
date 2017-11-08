@@ -53,7 +53,7 @@ class Login extends Component {
         }
         let loginHeader = new Headers();
         loginHeader.append("authentication", encodeLogin);
-
+        // TODO: check this promise because it's calling also after unmounting component
         dispatch(loginUser(creds)).then(() => this.handleUnauth(this.props.errorMessage));
     }
 
