@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { loginUser } from '../actions'
 import {FormattedMessage} from 'react-intl';
-import './login.css'
+import './../css/login.css'
 
 class Login extends Component {
 
@@ -11,7 +11,6 @@ class Login extends Component {
         this.state = {
             username: '',
             password: '',
-            data: '',
             errorMessage: ''
         }
     }

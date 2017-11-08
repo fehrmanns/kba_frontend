@@ -7,7 +7,7 @@ body {
 
 body::after {
     content: "";
-    background: url(./media/bg-strange-bulleye.png) repeat;
+    background: url(./../media/bg-strange-bulleye.png) repeat;
     opacity: 0.5;
     top: 0;
     left: 0;
