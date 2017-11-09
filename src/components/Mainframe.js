@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { logoutUser } from '../actions'
-import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom'
 import Header from './Header'
 import Sitebar from './Sitebar'
 import Login from './Login'
@@ -24,7 +24,6 @@ import intlEN from 'react-intl/locale-data/en';
 import intlDE from 'react-intl/locale-data/de';
 import en from '../i18n/messages_en.json';
 import de from '../i18n/messages_de.json';
-import { FormattedMessage } from 'react-intl';
 
 addLocaleData([...intlEN, ...intlDE]);
 
@@ -37,10 +36,11 @@ class Mainframe extends React.Component {
         this.state = {
             sitebar: getStorage("sitebar"),
             loginSuccess: false,
-            lang: "de",
-            redirectToReferrer: false
+            lang: "de"
         };
 
+        // TODO: set { from } = { from: { pathname: '/' } }
+        // just to get the starting route
         this.changeLanguage = this.changeLanguage.bind(this);
     }
 
@@ -59,27 +59,23 @@ class Mainframe extends React.Component {
 
     render() {
         const { dispatch, isAuthenticated, errorMessage } = this.props
-        // this.props.location.state ||
-        const { from } = { from: { pathname: '/' } }
-        const { redirectToReferrer } = this.state.redirectToReferrer
-
-        if (redirectToReferrer) { return (<Redirect to={from} />) }
         const localeMessages = Object.assign({}, en, de)
         const langMsg = localeMessages[this.state.lang]
         const PrivateRoute = ({ component: Component, ...rest }) => (
-            <Route {...rest} render={props => (
-                this.props.isAuthenticated ?
+            <Route {...rest} render={(props) => (
+                isAuthenticated ?
                     (<Component {...props} />)
                     :
                     (<Redirect to={{ pathname: '/login' }} />)
             )} />
         )
 
+
         return (
-            <IntlProvider key={this.state.lang} locale={this.state.lang} messages={langMsg}>
+            <IntlProvider locale={this.state.lang} messages={langMsg}>
                 <Router>
                     <div className="mainframe">
-                        <Header changeLanguage={this.changeLanguage} lang={langMsg} language={this.state.lang} toggleMenu={() => this.toggleMenu()} renderOnLogin={isAuthenticated} />
+                        <Header changeLanguage={this.changeLanguage} lang={langMsg} language={this.state.lang} logoutUser={() => (logoutUser())} toggleMenu={() => this.toggleMenu()} renderOnLogin={isAuthenticated} />
                         <div className="progress">
                             <div className="progress-bar progress-bar-danger progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100">
                                 <span className="sr-only">45% Complete</span>
@@ -87,25 +83,23 @@ class Mainframe extends React.Component {
                         </div>
                         {isAuthenticated && <Sitebar show={this.state.sitebar} />}
 
-                        <Switch>
-                            <Route path="/login" render={() => <Login dispatch={dispatch} errorMessage={errorMessage} />} />
+                        <Route path="/login" render={() => <Login dispatch={dispatch} errorMessage={errorMessage} />} />
 
-                            <div className={(this.state.sitebar === "true") ? 'show container' : 'container'}>
-                                <button onClick={() => (logoutUser())}><FormattedMessage id="header.button.logout" /></button>
-                                <PrivateRoute exact path="/" component={Home} />
-                                <Route exact path="/recordings" component={Recordings} />
-                                <Route exact path="/profiles" component={Profiles} />
-                                <Route exact path="/matchlist" component={Matchlist} />
-                                <Route exact path="/topics" component={Matchall} />
-                                <Route exact path="/fileimport" component={Fileimport} />
-                                <Route exact path="/importlist" component={Importlist} />
-                                <Route exact path="/importsettings" component={Importsettings} />
-                                <Route exact path="/usersettings" component={Usersettings} />
-                                <Route exact path="/organisationsettings" component={Organisationsettings} />
-                                <Route exact path="/categorysettings" component={Categorysettings} />
-                                <Route exact path="/license" component={License} />
-                            </div>
-                        </Switch>
+                        <div className={(this.state.sitebar === "true") ? 'show container' : 'container'}>
+
+                            <PrivateRoute exact path="/" component={Home} />
+                            <Route exact path="/recordings" component={Recordings} />
+                            <Route exact path="/profiles" component={Profiles} />
+                            <Route exact path="/matchlist" component={Matchlist} />
+                            <Route exact path="/topics" component={Matchall} />
+                            <Route exact path="/fileimport" component={Fileimport} />
+                            <Route exact path="/importlist" component={Importlist} />
+                            <Route exact path="/importsettings" component={Importsettings} />
+                            <Route exact path="/usersettings" component={Usersettings} />
+                            <Route exact path="/organisationsettings" component={Organisationsettings} />
+                            <Route exact path="/categorysettings" component={Categorysettings} />
+                            <Route exact path="/license" component={License} />
+                        </div>
 
                     </div>
                 </Router>
