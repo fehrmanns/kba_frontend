@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { logoutUser } from '../actions'
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
 import Header from './Header'
 import Sitebar from './Sitebar'
 import Login from './Login'
@@ -28,6 +28,7 @@ import { FormattedMessage } from 'react-intl';
 
 addLocaleData([...intlEN, ...intlDE]);
 
+
 class Mainframe extends React.Component {
 
     constructor(props) {
@@ -36,7 +37,8 @@ class Mainframe extends React.Component {
         this.state = {
             sitebar: getStorage("sitebar"),
             loginSuccess: false,
-            lang: "de"
+            lang: "de",
+            redirectToReferrer: false
         };
 
         this.changeLanguage = this.changeLanguage.bind(this);
@@ -50,20 +52,28 @@ class Mainframe extends React.Component {
     }
 
     changeLanguage(selectedLanguage) {
-        console.log("current Language", (this !== null) ? this.state.lang : "NULL");
         this.setState({
             lang: selectedLanguage
         });
-        console.log("selectedLanguage:", selectedLanguage)
     }
 
     render() {
         const { dispatch, isAuthenticated, errorMessage } = this.props
+        // this.props.location.state ||
+        const { from } = { from: { pathname: '/' } }
+        const { redirectToReferrer } = this.state.redirectToReferrer
 
+        if (redirectToReferrer) { return (<Redirect to={from} />) }
         const localeMessages = Object.assign({}, en, de)
-        console.log("localeMessages:", localeMessages);
-        const langMsg = localeMessages[this.state.lang];
-        console.log("lanMsg:", langMsg);
+        const langMsg = localeMessages[this.state.lang]
+        const PrivateRoute = ({ component: Component, ...rest }) => (
+            <Route {...rest} render={props => (
+                this.props.isAuthenticated ?
+                    (<Component {...props} />)
+                    :
+                    (<Redirect to={{ pathname: '/login' }} />)
+            )} />
+        )
 
         return (
             <IntlProvider key={this.state.lang} locale={this.state.lang} messages={langMsg}>
@@ -78,10 +88,10 @@ class Mainframe extends React.Component {
                         {isAuthenticated && <Sitebar show={this.state.sitebar} />}
 
                         <Switch>
-                            <Route path="/" render={() => <Login dispatch={dispatch} errorMessage={errorMessage} />} />
+                            <Route path="/login" render={() => <Login dispatch={dispatch} errorMessage={errorMessage} />} />
                             <div className={(this.state.sitebar === "true") ? 'show container' : 'container'}>
                                 <button onClick={() => (logoutUser())}><FormattedMessage id="header.button.logout" /></button>
-                                <Route exact path="/" component={Home} />
+                                <PrivateRoute exact path="/" component={Home} />
                                 <Route exact path="/recordings" component={Recordings} />
                                 <Route exact path="/profiles" component={Profiles} />
                                 <Route exact path="/matchlist" component={Matchlist} />

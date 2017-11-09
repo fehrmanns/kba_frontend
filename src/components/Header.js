@@ -11,7 +11,6 @@ class Header extends React.Component {
 
     render() {
         const { renderOnLogin } = this.props
-        console.log("string: ", this.props.lang["header.dropdown.language.de"])
 
         return (
             <nav className="navbar navbar-inverse navbar-fixed-top">
