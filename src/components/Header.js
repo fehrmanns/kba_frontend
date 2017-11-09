@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { FormattedMessage } from 'react-intl';
-import {DropdownButton, MenuItem} from 'react-bootstrap';
+import { DropdownButton, MenuItem } from 'react-bootstrap';
 //import FormattedDropDown from './FormattedDropDown'
 
 
@@ -9,6 +9,7 @@ class Header extends React.Component {
 
     render() {
         const { renderOnLogin } = this.props
+        console.log("string: ", this.props.lang["header.dropdown.language.de"])
 
         return (
             <nav className="navbar navbar-inverse navbar-fixed-top">
@@ -20,17 +21,15 @@ class Header extends React.Component {
                                 <span className="icon-bar"></span>
                                 <span className="icon-bar"></span>
                                 <span className="icon-bar"></span>
-                            </button>}
-
+                            </button>
+                        }
 
                         <Link className="navbar-brand" to="/"><FormattedMessage id="header.title" /></Link>
-                        
-                        <DropdownButton bsStyle="default" title={this.props.language} key={this.props.language} id={`dropdown-basic-${this.props.language}`} onSelect={(eventKey) => this.props.changeLanguage(eventKey)}>
-                            {//TODO: LOG
-                            console.log("Language:", this.props.language)
-                            }
+
+                        <DropdownButton bsStyle="default" title={this.props.lang["header.dropdown.language."+this.props.language]} key={this.props.language} id={`dropdown-basic-${this.props.language}`} onSelect={(eventKey) => this.props.changeLanguage(eventKey)}>
+
                             <MenuItem eventKey="en"><FormattedMessage id="header.dropdown.language.en" /></MenuItem>
-                            <MenuItem eventKey="de"><FormattedMessage id="header.dropdown.language.de" /></MenuItem>                            
+                            <MenuItem eventKey="de"><FormattedMessage id="header.dropdown.language.de" /></MenuItem>
                         </DropdownButton>
                     </div>
                 </div>
