@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { FormattedMessage } from 'react-intl';
 import {DropdownButton, MenuItem} from 'react-bootstrap';
-import FormattedDropDown from './FormattedDropDown'
+//import FormattedDropDown from './FormattedDropDown'
 
 
 class Header extends React.Component {
