@@ -30,4 +30,5 @@ class FormattedDropDown extends DropdownButton {
         changeLanguage: PropTypes.func.isRequired,
         locale: PropTypes.string.isRequired
     };
-export default injectIntl(FormattedDropDown);
+
+    
