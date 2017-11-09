@@ -27,13 +27,7 @@ class Header extends React.Component {
                         <Link className="navbar-brand" to="/"><FormattedMessage id="header.title" /></Link>
                     </div>
                     <div className="button-container pull-right">
-                        {                        
-                        //<DropdownButton pullRight bsStyle="default" title={this.props.lang["header.dropdown.language." + this.props.language]} key={this.props.language} id={`dropdown-basic-${this.props.language}`} onSelect={(eventKey) => this.props.changeLanguage(eventKey)}>
-                        //    <MenuItem eventKey="en"><FormattedMessage id="header.dropdown.language.en" /></MenuItem>
-                        //    <MenuItem eventKey="de"><FormattedMessage id="header.dropdown.language.de" /></MenuItem>
-                        //</DropdownButton>
-                        }
-                        <FormattedDropDown bsStyle="danger" locale={this.props.language} onSelect={(eventKey) => this.props.changeLanguage(eventKey)}>
+                        <FormattedDropDown pullRight bsStyle="link" locale={this.props.language} onSelect={(eventKey) => this.props.changeLanguage(eventKey)}>
                             <MenuItem eventKey="en"><FormattedMessage id="header.dropdown.language.en" /></MenuItem>
                             <MenuItem eventKey="de"><FormattedMessage id="header.dropdown.language.de" /></MenuItem>
                         </FormattedDropDown>
