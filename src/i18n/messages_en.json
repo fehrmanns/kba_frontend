@@ -1,9 +1,26 @@
 {
     "en": {
+        "header.title": "Klarios Biometrics Analytics",
+        "header.button.logout": "Log out",
+        "header.button.togglenavigation": "Toggle navigation",
+        "header.dropdown.language.en": "English",
+        "header.dropdown.language.de": "German",
+
         "login.input.heading": "Please sign in",
         "login.input.username": "User name",
         "login.input.password": "Password",
         "login.label.fail": "Login failed",
-        "login.button.submit": "Submit"
+        "login.button.submit": "Submit",
+
+        "menu.sitebar.recordings":"Recordings",
+        "menu.sitebar.biometricprofiles" : "Biometric Profiles",
+        "menu.sitebar.import.manual" : "Manual Import",
+        "menu.sitebar.import.k2" : "Klarios Data Import",
+        "menu.sitebar.import.jobs" : "Import Job List",
+        "menu.sitebar.settings.import": "Import Settings",
+        "menu.sitebar.settings.user": "User Settings",
+        "menu.sitebar.settings.organisation": "Organization Settings",
+        "menu.sitebar.settings.category": "Category Settings",
+        "menu.sitebar.settings.license" : "License Settings"        
     }
 }

@@ -1,9 +1,26 @@
 {
     "de": {
+        "header.title": "Klarios Biometrics Analytics",
+        "header.button.logout": "Ausloggen",
+        "header.button.togglenavigation": "Navigation Ein-/Ausblenden",
+        "header.dropdown.language.en": "Englisch",
+        "header.dropdown.language.de": "Deutsch",
+
         "login.input.heading": "Bitte anmelden",
         "login.input.username": "Nutzername",
         "login.input.password": "Passwort",
         "login.label.fail": "Anmeldung fehlgeschlagen",
-        "login.button.submit": "Absenden"
+        "login.button.submit": "Absenden",        
+
+        "menu.sitebar.recordings":"Aufnahmen",
+        "menu.sitebar.biometricprofiles" : "Biometrische Profile",
+        "menu.sitebar.import.manual" : "Manueller Import",
+        "menu.sitebar.import.k2" : "Klarios Daten Import",
+        "menu.sitebar.import.jobs" : "Import Aufträge",
+        "menu.sitebar.settings.import": "Import Einstellungen",
+        "menu.sitebar.settings.user": "Benutzer Einstellungen",
+        "menu.sitebar.settings.organisation": "Organizationseinstellungen",
+        "menu.sitebar.settings.category": "Kategorie Einstellungen",
+        "menu.sitebar.settings.license" : "Lizenz Einstellungen" 
     }
 }
