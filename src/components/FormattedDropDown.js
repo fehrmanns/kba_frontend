@@ -10,13 +10,13 @@ class FormattedDropDown extends React.Component {
     };
 
     render() {
-        const {intl, ...rest} = this.props;
+        const {intl, locale, ...rest} = this.props;
         const formattedTitle = intl.formatMessage({
-            id: "header.dropdown.language."+this.props.locale,
+            id: "header.dropdown.language."+ locale,
             defaultMessage: ""
         })
         return (
-            <DropdownButton {...rest} title={formattedTitle} key={this.props.locale} id={`dropdown-basic-${this.props.locale}`}>
+            <DropdownButton {...rest} title={formattedTitle} key={locale} id={`dropdown-basic-${locale}`}>
                 {this.props.children}
             </DropdownButton>
         )
@@ -25,9 +25,7 @@ class FormattedDropDown extends React.Component {
 
 FormattedDropDown.propTypes = {
     intl: intlShape.isRequired,
-    //changeLanguage: PropTypes.func.isRequired,
     locale: PropTypes.string.isRequired
 };
 
-//FormattedDropDown = injectIntl(FormattedDropDown);
 export default injectIntl(FormattedDropDown);

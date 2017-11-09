@@ -5,7 +5,6 @@ import { MenuItem } from 'react-bootstrap'
 import './../css/header.css'
 import FormattedDropDown from './FormattedDropDown'
 
-//TODO: REMOVE COMMENTED CODE!!!1!ELF!
 
 class Header extends React.Component {
 
@@ -16,7 +15,7 @@ class Header extends React.Component {
             <nav className="navbar navbar-inverse navbar-fixed-top">
                 <div className="container">
                     <div className="navbar-header">
-                        {renderOnLogin &&
+                        { renderOnLogin &&
                             <button type="button" className="navbar-toggle collapsed" onClick={() => this.props.toggleMenu()}>
                                 <span className="sr-only"><FormattedMessage id="header.button.togglenavigation" /></span>
                                 <span className="icon-bar"></span>
@@ -31,6 +30,7 @@ class Header extends React.Component {
                             <MenuItem eventKey="en"><FormattedMessage id="header.dropdown.language.en" /></MenuItem>
                             <MenuItem eventKey="de"><FormattedMessage id="header.dropdown.language.de" /></MenuItem>
                         </FormattedDropDown>
+                        { renderOnLogin && <button className="btn btn-link" onClick={() => this.props.logoutUser()}><FormattedMessage id="header.button.logout" /></button> }
                     </div>
                 </div>
             </nav>

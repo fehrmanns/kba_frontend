@@ -63,6 +63,10 @@ class Login extends Component {
         });
     }
 
+// TODO: if login is true then:
+// if (login === true) { return (<Redirect to={from} />) }
+// from should be set in Mainframe.js
+
     render() {
 
         return (
