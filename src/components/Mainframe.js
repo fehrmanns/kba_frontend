@@ -24,7 +24,7 @@ import intlEN from 'react-intl/locale-data/en';
 import intlDE from 'react-intl/locale-data/de';
 import en from '../i18n/messages_en.json';
 import de from '../i18n/messages_de.json';
-import {FormattedMessage} from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 
 addLocaleData([...intlEN, ...intlDE]);
 
@@ -49,7 +49,7 @@ class Mainframe extends React.Component {
         })
     }
 
-    changeLanguage(selectedLanguage){
+    changeLanguage(selectedLanguage) {
         console.log("current Language", (this !== null) ? this.state.lang : "NULL");
         this.setState({
             lang: selectedLanguage
@@ -59,37 +59,6 @@ class Mainframe extends React.Component {
 
     render() {
         const { dispatch, isAuthenticated, errorMessage } = this.props
-
-        return (
-            <IntlProvider key={lang} locale={lang} messages={langMsg}>
-                <Router>
-                    <div className="mainframe">
-                        <Header toggleMenu={() => this.toggleMenu()} renderOnLogin={isAuthenticated} />
-                        <div className="progress">
-                            <div className="progress-bar progress-bar-danger progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100">
-                                <span className="sr-only">45% Complete</span>
-                            </div>
-                        </div>
-                        {isAuthenticated && <Sitebar show={this.state.sitebar} />}
-
-                        <Switch>
-                            <Route path="/" render={() => <Login dispatch={dispatch} errorMessage={errorMessage} />} />
-                            <div className={(this.state.sitebar === "true") ? 'show container' : 'container'}>
-                                <button onClick={() =>  (logoutUser())}><FormattedMessage id="header.button.logout"/></button>
-                                <Route exact path="/" component={Home} />
-                                <Route exact path="/recordings" component={Recordings} />
-                                <Route exact path="/profiles" component={Profiles} />
-                                <Route exact path="/matchlist" component={Matchlist} />
-                                <Route exact path="/topics" component={Matchall} />
-                                <Route exact path="/fileimport" component={Fileimport} />
-                                <Route exact path="/importlist" component={Importlist} />
-                                <Route exact path="/importsettings" component={Importsettings} />
-                                <Route exact path="/usersettings" component={Usersettings} />
-                                <Route exact path="/organisationsettings" component={Organisationsettings} />
-                                <Route exact path="/categorysettings" component={Categorysettings} />
-                                <Route exact path="/license" component={License} />
-                            </div>
-                        </Switch>
 
         const localeMessages = Object.assign({}, en, de)
         console.log("localeMessages:", localeMessages);
@@ -106,9 +75,27 @@ class Mainframe extends React.Component {
                                 <span className="sr-only">45% Complete</span>
                             </div>
                         </div>
-
                         {isAuthenticated && <Sitebar show={this.state.sitebar} />}
-                        {isAuthenticated ? application : login}
+
+                        <Switch>
+                            <Route path="/" render={() => <Login dispatch={dispatch} errorMessage={errorMessage} />} />
+                            <div className={(this.state.sitebar === "true") ? 'show container' : 'container'}>
+                                <button onClick={() => (logoutUser())}><FormattedMessage id="header.button.logout" /></button>
+                                <Route exact path="/" component={Home} />
+                                <Route exact path="/recordings" component={Recordings} />
+                                <Route exact path="/profiles" component={Profiles} />
+                                <Route exact path="/matchlist" component={Matchlist} />
+                                <Route exact path="/topics" component={Matchall} />
+                                <Route exact path="/fileimport" component={Fileimport} />
+                                <Route exact path="/importlist" component={Importlist} />
+                                <Route exact path="/importsettings" component={Importsettings} />
+                                <Route exact path="/usersettings" component={Usersettings} />
+                                <Route exact path="/organisationsettings" component={Organisationsettings} />
+                                <Route exact path="/categorysettings" component={Categorysettings} />
+                                <Route exact path="/license" component={License} />
+                            </div>
+                        </Switch>
+
                     </div>
                 </Router>
             </IntlProvider>)
