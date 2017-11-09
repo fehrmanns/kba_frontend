@@ -5,7 +5,7 @@ import { logoutUser } from '../actions'
 import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom'
 import Header from './Header'
 import Sitebar from './Sitebar'
-import Login from './Login'
+import Login from './../views/Login'
 import Home from './../views/Home'
 import Recordings from './../views/Recordings'
 import Profiles from './../views/Profiles'
@@ -75,7 +75,7 @@ class Mainframe extends React.Component {
             <IntlProvider locale={this.state.lang} messages={langMsg}>
                 <Router>
                     <div className="mainframe">
-                        <Header changeLanguage={this.changeLanguage} lang={langMsg} language={this.state.lang} logoutUser={() => (logoutUser())} toggleMenu={() => this.toggleMenu()} renderOnLogin={isAuthenticated} />
+                        <Header changeLanguage={this.changeLanguage} lang={langMsg} language={this.state.lang} logoutUser={() => dispatch(logoutUser())} toggleMenu={() => this.toggleMenu()} renderOnLogin={isAuthenticated} />
                         <div className="progress">
                             <div className="progress-bar progress-bar-danger progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100">
                                 <span className="sr-only">45% Complete</span>
@@ -83,23 +83,25 @@ class Mainframe extends React.Component {
                         </div>
                         {isAuthenticated && <Sitebar show={this.state.sitebar} />}
 
-                        <Route path="/login" render={() => <Login dispatch={dispatch} errorMessage={errorMessage} />} />
-
-                        <div className={(this.state.sitebar === "true") ? 'show container' : 'container'}>
-
-                            <PrivateRoute exact path="/" component={Home} />
-                            <Route exact path="/recordings" component={Recordings} />
-                            <Route exact path="/profiles" component={Profiles} />
-                            <Route exact path="/matchlist" component={Matchlist} />
-                            <Route exact path="/topics" component={Matchall} />
-                            <Route exact path="/fileimport" component={Fileimport} />
-                            <Route exact path="/importlist" component={Importlist} />
-                            <Route exact path="/importsettings" component={Importsettings} />
-                            <Route exact path="/usersettings" component={Usersettings} />
-                            <Route exact path="/organisationsettings" component={Organisationsettings} />
-                            <Route exact path="/categorysettings" component={Categorysettings} />
-                            <Route exact path="/license" component={License} />
-                        </div>
+                        {isAuthenticated ?
+                            <div className={(this.state.sitebar === "true") ? 'show container' : 'container'}>
+                                <Route exact path="/login" render={() => (<Redirect to="/"/>)}/>
+                                <PrivateRoute exact path="/" component={Home} />
+                                <Route exact path="/recordings" component={Recordings} />
+                                <Route exact path="/profiles" component={Profiles} />
+                                <Route exact path="/matchlist" component={Matchlist} />
+                                <Route exact path="/topics" component={Matchall} />
+                                <Route exact path="/fileimport" component={Fileimport} />
+                                <Route exact path="/importlist" component={Importlist} />
+                                <Route exact path="/importsettings" component={Importsettings} />
+                                <Route exact path="/usersettings" component={Usersettings} />
+                                <Route exact path="/organisationsettings" component={Organisationsettings} />
+                                <Route exact path="/categorysettings" component={Categorysettings} />
+                                <Route exact path="/license" component={License} />
+                            </div>
+                            :
+                            <Route path="/" render={() => <Login dispatch={dispatch} errorMessage={errorMessage} />} />
+                        }
 
                     </div>
                 </Router>
