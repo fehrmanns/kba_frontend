@@ -89,6 +89,7 @@ class Mainframe extends React.Component {
 
                         <Switch>
                             <Route path="/login" render={() => <Login dispatch={dispatch} errorMessage={errorMessage} />} />
+
                             <div className={(this.state.sitebar === "true") ? 'show container' : 'container'}>
                                 <button onClick={() => (logoutUser())}><FormattedMessage id="header.button.logout" /></button>
                                 <PrivateRoute exact path="/" component={Home} />

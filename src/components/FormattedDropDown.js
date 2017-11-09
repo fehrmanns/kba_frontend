@@ -3,23 +3,23 @@ import PropTypes from 'prop-types';
 import { injectIntl, intlShape } from 'react-intl';
 import {DropdownButton} from 'react-bootstrap';
 
-class FormattedDropDown extends React.Component {   
+class FormattedDropDown extends React.Component {
 
     getMessageKey(eventKey) {
         return "header.dropdown.language." + eventKey;
     };
 
     render() {
-        const intl = this.props.intl;
+        const {intl, ...rest} = this.props;
         const formattedTitle = intl.formatMessage({
             id: "header.dropdown.language."+this.props.locale,
             defaultMessage: ""
         })
         return (
-            <DropdownButton bsStyle={this.props.bsStyle} title={formattedTitle} key={this.props.locale} id={`dropdown-basic-${this.props.locale}`} onSelect={this.props.onSelect}>
+            <DropdownButton {...rest} title={formattedTitle} key={this.props.locale} id={`dropdown-basic-${this.props.locale}`}>
                 {this.props.children}
-            </DropdownButton>            
-        )    
+            </DropdownButton>
+        )
     }
 }
 
