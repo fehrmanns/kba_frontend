@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import './sitebar.css'
+import {FormattedMessage} from 'react-intl';
 
 class Sitebar extends React.Component {
 
@@ -10,10 +11,10 @@ class Sitebar extends React.Component {
             <div className={(this.props.show === "true") ? 'show sitebar' : 'sitebar'}>
                 <ul>
                     <li>
-                        <Link to="/">Recordings</Link>
+                        <Link to="/"><FormattedMessage id="menu.sitebar.recordings"/></Link>
                     </li>
                     <li>
-                        <Link to="/about">Profiles</Link>
+                        <Link to="/about"><FormattedMessage id="menu.sitebar.biometricprofiles"/></Link>
                     </li>
                     <li>
                         <Link to="/topics">Matchinglist</Link>
@@ -25,28 +26,31 @@ class Sitebar extends React.Component {
                 <hr />
                 <ul>
                     <li>
-                        <Link to="/">File Import</Link>
+                        <Link to="/"><FormattedMessage id="menu.sitebar.import.manual"/></Link>
                     </li>
                     <li>
-                        <Link to="/about">Importlist</Link>
+                        <Link to="/"><FormattedMessage id="menu.sitebar.import.k2"/></Link>
+                    </li>
+                    <li>
+                        <Link to="/about"><FormattedMessage id="menu.sitebar.import.jobs"/></Link>
                     </li>
                 </ul>
                 <hr />
                 <ul>
                     <li>
-                        <Link to="/">Import Settings</Link>
+                        <Link to="/"><FormattedMessage id="menu.sitebar.settings.import"/></Link>
                     </li>
                     <li>
-                        <Link to="/about">User Settings</Link>
+                        <Link to="/about"><FormattedMessage id="menu.sitebar.settings.user"/></Link>
                     </li>
                     <li>
-                        <Link to="/topics">Organisation Settings</Link>
+                        <Link to="/topics"><FormattedMessage id="menu.sitebar.settings.organisation"/></Link>
                     </li>
                     <li>
-                        <Link to="/topics">Category Settings</Link>
+                        <Link to="/topics"><FormattedMessage id="menu.sitebar.settings.category"/></Link>
                     </li>
                     <li>
-                        <Link to="/topics">License</Link>
+                        <Link to="/topics"><FormattedMessage id="menu.sitebar.settings.license"/></Link>
                     </li>
                 </ul>
             </div>

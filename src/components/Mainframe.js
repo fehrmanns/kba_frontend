@@ -13,14 +13,9 @@ import intlEN from 'react-intl/locale-data/en';
 import intlDE from 'react-intl/locale-data/de';
 import en from '../i18n/messages_en.json';
 import de from '../i18n/messages_de.json';
+import {FormattedMessage} from 'react-intl';
 
 addLocaleData([...intlEN, ...intlDE]);
-//TODO: replace EN with the calculated language
-let lang = "de"
-const localeMessages = Object.assign({}, en, de)
-console.log("localeMessages:", localeMessages);
-const langMsg = localeMessages[lang];
-console.log("lanMsg:", langMsg);
 
 class Mainframe extends React.Component {
 
@@ -29,8 +24,11 @@ class Mainframe extends React.Component {
 
         this.state = {
             sitebar: getStorage("sitebar"),
-            loginSuccess: false
+            loginSuccess: false,
+            lang: "de"
         };
+
+        this.changeLanguage = this.changeLanguage.bind(this);
     }
 
     toggleMenu() {
@@ -40,21 +38,34 @@ class Mainframe extends React.Component {
         })
     }
 
+    changeLanguage(selectedLanguage){
+        console.log("current Language", (this !== null) ? this.state.lang : "NULL");
+        this.setState({
+            lang: selectedLanguage
+        });
+        console.log("selectedLanguage:", selectedLanguage)
+    }
+
     render() {
         const { dispatch, isAuthenticated, errorMessage } = this.props
         const login = <Login dispatch={dispatch} errorMessage={errorMessage} />
         const application = (
             <div className={(this.state.sitebar === "true") ? 'show container' : 'container'}>
-                <button onClick={() => dispatch(logoutUser())}>logout</button>
+                <button onClick={() =>  (logoutUser())}><FormattedMessage id="header.button.logout"/></button>
                 <Route exact path="/" component={Home} />
             </div>
         )
 
+        const localeMessages = Object.assign({}, en, de)
+        console.log("localeMessages:", localeMessages);
+        const langMsg = localeMessages[this.state.lang];
+        console.log("lanMsg:", langMsg);        
+
         return (
-            <IntlProvider key={lang} locale={lang} messages={langMsg}>
+            <IntlProvider key={this.state.lang} locale={this.state.lang} messages={langMsg}>
                 <Router>
                     <div className="mainframe">
-                        <Header toggleMenu={() => this.toggleMenu()} renderOnLogin={isAuthenticated} />
+                        <Header changeLanguage={this.changeLanguage} language={this.state.lang} toggleMenu={() => this.toggleMenu()} renderOnLogin={isAuthenticated} />
                         <div className="progress">
                             <div className="progress-bar progress-bar-danger progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100">
                                 <span className="sr-only">45% Complete</span>

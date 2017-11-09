@@ -71,7 +71,7 @@ class Login extends Component {
                 <form className={ this.state.errorMessage ? "form-signin unauthorized" : "form-signin"} onSubmit={this.handleSubmit.bind(this)}>
 
                     <h2 className="form-signin-heading">
-                        <FormattedMessage id='login.input.heading'/>
+                        <FormattedMessage id="login.input.heading"/>
                     </h2>
                     <div className="form-group">
                         <div className="input-group">
@@ -79,7 +79,7 @@ class Login extends Component {
                             <input type="text" id="inputUsername" className="form-control" placeholder="User name" required="" autoFocus="" onChange={this.handleChange.bind(this)} value={this.state.username} />
                         </div>
                         <label htmlFor="inputUsername" className="sr-only">
-                            <FormattedMessage id='login.input.username'/>
+                            <FormattedMessage id="login.input.username"/>
                         </label>
                     </div>
                     <div className="form-group">
@@ -88,18 +88,18 @@ class Login extends Component {
                             <input type="password" id="inputPassword" className="form-control" placeholder="Password" required="" onChange={this.handleChange.bind(this)} value={this.state.password} />
                         </div>
                         <label htmlFor="inputPassword" className="sr-only">
-                            <FormattedMessage id='login.input.password'/>
+                            <FormattedMessage id="login.input.password"/>
                         </label>
                     </div>
                     <div className="error-label text-right">
                         { this.state.errorMessage &&
                             <span className="label label-danger">
-                                <FormattedMessage id='login.label.fail'/>
+                                <FormattedMessage id="login.label.fail"/>
                             </span>
                         }
                     </div>
                     <button className="btn btn-primary btn-block" type="submit">
-                        <FormattedMessage id='login.button.submit'/>
+                        <FormattedMessage id="login.button.submit"/>
                     </button>
                 </form>
 
