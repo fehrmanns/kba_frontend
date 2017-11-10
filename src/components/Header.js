@@ -3,9 +3,7 @@ import { Link } from 'react-router-dom'
 import { FormattedMessage } from 'react-intl'
 import { MenuItem } from 'react-bootstrap'
 import './../css/header.css'
-import FormattedDropDown from './FormattedDropDown'
-
-//TODO: REMOVE COMMENTED CODE!!!1!ELF!
+import LanguageDropDown from './LanguageDropDown'
 
 class Header extends React.Component {
 
@@ -27,17 +25,11 @@ class Header extends React.Component {
                         }
                         <Link className="navbar-brand" to="/"><FormattedMessage id="header.title" /></Link>
                     </div>
-                    <div className="button-container pull-right">
-                        {                        
-                        //<DropdownButton pullRight bsStyle="default" title={this.props.lang["header.dropdown.language." + this.props.language]} key={this.props.language} id={`dropdown-basic-${this.props.language}`} onSelect={(eventKey) => this.props.changeLanguage(eventKey)}>
-                        //    <MenuItem eventKey="en"><FormattedMessage id="header.dropdown.language.en" /></MenuItem>
-                        //    <MenuItem eventKey="de"><FormattedMessage id="header.dropdown.language.de" /></MenuItem>
-                        //</DropdownButton>
-                        }
-                        <FormattedDropDown bsStyle="danger" locale={this.props.language} onSelect={(eventKey) => this.props.changeLanguage(eventKey)}>
+                    <div id="usermenu" className="button-container pull-right">                       
+                        <LanguageDropDown bsStyle="default" locale={this.props.language} onSelect={(eventKey) => this.props.changeLanguage(eventKey)}>
                             <MenuItem eventKey="en"><FormattedMessage id="header.dropdown.language.en" /></MenuItem>
                             <MenuItem eventKey="de"><FormattedMessage id="header.dropdown.language.de" /></MenuItem>
-                        </FormattedDropDown>
+                        </LanguageDropDown>
                     </div>
                 </div>
             </nav>
