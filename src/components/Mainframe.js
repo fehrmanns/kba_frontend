@@ -8,11 +8,11 @@ import Sitebar from './Sitebar'
 import Login from './../views/Login'
 import Home from './../views/Home'
 import Recordings from './../views/Recordings'
-import Profiles from './../views/Profiles'
+import BiometricProfiles from './../views/BiometricProfiles'
 import Matchlist from './../views/Matchlist'
 import Matchall from './../views/Matchall'
 import Fileimport from './../views/Fileimport'
-import Importlist from './../views/Importlist'
+import Joblist from './../views/Joblist'
 import Importsettings from './../views/Importsettings'
 import Usersettings from './../views/Usersettings'
 import Organisationsettings from './../views/Organisationsettings'
@@ -78,7 +78,6 @@ class Mainframe extends React.Component {
                         <Header changeLanguage={this.changeLanguage} lang={langMsg} language={this.state.lang} logoutUser={() => dispatch(logoutUser())} toggleMenu={() => this.toggleMenu()} renderOnLogin={isAuthenticated} />
                         <div className="progress">
                             <div className="progress-bar progress-bar-danger progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100">
-                                <span className="sr-only">45% Complete</span>
                             </div>
                         </div>
                         {isAuthenticated && <Sitebar show={this.state.sitebar} />}
@@ -88,11 +87,11 @@ class Mainframe extends React.Component {
                                 <Route exact path="/login" render={() => (<Redirect to="/"/>)}/>
                                 <PrivateRoute exact path="/" component={Home} />
                                 <Route exact path="/recordings" component={Recordings} />
-                                <Route exact path="/profiles" component={Profiles} />
+                                <Route exact path="/biometricprofiles" component={BiometricProfiles} />
                                 <Route exact path="/matchlist" component={Matchlist} />
                                 <Route exact path="/topics" component={Matchall} />
                                 <Route exact path="/fileimport" component={Fileimport} />
-                                <Route exact path="/importlist" component={Importlist} />
+                                <Route exact path="/joblist" component={Joblist} />
                                 <Route exact path="/importsettings" component={Importsettings} />
                                 <Route exact path="/usersettings" component={Usersettings} />
                                 <Route exact path="/organisationsettings" component={Organisationsettings} />
