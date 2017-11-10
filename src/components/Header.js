@@ -3,19 +3,19 @@ import { Link } from 'react-router-dom'
 import { FormattedMessage } from 'react-intl'
 import { MenuItem } from 'react-bootstrap'
 import './../css/header.css'
-import FormattedDropDown from './FormattedDropDown'
-
+import LanguageDropDown from './LanguageDropDown'
 
 class Header extends React.Component {
 
     render() {
         const { renderOnLogin } = this.props
+        console.log("string: ", this.props.lang["header.dropdown.language.de"])
 
         return (
             <nav className="navbar navbar-inverse navbar-fixed-top">
                 <div className="container">
                     <div className="navbar-header">
-                        { renderOnLogin &&
+                        {renderOnLogin &&
                             <button type="button" className="navbar-toggle collapsed" onClick={() => this.props.toggleMenu()}>
                                 <span className="sr-only"><FormattedMessage id="header.button.togglenavigation" /></span>
                                 <span className="icon-bar"></span>
@@ -25,12 +25,11 @@ class Header extends React.Component {
                         }
                         <Link className="navbar-brand" to="/"><FormattedMessage id="header.title" /></Link>
                     </div>
-                    <div className="button-container pull-right">
-                        <FormattedDropDown pullRight bsStyle="link" locale={this.props.language} onSelect={(eventKey) => this.props.changeLanguage(eventKey)}>
+                    <div id="usermenu" className="button-container pull-right">                       
+                        <LanguageDropDown bsStyle="default" locale={this.props.language} onSelect={(eventKey) => this.props.changeLanguage(eventKey)}>
                             <MenuItem eventKey="en"><FormattedMessage id="header.dropdown.language.en" /></MenuItem>
                             <MenuItem eventKey="de"><FormattedMessage id="header.dropdown.language.de" /></MenuItem>
-                        </FormattedDropDown>
-                        { renderOnLogin && <button className="btn btn-link" onClick={() => this.props.logoutUser()}><FormattedMessage id="header.button.logout" /></button> }
+                        </LanguageDropDown>
                     </div>
                 </div>
             </nav>
