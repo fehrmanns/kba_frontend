@@ -2,10 +2,10 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { logoutUser } from '../actions'
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom'
 import Header from './Header'
 import Sitebar from './Sitebar'
-import Login from './Login'
+import Login from './../views/Login'
 import Home from './../views/Home'
 import Recordings from './../views/Recordings'
 import Profiles from './../views/Profiles'
@@ -24,9 +24,9 @@ import intlEN from 'react-intl/locale-data/en';
 import intlDE from 'react-intl/locale-data/de';
 import en from '../i18n/messages_en.json';
 import de from '../i18n/messages_de.json';
-import { FormattedMessage } from 'react-intl';
 
 addLocaleData([...intlEN, ...intlDE]);
+
 
 class Mainframe extends React.Component {
 
@@ -39,6 +39,8 @@ class Mainframe extends React.Component {
             lang: "de"
         };
 
+        // TODO: set { from } = { from: { pathname: '/' } }
+        // just to get the starting route
         this.changeLanguage = this.changeLanguage.bind(this);
     }
 
@@ -50,26 +52,30 @@ class Mainframe extends React.Component {
     }
 
     changeLanguage(selectedLanguage) {
-        console.log("current Language", (this !== null) ? this.state.lang : "NULL");
         this.setState({
             lang: selectedLanguage
         });
-        console.log("selectedLanguage:", selectedLanguage)
     }
 
     render() {
         const { dispatch, isAuthenticated, errorMessage } = this.props
-
         const localeMessages = Object.assign({}, en, de)
-        console.log("localeMessages:", localeMessages);
-        const langMsg = localeMessages[this.state.lang];
-        console.log("lanMsg:", langMsg);
+        const langMsg = localeMessages[this.state.lang]
+        const PrivateRoute = ({ component: Component, ...rest }) => (
+            <Route {...rest} render={(props) => (
+                isAuthenticated ?
+                    (<Component {...props} />)
+                    :
+                    (<Redirect to={{ pathname: '/login' }} />)
+            )} />
+        )
+
 
         return (
-            <IntlProvider key={this.state.lang} locale={this.state.lang} messages={langMsg}>
+            <IntlProvider locale={this.state.lang} messages={langMsg}>
                 <Router>
                     <div className="mainframe">
-                        <Header changeLanguage={this.changeLanguage} lang={langMsg} language={this.state.lang} toggleMenu={() => this.toggleMenu()} renderOnLogin={isAuthenticated} />
+                        <Header changeLanguage={this.changeLanguage} lang={langMsg} language={this.state.lang} logoutUser={() => dispatch(logoutUser())} toggleMenu={() => this.toggleMenu()} renderOnLogin={isAuthenticated} />
                         <div className="progress">
                             <div className="progress-bar progress-bar-danger progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100">
                                 <span className="sr-only">45% Complete</span>
@@ -77,11 +83,10 @@ class Mainframe extends React.Component {
                         </div>
                         {isAuthenticated && <Sitebar show={this.state.sitebar} />}
 
-                        <Switch>
-                            <Route path="/" render={() => <Login dispatch={dispatch} errorMessage={errorMessage} />} />
+                        {isAuthenticated ?
                             <div className={(this.state.sitebar === "true") ? 'show container' : 'container'}>
-                                <button onClick={() => (logoutUser())}><FormattedMessage id="header.button.logout" /></button>
-                                <Route exact path="/" component={Home} />
+                                <Route exact path="/login" render={() => (<Redirect to="/"/>)}/>
+                                <PrivateRoute exact path="/" component={Home} />
                                 <Route exact path="/recordings" component={Recordings} />
                                 <Route exact path="/profiles" component={Profiles} />
                                 <Route exact path="/matchlist" component={Matchlist} />
@@ -94,7 +99,9 @@ class Mainframe extends React.Component {
                                 <Route exact path="/categorysettings" component={Categorysettings} />
                                 <Route exact path="/license" component={License} />
                             </div>
-                        </Switch>
+                            :
+                            <Route path="/" render={() => <Login dispatch={dispatch} errorMessage={errorMessage} />} />
+                        }
 
                     </div>
                 </Router>
