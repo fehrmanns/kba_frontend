@@ -117,8 +117,8 @@ export function loginUser(creds) {
 // Calls the API to check the token
 // dispatches actions along the way
 export function probeToken(loginname) {
-    //const endpoint = "management/users/" + loginname + "?inclPrivs=true";
-    const endpoint = "https://httpbin.org/get";
+    const endpoint = "management/users/" + loginname + "?inclPrivs=true";
+    //const endpoint = "https://httpbin.org/get";
 
     return {
         [CALL_API]: {

@@ -1,7 +1,7 @@
 
 /* Login Uniform Resource Identifier */
-//const LURI = 'http://localhost:8080/befe/rest/';
-const LURI = '';
+const LURI = 'http://localhost:8080/befe/rest/';
+//const LURI = '';
 
 function callApi(endpoint, authenticated, method) {
 
@@ -12,8 +12,7 @@ function callApi(endpoint, authenticated, method) {
         if (token) {
             config = {
                 method: 'GET',
-                headers: { 'token': btoa(token) },
-                mode: 'none'
+                headers: { 'token': token }
             }
         } else {
             console.log("No token saved!")
