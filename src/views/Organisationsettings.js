@@ -1,12 +1,13 @@
 import React from 'react'
+import { FormattedMessage } from 'react-intl'
 
 export default class Organisationsettings extends React.Component {
 
     render() {
         return (
             <div className="starter-template">
-                <h1>Organisationsettings template</h1>
-                <p className="lead">Well, the way they make shows is, they make one show. That show's called a pilot. Then they show that show to the people who make shows, and on the strength of that one show they decide if they're going to make more shows. Some pilots get picked and become television programs. Some don't, become nothing. She starred in one of the ones that became nothing.</p>
+                <h1><FormattedMessage id="view.organisation.title"/></h1>
+                <p className="lead"><FormattedMessage id="view.organisation.body"/></p>
             </div>
         );
     }

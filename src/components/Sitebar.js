@@ -14,13 +14,13 @@ class Sitebar extends React.Component {
                         <Link to="/recordings"><FormattedMessage id="menu.sitebar.recordings"/></Link>
                     </li>
                     <li>
-                        <Link to="/profiles"><FormattedMessage id="menu.sitebar.biometricprofiles"/></Link>
+                        <Link to="/biometricprofiles"><FormattedMessage id="menu.sitebar.biometricprofiles"/></Link>
                     </li>
                     <li>
-                        <Link to="/matchlist">Matchlist</Link>
+                        <Link to="/matchlist"><FormattedMessage id="menu.sitebar.matchlist"/></Link>
                     </li>
                     <li>
-                        <Link to="/topics">Match All</Link>
+                        <Link to="/topics"><FormattedMessage id="menu.sitebar.matchall"/></Link>
                     </li>
                 </ul>
                 <hr />
@@ -32,7 +32,7 @@ class Sitebar extends React.Component {
                         <Link to="/"><FormattedMessage id="menu.sitebar.import.k2"/></Link>
                     </li>
                     <li>
-                        <Link to="/importlist"><FormattedMessage id="menu.sitebar.import.jobs"/></Link>
+                        <Link to="/joblist"><FormattedMessage id="menu.sitebar.import.jobs"/></Link>
                     </li>
                 </ul>
                 <hr />
