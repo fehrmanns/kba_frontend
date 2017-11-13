@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { loginUser } from '../actions'
-import { FormattedMessage } from 'react-intl';
+import {FormattedMessage} from 'react-intl'
+import FormattedInput from '../components/FormattedInput'
 import './../css/login.css'
 
 class Login extends Component {
@@ -22,9 +23,7 @@ class Login extends Component {
 
     handleChange(event) {
 
-        this.setState({
-            showError: false
-        })
+        this.setState({ showError: false })
         const targetName = event.target.id.replace('input', '').toLowerCase();
 
         switch (targetName) {
@@ -74,7 +73,7 @@ class Login extends Component {
                     <div className="form-group">
                         <div className="input-group">
                             <span className="input-group-addon glyphicon glyphicon-user" id="sizing-addon2"></span>
-                            <input type="text" id="inputUsername" className="form-control" placeholder="User name" required="" autoFocus="" onChange={this.handleChange.bind(this)} value={this.state.username} />
+                            <FormattedInput type="text" id="inputUsername" className="form-control" placeholder="login.input.username" required="" autoFocus="" onChange={this.handleChange.bind(this)} value={this.state.username} />
                         </div>
                         <label htmlFor="inputUsername" className="sr-only">
                             <FormattedMessage id="login.input.username" />
@@ -83,7 +82,7 @@ class Login extends Component {
                     <div className="form-group">
                         <div className="input-group">
                             <span className="input-group-addon glyphicon glyphicon-asterisk" id="sizing-addon2"></span>
-                            <input type="password" id="inputPassword" className="form-control" placeholder="Password" required="" onChange={this.handleChange.bind(this)} value={this.state.password} />
+                            <FormattedInput type="password" id="inputPassword" className="form-control" placeholder="login.input.password" required="" onChange={this.handleChange.bind(this)} value={this.state.password} />
                         </div>
                         <label htmlFor="inputPassword" className="sr-only">
                             <FormattedMessage id="login.input.password" />
