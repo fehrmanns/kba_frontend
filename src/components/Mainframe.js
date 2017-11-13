@@ -39,8 +39,6 @@ class Mainframe extends React.Component {
             lang: "de"
         };
 
-        // TODO: set { from } = { from: { pathname: '/' } }
-        // just to get the starting route
         this.changeLanguage = this.changeLanguage.bind(this);
     }
 
@@ -58,7 +56,7 @@ class Mainframe extends React.Component {
     }
 
     render() {
-        const { dispatch, isAuthenticated, errorMessage } = this.props
+        const { dispatch, auth, isAuthenticated } = this.props
         const localeMessages = Object.assign({}, en, de)
         const langMsg = localeMessages[this.state.lang]
         const PrivateRoute = ({ component: Component, ...rest }) => (
@@ -100,7 +98,7 @@ class Mainframe extends React.Component {
                                 <Route exact path="/license" component={License} />
                             </div>
                             :
-                            <Route path="/" render={() => <Login dispatch={dispatch} errorMessage={errorMessage} />} />
+                            <Route path="/" render={() => <Login dispatch={dispatch} auth={auth} />} />
                         }
 
                     </div>
@@ -111,8 +109,7 @@ class Mainframe extends React.Component {
 Mainframe.propTypes = {
     dispatch: PropTypes.func.isRequired,
     quote: PropTypes.string,
-    isAuthenticated: PropTypes.bool.isRequired,
-    errorMessage: PropTypes.string,
+    auth: PropTypes.object.isRequired
 }
 
 // These props come from the application's
@@ -121,13 +118,13 @@ function mapStateToProps(state) {
 
     const { quotes, auth } = state
     const { quote, authenticated } = quotes
-    const { isAuthenticated, errorMessage } = auth
+    const { isAuthenticated } = auth
 
     return {
         quote,
+        auth,
         isSecretQuote: authenticated,
-        isAuthenticated,
-        errorMessage
+        isAuthenticated
     }
 }
 
