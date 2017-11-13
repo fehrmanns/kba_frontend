@@ -1,8 +1,7 @@
-import React, { Component } from 'react';
-import { loginUser } from '../actions';
-import {FormattedMessage} from 'react-intl';
-import './../css/login.css';
-import FormattedInput from '../components/FormattedInput';
+import React, { Component } from 'react'
+import { loginUser } from '../actions'
+import { FormattedMessage } from 'react-intl';
+import './../css/login.css'
 
 class Login extends Component {
 
@@ -12,13 +11,20 @@ class Login extends Component {
         this.state = {
             username: '',
             password: '',
-            errorMessage: ''
+            showError: false
         }
+    }
+
+    componentWillReceiveProps(nextProps) {
+
+        (!nextProps.auth.isFetching && !nextProps.auth.isAuthenticated) && Object.assign({}, this.setState({ showError: true }))
     }
 
     handleChange(event) {
 
-        this.setState({ errorMessage: '' });
+        this.setState({
+            showError: false
+        })
         const targetName = event.target.id.replace('input', '').toLowerCase();
 
         switch (targetName) {
@@ -39,7 +45,6 @@ class Login extends Component {
 
     handleSubmit(event) {
 
-        this.setState({ errorMessage: '' });
         event.preventDefault();
         this.sendData();
     }
@@ -47,64 +52,52 @@ class Login extends Component {
     sendData() {
 
         const { dispatch } = this.props;
-        const encodeLogin = "Basic " + btoa(this.state.username + ":" + this.state.password);
         const creds = {
             username: this.state.username,
             password: this.state.password
         }
-        let loginHeader = new Headers();
-        loginHeader.append("authentication", encodeLogin);
-        // TODO: check this promise because it's calling also after unmounting component
-        dispatch(loginUser(creds)).then(() => this.handleUnauth(this.props.errorMessage));
+        dispatch(loginUser(creds));
     }
 
-    handleUnauth(msg) {
-        this.setState({
-            errorMessage: msg
-        });
-    }
-
-// TODO: if login is true then:
-// if (login === true) { return (<Redirect to={from} />) }
-// from should be set in Mainframe.js
 
     render() {
+        const { showError } = this.state
 
         return (
             <div className="flex-container">
 
-                <form className={ this.state.errorMessage ? "form-signin unauthorized" : "form-signin"} onSubmit={this.handleSubmit.bind(this)}>
+                <form className={showError ? "form-signin unauthorized" : "form-signin"} onSubmit={this.handleSubmit.bind(this)}>
 
                     <h2 className="form-signin-heading">
-                        <FormattedMessage id="login.input.heading"/>
+                        <FormattedMessage id="login.input.heading" />
                     </h2>
                     <div className="form-group">
                         <div className="input-group">
                             <span className="input-group-addon glyphicon glyphicon-user" id="sizing-addon2"></span>
-                            <FormattedInput type="text" id="inputUsername" className="form-control" placeholder="login.input.username" required="" autoFocus="" onChange={this.handleChange.bind(this)} value={this.state.username} />
+                            <input type="text" id="inputUsername" className="form-control" placeholder="User name" required="" autoFocus="" onChange={this.handleChange.bind(this)} value={this.state.username} />
                         </div>
                         <label htmlFor="inputUsername" className="sr-only">
-                            <FormattedMessage id="login.input.username"/>
+                            <FormattedMessage id="login.input.username" />
                         </label>
                     </div>
                     <div className="form-group">
                         <div className="input-group">
                             <span className="input-group-addon glyphicon glyphicon-asterisk" id="sizing-addon2"></span>
-                            <FormattedInput type="password" id="inputPassword" className="form-control" placeholder="login.input.password" required="" onChange={this.handleChange.bind(this)} value={this.state.password} />
+                            <input type="password" id="inputPassword" className="form-control" placeholder="Password" required="" onChange={this.handleChange.bind(this)} value={this.state.password} />
                         </div>
                         <label htmlFor="inputPassword" className="sr-only">
-                            <FormattedMessage id="login.input.password"/>
+                            <FormattedMessage id="login.input.password" />
                         </label>
                     </div>
                     <div className="error-label text-right">
-                        { this.state.errorMessage &&
+                        {showError &&
                             <span className="label label-danger">
-                                <FormattedMessage id="login.label.fail"/>
+                                <FormattedMessage id="login.label.fail" />
                             </span>
                         }
                     </div>
                     <button className="btn btn-primary btn-block" type="submit">
-                        <FormattedMessage id="login.button.submit"/>
+                        <FormattedMessage id="login.button.submit" />
                     </button>
                 </form>
 

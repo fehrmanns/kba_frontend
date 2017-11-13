@@ -88,15 +88,13 @@ export function loginUser(creds) {
             .then(response => {
                 switch (response.status) {
                     // TODO: add correct messages
-                    case 500: console.error('500 Some server error'); break;
-                    case 400: dispatch(loginError("400")); break;
-                    case 401: dispatch(loginError("401")); break;
-                    default: response.json()
+                    case 200: response.json()
                         .then(user => ({ user, response }))
                         .then(({ user, response }) => {
                             if (!response.ok) {
                                 // If there was a problem, we want to
                                 // dispatch the error condition
+                                console.log("response not ok:", response)
                                 dispatch(loginError("Dumm gelaufen"))
                                 return Promise.reject(user)
                             } else {
@@ -108,7 +106,11 @@ export function loginUser(creds) {
                                 // Dispatch the success action
                                 dispatch(receiveLogin(user))
                             }
-                        })
+                        }); break;
+                    case 400: dispatch(loginError("400")); break;
+                    case 401: dispatch(loginError("401")); break;
+                    case 500: console.error('500 Some server error'); break;
+                    default: console.warn('Some uncatched server response:', response.status);
                 }
             }).catch(err => console.log("Error: ", err))
     }
