@@ -1,19 +1,21 @@
 
 /* Login Uniform Resource Identifier */
-const LURI = 'http://localhost:8080/befe/rest/login';
+//const LURI = 'http://localhost:8080/befe/rest/';
+const LURI = '';
 
-function callApi(endpoint, authenticated) {
+function callApi(endpoint, authenticated, method) {
 
-    let token = localStorage.getItem('access_token') || null
+    let token = localStorage.getItem('auth_token') || null
     let config = {}
 
     if (authenticated) {
         if (token) {
             config = {
-                headers: { 'Authorization': `Bearer ${token}` }
+                method: 'GET',
+                headers: { 'token': btoa(token) },
+                mode: 'none'
             }
-        }
-        else {
+        } else {
             console.log("No token saved!")
         }
     }

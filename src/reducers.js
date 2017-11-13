@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux'
 import {
-  LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_SUCCESS
+  LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_SUCCESS,
+  TOKEN_SUCCESS, TOKEN_FAILURE
 } from './actions'
 
 // The auth reducer. The starting state sets authentication
@@ -39,10 +40,17 @@ function auth(state = {
   }
 }
 
-// The quotes reducer
-function quotes(state = {}, action) {
+// The checktoken reducer
+function token(state = {}, action) {
   switch (action.type) {
-
+    case TOKEN_SUCCESS:
+    return Object.assign({}, state, {
+      tokenIsValid: true
+    })
+  case TOKEN_FAILURE:
+    return Object.assign({}, state, {
+        tokenIsValid: false
+    })
     default:
       return state
   }
@@ -52,7 +60,7 @@ function quotes(state = {}, action) {
 // can be left split apart above
 const kbaApp = combineReducers({
   auth,
-  quotes
+  token
 })
 
 export default kbaApp

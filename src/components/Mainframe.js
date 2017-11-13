@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { logoutUser } from '../actions'
+import { logoutUser, probeToken } from '../actions'
 import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom'
 import Header from './Header'
 import Sitebar from './Sitebar'
@@ -39,7 +39,14 @@ class Mainframe extends React.Component {
             lang: "de"
         };
 
+
+        localStorage.getItem('auth_token') && this.checkToken();
         this.changeLanguage = this.changeLanguage.bind(this);
+    }
+    checkToken() {
+        const profile = JSON.parse(localStorage.getItem('profile'));
+        this.props.dispatch(probeToken(profile.loginName))
+        .then( Response => {console.log("next props", Response.type)} )
     }
 
     toggleMenu() {
@@ -115,14 +122,12 @@ Mainframe.propTypes = {
 // state when it is started
 function mapStateToProps(state) {
 
-    const { quotes, auth } = state
-    const { quote, authenticated } = quotes
+    const { auth, tokenIsValid } = state
     const { isAuthenticated } = auth
 
     return {
-        quote,
         auth,
-        isSecretQuote: authenticated,
+        tokenIsValid,
         isAuthenticated
     }
 }
