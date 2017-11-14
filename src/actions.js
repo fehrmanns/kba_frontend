@@ -131,7 +131,11 @@ export function probeToken() {
     return dispatch => {
         return fetch('http://localhost:8080/befe/rest/' + endpoint, config)
             .then(response => {
-                (response.status !== 200) ? dispatch(logoutUser()) : console.log("token ok.")
+                switch (response.status) {
+                    case 200: response.json()
+                        .then( user => ( !user.active && dispatch(logoutUser()) ) ); break;
+                    default: dispatch(logoutUser());
+                }
             }).catch(err => console.log("Error: ", err))
     }
 }

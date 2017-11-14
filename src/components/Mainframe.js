@@ -39,10 +39,10 @@ class Mainframe extends React.Component {
             lang: "de"
         };
 
-
         localStorage.getItem('auth_token') && this.checkToken();
         this.changeLanguage = this.changeLanguage.bind(this);
     }
+
     checkToken() {
 
         this.props.dispatch(probeToken());
@@ -88,7 +88,7 @@ class Mainframe extends React.Component {
 
                         {isAuthenticated ?
                             <div className={(this.state.sitebar === "true") ? 'show container' : 'container'}>
-                                <Route exact path="/login" render={() => (<Redirect to="/"/>)}/>
+                                <Route exact path="/login" render={() => (<Redirect to="/" />)} />
                                 <PrivateRoute exact path="/" component={Home} />
                                 <Route exact path="/recordings" component={Recordings} />
                                 <Route exact path="/biometricprofiles" component={BiometricProfiles} />
