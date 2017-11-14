@@ -1,5 +1,5 @@
 
-import { CALL_API } from './middleware/api'
+// import { CALL_API } from './middleware/api'
 // There are three possible states for our login
 // process and we need actions for each of them
 export const LOGIN_REQUEST = 'LOGIN_REQUEST'
@@ -92,7 +92,6 @@ export function loginUser(creds) {
                             if (!response.ok) {
                                 // If there was a problem, we want to
                                 // dispatch the error condition
-                                console.log("response not ok:", response)
                                 dispatch(loginError("Dumm gelaufen"))
                                 return Promise.reject(user)
                             } else {
@@ -110,22 +109,29 @@ export function loginUser(creds) {
                     case 500: console.error('500 Some server error'); break;
                     default: console.warn('Some uncatched server response:', response.status);
                 }
-            }).catch(err => console.log("Error: ", err))
+            }).catch(err => console.warn("Error: ", err))
     }
 }
 
 // Calls the API to check the token
 // dispatches actions along the way
-export function probeToken(loginname) {
-    const endpoint = "management/users/" + loginname + "?inclPrivs=true";
-    //const endpoint = "https://httpbin.org/get";
+export function probeToken() {
+    const profile = JSON.parse(localStorage.getItem('profile'));
+    const endpoint = "management/users/" + profile.loginName + "?inclPrivs=true";
 
-    return {
-        [CALL_API]: {
-            endpoint: endpoint,
-            authenticated: true,
-            method: "GET",
-            types: [TOKEN_SUCCESS, TOKEN_FAILURE]
-        }
+    const token = localStorage.getItem('auth_token');
+    let loginHeader = new Headers();
+    loginHeader.append("token", token);
+    let config = {
+        method: 'GET',
+        headers: loginHeader,
+        mode: 'none'
+    }
+
+    return dispatch => {
+        return fetch('http://localhost:8080/befe/rest/' + endpoint, config)
+            .then(response => {
+                (response.status !== 200) && dispatch(logoutUser())
+            }).catch(err => console.log("Error: ", err))
     }
 }

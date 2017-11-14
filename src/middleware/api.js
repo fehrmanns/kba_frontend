@@ -28,7 +28,7 @@ function callApi(endpoint, authenticated, method) {
             }
 
             return text
-        }).catch(err => console.log(err))
+        }).catch(err => console.warn(err))
 }
 
 export const CALL_API = Symbol('Call API')

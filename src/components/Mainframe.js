@@ -44,9 +44,8 @@ class Mainframe extends React.Component {
         this.changeLanguage = this.changeLanguage.bind(this);
     }
     checkToken() {
-        const profile = JSON.parse(localStorage.getItem('profile'));
-        this.props.dispatch(probeToken(profile.loginName))
-        .then( Response => {console.log("next props", Response.type)} )
+
+        this.props.dispatch(probeToken());
     }
 
     toggleMenu() {
