@@ -6,9 +6,14 @@
         "header.dropdown.language.en": "Englisch",
         "header.dropdown.language.de": "Deutsch",
 
+        "dropdown.role.default": "Benutzerrolle",
+        "dropdown.role.admin": "Admin",
+        "dropdown.role.supervisor": "Supervisor",
+        "dropdown.role.analyst": "Analyst",
+
+        "input.username": "Nutzername",
         "input.firstname":"Vorname",
         "input.lastname":"Nachname",
-        "input.username": "Nutzername",
         "input.password": "Passwort",
 
         "button.submit": "Absenden",

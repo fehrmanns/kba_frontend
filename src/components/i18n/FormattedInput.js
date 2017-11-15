@@ -13,7 +13,7 @@ class FormattedInput extends React.Component {
         const fPlaceholder = intl.formatMessage({
             id: placeholder,
             defaultMessage: ""
-        })
+        });
 
         return (
             <input placeholder={fPlaceholder} {...rest} />

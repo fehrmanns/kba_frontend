@@ -1,4 +1,5 @@
 import React from 'react'
+import { injectIntl, intlShape } from 'react-intl'
 import { Link } from 'react-router-dom'
 import { FormattedMessage } from 'react-intl'
 import { MenuItem } from 'react-bootstrap'
@@ -8,6 +9,8 @@ import './../css/header.css'
 class Header extends React.Component {
 
     render() {
+        const locale = this.props.intl.locale;
+        const dropDownId = "header.dropdown.language."+ locale;
         const { renderOnLogin } = this.props;
 
         return (
@@ -25,7 +28,7 @@ class Header extends React.Component {
                         <Link className="navbar-brand" to="/"><FormattedMessage id="header.title" /></Link>
                     </div>
                     <div id="usermenu" className="button-container pull-right">
-                        <LanguageDropDown pullRight bsStyle="link" onSelect={(eventKey) => this.props.changeLanguage(eventKey)}>
+                        <LanguageDropDown pullRight bsStyle="link" id="intl.locale.selection" titleId={dropDownId} onSelect={(eventKey) => this.props.changeLanguage(eventKey)}>
                             <MenuItem eventKey="en"><FormattedMessage id="header.dropdown.language.en" /></MenuItem>
                             <MenuItem eventKey="de"><FormattedMessage id="header.dropdown.language.de" /></MenuItem>
                         </LanguageDropDown>
@@ -37,4 +40,8 @@ class Header extends React.Component {
     }
 }
 
-export default Header
+Header.propTypes = {
+    intl: intlShape.isRequired
+};
+
+export default injectIntl(Header)

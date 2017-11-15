@@ -13,7 +13,9 @@ class Login extends Component {
             username: '',
             password: '',
             showError: false
-        }
+        };
+
+        this.handleChange = this.handleChange.bind(this);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -82,7 +84,7 @@ class Login extends Component {
                             <span className="input-group-addon glyphicon glyphicon-user" id="sizing-addon2"/>
                             <FormattedInput type="text" id="inputUsername" className="form-control"
                                             placeholder="input.username" required="" autoFocus=""
-                                            onChange={this.handleChange.bind(this)} value={this.state.username}/>
+                                            onChange={this.handleChange} value={this.state.username}/>
                         </div>
                         <label htmlFor="inputUsername" className="sr-only">
                             <FormattedMessage id="input.username"/>
@@ -93,7 +95,7 @@ class Login extends Component {
                             <span className="input-group-addon glyphicon glyphicon-asterisk" id="sizing-addon2"/>
                             <FormattedInput type="password" id="inputPassword" className="form-control"
                                             placeholder="input.password" required=""
-                                            onChange={this.handleChange.bind(this)} value={this.state.password}/>
+                                            onChange={this.handleChange} value={this.state.password}/>
                         </div>
                         <label htmlFor="inputPassword" className="sr-only">
                             <FormattedMessage id="input.password"/>
