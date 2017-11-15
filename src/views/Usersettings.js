@@ -7,7 +7,7 @@ export default class Usersettings extends React.Component {
         return (
             <div className="starter-template">
                 <h1><FormattedMessage id="view.user.title"/></h1>
-                <p className="lead"><FormattedMessage id="view.user.body"/></p>
+                <FormattedMessage tagName="p" id="view.user.body"/>
             </div>
         );
     }
