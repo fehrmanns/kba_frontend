@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { FormattedMessage } from 'react-intl'
 import { MenuItem } from 'react-bootstrap'
 import './../css/header.css'
-import LanguageDropDown from './LanguageDropDown'
+import LanguageDropDown from './i18n/LanguageDropDown'
 
 class Header extends React.Component {
 

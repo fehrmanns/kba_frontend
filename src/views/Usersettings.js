@@ -1,5 +1,6 @@
 import React from 'react'
 import {FormattedMessage} from 'react-intl'
+import FormattedInput from '../components/i18n/FormattedInput'
 
 export default class Usersettings extends React.Component {
 
@@ -7,7 +8,13 @@ export default class Usersettings extends React.Component {
         return (
             <div className="starter-template">
                 <h1><FormattedMessage id="view.user.title"/></h1>
-                <FormattedMessage tagName="p" id="view.user.body"/>
+                <form>
+                    <div className="form-group">
+
+                        <FormattedInput type="text" className="form-control" placeholder="view.user.input.firstname"/>
+                        <FormattedInput type="text" className="form-control" placeholder="view.user.input.lastname"/>
+                    </div>
+                </form>
             </div>
         );
     }

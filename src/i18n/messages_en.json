@@ -11,7 +11,7 @@
         "login.input.password": "Password",
         "login.label.fail": "Login failed",
         "login.button.submit": "Submit",
-        
+
         "view.home.title": "Home/Dashboard",
         "view.home.body": "Yeah, I like animals better than people sometimes... Especially dogs. Dogs are the best. Every time you come home, they act like they haven't seen you in a year. And the good thing about dogs... is they got different dogs for different people. Like pit bulls. The dog of dogs. Pit bull can be the right man's best friend... or the wrong man's worst enemy. You going to give me a dog for a pet, give me a pit bull. Give me... Raoul. Right, Omar? Give me Raoul.",
 
@@ -19,10 +19,10 @@
         "view.matchall.title": "Match all speakers",
         "view.matchall.body":"Well, the way they make shows is, they make one show. That show's called a pilot. Then they show that show to the people who make shows, and on the strength of that one show they decide if they're going to make more shows. Some pilots get picked and become television programs. Some don't, become nothing. She starred in one of the ones that became nothing.",
 
-        "menu.sitebar.matchlist": "Matched speaker list",        
+        "menu.sitebar.matchlist": "Matched speaker list",
         "view.matchlist.title": "Matched speaker list",
         "view.matchlist.body": "Well, the way they make shows is, they make one show. That show's called a pilot. Then they show that show to the people who make shows, and on the strength of that one show they decide if they're going to make more shows. Some pilots get picked and become television programs. Some don't, become nothing. She starred in one of the ones that became nothing.",
-        
+
         "menu.sitebar.recordings":"Recordings",
         "view.recordings.title":"Recordings",
         "view.recordings.body":"Much voices, such sound, many speeches",
@@ -33,34 +33,35 @@
 
         "menu.sitebar.settings.user": "User settings",
         "view.user.title":"User settings",
-        "view.user.body":"Well, the way they make shows is, they make one show. That show's called a pilot. Then they show that show to the people who make shows, and on the strength of that one show they decide if they're going to make more shows. Some pilots get picked and become television programs. Some don't, become nothing. She starred in one of the ones that became nothing.",
+        "view.user.input.firstname":"first name",
+        "view.user.input.lastname":"last name",
 
         "menu.sitebar.settings.organisation": "Organization Settings",
         "view.organisation.title": "Organization Settings",
         "view.organisation.body": "Well, the way they make shows is, they make one show. That show's called a pilot. Then they show that show to the people who make shows, and on the strength of that one show they decide if they're going to make more shows. Some pilots get picked and become television programs. Some don't, become nothing. She starred in one of the ones that became nothing.",
-        
+
         "menu.sitebar.settings.category": "Category Settings",
         "view.category.title": "Category Settings",
         "view.category.body": "The path of the righteous man is beset on all sides by the iniquities of the selfish and the tyranny of evil men. Blessed is he who, in the name of charity and good will, shepherds the weak through the valley of darkness, for he is truly his brother's keeper and the finder of lost children. And I will strike down upon thee with great vengeance and furious anger those who would attempt to poison and destroy My brothers. And you will know My name is the Lord when I lay My vengeance upon thee.",
-        
+
         "menu.sitebar.settings.import": "Import settings",
         "view.importsettings.title":"Import settings",
         "view.importsettings.body":"Do you see any Teletubbies in here? Do you see a slender plastic tag clipped to my shirt with my name printed on it? Do you see a little Asian child with a blank expression on his face sitting outside on a mechanical helicopter that shakes when you put quarters in it? No? Well, that's what you see at a toy store. And you must think you're in a toy store, because you're here shopping for an infant named Jeb.",
-        
+
         "menu.sitebar.import.manual" : "Manual Import",
         "view.fileimport.title" :"Media Import",
         "view.fileimport.body" :"Do you see any Teletubbies in here? Do you see a slender plastic tag clipped to my shirt with my name printed on it? Do you see a little Asian child with a blank expression on his face sitting outside on a mechanical helicopter that shakes when you put quarters in it? No? Well, that's what you see at a toy store. And you must think you're in a toy store, because you're here shopping for an infant named Jeb.",
-        
-        "menu.sitebar.import.k2" : "Klarios Data Import",        
-        
+
+        "menu.sitebar.import.k2" : "Klarios Data Import",
+
         "menu.sitebar.import.jobs" : "Import Job List",
         "view.joblist.title": "Joblist",
         "view.joblist.body": "Like you, I used to think the world was this great place where everybody lived by the same standards I did, then some kid with a nail showed me I was living in his world, a world where chaos rules not order, a world where righteousness is not rewarded. That's Cesar's world, and if you're not willing to play by his rules, then you're gonna have to pay the price.",
-        
+
         "menu.sitebar.settings.license" : "Licensemanagement",
         "view.license.title": "Licensemanagement",
         "view.license.body": "Now that we know who you are, I know who I am. I'm not a mistake! It all makes sense! In a comic, you know how you can tell who the arch-villain's going to be? He's the exact opposite of the hero. And most times they're friends, like you and me! I should've known way back when... You know why, David? Because of the kids. They called me Mr Glass.",
-        
-        "":""    
+
+        "":""
     }
 }

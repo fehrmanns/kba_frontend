@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { loginUser } from '../actions'
 import {FormattedMessage} from 'react-intl'
-import FormattedInput from '../components/FormattedInput'
+import FormattedInput from '../components/i18n/FormattedInput'
 import './../css/login.css'
 
 class Login extends Component {
@@ -72,7 +72,7 @@ class Login extends Component {
                     </h2>
                     <div className="form-group">
                         <div className="input-group">
-                            <span className="input-group-addon glyphicon glyphicon-user" id="sizing-addon2"></span>
+                            <span className="input-group-addon glyphicon glyphicon-user" id="sizing-addon2" />
                             <FormattedInput type="text" id="inputUsername" className="form-control" placeholder="login.input.username" required="" autoFocus="" onChange={this.handleChange.bind(this)} value={this.state.username} />
                         </div>
                         <label htmlFor="inputUsername" className="sr-only">
@@ -81,7 +81,7 @@ class Login extends Component {
                     </div>
                     <div className="form-group">
                         <div className="input-group">
-                            <span className="input-group-addon glyphicon glyphicon-asterisk" id="sizing-addon2"></span>
+                            <span className="input-group-addon glyphicon glyphicon-asterisk" id="sizing-addon2" />
                             <FormattedInput type="password" id="inputPassword" className="form-control" placeholder="login.input.password" required="" onChange={this.handleChange.bind(this)} value={this.state.password} />
                         </div>
                         <label htmlFor="inputPassword" className="sr-only">

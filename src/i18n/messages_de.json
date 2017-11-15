@@ -10,20 +10,20 @@
         "login.input.username": "Nutzername",
         "login.input.password": "Passwort",
         "login.label.fail": "Anmeldung fehlgeschlagen",
-        "login.button.submit": "Absenden",        
-        
+        "login.button.submit": "Absenden",
+
         "view.home.title": "Start/Dashboard",
         "view.home.body": "Ja, ich mag Tiere besser als Menschen ... Besonders Hunde. Hunde sind die Besten. Jedes Mal, wenn du nach Hause kommst, benehmen sie sich, als hätten sie dich in einem Jahr nicht gesehen. Und das Gute an Hunden ist, dass sie verschiedene Hunde für verschiedene Leute haben. Wie Pitbulls. Der Hund von Hunden. Pitbull kann der beste Freund des richtigen Mannes sein ... oder der schlimmste Feind des falschen Mannes. Du gibst mir einen Hund für ein Haustier, gib mir einen Pitbull. Gib mir ... Raoul. Richtig, Omar? Gib mir Raoul.",
-        
+
         "menu.sitebar.matchall": "Alle Sprecher Identifizieren",
         "view.matchall.title": "Alle Sprecher Identifizieren",
         "view.matchall.body": "Nun, die Art, wie sie Shows machen, ist, dass sie eine Show machen. Diese Show ist ein Pilot genannt. Dann zeigen sie diese Show den Leuten, die Shows machen, und auf der Grundlage dieser Show entscheiden sie, ob sie mehr Shows machen werden. Einige Piloten werden ausgewählt und Fernsehprogramme. Einige nicht, werden nichts. Sie spielte in einem von denen, die nichts wurden.",
-        
+
         "menu.sitebar.matchlist":"Liste erkannter Sprecher",
         "view.matchlist.title": "Liste erkannter Sprecher",
         "view.matchlist.body": "Nun, die Art, wie sie Shows machen, ist, dass sie eine Show machen. Diese Show ist ein Pilot genannt. Dann zeigen sie diese Show den Leuten, die Shows machen, und auf der Grundlage dieser Show entscheiden sie, ob sie mehr Shows machen werden. Einige Piloten werden ausgewählt und Fernsehprogramme. Einige nicht, werden nichts. Sie spielte in einem von denen, die nichts wurden.",
-        
-        "menu.sitebar.recordings":"Aufnahmen",        
+
+        "menu.sitebar.recordings":"Aufnahmen",
         "view.recordings.title":"Aufnahmen",
         "view.recordings.body":"Viele Stimmen, welch Klänge, reichliche Reden",
 
@@ -33,16 +33,17 @@
 
         "menu.sitebar.settings.user": "Benutzereinstellungen",
         "view.user.title":"Benutzereinstellungen",
-        "view.user.body":"Nun, die Art, wie sie Shows machen, ist, dass sie eine Show machen. Diese Show ist ein Pilot genannt. Dann zeigen sie diese Show den Leuten, die Shows machen, und auf der Grundlage dieser Show entscheiden sie, ob sie mehr Shows machen werden. Einige Piloten werden ausgewählt und Fernsehprogramme. Einige nicht, werden nichts. Sie spielte in einem von denen, die nichts wurden.",
+        "view.user.input.firstname":"Vorname",
+        "view.user.input.lastname":"Nachname",
 
         "menu.sitebar.settings.organisation": "Organizationseinstellungen",
         "view.organisation.title": "Organizationseinstellungen",
         "view.organisation.body": "Nun, die Art, wie sie Shows machen, ist, dass sie eine Show machen. Diese Show ist ein Pilot genannt. Dann zeigen sie diese Show den Leuten, die Shows machen, und auf der Grundlage dieser Show entscheiden sie, ob sie mehr Shows machen werden. Einige Piloten werden ausgewählt und Fernsehprogramme. Einige nicht, werden nichts. Sie spielte in einem von denen, die nichts wurden.",
-        
+
         "menu.sitebar.settings.category": "Kategorieeinstellungen",
         "view.category.title": "Kategorieeinstellungen",
         "view.category.body": "Der Pfad der Gerechten ist zu beiden Seiten gesäumt mit Freveleien der Selbstsüchtigen und der Tyrannei böser Männer. Gesegnet sei der, der im Namen der Barmherzigkeit und des guten Willens die Schwachen durch das Tal der Dunkelheit geleitet. Denn er ist der wahre Hüter seines Bruders und der Retter der verlorenen Kinder. Und da steht weiter ich will große Rachetaten an denen vollführen, die da versuchen meine Brüder zu vergiften und zu vernichten, und mit Grimm werde ich sie strafen, dass sie erfahren sollen: Ich sei der Herr, wenn ich meine Rache an ihnen vollstreckt habe.",
-        
+
         "menu.sitebar.settings.import": "Importeinstellungen",
         "view.importsettings.title":"Importeinstellungen",
         "view.importsettings.body":"Sehen Sie irgendwelche Teletubbies hier drin? Siehst du ein schlankes Plastiketikett an meinem Shirt, auf dem mein Name aufgedruckt ist? Siehst du ein kleines asiatisches Kind mit einem ausdruckslosen Ausdruck auf seinem Gesicht, der draußen auf einem mechanischen Hubschrauber sitzt, der zittert, wenn du darin Quartiere einsetzt? Nein? Nun, das sieht man in einem Spielzeugladen. Und Sie müssen denken, dass Sie in einem Spielzeugladen sind, weil Sie hier für ein Kind namens Jeb einkaufen.",
@@ -50,17 +51,17 @@
         "menu.sitebar.import.manual" : "Manueller Import",
         "view.fileimport.title":"Medien Import",
         "view.fileimport.body":"Sehen Sie irgendwelche Teletubbies hier drin? Siehst du ein schlankes Plastiketikett an meinem Shirt, auf dem mein Name aufgedruckt ist? Siehst du ein kleines asiatisches Kind mit einem ausdruckslosen Ausdruck auf seinem Gesicht, der draußen auf einem mechanischen Hubschrauber sitzt, der zittert, wenn du darin Quartiere einsetzt? Nein? Nun, das sieht man in einem Spielzeugladen. Und Sie müssen denken, dass Sie in einem Spielzeugladen sind, weil Sie hier für ein Kind namens Jeb einkaufen.",
-        
-        "menu.sitebar.import.k2" : "Klarios Daten Import",        
-        
+
+        "menu.sitebar.import.k2" : "Klarios Daten Import",
+
         "menu.sitebar.import.jobs" : "Auftragsliste",
         "view.joblist.title": "Auftragsliste",
         "view.joblist.body": "Wie du, ich dachte immer, die Welt sei ein großartiger Ort, an dem jeder nach den gleichen Maßstäben lebt. Dann zeigte mir ein Kind mit einem Nagel, dass ich in seiner Welt lebe, in einer Welt, in der das Chaos nicht herrscht, in einer Welt, in der Gerechtigkeit herrscht. wird nicht belohnt. Das ist Cesars Welt, und wenn du nicht bereit bist, nach seinen Regeln zu spielen, dann musst du den Preis bezahlen",
-        
+
         "menu.sitebar.settings.license" : "Lizenzverwaltung",
         "view.license.title": "Lizenzverwaltung",
-        "view.license.body": "Jetzt, wo wir wissen, wer du bist, weiß ich, wer ich bin. Ich bin kein Fehler! Es macht alles Sinn! In einem Comic weißt du, wie du sagen kannst, wer der Erzbösewicht sein wird? Er ist das genaue Gegenteil des Helden. Und meistens sind sie Freunde, wie du und ich! Ich hätte es schon gewusst, wenn ... Du weißt warum, David? Wegen der Kinder. Sie nannten mich Mr. Glass.",        
-        
+        "view.license.body": "Jetzt, wo wir wissen, wer du bist, weiß ich, wer ich bin. Ich bin kein Fehler! Es macht alles Sinn! In einem Comic weißt du, wie du sagen kannst, wer der Erzbösewicht sein wird? Er ist das genaue Gegenteil des Helden. Und meistens sind sie Freunde, wie du und ich! Ich hätte es schon gewusst, wenn ... Du weißt warum, David? Wegen der Kinder. Sie nannten mich Mr. Glass.",
+
         "":""
     }
 }
