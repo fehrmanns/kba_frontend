@@ -42,15 +42,14 @@ body::after {
     width: auto !important;
 }
 
-.mainframe>.container {
-    position: absolute;
-    animation: hide-menu-content 0.125s ease-out;
-    left: 0;
+.mainframe .container-fluid {
+    animation: hide-menu-content 0.225s ease-out;
+    padding-left: 0;
 }
 
-.mainframe .show.container {
+.mainframe .show.container-fluid {
     animation: show-menu-content 0.225s ease-out;
-    left: 200px;
+    padding-left: 215px;
 }
 
 .progress {

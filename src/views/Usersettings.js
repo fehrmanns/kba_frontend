@@ -7,7 +7,7 @@ export default class Usersettings extends React.Component {
     render() {
 
         return (
-            <div>
+            <div className="container-fluid">
                 <FormattedMessage tagName="h1" id="view.user.title"/>
                 <UserManagementAddNew />
             </div>

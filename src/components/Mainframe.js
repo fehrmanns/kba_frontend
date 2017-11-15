@@ -78,16 +78,16 @@ class Mainframe extends React.Component {
         return (
             <IntlProvider locale={this.state.lang} messages={langMsg}>
                 <Router>
-                    <div className="mainframe">
+                    <div className="mainframe container">
                         <Header changeLanguage={this.changeLanguage} lang={langMsg} language={this.state.lang} logoutUser={() => dispatch(logoutUser())} toggleMenu={() => this.toggleMenu()} renderOnLogin={isAuthenticated} />
-                        <div className="progress">
+                        <div className="row progress">
                             <div className="progress-bar progress-bar-danger progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100">
                             </div>
                         </div>
                         {isAuthenticated && <Sitebar show={this.state.sitebar} />}
 
                         {isAuthenticated ?
-                            <div className={(this.state.sitebar === "true") ? 'show container' : 'container'}>
+                            <div className={(this.state.sitebar === "true") ? 'show container-fluid' : 'container-fluid'}>
                                 <Route exact path="/login" render={() => (<Redirect to="/" />)} />
                                 <PrivateRoute exact path="/" component={Home} />
                                 <Route exact path="/recordings" component={Recordings} />
