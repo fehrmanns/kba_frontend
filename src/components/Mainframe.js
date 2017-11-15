@@ -31,7 +31,7 @@ addLocaleData([...intlEN, ...intlDE]);
 class Mainframe extends React.Component {
 
     constructor(props) {
-        super(props)
+        super(props);
 
         this.state = {
             sitebar: getStorage("sitebar"),
@@ -62,9 +62,9 @@ class Mainframe extends React.Component {
     }
 
     render() {
-        const { dispatch, auth, isAuthenticated } = this.props
-        const localeMessages = Object.assign({}, en, de)
-        const langMsg = localeMessages[this.state.lang]
+        const { dispatch, auth, isAuthenticated } = this.props;
+        const localeMessages = Object.assign({}, en, de);
+        const langMsg = localeMessages[this.state.lang];
         const PrivateRoute = ({ component: Component, ...rest }) => (
             <Route {...rest} render={(props) => (
                 isAuthenticated ?
@@ -72,7 +72,7 @@ class Mainframe extends React.Component {
                     :
                     (<Redirect to={{ pathname: '/login' }} />)
             )} />
-        )
+        );
 
 
         return (
@@ -115,14 +115,14 @@ Mainframe.propTypes = {
     dispatch: PropTypes.func.isRequired,
     quote: PropTypes.string,
     auth: PropTypes.object.isRequired
-}
+};
 
 // These props come from the application's
 // state when it is started
 function mapStateToProps(state) {
 
-    const { auth, tokenIsValid } = state
-    const { isAuthenticated } = auth
+    const { auth, tokenIsValid } = state;
+    const { isAuthenticated } = auth;
 
     return {
         auth,

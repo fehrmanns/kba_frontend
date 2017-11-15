@@ -6,11 +6,15 @@
         "header.dropdown.language.en": "English",
         "header.dropdown.language.de": "German",
 
+        "input.firstname":"first name",
+        "input.lastname":"last name",
+        "input.username": "User name",
+        "input.password": "Password",
+
+        "button.submit": "Submit",
+
         "login.input.heading": "Please sign in",
-        "login.input.username": "User name",
-        "login.input.password": "Password",
         "login.label.fail": "Login failed",
-        "login.button.submit": "Submit",
 
         "view.home.title": "Home/Dashboard",
         "view.home.body": "Yeah, I like animals better than people sometimes... Especially dogs. Dogs are the best. Every time you come home, they act like they haven't seen you in a year. And the good thing about dogs... is they got different dogs for different people. Like pit bulls. The dog of dogs. Pit bull can be the right man's best friend... or the wrong man's worst enemy. You going to give me a dog for a pet, give me a pit bull. Give me... Raoul. Right, Omar? Give me Raoul.",
@@ -33,8 +37,6 @@
 
         "menu.sitebar.settings.user": "User settings",
         "view.user.title":"User settings",
-        "view.user.input.firstname":"first name",
-        "view.user.input.lastname":"last name",
 
         "menu.sitebar.settings.organisation": "Organization Settings",
         "view.organisation.title": "Organization Settings",

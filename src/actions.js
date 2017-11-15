@@ -2,15 +2,15 @@
 // import { CALL_API } from './middleware/api'
 // There are three possible states for our login
 // process and we need actions for each of them
-export const LOGIN_REQUEST = 'LOGIN_REQUEST'
-export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
-export const LOGIN_FAILURE = 'LOGIN_FAILURE'
+export const LOGIN_REQUEST = 'LOGIN_REQUEST';
+export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
+export const LOGIN_FAILURE = 'LOGIN_FAILURE';
 
-export const LOGOUT_REQUEST = 'LOGOUT_REQUEST'
-export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS'
+export const LOGOUT_REQUEST = 'LOGOUT_REQUEST';
+export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
 
-export const TOKEN_SUCCESS = 'TOKEN_SUCCESS'
-export const TOKEN_FAILURE = 'TOKEN_FAILURE'
+export const TOKEN_SUCCESS = 'TOKEN_SUCCESS';
+export const TOKEN_FAILURE = 'TOKEN_FAILURE';
 
 
 function requestLogin(creds) {
@@ -58,10 +58,10 @@ function receiveLogout() {
 
 export function logoutUser() {
     return dispatch => {
-        dispatch(requestLogout())
-        localStorage.removeItem('profile')
-        localStorage.removeItem('auth_token')
-        localStorage.removeItem('refresh_token')
+        dispatch(requestLogout());
+        localStorage.removeItem('profile');
+        localStorage.removeItem('auth_token');
+        localStorage.removeItem('refresh_token');
         dispatch(receiveLogout())
     }
 }
@@ -76,11 +76,11 @@ export function loginUser(creds) {
         method: 'GET',
         headers: loginHeader,
         mode: 'none'
-    }
+    };
 
     return dispatch => {
         // We dispatch requestLogin to kickoff the call to the API
-        dispatch(requestLogin(creds))
+        dispatch(requestLogin(creds));
 
         return fetch('http://localhost:8080/befe/rest/login', config)
             .then(response => {
@@ -92,13 +92,13 @@ export function loginUser(creds) {
                             if (!response.ok) {
                                 // If there was a problem, we want to
                                 // dispatch the error condition
-                                dispatch(loginError("Dumm gelaufen"))
+                                dispatch(loginError("Login error"));
                                 return Promise.reject(user)
                             } else {
                                 // If login was successful, set the token in local storage
-                                localStorage.setItem('profile', JSON.stringify(user.kbaUser))
-                                localStorage.setItem('auth_token', user.authtoken)
-                                localStorage.setItem('refresh_token', user.refreshtoken)
+                                localStorage.setItem('profile', JSON.stringify(user.kbaUser));
+                                localStorage.setItem('auth_token', user.authtoken);
+                                localStorage.setItem('refresh_token', user.refreshtoken);
 
                                 // Dispatch the success action
                                 dispatch(receiveLogin(user))
@@ -126,7 +126,7 @@ export function probeToken() {
         method: 'GET',
         headers: loginHeader,
         mode: 'none'
-    }
+    };
 
     return dispatch => {
         return fetch('http://localhost:8080/befe/rest/' + endpoint, config)

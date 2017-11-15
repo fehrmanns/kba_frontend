@@ -6,11 +6,15 @@
         "header.dropdown.language.en": "Englisch",
         "header.dropdown.language.de": "Deutsch",
 
+        "input.firstname":"Vorname",
+        "input.lastname":"Nachname",
+        "input.username": "Nutzername",
+        "input.password": "Passwort",
+
+        "button.submit": "Absenden",
+
         "login.input.heading": "Bitte anmelden",
-        "login.input.username": "Nutzername",
-        "login.input.password": "Passwort",
         "login.label.fail": "Anmeldung fehlgeschlagen",
-        "login.button.submit": "Absenden",
 
         "view.home.title": "Start/Dashboard",
         "view.home.body": "Ja, ich mag Tiere besser als Menschen ... Besonders Hunde. Hunde sind die Besten. Jedes Mal, wenn du nach Hause kommst, benehmen sie sich, als hätten sie dich in einem Jahr nicht gesehen. Und das Gute an Hunden ist, dass sie verschiedene Hunde für verschiedene Leute haben. Wie Pitbulls. Der Hund von Hunden. Pitbull kann der beste Freund des richtigen Mannes sein ... oder der schlimmste Feind des falschen Mannes. Du gibst mir einen Hund für ein Haustier, gib mir einen Pitbull. Gib mir ... Raoul. Richtig, Omar? Gib mir Raoul.",
@@ -33,8 +37,6 @@
 
         "menu.sitebar.settings.user": "Benutzereinstellungen",
         "view.user.title":"Benutzereinstellungen",
-        "view.user.input.firstname":"Vorname",
-        "view.user.input.lastname":"Nachname",
 
         "menu.sitebar.settings.organisation": "Organizationseinstellungen",
         "view.organisation.title": "Organizationseinstellungen",

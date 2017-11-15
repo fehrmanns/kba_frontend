@@ -11,8 +11,8 @@ export default class Usersettings extends React.Component {
                 <form>
                     <div className="form-group">
 
-                        <FormattedInput type="text" className="form-control" placeholder="view.user.input.firstname"/>
-                        <FormattedInput type="text" className="form-control" placeholder="view.user.input.lastname"/>
+                        <FormattedInput type="text" className="form-control" placeholder="input.firstname"/>
+                        <FormattedInput type="text" className="form-control" placeholder="input.lastname"/>
                     </div>
                 </form>
             </div>
