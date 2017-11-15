@@ -2,13 +2,13 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { FormattedMessage } from 'react-intl'
 import { MenuItem } from 'react-bootstrap'
-import './../css/header.css'
 import LanguageDropDown from './i18n/LanguageDropDown'
+import './../css/header.css'
 
 class Header extends React.Component {
 
     render() {
-        const { renderOnLogin } = this.props
+        const { renderOnLogin } = this.props;
 
         return (
             <nav className="navbar navbar-inverse navbar-fixed-top">
@@ -17,15 +17,15 @@ class Header extends React.Component {
                         { renderOnLogin &&
                             <button type="button" className="navbar-toggle collapsed" onClick={() => this.props.toggleMenu()}>
                                 <span className="sr-only"><FormattedMessage id="header.button.togglenavigation" /></span>
-                                <span className="icon-bar"></span>
-                                <span className="icon-bar"></span>
-                                <span className="icon-bar"></span>
+                                <span className="icon-bar" />
+                                <span className="icon-bar" />
+                                <span className="icon-bar" />
                             </button>
                         }
                         <Link className="navbar-brand" to="/"><FormattedMessage id="header.title" /></Link>
                     </div>
                     <div id="usermenu" className="button-container pull-right">
-                        <LanguageDropDown pullRight bsStyle="link" locale={this.props.language} onSelect={(eventKey) => this.props.changeLanguage(eventKey)}>
+                        <LanguageDropDown pullRight bsStyle="link" onSelect={(eventKey) => this.props.changeLanguage(eventKey)}>
                             <MenuItem eventKey="en"><FormattedMessage id="header.dropdown.language.en" /></MenuItem>
                             <MenuItem eventKey="de"><FormattedMessage id="header.dropdown.language.de" /></MenuItem>
                         </LanguageDropDown>

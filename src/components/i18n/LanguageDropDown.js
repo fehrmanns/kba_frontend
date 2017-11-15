@@ -1,18 +1,16 @@
-
-import React from 'react';
-import PropTypes from 'prop-types';
-import { injectIntl, intlShape } from 'react-intl';
-import {DropdownButton} from 'react-bootstrap';
+import React from 'react'
+import { injectIntl, intlShape } from 'react-intl'
+import {DropdownButton} from 'react-bootstrap'
 
 class LanguageDropDown extends React.Component {
 
     render() {
-        const {intl, locale, ...rest} = this.props;
+        const {intl, ...rest} = this.props;
+        const { locale } = this.props.intl;
         const formattedTitle = intl.formatMessage({
             id: "header.dropdown.language."+ locale,
             defaultMessage: ""
         });
-
 
         return (
             <DropdownButton {...rest} title={formattedTitle} key={locale} id={`dropdown-basic-${locale}`}>
@@ -23,8 +21,7 @@ class LanguageDropDown extends React.Component {
 }
 
 LanguageDropDown.propTypes = {
-    intl: intlShape.isRequired,
-    locale: PropTypes.string.isRequired
+    intl: intlShape.isRequired
 };
 
 export default injectIntl(LanguageDropDown);
