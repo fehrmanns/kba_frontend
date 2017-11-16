@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import {FormattedMessage} from 'react-intl'
 import FormattedInput from '../components/i18n/FormattedInput'
 import FormattedDropDown from './i18n/FormattedDropDown'
@@ -27,12 +28,15 @@ export default class UserManagementAddNew extends React.Component {
 
         event.preventDefault();
 
-        const targetName = event.target.id.replace('input', '').replace(/\b[A-Z]/g, function(letter) {
+        const targetName = event.target.id.replace('input', '').replace(/\b[A-Z]/g, function (letter) {
             return letter.toLowerCase();
         });
 
         this.setState(
-            (targetName === "loginName") ? {[targetName]: event.target.value, loginNameIsValid: true} : {[targetName]: event.target.value}
+            (targetName === "loginName") ? {
+                [targetName]: event.target.value,
+                loginNameIsValid: true
+            } : {[targetName]: event.target.value}
         )
     }
 
@@ -61,7 +65,8 @@ export default class UserManagementAddNew extends React.Component {
         const newUser = {...this.state};
         delete newUser["loginNameIsValid"];
         delete newUser["roleNameIsValid"];
-        console.log("send this:",  JSON.stringify(newUser));
+
+        this.props.sendData(newUser);
     }
 
     render() {
@@ -70,51 +75,58 @@ export default class UserManagementAddNew extends React.Component {
         const roleNameError = !this.state.roleNameIsValid;
 
         return (
-            <div className="starter-template">
-                <form>
-                    <div className={loginNameError ? "form-group has-error" : "form-group"}>
-                        <label className="control-label" htmlFor="inputLoginName" >
-                            <FormattedMessage id="input.username"/>&nbsp;
-                            {loginNameError && <FormattedMessage id="input.loginNameError"/>}
-                        </label>
-                        <FormattedInput type="text" id="inputLoginName" className="form-control"
-                                        placeholder="input.username" onChange={this.handleChange}
-                                        value={this.state.loginName}/>
-                    </div>
-                    <div className="form-group">
-                        <FormattedMessage tagName="label" id="input.firstname" className="control-label" htmlFor="inputFirstName" />
-                        <FormattedInput type="text" id="inputFirstName" className="form-control"
-                                        placeholder="input.firstname" onChange={this.handleChange}
-                                        value={this.state.firstName}/>
-                    </div>
-                    <div className="form-group">
-                        <FormattedMessage tagName="label" id="input.lastname" className="control-label" htmlFor="inputLastName" />
-                        <FormattedInput type="text" id="inputLastName" className="form-control"
-                                        placeholder="input.lastname" onChange={this.handleChange}
-                                        value={this.state.lastName}/>
-                    </div>
-                    <div className="form-group">
-                        <FormattedMessage tagName="label" id="input.password" className="control-label" htmlFor="inputPassword" />
-                        <FormattedInput type="text" id="inputPassword" className="form-control"
-                                        placeholder="input.password" onChange={this.handleChange}
-                                        value={this.state.password}/>
-                    </div>
-                    <div className={roleNameError ? "form-group has-error" : "form-group"}>
-                        <label className="control-label" htmlFor="newUser.roleName.selection" >
-                            <FormattedMessage id="dropdown.role.plsselect"/>&nbsp;
-                            {roleNameError && <FormattedMessage id="dropdown.role.error"/>}
-                        </label><br />
-                        <FormattedDropDown id="newUser.roleName.selection"
-                                          titleId={roleDropDownTitleId}
-                                          onSelect={this.handleSelection}>
-                            <MenuItem eventKey="admin"><FormattedMessage id="dropdown.role.admin"/></MenuItem>
-                            <MenuItem eventKey="supervisor"><FormattedMessage id="dropdown.role.supervisor"/></MenuItem>
-                            <MenuItem eventKey="analyst"><FormattedMessage id="dropdown.role.analyst"/></MenuItem>
-                        </FormattedDropDown>
-                        <button className="btn btn-primary pull-right" onClick={this.sendData}><FormattedMessage id="button.create" /></button>
-                    </div>
-                </form>
-            </div>
+            <form>
+                <FormattedMessage tagName="h3" id="usermanagement.addnew.headline"/>
+                <div className={loginNameError ? "form-group has-error" : "form-group"}>
+                    <label className="control-label" htmlFor="inputLoginName">
+                        <FormattedMessage id="input.username"/>&nbsp;
+                        {loginNameError && <FormattedMessage id="input.loginNameError"/>}
+                    </label>
+                    <FormattedInput type="text" id="inputLoginName" className="form-control"
+                                    placeholder="input.username" onChange={this.handleChange}
+                                    value={this.state.loginName}/>
+                </div>
+                <div className="form-group">
+                    <FormattedMessage tagName="label" id="input.firstname" className="control-label"
+                                      htmlFor="inputFirstName"/>
+                    <FormattedInput type="text" id="inputFirstName" className="form-control"
+                                    placeholder="input.firstname" onChange={this.handleChange}
+                                    value={this.state.firstName}/>
+                </div>
+                <div className="form-group">
+                    <FormattedMessage tagName="label" id="input.lastname" className="control-label"
+                                      htmlFor="inputLastName"/>
+                    <FormattedInput type="text" id="inputLastName" className="form-control"
+                                    placeholder="input.lastname" onChange={this.handleChange}
+                                    value={this.state.lastName}/>
+                </div>
+                <div className="form-group">
+                    <FormattedMessage tagName="label" id="input.password" className="control-label"
+                                      htmlFor="inputPassword"/>
+                    <FormattedInput type="text" id="inputPassword" className="form-control"
+                                    placeholder="input.password" onChange={this.handleChange}
+                                    value={this.state.password}/>
+                </div>
+                <div className={roleNameError ? "form-group has-error" : "form-group"}>
+                    <label className="control-label" htmlFor="newUser.roleName.selection">
+                        <FormattedMessage id="dropdown.role.plsselect"/>&nbsp;
+                        {roleNameError && <FormattedMessage id="dropdown.role.error"/>}
+                    </label><br/>
+                    <FormattedDropDown id="newUser.roleName.selection"
+                                       titleId={roleDropDownTitleId}
+                                       onSelect={this.handleSelection}>
+                        <MenuItem eventKey="admin"><FormattedMessage id="dropdown.role.admin"/></MenuItem>
+                        <MenuItem eventKey="supervisor"><FormattedMessage id="dropdown.role.supervisor"/></MenuItem>
+                        <MenuItem eventKey="analyst"><FormattedMessage id="dropdown.role.analyst"/></MenuItem>
+                    </FormattedDropDown>
+                    <button className="btn btn-primary pull-right" onClick={this.sendData}><FormattedMessage
+                        id="button.create"/></button>
+                </div>
+            </form>
         );
     }
 }
+
+UserManagementAddNew.propTypes = {
+    sendData: PropTypes.func.isRequired
+};

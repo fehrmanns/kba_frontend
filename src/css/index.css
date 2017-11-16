@@ -44,12 +44,15 @@ body::after {
 
 .mainframe .container-fluid {
     animation: hide-menu-content 0.225s ease-out;
-    padding-left: 0;
+    margin-left: 0;
+    background: rgba(255,255,255,0.85);
+    border-radius: 6px;
+    border: 1px solid #ddd;
 }
 
 .mainframe .show.container-fluid {
     animation: show-menu-content 0.225s ease-out;
-    padding-left: 215px;
+    margin-left: 215px;
 }
 
 .progress {

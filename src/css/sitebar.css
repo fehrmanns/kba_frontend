@@ -41,18 +41,18 @@
 
 @keyframes show-menu-content {
     0% {
-        padding-left: 0;
+        margin-left: 0;
     }
     100% {
-        padding-left: 215px;
+        margin-left: 215px;
     }
 }
 
 @keyframes hide-menu-content {
     0% {
-        padding-left: 215px;
+        margin-left: 215px;
     }
     100% {
-        padding-left: 0;
+        margin-left: 0;
     }
 }

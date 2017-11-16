@@ -73,6 +73,16 @@
         "view.license.title": "Lizenzverwaltung",
         "view.license.body": "Jetzt, wo wir wissen, wer du bist, weiß ich, wer ich bin. Ich bin kein Fehler! Es macht alles Sinn! In einem Comic weißt du, wie du sagen kannst, wer der Erzbösewicht sein wird? Er ist das genaue Gegenteil des Helden. Und meistens sind sie Freunde, wie du und ich! Ich hätte es schon gewusst, wenn ... Du weißt warum, David? Wegen der Kinder. Sie nannten mich Mr. Glass.",
 
+        "usermanagement.addnew.headline":"Nutzer hinzufügen",
+        "usermanagement.list.headline":"Benutzerübersicht",
+        "usermanagement.list.loginName": "Benutzer",
+        "usermanagement.list.firstName": "Vorname",
+        "usermanagement.list.lastName": "Nachname",
+        "usermanagement.list.roleName": "Rolle",
+        "usermanagement.list.created": "angelegt am",
+        "usermanagement.list.modified": "geändert am",
+        "usermanagement.list.modifiedBy": "geändert von",
+
         "":""
     }
 }
