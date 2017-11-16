@@ -23,7 +23,8 @@ class FormattedInput extends React.Component {
 
 FormattedInput.propTypes = {
     intl: intlShape.isRequired,
-    type:  PropTypes.string.isRequired
+    type:  PropTypes.string.isRequired,
+    placeholder: PropTypes.string.isRequired
 };
 
 export default injectIntl(FormattedInput);

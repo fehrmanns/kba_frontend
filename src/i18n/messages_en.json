@@ -6,17 +6,21 @@
         "header.dropdown.language.en": "English",
         "header.dropdown.language.de": "German",
 
-        "dropdown.role.default": "Select user role",
+        "dropdown.role.default": "Please select",
+        "dropdown.role.error": "shouldn't be default.",
+        "dropdown.role.plsselect": "User role",
         "dropdown.role.admin": "Admin",
         "dropdown.role.supervisor": "Supervisor",
         "dropdown.role.analyst": "Analyst",
 
         "input.username": "User name",
+        "input.loginNameError": "shouldn't be empty.",
         "input.firstname":"first name",
         "input.lastname":"last name",
         "input.password": "Password",
 
         "button.submit": "Submit",
+        "button.create": "Create",
 
         "login.input.heading": "Please sign in",
         "login.label.fail": "Login failed",

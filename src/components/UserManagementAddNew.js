@@ -14,10 +14,13 @@ export default class UserManagementAddNew extends React.Component {
             firstName: "",
             lastName: "",
             password: "",
-            roleName: "default"
+            roleName: "default",
+            loginNameIsValid: true,
+            roleNameIsValid: true
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSelection = this.handleSelection.bind(this);
+        this.sendData = this.sendData.bind(this);
     }
 
     handleChange(event) {
@@ -27,7 +30,8 @@ export default class UserManagementAddNew extends React.Component {
         switch (targetName) {
             case 'loginname':
                 this.setState({
-                    loginName: event.target.value
+                    loginName: event.target.value,
+                    loginNameIsValid: true
                 });
                 break;
             case 'firstname':
@@ -53,29 +57,69 @@ export default class UserManagementAddNew extends React.Component {
     handleSelection(value) {
 
         this.setState({
-            roleName: value
+            roleName: value,
+            roleNameIsValid: true
         });
+    }
+
+    sendData(event) {
+        event.preventDefault();
+
+        const loginNameIsValid = !!this.state.loginName;
+        const roleNameIsValid = ( this.state.roleName !== "default" );
+
+        this.setState({
+            loginNameIsValid: loginNameIsValid,
+            roleNameIsValid: roleNameIsValid
+        });
+        const isValid = loginNameIsValid && roleNameIsValid;
+
+        console.log("isValid:", isValid );
+        if (!isValid) return;
+
+        //console.log("send data here.", this.state);
     }
 
     render() {
         const roleDropDownTitleId = "dropdown.role." + this.state.roleName;
+        const loginNameError = !this.state.loginNameIsValid;
+        const roleNameError = !this.state.roleNameIsValid;
 
         return (
             <div className="starter-template">
                 <form>
-                    <div className="form-group">
+                    <div className={loginNameError ? "form-group has-error" : "form-group"}>
+                        <label className="control-label" htmlFor="inputLoginName" >
+                            <FormattedMessage id="input.username"/>&nbsp;
+                            {loginNameError && <FormattedMessage id="input.loginNameError"/>}
+                        </label>
                         <FormattedInput type="text" id="inputLoginName" className="form-control"
                                         placeholder="input.username" onChange={this.handleChange}
                                         value={this.state.loginName}/>
+                    </div>
+                    <div className="form-group">
+                        <FormattedMessage tagName="label" id="input.firstname" className="control-label" htmlFor="inputFirstName" />
                         <FormattedInput type="text" id="inputFirstName" className="form-control"
                                         placeholder="input.firstname" onChange={this.handleChange}
                                         value={this.state.firstName}/>
+                    </div>
+                    <div className="form-group">
+                        <FormattedMessage tagName="label" id="input.lastname" className="control-label" htmlFor="inputLastName" />
                         <FormattedInput type="text" id="inputLastName" className="form-control"
                                         placeholder="input.lastname" onChange={this.handleChange}
                                         value={this.state.lastName}/>
+                    </div>
+                    <div className="form-group">
+                        <FormattedMessage tagName="label" id="input.password" className="control-label" htmlFor="inputPassword" />
                         <FormattedInput type="text" id="inputPassword" className="form-control"
                                         placeholder="input.password" onChange={this.handleChange}
                                         value={this.state.password}/>
+                    </div>
+                    <div className={roleNameError ? "form-group has-error" : "form-group"}>
+                        <label className="control-label" htmlFor="newUser.roleName.selection" >
+                            <FormattedMessage id="dropdown.role.plsselect"/>&nbsp;
+                            {roleNameError && <FormattedMessage id="dropdown.role.error"/>}
+                        </label><br />
                         <LanguageDropDown id="newUser.roleName.selection"
                                           titleId={roleDropDownTitleId}
                                           onSelect={this.handleSelection}>
@@ -83,6 +127,7 @@ export default class UserManagementAddNew extends React.Component {
                             <MenuItem eventKey="supervisor"><FormattedMessage id="dropdown.role.supervisor"/></MenuItem>
                             <MenuItem eventKey="analyst"><FormattedMessage id="dropdown.role.analyst"/></MenuItem>
                         </LanguageDropDown>
+                        <button className="btn btn-primary pull-right" onClick={this.sendData}><FormattedMessage id="button.create" /></button>
                     </div>
                 </form>
             </div>

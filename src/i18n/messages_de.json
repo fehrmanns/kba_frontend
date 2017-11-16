@@ -6,17 +6,21 @@
         "header.dropdown.language.en": "Englisch",
         "header.dropdown.language.de": "Deutsch",
 
-        "dropdown.role.default": "Benutzerrolle",
-        "dropdown.role.admin": "Admin",
-        "dropdown.role.supervisor": "Supervisor",
-        "dropdown.role.analyst": "Analyst",
+        "dropdown.role.default": "Bitte auswählen",
+        "dropdown.role.error": "bitte auswählen.",
+        "dropdown.role.plsselect": "Benutzerrolle",
+        "dropdown.role.admin": "Administrator",
+        "dropdown.role.supervisor": "Aufsichtsperson",
+        "dropdown.role.analyst": "Analytiker",
 
         "input.username": "Nutzername",
+        "input.loginNameError": "darf nicht leer sein.",
         "input.firstname":"Vorname",
         "input.lastname":"Nachname",
         "input.password": "Passwort",
 
         "button.submit": "Absenden",
+        "button.create": "Anlegen",
 
         "login.input.heading": "Bitte anmelden",
         "login.label.fail": "Anmeldung fehlgeschlagen",
