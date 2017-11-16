@@ -31,23 +31,12 @@ class Login extends Component {
 
     handleChange(event) {
 
-        this.setState({showError: false});
         const targetName = event.target.id.replace('input', '').toLowerCase();
 
-        switch (targetName) {
-            case 'username':
-                this.setState({
-                    username: event.target.value
-                });
-                break;
-            case 'password':
-                this.setState({
-                    password: event.target.value
-                });
-                break;
-            default:
-                return
-        }
+        this.setState({
+            [targetName]: event.target.value,
+            showError: false
+        });
     }
 
     handleSubmit(event) {

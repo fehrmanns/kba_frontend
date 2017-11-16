@@ -25,33 +25,15 @@ export default class UserManagementAddNew extends React.Component {
 
     handleChange(event) {
 
-        const targetName = event.target.id.replace('input', '').toLowerCase();
+        event.preventDefault();
 
-        switch (targetName) {
-            case 'loginname':
-                this.setState({
-                    loginName: event.target.value,
-                    loginNameIsValid: true
-                });
-                break;
-            case 'firstname':
-                this.setState({
-                    firstName: event.target.value
-                });
-                break;
-            case 'lastname':
-                this.setState({
-                    lastName: event.target.value
-                });
-                break;
-            case 'password':
-                this.setState({
-                    password: event.target.value
-                });
-                break;
-            default:
-                return
-        }
+        const targetName = event.target.id.replace('input', '').replace(/\b[A-Z]/g, function(letter) {
+            return letter.toLowerCase();
+        });
+
+        this.setState(
+            (targetName === "loginName") ? {[targetName]: event.target.value, loginNameIsValid: true} : {[targetName]: event.target.value}
+        )
     }
 
     handleSelection(value) {
@@ -74,10 +56,12 @@ export default class UserManagementAddNew extends React.Component {
         });
         const isValid = loginNameIsValid && roleNameIsValid;
 
-        console.log("isValid:", isValid );
         if (!isValid) return;
 
-        //console.log("send data here.", this.state);
+        const newUser = {...this.state};
+        delete newUser["loginNameIsValid"];
+        delete newUser["roleNameIsValid"];
+        console.log("send this:",  JSON.stringify(newUser));
     }
 
     render() {
