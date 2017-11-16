@@ -1,7 +1,7 @@
 import React from 'react'
 import {FormattedMessage} from 'react-intl'
 import FormattedInput from '../components/i18n/FormattedInput'
-import LanguageDropDown from '../components/i18n/LanguageDropDown'
+import FormattedDropDown from './i18n/FormattedDropDown'
 import {MenuItem} from 'react-bootstrap'
 
 export default class UserManagementAddNew extends React.Component {
@@ -104,13 +104,13 @@ export default class UserManagementAddNew extends React.Component {
                             <FormattedMessage id="dropdown.role.plsselect"/>&nbsp;
                             {roleNameError && <FormattedMessage id="dropdown.role.error"/>}
                         </label><br />
-                        <LanguageDropDown id="newUser.roleName.selection"
+                        <FormattedDropDown id="newUser.roleName.selection"
                                           titleId={roleDropDownTitleId}
                                           onSelect={this.handleSelection}>
                             <MenuItem eventKey="admin"><FormattedMessage id="dropdown.role.admin"/></MenuItem>
                             <MenuItem eventKey="supervisor"><FormattedMessage id="dropdown.role.supervisor"/></MenuItem>
                             <MenuItem eventKey="analyst"><FormattedMessage id="dropdown.role.analyst"/></MenuItem>
-                        </LanguageDropDown>
+                        </FormattedDropDown>
                         <button className="btn btn-primary pull-right" onClick={this.sendData}><FormattedMessage id="button.create" /></button>
                     </div>
                 </form>

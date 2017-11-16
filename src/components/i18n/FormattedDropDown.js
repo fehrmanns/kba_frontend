@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { injectIntl, intlShape } from 'react-intl'
 import { DropdownButton } from 'react-bootstrap'
 
-class LanguageDropDown extends React.Component {
+class FormattedDropDown extends React.Component {
 
     render() {
         const {intl, titleId, ...rest} = this.props;
@@ -20,9 +20,9 @@ class LanguageDropDown extends React.Component {
     }
 }
 
-LanguageDropDown.propTypes = {
+FormattedDropDown.propTypes = {
     intl: intlShape.isRequired,
     titleId: PropTypes.string.isRequired
 };
 
-export default injectIntl(LanguageDropDown)
+export default injectIntl(FormattedDropDown)

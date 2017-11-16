@@ -3,7 +3,7 @@ import { injectIntl, intlShape } from 'react-intl'
 import { Link } from 'react-router-dom'
 import { FormattedMessage } from 'react-intl'
 import { MenuItem } from 'react-bootstrap'
-import LanguageDropDown from './i18n/LanguageDropDown'
+import FormattedDropDown from './i18n/FormattedDropDown'
 import './../css/header.css'
 
 class Header extends React.Component {
@@ -28,10 +28,10 @@ class Header extends React.Component {
                         <Link className="navbar-brand" to="/"><FormattedMessage id="header.title" /></Link>
                     </div>
                     <div id="usermenu" className="button-container pull-right">
-                        <LanguageDropDown pullRight bsStyle="link" id="intl.locale.selection" titleId={dropDownId} onSelect={(eventKey) => this.props.changeLanguage(eventKey)}>
+                        <FormattedDropDown pullRight bsStyle="link" id="intl.locale.selection" titleId={dropDownId} onSelect={(eventKey) => this.props.changeLanguage(eventKey)}>
                             <MenuItem eventKey="en"><FormattedMessage id="header.dropdown.language.en" /></MenuItem>
                             <MenuItem eventKey="de"><FormattedMessage id="header.dropdown.language.de" /></MenuItem>
-                        </LanguageDropDown>
+                        </FormattedDropDown>
                         { renderOnLogin && <button className="btn btn-link" onClick={() => this.props.logoutUser()}><FormattedMessage id="header.button.logout" /></button> }
                     </div>
                 </div>
