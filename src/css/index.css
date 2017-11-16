@@ -55,6 +55,20 @@ body::after {
     margin-left: 215px;
 }
 
+.highlight {
+    padding: 9px 14px;
+    margin-bottom: 14px;
+    background-color: #f7f7f9;
+    border: 1px solid #e1e1e8;
+    border-radius: 4px;
+}
+.usermanagement .highlight {
+    margin-top: 15px;
+}
+.usermanagement .highlight h3 {
+    margin-top: 10px;
+}
+
 .progress {
     height: 5px
 }

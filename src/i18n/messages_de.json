@@ -20,7 +20,9 @@
         "input.password": "Passwort",
 
         "button.submit": "Absenden",
-        "button.create": "Anlegen",
+        "button.create": "Benutzer anlegen",
+        "button.newuser.openform": "Neuer Benutzer",
+        "button.newuser.closeform": "Eingabe schließen",
 
         "login.input.heading": "Bitte anmelden",
         "login.label.fail": "Anmeldung fehlgeschlagen",
@@ -73,7 +75,7 @@
         "view.license.title": "Lizenzverwaltung",
         "view.license.body": "Jetzt, wo wir wissen, wer du bist, weiß ich, wer ich bin. Ich bin kein Fehler! Es macht alles Sinn! In einem Comic weißt du, wie du sagen kannst, wer der Erzbösewicht sein wird? Er ist das genaue Gegenteil des Helden. Und meistens sind sie Freunde, wie du und ich! Ich hätte es schon gewusst, wenn ... Du weißt warum, David? Wegen der Kinder. Sie nannten mich Mr. Glass.",
 
-        "usermanagement.addnew.headline":"Nutzer hinzufügen",
+        "usermanagement.addnew.headline":"Benutzer hinzufügen",
         "usermanagement.list.headline":"Benutzerübersicht",
         "usermanagement.list.loginName": "Benutzer",
         "usermanagement.list.firstName": "Vorname",

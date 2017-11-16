@@ -20,7 +20,9 @@
         "input.password": "Password",
 
         "button.submit": "Submit",
-        "button.create": "Create",
+        "button.create": "Create user",
+        "button.newuser.openform": "Add user",
+        "button.newuser.closeform": "Close form",
 
         "login.input.heading": "Please sign in",
         "login.label.fail": "Login failed",
