@@ -5,6 +5,7 @@ import { logoutUser, probeToken } from '../actions'
 import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom'
 import Header from './Header'
 import Sitebar from './Sitebar'
+import NotificationContainer from './NotificationContainer'
 import Login from './../views/Login'
 import Home from './../views/Home'
 import Recordings from './../views/Recordings'
@@ -79,6 +80,7 @@ class Mainframe extends React.Component {
             <IntlProvider locale={this.state.lang} messages={langMsg}>
                 <Router>
                     <div className="mainframe container">
+                        <NotificationContainer/>
                         <Header changeLanguage={this.changeLanguage} lang={langMsg} language={this.state.lang} logoutUser={() => dispatch(logoutUser())} toggleMenu={() => this.toggleMenu()} renderOnLogin={isAuthenticated} />
                         <div className="row progress">
                             <div className="progress-bar progress-bar-danger progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100">

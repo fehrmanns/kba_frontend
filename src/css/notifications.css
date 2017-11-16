@@ -1,0 +1,17 @@
+/* styles for all type of notifications */
+.progress {
+    height: 5px
+}
+.progress-bar-striped {
+    width: 100%
+}
+
+.notifications {
+    position: absolute;
+    bottom: 0;
+    right: 7px;
+    z-index: 1000;
+}
+.alert {
+    margin-bottom: 7px;
+}

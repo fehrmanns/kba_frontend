@@ -62,17 +62,3 @@ body::after {
     border: 1px solid #e1e1e8;
     border-radius: 4px;
 }
-.usermanagement .highlight {
-    margin-top: 15px;
-}
-.usermanagement .highlight h3 {
-    margin-top: 10px;
-}
-
-.progress {
-    height: 5px
-}
-
-.progress-bar-striped {
-    width: 100%
-}

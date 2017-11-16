@@ -1,5 +1,15 @@
 {
     "de": {
+        "alert.strong.message.success": "Sehr gut!",
+        "alert.strong.message.info": "Information:",
+        "alert.strong.message.warning": "Vorsicht.",
+        "alert.strong.message.danger": "Achtung!",
+
+        "alert.message.400": "Die Anfrage-Nachricht war fehlerhaft aufgebaut.",
+        "alert.message.401": "Anfrage ohne gültige Authentifizierung.",
+        "alert.message.saved": "Änderung wurde gespeichert.",
+        "alert.message.notsaved": "Speichern fehlgeschlagen.",
+
         "header.title": "Klarios Biometrics Analytics",
         "header.button.logout": "Ausloggen",
         "header.button.togglenavigation": "Navigation Ein-/Ausblenden",

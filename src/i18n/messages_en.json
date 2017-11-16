@@ -1,5 +1,15 @@
 {
     "en": {
+        "alert.strong.massage.success": "Very good!",
+        "alert.strong.massage.info": "Information:",
+        "alert.strong.massage.warning": "Warning.",
+        "alert.strong.massage.danger": "Attention!",
+
+        "alert.message.400": "Bad Request.",
+        "alert.message.401": "Unauthorized.",
+        "alert.message.saved": "Change was saved.",
+        "alert.message.notsaved": "Saving failed.",
+
         "header.title": "Klarios Biometrics Analytics",
         "header.button.logout": "Log out",
         "header.button.togglenavigation": "Toggle navigation",
