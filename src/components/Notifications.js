@@ -2,7 +2,7 @@ import React from 'react'
 import NotificationItem from './NotificationItem'
 import '../css/notifications.css'
 
-class NotificationContainer extends React.Component {
+class Notifications extends React.Component {
 
 
     render() {
@@ -17,4 +17,4 @@ class NotificationContainer extends React.Component {
     }
 }
 
-export default NotificationContainer
+export default Notifications
