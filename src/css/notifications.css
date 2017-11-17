@@ -1,11 +1,3 @@
-/* styles for all type of notifications */
-.progress {
-    height: 5px
-}
-.progress-bar-striped {
-    width: 100%
-}
-
 .notifications {
     position: absolute;
     bottom: 0;
