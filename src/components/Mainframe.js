@@ -3,22 +3,11 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { logoutUser, probeToken } from '../actions'
 import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom'
+import Routes from './Routes'
+import Login from './../views/Login'
 import Header from './Header'
 import Sitebar from './Sitebar'
 import Notifications from './Notifications'
-import Login from './../views/Login'
-import Home from './../views/Home'
-import Recordings from './../views/Recordings'
-import BiometricProfiles from './../views/BiometricProfiles'
-import Matchlist from './../views/Matchlist'
-import Matchall from './../views/Matchall'
-import Fileimport from './../views/Fileimport'
-import Joblist from './../views/Joblist'
-import Importsettings from './../views/Importsettings'
-import Usersettings from './../views/Usersettings'
-import Organisationsettings from './../views/Organisationsettings'
-import Categorysettings from './../views/Categorysettings'
-import License from './../views/License'
 import { toggleItem as toggleSitebar, getItem as getStorage } from './../utilities/storage'
 import { addLocaleData, IntlProvider } from 'react-intl';
 import intlEN from 'react-intl/locale-data/en';
@@ -66,14 +55,6 @@ class Mainframe extends React.Component {
         const { dispatch, auth, isAuthenticated } = this.props;
         const localeMessages = Object.assign({}, en, de);
         const langMsg = localeMessages[this.state.lang];
-        const PrivateRoute = ({ component: Component, ...rest }) => (
-            <Route {...rest} render={(props) => (
-                isAuthenticated ?
-                    (<Component {...props} />)
-                    :
-                    (<Redirect to={{ pathname: '/login' }} />)
-            )} />
-        );
 
 
         return (
@@ -90,22 +71,10 @@ class Mainframe extends React.Component {
 
                         {isAuthenticated ?
                             <div className={(this.state.sitebar === "true") ? 'show container-fluid' : 'container-fluid'}>
-                                <Route exact path="/login" render={() => (<Redirect to="/" />)} />
-                                <PrivateRoute exact path="/" component={Home} />
-                                <Route exact path="/recordings" component={Recordings} />
-                                <Route exact path="/biometricprofiles" component={BiometricProfiles} />
-                                <Route exact path="/matchlist" component={Matchlist} />
-                                <Route exact path="/topics" component={Matchall} />
-                                <Route exact path="/fileimport" component={Fileimport} />
-                                <Route exact path="/joblist" component={Joblist} />
-                                <Route exact path="/importsettings" component={Importsettings} />
-                                <Route exact path="/usersettings" component={Usersettings} />
-                                <Route exact path="/organisationsettings" component={Organisationsettings} />
-                                <Route exact path="/categorysettings" component={Categorysettings} />
-                                <Route exact path="/license" component={License} />
+                            <Routes isAuthenticated={isAuthenticated} />
                             </div>
                             :
-                            <Route path="/" render={() => <Login dispatch={dispatch} auth={auth} />} />
+                            <Route path="/" render={() => <Login dispatch={dispatch} auth={auth}/>} />
                         }
 
                     </div>
