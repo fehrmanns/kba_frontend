@@ -34,10 +34,8 @@ class Mainframe extends React.Component {
         this.changeLanguage = this.changeLanguage.bind(this);
     }
 
-    checkToken() {
-
-        this.props.dispatch(probeToken());
-    }
+    checkToken() { this.props.dispatch(probeToken()) }
+    changeLanguage( selectedLanguage ) { this.setState({ lang: selectedLanguage }) }
 
     toggleMenu() {
         toggleSitebar("sitebar");
@@ -46,17 +44,11 @@ class Mainframe extends React.Component {
         })
     }
 
-    changeLanguage(selectedLanguage) {
-        this.setState({
-            lang: selectedLanguage
-        });
-    }
 
     render() {
         const {dispatch, auth, isAuthenticated} = this.props;
         const localeMessages = Object.assign({}, en, de);
         const langMsg = localeMessages[this.state.lang];
-
 
         return (
             <IntlProvider locale={this.state.lang} messages={langMsg}>

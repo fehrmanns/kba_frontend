@@ -1,9 +1,9 @@
 {
     "en": {
-        "alert.strong.massage.success": "Very good!",
-        "alert.strong.massage.info": "Information:",
-        "alert.strong.massage.warning": "Warning.",
-        "alert.strong.massage.danger": "Attention!",
+        "alert.strong.message.success": "Very good!",
+        "alert.strong.message.info": "Information:",
+        "alert.strong.message.warning": "Warning.",
+        "alert.strong.message.danger": "Attention!",
 
         "alert.message.400": "Bad Request.",
         "alert.message.401": "Unauthorized.",

@@ -6,6 +6,8 @@ import './../css/usermanagement.css'
 
 export default class UserManagementList extends React.Component {
     render() {
+        const users = this.props.userList.kbaUserDtos;
+
         return (
             <div>
                 <FormattedMessage tagName="h3" id="usermanagement.list.headline"/>
@@ -22,7 +24,7 @@ export default class UserManagementList extends React.Component {
                         </tr>
                     </thead>
                     <tbody>
-                    {this.props.userList.kbaUserDtos.map((userItem) => <UserManagementListItem
+                    {users.map((userItem) => <UserManagementListItem
                         key={"ListItem." + userItem.loginName} userItem={userItem}/>)}
                     </tbody>
                 </table>
