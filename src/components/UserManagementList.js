@@ -2,7 +2,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {FormattedMessage} from 'react-intl'
 import UserManagementListItem from './UserManagementListItem'
-import './../css/usermanagement.css'
 
 export default class UserManagementList extends React.Component {
     render() {

@@ -34,8 +34,13 @@ class Mainframe extends React.Component {
         this.changeLanguage = this.changeLanguage.bind(this);
     }
 
-    checkToken() { this.props.dispatch(probeToken()) }
-    changeLanguage( selectedLanguage ) { this.setState({ lang: selectedLanguage }) }
+    checkToken() {
+        this.props.dispatch(probeToken())
+    }
+
+    changeLanguage(selectedLanguage) {
+        this.setState({lang: selectedLanguage})
+    }
 
     toggleMenu() {
         toggleSitebar("sitebar");
@@ -54,7 +59,7 @@ class Mainframe extends React.Component {
             <IntlProvider locale={this.state.lang} messages={langMsg}>
                 <Router>
                     <div className="mainframe container">
-                        <Notifications/>
+                        <Notifications messages={this.state.messages}/>
                         <Header changeLanguage={this.changeLanguage} lang={langMsg} language={this.state.lang}
                                 logoutUser={() => dispatch(logoutUser())} toggleMenu={() => this.toggleMenu()}
                                 renderOnLogin={isAuthenticated}/>

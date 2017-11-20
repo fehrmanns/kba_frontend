@@ -13,7 +13,7 @@ export const TOKEN_FAILURE = 'TOKEN_FAILURE';
 
 export const ADD_MESSAGE = 'ADD_MESSAGE';
 
-
+// login & logout handling
 function requestLogin(creds) {
     return {
         type: LOGIN_REQUEST,
@@ -22,7 +22,6 @@ function requestLogin(creds) {
         creds
     }
 }
-
 function receiveLogin(user) {
     return {
         type: LOGIN_SUCCESS,
@@ -31,7 +30,6 @@ function receiveLogin(user) {
         id_token: user.auth_token
     }
 }
-
 function loginError(message) {
     return {
         type: LOGIN_FAILURE,
@@ -40,7 +38,6 @@ function loginError(message) {
         message
     }
 }
-
 function requestLogout() {
     return {
         type: LOGOUT_REQUEST,
@@ -48,7 +45,6 @@ function requestLogout() {
         isAuthenticated: true
     }
 }
-
 function receiveLogout() {
     return {
         type: LOGOUT_SUCCESS,
@@ -56,7 +52,6 @@ function receiveLogout() {
         isAuthenticated: false
     }
 }
-
 export function logoutUser() {
     return dispatch => {
         dispatch(requestLogout());
@@ -67,8 +62,7 @@ export function logoutUser() {
     }
 }
 
-// Calls the API to get a token and
-// dispatches actions along the way
+// Calls the API to get a token
 export function loginUser(creds) {
     const encodeLogin = "Basic " + btoa(creds.username + ":" + creds.password);
     let loginHeader = new Headers();
@@ -113,9 +107,6 @@ export function loginUser(creds) {
             }).catch(err => console.warn("Error: ", err))
     }
 }
-
-// Calls the API to check the token
-// dispatches actions along the way
 export function probeToken() {
     const profile = JSON.parse(localStorage.getItem('profile'));
     const endpoint = "management/users/" + profile.loginName + "?inclPrivs=true";
@@ -139,4 +130,15 @@ export function probeToken() {
                 }
             }).catch(err => console.log("Error: ", err))
     }
+}
+
+// user handling
+export function addUser(user) {
+
+}
+export function updateUser(user) {
+
+}
+export function deleteUser(user) {
+
 }

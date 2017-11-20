@@ -3,8 +3,9 @@ import {FormattedMessage} from 'react-intl'
 import UserManagementAddNew from '../components/UserManagementAddNew'
 import UserManagementList from '../components/UserManagementList'
 import {Collapse} from 'react-bootstrap'
+import './../css/usermanagement.css'
 
-export default class Usersettings extends React.Component {
+export default class UserManagement extends React.Component {
 
     constructor(...args) {
         super(...args);

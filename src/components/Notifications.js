@@ -8,25 +8,25 @@ class Notifications extends React.Component {
     render() {
         const { messages } = this.props;
         // TODO: this notification has to be closed somehow.
+        console.log("messages:", messages)
 
         return (
             <div className="notifications">
-                {/* messages && messages.map((message) => <NotificationItem type="success" textId="alert.message.saved"/>) */}
+                {/* messages && messages.map((message) => <NotificationItem type="success" textId="alert.message.saved"/>)
                 <NotificationItem type="success" textId="alert.message.saved"/>
                 <NotificationItem type="info" textId="alert.message.notsaved"/>
-                <NotificationItem type="warning" textId="alert.message.401"/>
+                <NotificationItem type="warning" textId="alert.message.401"/> */}
                 <NotificationItem type="danger" textId="alert.message.400"/>
             </div>
         );
     }
 }
+
 function mapStateToProps(state) {
 
     const {messages} = state;
 
-    return {
-        messages
-    }
+    return { messages }
 }
 
 export default connect(mapStateToProps)(Notifications)

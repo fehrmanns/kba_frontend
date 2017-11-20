@@ -1,17 +1,16 @@
 
 /* Login Uniform Resource Identifier */
 const LURI = 'http://localhost:8080/befe/rest/';
-//const LURI = '';
 
 function callApi(endpoint, authenticated, method) {
 
-    let token = localStorage.getItem('auth_token') || null
-    let config = {}
+    let token = localStorage.getItem('auth_token') || null;
+    let config = {};
 
     if (authenticated) {
         if (token) {
             config = {
-                method: 'GET',
+                method: method,
                 headers: { 'token': token }
             }
         } else {
@@ -42,7 +41,7 @@ export default store => next => action => {
         return next(action)
     }
 
-    let { endpoint, types, authenticated } = callAPI
+    let { endpoint, types, authenticated } = callAPI;
 
     //const [requestType, successType, errorType] = types
     const [successType, errorType] = types
