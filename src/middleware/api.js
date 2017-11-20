@@ -1,53 +1,77 @@
-
 /* Login Uniform Resource Identifier */
 const LURI = 'http://localhost:8080/befe/rest/';
 
-function callApi(endpoint, authenticated, method) {
+function callApi(endpoint, authenticated, method, json) {
 
     let token = localStorage.getItem('auth_token') || null;
+    let loginHeader = new Headers();
     let config = {};
+
+    //TODO: check if token is valid!
 
     if (authenticated) {
         if (token) {
-            config = {
-                method: method,
-                headers: { 'token': token }
-            }
+            loginHeader.append("token", token);
+
         } else {
             console.log("No token saved!")
         }
     }
+    if (method === 'POST' || method === 'PUT') {
+        loginHeader.append('Content-Type', 'application/json');
+        config = Object.assign({}, config, {body: json});
+    }
 
-    return fetch(LURI + endpoint, config)
-        .then(response =>
-            response.text().then(text => ({ text, response }))
-        ).then(({ text, response }) => {
-            if (!response.ok) {
-                return Promise.reject(text)
-            }
+    config = Object.assign({}, config, {
+        method: method,
+        headers: loginHeader
+    });
 
-            return text
-        }).catch(err => console.warn(err))
+    console.log("config", config);
+
+    //TODO: create good switch for request
+    if (method === 'GET') {
+        return fetch(LURI + endpoint, config)
+            .then(response =>
+                response.json().then(json => ({json, response}))
+            ).then(({json, response}) => {
+                console.log("callApiResponse", json);
+                if (!response.ok) {
+                    return Promise.reject(json)
+                }
+                return json
+            }).catch(err => console.warn(err))
+    } else {
+        return fetch(LURI + endpoint, config)
+            .then(response =>
+                response.text().then(text => ({ text, response }))
+            ).then(({ text, response }) => {
+                if (!response.ok) {
+                    return Promise.reject(text)
+                }
+                return text
+            }).catch(err => console.warn(err))
+    }
 }
 
 export const CALL_API = Symbol('Call API')
 
 export default store => next => action => {
 
-    const callAPI = action[CALL_API]
+    const callAPI = action[CALL_API];
 
     // So the middleware doesn't get applied to every single action
     if (typeof callAPI === 'undefined') {
         return next(action)
     }
 
-    let { endpoint, types, authenticated } = callAPI;
+    let {endpoint, types, authenticated, method, json} = callAPI;
 
     //const [requestType, successType, errorType] = types
-    const [successType, errorType] = types
+    const [successType, errorType] = types;
 
     // Passing the authenticated boolean back in our data will let us distinguish between normal and secret quotes
-    return callApi(endpoint, authenticated).then(
+    return callApi(endpoint, authenticated, method, json).then(
         response =>
             next({
                 response,

@@ -17,7 +17,7 @@ import License from './../views/License'
 export default class Routes extends React.Component {
 
     render() {
-        const { isAuthenticated } = this.props;
+        const { isAuthenticated,dispatch } = this.props;
         const PrivateRoute = ({ component: Component, ...rest }) => (
             <Route {...rest} render={(props) => (
                 isAuthenticated ?
@@ -38,7 +38,7 @@ export default class Routes extends React.Component {
                 <Route exact path="/fileimport" component={Fileimport}/>
                 <Route exact path="/joblist" component={Joblist}/>
                 <Route exact path="/importsettings" component={Importsettings}/>
-                <Route exact path="/usersettings" component={Usersettings}/>
+                <Route path="/usersettings" render={() => <Usersettings dispatch={dispatch}/>}/>
                 <Route exact path="/organisationsettings" component={Organisationsettings}/>
                 <Route exact path="/categorysettings" component={Categorysettings}/>
                 <Route exact path="/license" component={License}/>

@@ -70,7 +70,7 @@ class Mainframe extends React.Component {
 
                         {isAuthenticated ?
                             <div className={(this.state.sitebar === "true") ? 'show container-fluid' : 'container-fluid'}>
-                                <Routes isAuthenticated={isAuthenticated}/>
+                                <Routes isAuthenticated={isAuthenticated} dispatch={dispatch}/>
                             </div>
                             :
                             <Route path="/" render={() => <Login dispatch={dispatch} auth={auth}/>}/>
@@ -88,8 +88,6 @@ Mainframe.propTypes = {
     auth: PropTypes.object.isRequired
 };
 
-// These props come from the application's
-// state when it is started
 function mapStateToProps(state) {
 
     const {auth, tokenIsValid} = state;

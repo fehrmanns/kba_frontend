@@ -1,11 +1,10 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import {FormattedMessage} from 'react-intl'
 import UserManagementListItem from './UserManagementListItem'
 
 export default class UserManagementList extends React.Component {
     render() {
-        const users = this.props.userList.kbaUserDtos;
+        const { users, deleteUser } = this.props;
 
         return (
             <div>
@@ -18,19 +17,17 @@ export default class UserManagementList extends React.Component {
                             <th><FormattedMessage id="usermanagement.list.lastName"/></th>
                             <th><FormattedMessage id="usermanagement.list.roleName"/></th>
                             <th><FormattedMessage id="usermanagement.list.created"/></th>
+                            {/*
                             <th><FormattedMessage id="usermanagement.list.modified"/></th>
                             <th><FormattedMessage id="usermanagement.list.modifiedBy"/></th>
+                            */}
                         </tr>
                     </thead>
                     <tbody>
-                    {users.map((userItem) => <UserManagementListItem
-                        key={"ListItem." + userItem.loginName} userItem={userItem}/>)}
+                    {users.map((userItem) => <UserManagementListItem key={"ListItem." + userItem.loginName} userItem={userItem} deleteUser={deleteUser}/>)}
                     </tbody>
                 </table>
             </div>
         )
     }
 }
-UserManagementList.propTypes = {
-    userList: PropTypes.object.isRequired
-};

@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {FormattedDate} from 'react-intl'
+import {FormattedDate, FormattedMessage} from 'react-intl'
 
 export default class UserManagementListItem extends React.Component {
     render() {
@@ -21,6 +21,7 @@ export default class UserManagementListItem extends React.Component {
                         year="numeric" />
                     }
                 </td>
+                {/*
                 <td>
                     {!!user.modified &&
                     <FormattedDate
@@ -31,6 +32,12 @@ export default class UserManagementListItem extends React.Component {
                     }
                 </td>
                 <td>{!!user.modifiedBy && user.modifiedBy}</td>
+                */}
+                <td>
+                    <button onClick={() => this.props.deleteUser(user.loginName)}>
+                        <FormattedMessage id="button.delete"/>
+                    </button>
+                </td>
             </tr>
         )
     }

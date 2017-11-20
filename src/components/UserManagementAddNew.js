@@ -17,6 +17,7 @@ export default class UserManagementAddNew extends React.Component {
             password: "",
             roleName: "default",
             loginNameIsValid: true,
+            passwordIsValid: true,
             roleNameIsValid: true
         };
         this.handleChange = this.handleChange.bind(this);
@@ -31,7 +32,7 @@ export default class UserManagementAddNew extends React.Component {
         const targetName = event.target.id.replace('input', '').replace(/\b[A-Z]/g, function (letter) {
             return letter.toLowerCase();
         });
-
+        //TODO: check all fields for mandatory!
         this.setState(
             (targetName === "loginName") ? {
                 [targetName]: event.target.value,
@@ -65,8 +66,9 @@ export default class UserManagementAddNew extends React.Component {
         const newUser = {...this.state};
         delete newUser["loginNameIsValid"];
         delete newUser["roleNameIsValid"];
+        delete newUser["passwordIsValid"];
 
-        this.props.sendData(newUser);
+        this.props.sendData(JSON.stringify(newUser));
     }
 
     render() {

@@ -1,50 +1,38 @@
 import React from 'react'
+import PropTypes from 'prop-types'
+import {connect} from 'react-redux'
 import {FormattedMessage} from 'react-intl'
+import {addUser, getUsers, updateUser, deleteUser} from '../actions'
 import UserManagementAddNew from '../components/UserManagementAddNew'
 import UserManagementList from '../components/UserManagementList'
 import {Collapse} from 'react-bootstrap'
 import './../css/usermanagement.css'
 
-export default class UserManagement extends React.Component {
+class UserManagement extends React.Component {
 
-    constructor(...args) {
-        super(...args);
+    constructor(props) {
+        super(props);
 
-        this.state = {};
+        this.state = {
+            addUser: this.props.addUser,
+            dispatch: this.props.dispatch
+        };
+
+        this.state.dispatch(getUsers());
+        this.addNewUser = this.addNewUser.bind(this);
+        this.deleteUser = this.deleteUser.bind(this);
+    }
+
+    addNewUser(newUser) {
+        this.state.dispatch(addUser(newUser)).then(() => this.state.dispatch(getUsers()));
+    }
+
+    deleteUser(user) {
+        this.state.dispatch(deleteUser(user));
     }
 
     render() {
-        const userList = {
-            "kbaUserDtos": [{
-                "loginName": "admin",
-                "firstName": "",
-                "lastName": "",
-                "password": null,
-                "passwordHash": null,
-                "roleName": "admin",
-                "active": true,
-                "expired": false,
-                "created": "2017-11-14T14:02:49.44353Z",
-                "createdBy": null,
-                "modified": null,
-                "modifiedBy": null,
-                "kbaRestServices": null
-            }, {
-                "loginName": "m.mustermann",
-                "firstName": "Maximilian",
-                "lastName": "von Mustermann2",
-                "password": null,
-                "passwordHash": null,
-                "roleName": "supervisor",
-                "active": true,
-                "expired": false,
-                "created": "2017-11-15T08:05:04.65Z",
-                "createdBy": "admin",
-                "modified": "2017-11-15T08:05:05.174Z",
-                "modifiedBy": "m.mustermann",
-                "kbaRestServices": null
-            }]
-        };
+        const { userList, userAreLoaded } = this.props;
 
         return (
             <div className="usermanagement">
@@ -66,18 +54,35 @@ export default class UserManagement extends React.Component {
                     <div className="col-xs-12">
                         <Collapse in={this.state.open}>
                             <div>
-                                <UserManagementAddNew
-                                    sendData={(newUser) => console.log("new User", JSON.stringify(newUser))}/>
+                                <UserManagementAddNew sendData={(newUser) => this.addNewUser(newUser)}/>
                             </div>
                         </Collapse>
                     </div>
                 </div>
                 <div className="row">
                     <div className="col-xs-12">
-                        <UserManagementList userList={userList}/>
+                        {userAreLoaded && <UserManagementList users={userList} deleteUser={this.deleteUser}/> }
                     </div>
                 </div>
             </div>
         );
     }
 }
+
+UserManagement.propTypes = {
+    dispatch: PropTypes.func.isRequired
+};
+
+function mapStateToProps(state) {
+
+    const { users } = state;
+    const userList = users.list;
+    const userAreLoaded = users.isLoaded;
+
+    return {
+        userList,
+        userAreLoaded
+    }
+}
+
+export default connect(mapStateToProps)(UserManagement)
