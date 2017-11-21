@@ -8,13 +8,12 @@ import Login from './../views/Login'
 import Header from './Header'
 import Sitebar from './Sitebar'
 import Notifications from './Notifications'
-import {toggleItem as toggleSitebar, getItem as getStorage} from './../utilities/storage'
+import {toggleItem, getItem, setItem} from './../utilities/storage'
 import {addLocaleData, IntlProvider} from 'react-intl';
 import intlEN from 'react-intl/locale-data/en';
 import intlDE from 'react-intl/locale-data/de';
 import en from '../i18n/messages_en.json';
 import de from '../i18n/messages_de.json';
-import { getItem, setItem } from './../utilities/storage'
 import Progress from "./Progress";
 
 addLocaleData([...intlEN, ...intlDE]);
@@ -28,7 +27,7 @@ class Mainframe extends React.Component {
         this.state = {
             sitebar: getItem("sitebar"),
             loginSuccess: false,
-            lang: getItem("language") ? getStorage("language") : "de"
+            lang: getItem("language") ? getItem("language") : "de"
         };
 
         localStorage.getItem('auth_token') && this.checkToken();
@@ -45,9 +44,9 @@ class Mainframe extends React.Component {
     }
 
     toggleMenu() {
-        toggleSitebar("sitebar");
+        toggleItem("sitebar");
         this.setState({
-            sitebar: getStorage("sitebar")
+            sitebar: getItem("sitebar")
         })
     }
 
@@ -71,7 +70,7 @@ class Mainframe extends React.Component {
                         {isAuthenticated && <Sitebar show={this.state.sitebar}/>}
 
                         {isAuthenticated ?
-                            <div className={(this.state.sitebar === "true") ? 'show container-fluid' : 'container-fluid'}>
+                            <div className={(this.state.sitebar === true) ? 'show container-fluid' : 'container-fluid'}>
                                 <Routes isAuthenticated={isAuthenticated} dispatch={dispatch}/>
                             </div>
                             :

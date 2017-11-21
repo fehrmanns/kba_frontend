@@ -26,9 +26,12 @@
 
         "input.username": "User name",
         "input.loginNameError": "shouldn't be empty.",
-        "input.firstname":"first name",
-        "input.lastname":"last name",
+        "input.firstname":"First name",
+        "input.lastname":"Last name",
         "input.password": "Password",
+        "input.passwordError": "shouldn't be empty.",
+        "input.passwordConfirm": "Repeat passwort",
+        "input.passwordConfirmError": "isn't correct.",
 
         "button.submit": "Submit",
         "button.create": "Create user",

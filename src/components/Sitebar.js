@@ -8,7 +8,7 @@ class Sitebar extends React.Component {
     render() {
         return (
 
-            <div className={(this.props.show === "true") ? 'show sitebar' : 'sitebar'}>
+            <div className={(this.props.show === true) ? 'show sitebar' : 'sitebar'}>
                 <ul>
                     <li>
                         <Link to="/recordings"><FormattedMessage id="menu.sitebar.recordings"/></Link>

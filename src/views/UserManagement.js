@@ -6,6 +6,7 @@ import {addUser, getUsers, updateUser, deleteUser} from '../actions'
 import UserManagementAddNew from '../components/UserManagementAddNew'
 import UserManagementList from '../components/UserManagementList'
 import {Collapse} from 'react-bootstrap'
+import {toggleItem, getItem} from './../utilities/storage'
 import './../css/usermanagement.css'
 
 class UserManagement extends React.Component {
@@ -15,12 +16,15 @@ class UserManagement extends React.Component {
 
         this.state = {
             addUser: this.props.addUser,
-            dispatch: this.props.dispatch
+            dispatch: this.props.dispatch,
+            open: getItem('add_user_open')
         };
 
         this.props.dispatch(getUsers());
         this.addNewUser = this.addNewUser.bind(this);
+        this.updateUser = this.updateUser.bind(this);
         this.deleteUser = this.deleteUser.bind(this);
+        this.toggleAddUser = this.toggleAddUser.bind(this);
     }
 
     addNewUser(newUser) {
@@ -28,11 +32,19 @@ class UserManagement extends React.Component {
     }
 
     updateUser(user) {
-        this.props.dispatch(updateUser(user));
+        updateUser(user);
+        //this.props.dispatch(updateUser(user));
     }
 
     deleteUser(user) {
         this.props.dispatch(deleteUser(user));
+    }
+
+    toggleAddUser() {
+        toggleItem("add_user_open");
+        this.setState({
+            open: getItem("add_user_open")
+        });
     }
 
     render() {
@@ -45,7 +57,7 @@ class UserManagement extends React.Component {
                         <FormattedMessage tagName="h1" id="view.user.title"/>
 
                         <button className="btn btn-primary pull-right"
-                                onClick={() => this.setState({open: !this.state.open})}>
+                                onClick={() => this.toggleAddUser()}>
                             {this.state.open ?
                                 <FormattedMessage id="button.newuser.closeform"/>
                             :
@@ -65,7 +77,7 @@ class UserManagement extends React.Component {
                 </div>
                 <div className="row">
                     <div className="col-xs-12">
-                        {userAreLoaded && <UserManagementList users={userList} deleteUser={this.deleteUser}/> }
+                        {userAreLoaded && <UserManagementList users={userList} deleteUser={this.deleteUser} updateUser={this.updateUser}/> }
                     </div>
                 </div>
             </div>

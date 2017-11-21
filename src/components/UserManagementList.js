@@ -1,10 +1,11 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import {FormattedMessage} from 'react-intl'
 import UserManagementListItem from './UserManagementListItem'
 
 export default class UserManagementList extends React.Component {
     render() {
-        const { users, deleteUser } = this.props;
+        const { users, updateUser, deleteUser } = this.props;
 
         return (
             <div>
@@ -21,14 +22,21 @@ export default class UserManagementList extends React.Component {
                             <th><FormattedMessage id="usermanagement.list.modified"/></th>
                             <th><FormattedMessage id="usermanagement.list.modifiedBy"/></th>
                             */}
-                            <th></th>
+                            <th>{/* placeholder for update-button */}</th>
+                            <th>{/* placeholder for delete-button */}</th>
                         </tr>
                     </thead>
                     <tbody>
-                    {users.map((userItem) => <UserManagementListItem key={"ListItem." + userItem.loginName} userItem={userItem} deleteUser={deleteUser}/>)}
+                    {users.map((userItem) => <UserManagementListItem key={"ListItem." + userItem.loginName} userItem={userItem} updateUser={updateUser} deleteUser={deleteUser}/>)}
                     </tbody>
                 </table>
             </div>
         )
     }
 }
+
+UserManagementList.propTypes = {
+    users: PropTypes.array.isRequired,
+    updateUser: PropTypes.func.isRequired,
+    deleteUser: PropTypes.func.isRequired
+};

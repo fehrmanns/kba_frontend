@@ -29,10 +29,14 @@
         "input.firstname":"Vorname",
         "input.lastname":"Nachname",
         "input.password": "Passwort",
+        "input.passwordError": "darf nicht leer sein.",
+        "input.passwordConfirm": "Passwort wiederholen",
+        "input.passwordConfirmError": "ist nicht korrekt.",
 
         "button.submit": "Absenden",
-        "button.create": "Benutzer anlegen",
-        "button.delete": "Benutzer löschen",
+        "button.user.create": "Benutzer anlegen",
+        "button.user.delete": "Benutzer löschen",
+        "button.user.update": "Benutzer aktualisieren",
         "button.newuser.openform": "Neuer Benutzer",
         "button.newuser.closeform": "Eingabe schließen",
 

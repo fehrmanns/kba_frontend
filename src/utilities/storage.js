@@ -1,9 +1,9 @@
 
 export function toggleItem(itemName) {
     if (typeof (Storage) !== "undefined") {
-        // Code for localStorage/sessionStorage.
+
         let storageItem = localStorage.getItem(itemName);
-        (storageItem === "true") ? localStorage.setItem(itemName, false) : localStorage.setItem(itemName, true);
+        (storageItem === JSON.stringify(true)) ? localStorage.setItem(itemName, JSON.stringify(false)) : localStorage.setItem(itemName, JSON.stringify(true));
 
     } else {
         // Sorry! No Web Storage support..
@@ -15,7 +15,13 @@ export function getItem(itemName) {
     if (typeof (Storage) !== "undefined") {
 
         let storageItem = localStorage.getItem(itemName);
-        return storageItem;
+        if( storageItem === "true") {
+            return true;
+        } else if( storageItem === "false" ) {
+            return false;
+        } else {
+            return  JSON.parse(storageItem);
+        }
 
     } else {
         // Sorry! No Web Storage support..
@@ -26,7 +32,7 @@ export function getItem(itemName) {
 
 export function setItem(itemName, value) {
     if (typeof (Storage) !== "undefined") {
-        localStorage.setItem(itemName, value);
+        localStorage.setItem(itemName, JSON.stringify(value));
     } else {
         // Sorry! No Web Storage support..
         noSupport();

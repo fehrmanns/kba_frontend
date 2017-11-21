@@ -2,7 +2,9 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {FormattedDate, FormattedMessage} from 'react-intl'
 
-export default class UserManagementListItem extends React.Component {
+
+class UserManagementListItem extends React.Component {
+
     render() {
         const user = this.props.userItem;
 
@@ -18,7 +20,7 @@ export default class UserManagementListItem extends React.Component {
                         value={user.created}
                         day="2-digit"
                         month="short"
-                        year="numeric" />
+                        year="numeric"/>
                     }
                 </td>
                 {/*
@@ -34,14 +36,24 @@ export default class UserManagementListItem extends React.Component {
                 <td>{!!user.modifiedBy && user.modifiedBy}</td>
                 */}
                 <td>
+                    <button className="btn btn-xs btn-warning" onClick={() => this.props.updateUser(user.loginName)}>
+                        <FormattedMessage id="button.user.update"/>
+                    </button>
+                </td>
+                <td>
                     <button className="btn btn-xs btn-danger" onClick={() => this.props.deleteUser(user.loginName)}>
-                        <FormattedMessage id="button.delete"/>
+                        <FormattedMessage id="button.user.delete"/>
                     </button>
                 </td>
             </tr>
         )
     }
 }
+
 UserManagementListItem.propTypes = {
-    userItem: PropTypes.object.isRequired
+    userItem: PropTypes.object.isRequired,
+    updateUser: PropTypes.func.isRequired,
+    deleteUser: PropTypes.func.isRequired
 };
+
+export default UserManagementListItem
