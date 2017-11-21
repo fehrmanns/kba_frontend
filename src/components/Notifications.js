@@ -13,10 +13,10 @@ class Notifications extends React.Component {
         return (
             <div className="notifications">
                 {/* messages && messages.map((message) => <NotificationItem type="success" textId="alert.message.saved"/>)
-                <NotificationItem type="success" textId="alert.message.saved"/>
+                <NotificationItem type="danger" textId="alert.message.saved"/>
                 <NotificationItem type="info" textId="alert.message.notsaved"/>
-                <NotificationItem type="warning" textId="alert.message.401"/> */}
-                <NotificationItem type="danger" textId="alert.message.400"/>
+                <NotificationItem type="warning" textId="alert.message.401"/>
+                <NotificationItem type="success" textId="alert.message.200"/> */}
             </div>
         );
     }

@@ -21,6 +21,7 @@ export default class UserManagementList extends React.Component {
                             <th><FormattedMessage id="usermanagement.list.modified"/></th>
                             <th><FormattedMessage id="usermanagement.list.modifiedBy"/></th>
                             */}
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>

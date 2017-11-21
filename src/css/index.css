@@ -62,3 +62,7 @@ body::after {
     border: 1px solid #e1e1e8;
     border-radius: 4px;
 }
+.table tr th:last-child,
+.table tr td:last-child {
+    text-align: right;
+}

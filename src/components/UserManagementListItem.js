@@ -34,7 +34,7 @@ export default class UserManagementListItem extends React.Component {
                 <td>{!!user.modifiedBy && user.modifiedBy}</td>
                 */}
                 <td>
-                    <button onClick={() => this.props.deleteUser(user.loginName)}>
+                    <button className="btn btn-xs btn-danger" onClick={() => this.props.deleteUser(user.loginName)}>
                         <FormattedMessage id="button.delete"/>
                     </button>
                 </td>

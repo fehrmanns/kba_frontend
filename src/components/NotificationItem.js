@@ -8,19 +8,20 @@ class NotificationItem extends React.Component {
         super(props);
 
         this.state = {
-            type: this.props.type,
-            textId: this.props.textId,
             dismissible: true
         };
     }
 
     render() {
-        const alertClass = "alert alert-" + this.state.type + (this.state.dismissible && " alert-dismissible");
+        const { type, textId } = this.props;
+        const alertClass = "alert alert-" + type + (this.state.dismissible && " alert-dismissible");
+        const alertTextId = "alert.strong.message."+ type;
 
         return (
             <div className={alertClass} role="alert">
+                {/* TODO: make i18n messages. */}
                 { this.state.dismissible && <button type="button" className="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button> }
-                <strong><FormattedMessage id={"alert.strong.message."+this.state.type}/></strong> <FormattedMessage id={this.state.textId}/>
+                <strong><FormattedMessage id={alertTextId}/></strong> <FormattedMessage id={ textId }/>
             </div>
         );
     }

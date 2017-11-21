@@ -78,8 +78,7 @@ export function loginUser(creds) {
     loginHeader.append("authentication", encodeLogin);
     let config = {
         method: 'GET',
-        headers: loginHeader,
-        mode: 'none'
+        headers: loginHeader
     };
 
     return dispatch => {
@@ -135,8 +134,7 @@ export function probeToken() {
     loginHeader.append("token", token);
     let config = {
         method: 'GET',
-        headers: loginHeader,
-        mode: 'none'
+        headers: loginHeader
     };
 
     return dispatch => {
@@ -145,7 +143,7 @@ export function probeToken() {
                 switch (response.status) {
                     case 200:
                         response.json()
-                            .then(user => ( !user.active && dispatch(logoutUser()) ));
+                            .then( user => ( !user.active && dispatch(logoutUser()) ));
                         break;
                     default:
                         dispatch(logoutUser());
@@ -197,8 +195,7 @@ export function deleteUser(user) {
     loginHeader.append("token", token);
     let config = {
         method: 'DELETE',
-        headers: loginHeader,
-        mode: 'none'
+        headers: loginHeader
     };
     return dispatch => {
         return fetch('http://localhost:8080/befe/rest/' + endpoint, config)

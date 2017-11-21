@@ -18,17 +18,21 @@ class UserManagement extends React.Component {
             dispatch: this.props.dispatch
         };
 
-        this.state.dispatch(getUsers());
+        this.props.dispatch(getUsers());
         this.addNewUser = this.addNewUser.bind(this);
         this.deleteUser = this.deleteUser.bind(this);
     }
 
     addNewUser(newUser) {
-        this.state.dispatch(addUser(newUser)).then(() => this.state.dispatch(getUsers()));
+        this.props.dispatch(addUser(newUser)).then(() => this.props.dispatch(getUsers()));
+    }
+
+    updateUser(user) {
+        this.props.dispatch(updateUser(user));
     }
 
     deleteUser(user) {
-        this.state.dispatch(deleteUser(user));
+        this.props.dispatch(deleteUser(user));
     }
 
     render() {

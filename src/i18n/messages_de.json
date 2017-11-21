@@ -5,6 +5,7 @@
         "alert.strong.message.warning": "Vorsicht.",
         "alert.strong.message.danger": "Achtung!",
 
+        "alert.message.200": "Dieses wird die Systemnachricht.",
         "alert.message.400": "Die Anfrage-Nachricht war fehlerhaft aufgebaut.",
         "alert.message.401": "Anfrage ohne gültige Authentifizierung.",
         "alert.message.saved": "Änderung wurde gespeichert.",
