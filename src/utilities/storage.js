@@ -20,6 +20,7 @@ export function getItem(itemName) {
     } else {
         // Sorry! No Web Storage support..
         noSupport();
+        return null;
     }
 }
 

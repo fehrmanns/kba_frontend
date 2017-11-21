@@ -14,6 +14,7 @@ import intlEN from 'react-intl/locale-data/en';
 import intlDE from 'react-intl/locale-data/de';
 import en from '../i18n/messages_en.json';
 import de from '../i18n/messages_de.json';
+import { getItem, setItem } from './../utilities/storage'
 import Progress from "./Progress";
 
 addLocaleData([...intlEN, ...intlDE]);
@@ -25,9 +26,9 @@ class Mainframe extends React.Component {
         super(props);
 
         this.state = {
-            sitebar: getStorage("sitebar"),
+            sitebar: getItem("sitebar"),
             loginSuccess: false,
-            lang: "de"
+            lang: getItem("language") ? getStorage("language") : "de"
         };
 
         localStorage.getItem('auth_token') && this.checkToken();
@@ -39,7 +40,8 @@ class Mainframe extends React.Component {
     }
 
     changeLanguage(selectedLanguage) {
-        this.setState({lang: selectedLanguage})
+        this.setState({lang: selectedLanguage});
+        setItem("language", selectedLanguage);
     }
 
     toggleMenu() {
