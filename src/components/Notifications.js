@@ -8,7 +8,7 @@ class Notifications extends React.Component {
     render() {
         const { messages } = this.props;
         // TODO: this notification has to be closed somehow.
-        console.log("messages:", messages)
+        console.log("messages:", messages);
 
         return (
             <div className="notifications">
