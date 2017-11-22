@@ -10,8 +10,6 @@ export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
 export const TOKEN_SUCCESS = 'TOKEN_SUCCESS';
 export const TOKEN_FAILURE = 'TOKEN_FAILURE';
 
-export const ADD_MESSAGE = 'ADD_MESSAGE';
-
 export const USER_LOADED = 'USER_LOADED';
 export const USER_ADDED = 'USER_ADDED';
 export const USER_DELETED = 'USER_DELETED';
@@ -181,36 +179,14 @@ export function updateUser(user) {
     console.log("updateUser", user);
 }
 
-function receiveUserDeleted() {
-    return {
-        type: USER_DELETED
-    }
-}
-
 export function deleteUser(user) {
-    const endpoint = 'management/users/' + user;
-
-    const token = localStorage.getItem('auth_token');
-    let loginHeader = new Headers();
-    loginHeader.append("token", token);
-    let config = {
-        method: 'DELETE',
-        headers: loginHeader
-    };
-    return dispatch => {
-        return fetch('http://localhost:8080/befe/rest/' + endpoint, config)
-            .then(response => {
-                switch (response.status) {
-                    case 200:
-                        if (response.ok) {
-                            console.log("user deleted.");
-                            dispatch(getUsers())
-                                .then(() => dispatch(receiveUserDeleted()))
-                        }
-                        break;
-                    default:
-                        console.warn('Some uncatched server response:', response.status);
-                }
-            }).catch(err => console.log("Error: ", err))
+    return {
+        [CALL_API]: {
+            endpoint: 'management/users/'+user,
+            authenticated: true,
+            method: 'DELETE',
+            types: [USER_DELETED, USER_FAILURE],
+            json: user
+        }
     }
 }

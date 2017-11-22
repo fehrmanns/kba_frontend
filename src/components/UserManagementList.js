@@ -10,7 +10,7 @@ export default class UserManagementList extends React.Component {
         return (
             <div>
                 <FormattedMessage tagName="h3" id="usermanagement.list.headline"/>
-                <table className="table table-hover table-striped">
+                <table className="table table-hover">
                     <thead>
                         <tr>
                             <th><FormattedMessage id="usermanagement.list.loginName"/></th>

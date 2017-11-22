@@ -75,7 +75,7 @@ export default class UserManagementAddNew extends React.Component {
         const loginNameIsValid = !!this.state.loginName;
         const passwordIsValid = !!this.state.password;
         const roleNameIsValid = ( this.state.roleName !== "default" );
-        const passwordIsEqual = this.state.password === this.state.passwordConfirm;
+        const passwordIsEqual = (!!this.state.passwordConfirm) && (this.state.passwordConfirm === this.state.password);
 
         this.setState({
             loginNameIsValid: loginNameIsValid,
@@ -83,7 +83,7 @@ export default class UserManagementAddNew extends React.Component {
             passwordIsValid: passwordIsValid,
             passwordIsEqual: passwordIsEqual
         });
-        const isValid = loginNameIsValid && roleNameIsValid;
+        const isValid = loginNameIsValid && roleNameIsValid && passwordIsValid && passwordIsEqual;
 
         if (!isValid) return;
 
@@ -96,6 +96,7 @@ export default class UserManagementAddNew extends React.Component {
 
         this.props.sendData(JSON.stringify(newUser));
         this.resetData();
+        //TODO: set focus on loginName input
     }
 
     resetData() {

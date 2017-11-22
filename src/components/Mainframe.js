@@ -26,7 +26,6 @@ class Mainframe extends React.Component {
 
         this.state = {
             sitebar: getItem("sitebar"),
-            loginSuccess: false,
             lang: getItem("language") ? getItem("language") : "de"
         };
 

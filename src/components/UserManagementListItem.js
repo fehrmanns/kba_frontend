@@ -35,7 +35,7 @@ class UserManagementListItem extends React.Component {
                 </td>
                 <td>{!!user.modifiedBy && user.modifiedBy}</td>
                 */}
-                <td>
+                <td className="text-right">
                     <button className="btn btn-xs btn-warning" onClick={() => this.props.updateUser(user.loginName)}>
                         <FormattedMessage id="button.user.update"/>
                     </button>

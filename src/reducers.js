@@ -2,7 +2,6 @@ import {combineReducers} from 'redux'
 import {
     LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_SUCCESS,
     TOKEN_SUCCESS, TOKEN_FAILURE,
-    ADD_MESSAGE,
     USER_LOADED, USER_DELETED, USER_ADDED, USER_FAILURE
 } from './actions'
 
@@ -42,7 +41,6 @@ function auth(state = {
     }
 }
 
-// The checktoken reducer
 function token(state = {}, action) {
     switch (action.type) {
         case TOKEN_SUCCESS:
@@ -58,19 +56,6 @@ function token(state = {}, action) {
     }
 }
 
-// The messages reducer
-function messages(state = {}, action) {
-    switch (action.type) {
-        case ADD_MESSAGE:
-            return Object.assign({}, state, {
-                message: action.message
-            });
-        default:
-            return state
-    }
-}
-
-// The messages reducer
 function users(state = {}, action) {
     switch (action.type) {
         case USER_LOADED:
@@ -100,7 +85,6 @@ function users(state = {}, action) {
 const kbaApp = combineReducers({
     auth,
     token,
-    messages,
     users
 });
 

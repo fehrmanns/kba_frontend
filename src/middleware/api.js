@@ -1,4 +1,5 @@
 /* Login Uniform Resource Identifier */
+
 const LURI = 'http://localhost:8080/befe/rest/';
 
 function callApi(endpoint, authenticated, method, json) {
@@ -31,7 +32,14 @@ function callApi(endpoint, authenticated, method, json) {
 
     //TODO: create good switch for request
     if (method === 'GET') {
+
         return fetch(LURI + endpoint, config)
+            .then(response => {
+                if(response.status === 200) {
+                    return response
+                }
+                return Promise.reject(new Error(response.status))
+            })
             .then(response =>
                 response.json().then(json => ({json, response}))
             ).then(({json, response}) => {
@@ -40,9 +48,18 @@ function callApi(endpoint, authenticated, method, json) {
                     return Promise.reject(json)
                 }
                 return json
-            }).catch(err => console.warn(err))
+            }).catch(err => {console.warn("api-json:",err); return Promise.reject(err)})
+
     } else {
+
         return fetch(LURI + endpoint, config)
+            .then(response => {
+                if(response.status === 200 || response.status === 201) {
+                    return response
+                } else {
+                    return Promise.reject(new Error(response.status))
+                }
+            })
             .then(response =>
                 response.text().then(text => ({ text, response }))
             ).then(({ text, response }) => {
@@ -50,11 +67,11 @@ function callApi(endpoint, authenticated, method, json) {
                     return Promise.reject(text)
                 }
                 return text
-            }).catch(err => console.warn(err))
+            }).catch(err => {console.warn("api-others:",err); return Promise.reject(err)})
     }
 }
 
-export const CALL_API = Symbol('Call API')
+export const CALL_API = Symbol('Call API');
 
 export default store => next => action => {
 
@@ -70,16 +87,15 @@ export default store => next => action => {
     //const [requestType, successType, errorType] = types
     const [successType, errorType] = types;
 
-    // Passing the authenticated boolean back in our data will let us distinguish between normal and secret quotes
     return callApi(endpoint, authenticated, method, json).then(
         response =>
             next({
                 response,
-                authenticated,
                 type: successType
             }),
         error => next({
-            error: error.message || 'There was an error.',
+            status: error,
+            message: error.message || 'There was an error.',
             type: errorType
         })
     )

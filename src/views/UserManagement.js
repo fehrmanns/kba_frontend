@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {FormattedMessage} from 'react-intl'
-import {addUser, getUsers, updateUser, deleteUser} from '../actions'
+import {addUser, getUsers, updateUser, deleteUser, logoutUser} from '../actions'
 import UserManagementAddNew from '../components/UserManagementAddNew'
 import UserManagementList from '../components/UserManagementList'
 import {Collapse} from 'react-bootstrap'
@@ -15,8 +15,6 @@ class UserManagement extends React.Component {
         super(props);
 
         this.state = {
-            addUser: this.props.addUser,
-            dispatch: this.props.dispatch,
             open: getItem('add_user_open')
         };
 
@@ -27,17 +25,41 @@ class UserManagement extends React.Component {
         this.toggleAddUser = this.toggleAddUser.bind(this);
     }
 
+
     addNewUser(newUser) {
-        this.props.dispatch(addUser(newUser)).then(() => this.props.dispatch(getUsers()));
+        this.props.dispatch(addUser(newUser))
+            .then(response => {
+                if(response.message === "401") {
+                    this.props.dispatch(logoutUser())
+                } else {
+                    this.props.dispatch(getUsers())
+                }
+            })
     }
 
     updateUser(user) {
         updateUser(user);
-        //this.props.dispatch(updateUser(user));
+        /*
+        this.props.dispatch(updateUser(user))
+            .then(response => {
+                if(response.message === "401") {
+                    this.props.dispatch(logoutUser())
+                } else {
+                    this.props.dispatch(getUsers())
+                }
+            })
+            */
     }
 
     deleteUser(user) {
-        this.props.dispatch(deleteUser(user));
+        this.props.dispatch(deleteUser(user))
+            .then(response => {
+                if(response.message === "401") {
+                    this.props.dispatch(logoutUser())
+                } else {
+                    this.props.dispatch(getUsers())
+                }
+            })
     }
 
     toggleAddUser() {
@@ -48,38 +70,48 @@ class UserManagement extends React.Component {
     }
 
     render() {
-        const { userList, userAreLoaded } = this.props;
+        const {userList, userAreLoaded} = this.props;
 
         return (
             <div className="usermanagement">
+
                 <div className="row">
                     <div className="col-xs-12">
                         <FormattedMessage tagName="h1" id="view.user.title"/>
-
-                        <button className="btn btn-primary pull-right"
-                                onClick={() => this.toggleAddUser()}>
-                            {this.state.open ?
-                                <FormattedMessage id="button.newuser.closeform"/>
-                            :
-                                <FormattedMessage id="button.newuser.openform"/>
-                            }
-                        </button>
                     </div>
                 </div>
-                <div className="row">
-                    <div className="col-xs-12">
-                        <Collapse in={this.state.open}>
-                            <div>
-                                <UserManagementAddNew sendData={(newUser) => this.addNewUser(newUser)}/>
+                {userList ?
+                    <div>
+                        <div className="row">
+                            <div className="col-xs-12">
+                                <button className="btn btn-primary pull-right"
+                                        onClick={() => this.toggleAddUser()}>
+                                    {this.state.open ?
+                                        <FormattedMessage id="button.newuser.closeform"/>
+                                        :
+                                        <FormattedMessage id="button.newuser.openform"/>
+                                    }
+                                </button>
                             </div>
-                        </Collapse>
+                        </div>
+                        <div className="row">
+                            <div className="col-xs-12">
+                                <Collapse in={this.state.open}>
+                                    <div>
+                                        <UserManagementAddNew sendData={(newUser) => this.addNewUser(newUser)}/>
+                                    </div>
+                                </Collapse>
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="col-xs-12">
+                                {userAreLoaded && <UserManagementList users={userList} deleteUser={this.deleteUser} updateUser={this.updateUser}/>}
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div className="row">
-                    <div className="col-xs-12">
-                        {userAreLoaded && <UserManagementList users={userList} deleteUser={this.deleteUser} updateUser={this.updateUser}/> }
-                    </div>
-                </div>
+                    :
+                    <div className="loader">Loading...</div>
+                }
             </div>
         );
     }
@@ -91,7 +123,7 @@ UserManagement.propTypes = {
 
 function mapStateToProps(state) {
 
-    const { users } = state;
+    const {users} = state;
     const userList = users.list;
     const userAreLoaded = users.isLoaded;
 
