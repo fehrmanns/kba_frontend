@@ -34,8 +34,9 @@
         "input.passwordConfirmError": "isn't correct.",
 
         "button.submit": "Submit",
-        "button.create": "Create user",
-        "button.delete": "Delete user",
+        "button.user.create": "Create user",
+        "button.user.delete": "Delete user",
+        "button.user.update": "Update user",
         "button.newuser.openform": "Add user",
         "button.newuser.closeform": "Close form",
 
