@@ -20,10 +20,11 @@ export default class UserManagementList extends React.Component {
                             <th><FormattedMessage id="usermanagement.list.lastName"/></th>
                             <th><FormattedMessage id="usermanagement.list.roleName"/></th>
                             <th><FormattedMessage id="usermanagement.list.created"/></th>
-
+                            {/*
                             <th><FormattedMessage id="usermanagement.list.modified"/></th>
                             <th><FormattedMessage id="usermanagement.list.modifiedBy"/></th>
-
+                            */}
+                            <th>{/* placeholder for button */}</th>
                             <th>{/* placeholder for button */}</th>
                         </tr>
                     </thead>

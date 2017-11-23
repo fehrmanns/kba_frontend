@@ -37,6 +37,8 @@
         "button.user.create": "Create user",
         "button.user.delete": "Delete user",
         "button.user.update": "Update user",
+        "button.user.deactivate": "deactivate",
+        "button.user.activate": "activate",
         "button.newuser.openform": "Add user",
         "button.newuser.closeform": "Close form",
 

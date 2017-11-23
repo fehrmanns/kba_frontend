@@ -2,7 +2,7 @@ import {combineReducers} from 'redux'
 import {
     LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_SUCCESS,
     TOKEN_SUCCESS, TOKEN_FAILURE,
-    USER_LOADED, USER_DELETED, USER_ADDED, USER_FAILURE
+    USER_LOADED, USER_DELETED, USER_ADDED, USER_UPDATED, USER_FAILURE
 } from './actions'
 
 // The auth reducer. The starting state sets authentication
@@ -68,6 +68,10 @@ function users(state = {}, action) {
 
             });
         case USER_ADDED:
+            return Object.assign({}, state, {
+
+            });
+        case USER_UPDATED:
             return Object.assign({}, state, {
 
             });

@@ -36,19 +36,17 @@ class UserManagement extends React.Component {
                 }
             })
     }
+// we got a reload option here in case the admin has changed user data and didn't save them.
+    updateUser(user, reload = true) {
 
-    updateUser(user) {
-        updateUser(user);
-        /*
         this.props.dispatch(updateUser(user))
             .then(response => {
                 if(response.message === "401") {
                     this.props.dispatch(logoutUser())
                 } else {
-                    this.props.dispatch(getUsers())
+                    reload && this.props.dispatch(getUsers())
                 }
             })
-            */
     }
 
     deleteUser(user) {
@@ -68,6 +66,7 @@ class UserManagement extends React.Component {
             open: getItem("add_user_open")
         });
     }
+
 
     render() {
         const {userList, userAreLoaded} = this.props;

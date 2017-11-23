@@ -37,6 +37,8 @@
         "button.user.create": "Benutzer anlegen",
         "button.user.delete": "Benutzer löschen",
         "button.user.update": "Speichern",
+        "button.user.deactivate": "deaktivieren",
+        "button.user.activate": "aktivieren",
         "button.newuser.openform": "Neuer Benutzer",
         "button.newuser.closeform": "Eingabe schließen",
 

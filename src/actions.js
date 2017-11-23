@@ -13,6 +13,7 @@ export const TOKEN_FAILURE = 'TOKEN_FAILURE';
 export const USER_LOADED = 'USER_LOADED';
 export const USER_ADDED = 'USER_ADDED';
 export const USER_DELETED = 'USER_DELETED';
+export const USER_UPDATED = 'USER_UPDATED';
 export const USER_FAILURE = 'USER_FAILURE';
 
 // login & logout handling
@@ -176,7 +177,15 @@ export function addUser(user) {
 }
 
 export function updateUser(user) {
-    console.log("updateUser", user);
+    return {
+        [CALL_API]: {
+            endpoint: 'management/users',
+            authenticated: true,
+            method: 'POST',
+            types: [USER_UPDATED, USER_FAILURE],
+            json: user
+        }
+    }
 }
 
 export function deleteUser(user) {

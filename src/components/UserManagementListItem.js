@@ -11,11 +11,10 @@ class UserManagementListItem extends React.Component {
         super(props);
 
         this.state = {
-            loginName: this.props.userItem.loginName,
             firstName: this.props.userItem.firstName,
             lastName: this.props.userItem.lastName,
             roleName: this.props.userItem.roleName,
-            loginNameModified: false,
+            active: this.props.userItem.active,
             firstNameModified: false,
             lastNameModified: false,
             roleNameModified: false
@@ -51,21 +50,31 @@ class UserManagementListItem extends React.Component {
         (this.props.userItem[name] !== value) ? this.setState({ [propName]: true }) : this.setState({ [propName]: false });
     }
 
+    toggleUser() {
+        this.setState({
+            active: !this.state.active
+        });
+
+        const user = Object.assign({}, this.props.userItem, {status: !this.props.userItem.active});
+        console.log("new user", user);
+        //this.props.updateUser(user, false);
+    }
+
+
     render() {
         const user = this.props.userItem;
+        console.log("old user", user);
+        const activeUser = this.state.active;
         const roleDropDownTitleId = "dropdown.role." + this.state.roleName;
-        const modified = this.state.loginNameModified || this.state.firstNameModified || this.state.lastNameModified || this.state.roleNameModified;
+        const modified = this.state.firstNameModified || this.state.lastNameModified || this.state.roleNameModified;
 
         return (
-            <tr>
-                <td><input id="tableInputLoginName" onChange={this.handleChange} value={this.state.loginName} /></td>
+            <tr className={!activeUser && "deactivated"}>
+                <td><span>{user.loginName}</span></td>
                 <td><input id="tableInputFirstName" onChange={this.handleChange} value={this.state.firstName} /></td>
                 <td><input id="tableInputLastName" onChange={this.handleChange} value={this.state.lastName} /></td>
                 <td>
-                    <FormattedDropDown id="newUser.roleName.selection"
-                                       bsStyle="link"
-                                       titleId={roleDropDownTitleId}
-                                       onSelect={this.handleSelection}>
+                    <FormattedDropDown id="newUser.roleName.selection" bsStyle="link" titleId={roleDropDownTitleId} onSelect={this.handleSelection}>
                         <MenuItem eventKey="admin"><FormattedMessage id="dropdown.role.admin"/></MenuItem>
                         <MenuItem eventKey="supervisor"><FormattedMessage id="dropdown.role.supervisor"/></MenuItem>
                         <MenuItem eventKey="analyst"><FormattedMessage id="dropdown.role.analyst"/></MenuItem>
@@ -73,24 +82,13 @@ class UserManagementListItem extends React.Component {
                 </td>
                 <td className="date">
                     <span>
-                    {!!user.created &&
-                        <FormattedDate
-                            value={user.created}
-                            day="2-digit"
-                            month="short"
-                            year="numeric"/>
-                    }
+                    {!!user.created && <FormattedDate value={user.created} day="2-digit" month="short" year="numeric"/> }
                     </span>
                 </td>
+                {/*
                 <td className="date">
                     <span>
-                    {!!user.modified &&
-                        <FormattedDate
-                            value={user.modified}
-                            day="2-digit"
-                            month="short"
-                            year="numeric" />
-                    }
+                    {!!user.modified && <FormattedDate value={user.modified} day="2-digit" month="short" year="numeric" /> }
                     </span>
                 </td>
                 <td className="date">
@@ -98,6 +96,13 @@ class UserManagementListItem extends React.Component {
                     {!!user.modifiedBy && user.modifiedBy}
                     </span>
                 </td>
+                */}
+                <td className="text-right">
+                    <button className="btn btn-xs btn-warning" onClick={() => this.toggleUser()}>
+                        { activeUser ? <FormattedMessage id="button.user.deactivate"/> : <FormattedMessage id="button.user.activate"/> }
+                    </button>
+                </td>
+
                 { modified ?
                 <td className="text-right">
                     <button className="btn btn-xs btn-warning" onClick={() => this.props.updateUser(user.loginName)}>
