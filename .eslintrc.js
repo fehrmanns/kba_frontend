@@ -18,5 +18,6 @@ module.exports = {
     "react/prefer-stateless-function":0,
     "jsx-a11y/anchor-is-valid":0,
     "linebreak-style": ["error", "unix"],
+    "no-multiple-empty-lines":["error", {"max":2}]
     }
 };
