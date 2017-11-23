@@ -1,5 +1,4 @@
 import React, {Component} from 'react'
-import {loginUser} from '../actions'
 import {FormattedMessage} from 'react-intl'
 import FormattedInput from '../components/i18n/FormattedInput'
 import './../css/login.css'
@@ -46,8 +45,8 @@ class Login extends Component {
     }
 
     sendData() {
+        const {dispatch, loginUser} = this.props;
 
-        const {dispatch} = this.props;
         const creds = {
             username: this.state.username,
             password: this.state.password

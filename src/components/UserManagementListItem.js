@@ -96,20 +96,20 @@ class UserManagementListItem extends React.Component {
                     </span>
                 </td>
                 */}
-                <td className="text-right">
+                <td className="text-center">
                     <button className={activeUser ? "btn btn-xs btn-warning" : "btn btn-xs btn-info"} onClick={() => this.toggleUser()}>
                         { activeUser ? <FormattedMessage id="button.user.deactivate"/> : <FormattedMessage id="button.user.activate"/> }
                     </button>
                 </td>
 
                 { modified ?
-                <td className="text-right">
-                    <button className="btn btn-xs btn-warning" onClick={() => this.props.updateUser(user.loginName)}>
+                <td className="text-center">
+                    <button className="btn btn-xs btn-success" onClick={() => this.props.updateUser(user.loginName)}>
                         <FormattedMessage id="button.user.update"/>
                     </button>
                 </td>
                     :
-                <td>
+                <td className="text-center">
                     <button className="btn btn-xs btn-danger" onClick={() => this.props.deleteUser(user.loginName)}>
                         <FormattedMessage id="button.user.delete"/>
                     </button>

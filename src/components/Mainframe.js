@@ -1,10 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
-import {logoutUser, probeToken} from '../actions'
+import {loginUser, logoutUser, probeToken} from '../actions'
 import {BrowserRouter as Router, Route} from 'react-router-dom'
 import Routes from './Routes'
 import Login from './../views/Login'
+import RestPassword from './../views/RestPassword'
 import Header from './Header'
 import Sitebar from './Sitebar'
 import Notifications from './Notifications'
@@ -52,6 +53,8 @@ class Mainframe extends React.Component {
 
     render() {
         const {dispatch, auth, isAuthenticated} = this.props;
+        const profile = isAuthenticated ? JSON.parse(localStorage.getItem('profile')) : {};
+        const passwordExpired = isAuthenticated ? profile["expired"] : true;
         const localeMessages = Object.assign({}, en, de);
         const langMsg = localeMessages[this.state.lang];
 
@@ -63,18 +66,15 @@ class Mainframe extends React.Component {
                         <Header changeLanguage={this.changeLanguage} lang={langMsg} language={this.state.lang}
                                 logoutUser={() => dispatch(logoutUser())} toggleMenu={() => this.toggleMenu()}
                                 renderOnLogin={isAuthenticated}/>
-                        <div className="row">
-                            <Progress isActive={false}/>
-                        </div>
-                        {isAuthenticated && <Sitebar show={this.state.sitebar}/>}
+                        <Progress isActive={false}/>
+                        {(isAuthenticated) && <Sitebar show={this.state.sitebar}/>}
 
-                        {isAuthenticated ?
-                            <div className={(this.state.sitebar === true) ? 'show container-fluid' : 'container-fluid'}>
-                                <Routes isAuthenticated={isAuthenticated} dispatch={dispatch}/>
-                            </div>
-                            :
-                            <Route path="/" render={() => <Login dispatch={dispatch} auth={auth}/>}/>
-                        }
+                        {/*
+                            <Route path="/" render={() => <RestPassword dispatch={dispatch} user={profile}/>}/>
+                        */}
+                        <div className={(this.state.sitebar === true) ? 'show container-fluid' : 'container-fluid'}>
+                            <Routes dispatch={dispatch} auth={auth} loginUser={loginUser}/>
+                        </div>
                     </div>
                 </Router>
             </IntlProvider>
@@ -84,7 +84,6 @@ class Mainframe extends React.Component {
 
 Mainframe.propTypes = {
     dispatch: PropTypes.func.isRequired,
-    quote: PropTypes.string,
     auth: PropTypes.object.isRequired
 };
 

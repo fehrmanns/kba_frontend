@@ -1,55 +1,59 @@
-  .form-signin {
-      background: white;
-      padding: 5px 30px 30px;
-      border-radius: 5px;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
-  }
+.form-signin,
+.form-password-change {
+    background: white;
+    padding: 5px 30px 30px;
+    border-radius: 5px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+}
+.form-password-change {
+    width: 24em;
+}
 
-  .form-signin.unauthorized {
-      animation: wrong-log 0.3s;
-  }
+.form-signin.unauthorized {
+    animation: wrong-log 0.3s;
+}
 
-  .input-group-addon {
-      width: 1em;
-      position: initial;
-  }
+.input-group-addon {
+    width: 1em;
+    position: initial;
+}
 
-  .error-label {
-      display: block;
-      height: 1em;
-      opacity: 1;
-  }
+.error-label {
+    display: block;
+    height: 1em;
+    opacity: 1;
+}
 
-  .unauthorized .error-label {
-      animation: show-error 0.3s;
-      opacity: 1;
-  }
+.unauthorized .error-label {
+    animation: show-error 0.3s;
+    opacity: 1;
+}
 
-  .error-label .label {
-      position: relative;
-      top: -1em;
-  }
+.error-label .label {
+    position: relative;
+    top: -1em;
+}
 
-  @keyframes wrong-log {
-      0%,
-      100% {
-          margin-left: 0px;
-      }
-      20%,
-      60% {
-          margin-left: 15px;
-      }
-      40%,
-      80% {
-          margin-left: -15px;
-      }
-  }
+@keyframes wrong-log {
+    0%,
+    100% {
+        margin-left: 0px;
+    }
+    20%,
+    60% {
+        margin-left: 15px;
+    }
+    40%,
+    80% {
+        margin-left: -15px;
+    }
+}
 
-  @keyframes show-error {
-      0% {
-          opacity: 0;
-      }
-      100% {
-          opacity: 1;
-      }
-  }
+@keyframes show-error {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}

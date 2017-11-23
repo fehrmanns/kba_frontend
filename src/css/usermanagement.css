@@ -4,8 +4,11 @@
 .usermanagement .highlight h3 {
     margin-top: 10px;
 }
-
-table input {
+/* dirty table hack */
+.usermanagement .table tr > td {
+    width: 18%;
+}
+.usermanagement table input {
     box-sizing: border-box;
     display: block;
     width: 100%;
@@ -14,14 +17,14 @@ table input {
     padding: 0.1em 0.35em;
     margin: 0;
 }
-table .date {
+.usermanagement table .date {
     min-width: 8em;
 }
-table .btn-link {
+.usermanagement table .btn-link {
     color: black;
     padding: 0;
 }
-table .deactivated,
-table .deactivated .btn-link {
+.usermanagement table .deactivated,
+.usermanagement table .deactivated .btn-link {
     color: darkgray;
 }

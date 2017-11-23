@@ -1,7 +1,8 @@
 import React from 'react'
-import { Route, Redirect } from 'react-router-dom'
-import PropTypes from 'prop-types'
+import {Route, Redirect} from 'react-router-dom'
+import SecuredRoute from './SecuredRoutes'
 import Home from './../views/Home'
+import Login from './../views/Login'
 import Recordings from './../views/Recordings'
 import BiometricProfiles from './../views/BiometricProfiles'
 import Matchlist from './../views/Matchlist'
@@ -17,36 +18,26 @@ import License from './../views/License'
 export default class Routes extends React.Component {
 
     render() {
-        const { isAuthenticated } = this.props;
-        const PrivateRoute = ({ component: Component, ...rest }) => (
-            <Route {...rest} render={(props) => (
-                isAuthenticated ?
-                    (<Component {...props} />)
-                    :
-                    (<Redirect to={{ pathname: '/login' }} />)
-            )} />
-        );
 
         return (
-            <div>
-                <Route exact path="/login" render={() => (<Redirect to="/"/>)}/>
-                <PrivateRoute exact path="/" component={Home}/>
-                <Route exact path="/recordings" component={Recordings}/>
-                <Route exact path="/biometricprofiles" component={BiometricProfiles}/>
-                <Route exact path="/matchlist" component={Matchlist}/>
-                <Route exact path="/topics" component={Matchall}/>
-                <Route exact path="/fileimport" component={Fileimport}/>
-                <Route exact path="/joblist" component={Joblist}/>
-                <Route exact path="/importsettings" component={Importsettings}/>
-                <Route exact path="/usersettings" component={Usersettings}/>
-                <Route exact path="/organisationsettings" component={Organisationsettings}/>
-                <Route exact path="/categorysettings" component={Categorysettings}/>
-                <Route exact path="/license" component={License}/>
-            </div>
+            <SecuredRoute>
+                <div>
+                    <Route path="/login" render={() => <Login dispatch={this.props.dispatch} auth={this.props.auth} loginUser={this.props.loginUser}/>}/>
+                    <Route exact path="/login" render={() => (<Redirect to="/"/>)}/>
+                    <Route exact path="/" component={Home}/>
+                    <Route exact path="/recordings" component={Recordings}/>
+                    <Route exact path="/biometricprofiles" component={BiometricProfiles}/>
+                    <Route exact path="/matchlist" component={Matchlist}/>
+                    <Route exact path="/topics" component={Matchall}/>
+                    <Route exact path="/fileimport" component={Fileimport}/>
+                    <Route exact path="/joblist" component={Joblist}/>
+                    <Route exact path="/importsettings" component={Importsettings}/>
+                    <Route exact path="/usersettings" component={Usersettings}/>
+                    <Route exact path="/organisationsettings" component={Organisationsettings}/>
+                    <Route exact path="/categorysettings" component={Categorysettings}/>
+                    <Route exact path="/license" component={License}/>
+                </div>
+            </SecuredRoute>
         )
     }
 }
-
-Routes.propTypes = {
-    isAuthenticated: PropTypes.bool.isRequired
-};
