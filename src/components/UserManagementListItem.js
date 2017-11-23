@@ -55,15 +55,14 @@ class UserManagementListItem extends React.Component {
             active: !this.state.active
         });
 
-        const user = Object.assign({}, this.props.userItem, {status: !this.props.userItem.active});
-        console.log("new user", user);
-        //this.props.updateUser(user, false);
+        const user = Object.assign({}, this.props.userItem, {active: !this.props.userItem.active});
+
+        this.props.updateUser(user, false);
     }
 
 
     render() {
         const user = this.props.userItem;
-        console.log("old user", user);
         const activeUser = this.state.active;
         const roleDropDownTitleId = "dropdown.role." + this.state.roleName;
         const modified = this.state.firstNameModified || this.state.lastNameModified || this.state.roleNameModified;
@@ -98,7 +97,7 @@ class UserManagementListItem extends React.Component {
                 </td>
                 */}
                 <td className="text-right">
-                    <button className="btn btn-xs btn-warning" onClick={() => this.toggleUser()}>
+                    <button className={activeUser ? "btn btn-xs btn-warning" : "btn btn-xs btn-info"} onClick={() => this.toggleUser()}>
                         { activeUser ? <FormattedMessage id="button.user.deactivate"/> : <FormattedMessage id="button.user.activate"/> }
                     </button>
                 </td>

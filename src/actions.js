@@ -179,11 +179,11 @@ export function addUser(user) {
 export function updateUser(user) {
     return {
         [CALL_API]: {
-            endpoint: 'management/users',
+            endpoint: 'management/users/'+user.loginName,
             authenticated: true,
-            method: 'POST',
+            method: 'PUT',
             types: [USER_UPDATED, USER_FAILURE],
-            json: user
+            json: JSON.stringify(user)
         }
     }
 }

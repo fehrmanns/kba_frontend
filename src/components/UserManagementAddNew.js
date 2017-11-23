@@ -96,11 +96,10 @@ export default class UserManagementAddNew extends React.Component {
 
         this.props.sendData(JSON.stringify(newUser));
         this.resetData();
-        //TODO: set focus on loginName input
     }
 
     resetData() {
-
+        //TODO: set focus on loginName input
         this.setState({
             loginName: "",
             firstName: "",
