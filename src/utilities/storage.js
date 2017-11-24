@@ -2,9 +2,8 @@
 export function toggleItem(itemName) {
     if (typeof (Storage) !== "undefined") {
         // Code for localStorage/sessionStorage.
-        let storageItem = localStorage.getItem(itemName);
+        const storageItem = localStorage.getItem(itemName);
         (storageItem === "true") ? localStorage.setItem(itemName, false) : localStorage.setItem(itemName, true);
-
     } else {
         // Sorry! No Web Storage support..
         noSupport();
@@ -13,14 +12,11 @@ export function toggleItem(itemName) {
 
 export function getItem(itemName) {
     if (typeof (Storage) !== "undefined") {
-
-        let storageItem = localStorage.getItem(itemName);
+        const storageItem = localStorage.getItem(itemName);
         return storageItem;
-
-    } else {
-        // Sorry! No Web Storage support..
-        noSupport();
     }
+    // Sorry! No Web Storage support..
+    noSupport();
 }
 
 export function setItem(itemName, value) {

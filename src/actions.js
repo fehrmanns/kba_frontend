@@ -1,21 +1,21 @@
-import {CALL_API} from './middleware/api'
+import {CALL_API} from "./middleware/api";
 // There are three possible states for our login
 // process and we need actions for each of them
-export const LOGIN_REQUEST = 'LOGIN_REQUEST';
-export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
-export const LOGIN_FAILURE = 'LOGIN_FAILURE';
-export const LOGOUT_REQUEST = 'LOGOUT_REQUEST';
-export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
+export const LOGIN_REQUEST = "LOGIN_REQUEST";
+export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
+export const LOGIN_FAILURE = "LOGIN_FAILURE";
+export const LOGOUT_REQUEST = "LOGOUT_REQUEST";
+export const LOGOUT_SUCCESS = "LOGOUT_SUCCESS";
 
-export const TOKEN_SUCCESS = 'TOKEN_SUCCESS';
-export const TOKEN_FAILURE = 'TOKEN_FAILURE';
+export const TOKEN_SUCCESS = "TOKEN_SUCCESS";
+export const TOKEN_FAILURE = "TOKEN_FAILURE";
 
-export const ADD_MESSAGE = 'ADD_MESSAGE';
+export const ADD_MESSAGE = "ADD_MESSAGE";
 
-export const USER_LOADED = 'USER_LOADED';
-export const USER_ADDED = 'USER_ADDED';
-export const USER_DELETED = 'USER_DELETED';
-export const USER_FAILURE = 'USER_FAILURE';
+export const USER_LOADED = "USER_LOADED";
+export const USER_ADDED = "USER_ADDED";
+export const USER_DELETED = "USER_DELETED";
+export const USER_FAILURE = "USER_FAILURE";
 
 // login & logout handling
 function requestLogin(creds) {
@@ -23,8 +23,8 @@ function requestLogin(creds) {
         type: LOGIN_REQUEST,
         isFetching: true,
         isAuthenticated: false,
-        creds
-    }
+        creds,
+    };
 }
 
 function receiveLogin(user) {
@@ -32,8 +32,8 @@ function receiveLogin(user) {
         type: LOGIN_SUCCESS,
         isFetching: false,
         isAuthenticated: true,
-        id_token: user.auth_token
-    }
+        id_token: user.auth_token,
+    };
 }
 
 function loginError(message) {
@@ -41,140 +41,137 @@ function loginError(message) {
         type: LOGIN_FAILURE,
         isFetching: false,
         isAuthenticated: false,
-        message
-    }
+        message,
+    };
 }
 
 function requestLogout() {
     return {
         type: LOGOUT_REQUEST,
         isFetching: true,
-        isAuthenticated: true
-    }
+        isAuthenticated: true,
+    };
 }
 
 function receiveLogout() {
     return {
         type: LOGOUT_SUCCESS,
         isFetching: false,
-        isAuthenticated: false
-    }
+        isAuthenticated: false,
+    };
 }
 
 export function logoutUser() {
-    return dispatch => {
+    return (dispatch) => {
         dispatch(requestLogout());
-        localStorage.removeItem('profile');
-        localStorage.removeItem('auth_token');
-        localStorage.removeItem('refresh_token');
-        dispatch(receiveLogout())
-    }
+        localStorage.removeItem("profile");
+        localStorage.removeItem("auth_token");
+        localStorage.removeItem("refresh_token");
+        dispatch(receiveLogout());
+    };
 }
 
 // Calls the API to get a token
 export function loginUser(creds) {
-    const encodeLogin = "Basic " + btoa(creds.username + ":" + creds.password);
-    let loginHeader = new Headers();
+    const encodeLogin = `Basic ${btoa(`${creds.username}:${creds.password}`)}`;
+    const loginHeader = new Headers();
     loginHeader.append("authentication", encodeLogin);
-    let config = {
-        method: 'GET',
-        headers: loginHeader
+    const config = {
+        method: "GET",
+        headers: loginHeader,
     };
 
-    return dispatch => {
+    return (dispatch) => {
         // We dispatch requestLogin to kickoff the call to the API
         dispatch(requestLogin(creds));
 
-        return fetch('http://localhost:8080/befe/rest/login', config)
-            .then(response => {
+        return fetch("http://localhost:8080/befe/rest/login", config)
+            .then((response) => {
                 switch (response.status) {
-                    // TODO: add correct messages
-                    case 200:
-                        response.json()
-                            .then(user => ({user, response}))
-                            .then(({user, response}) => {
-                                if (!response.ok) {
-                                    // If there was a problem, we want to
-                                    // dispatch the error condition
-                                    dispatch(loginError("Login error"));
-                                    return Promise.reject(user)
-                                } else {
-                                    // If login was successful, set the token in local storage
-                                    localStorage.setItem('profile', JSON.stringify(user.kbaUser));
-                                    localStorage.setItem('auth_token', user.authtoken);
-                                    localStorage.setItem('refresh_token', user.refreshtoken);
+                // TODO: add correct messages
+                case 200:
+                    response.json()
+                        .then(user => ({user, response}))
+                        .then(({user, response}) => {
+                            if (!response.ok) {
+                                // If there was a problem, we want to
+                                // dispatch the error condition
+                                dispatch(loginError("Login error"));
+                                return Promise.reject(user);
+                            }
+                            // If login was successful, set the token in local storage
+                            localStorage.setItem("profile", JSON.stringify(user.kbaUser));
+                            localStorage.setItem("auth_token", user.authtoken);
+                            localStorage.setItem("refresh_token", user.refreshtoken);
 
-                                    // Dispatch the success action
-                                    dispatch(receiveLogin(user))
-                                }
-                            });
-                        break;
-                    case 400:
-                        dispatch(loginError("400"));
-                        break;
-                    case 401:
-                        dispatch(loginError("401"));
-                        break;
-                    case 500:
-                        console.error('500 Some server error');
-                        break;
-                    default:
-                        console.warn('Some uncatched server response:', response.status);
+                            // Dispatch the success action
+                            dispatch(receiveLogin(user));
+                        });
+                    break;
+                case 400:
+                    dispatch(loginError("400"));
+                    break;
+                case 401:
+                    dispatch(loginError("401"));
+                    break;
+                case 500:
+                    console.error("500 Some server error");
+                    break;
+                default:
+                    console.warn("Some uncatched server response:", response.status);
                 }
-            }).catch(err => console.warn("Error: ", err))
-    }
+            }).catch(err => console.warn("Error: ", err));
+    };
 }
 
 export function probeToken() {
-    const profile = JSON.parse(localStorage.getItem('profile'));
-    const endpoint = "management/users/" + profile.loginName + "?inclPrivs=true";
+    const profile = JSON.parse(localStorage.getItem("profile"));
+    const endpoint = `management/users/${profile.loginName}?inclPrivs=true`;
 
-    const token = localStorage.getItem('auth_token');
-    let loginHeader = new Headers();
+    const token = localStorage.getItem("auth_token");
+    const loginHeader = new Headers();
     loginHeader.append("token", token);
-    let config = {
-        method: 'GET',
-        headers: loginHeader
+    const config = {
+        method: "GET",
+        headers: loginHeader,
     };
 
-    return dispatch => {
-        return fetch('http://localhost:8080/befe/rest/' + endpoint, config)
-            .then(response => {
-                switch (response.status) {
-                    case 200:
-                        response.json()
-                            .then( user => ( !user.active && dispatch(logoutUser()) ));
-                        break;
-                    default:
-                        dispatch(logoutUser());
-                }
-            }).catch(err => console.log("Error: ", err))
-    }
+    return dispatch => fetch(`http://localhost:8080/befe/rest/${endpoint}`, config)
+        .then((response) => {
+            switch (response.status) {
+            case 200:
+                response.json()
+                    .then(user => (!user.active && dispatch(logoutUser())));
+                break;
+            default:
+                dispatch(logoutUser());
+            }
+        }).catch(err => console.log("Error: ", err));
 }
 
 // user handling
 export function getUsers() {
     return {
         [CALL_API]: {
-            endpoint: 'management/users',
+            endpoint: "management/users",
             authenticated: true,
-            method: 'GET',
+            method: "GET",
             types: [USER_LOADED, USER_FAILURE],
-            json: {}
-        }
-    }
+            json: {},
+        },
+    };
 }
 
 export function addUser(user) {
     return {
         [CALL_API]: {
-            endpoint: 'management/users',
+            endpoint: "management/users",
             authenticated: true,
-            method: 'POST',
+            method: "POST",
             types: [USER_ADDED, USER_FAILURE],
-            json: user
-        }
-    }
+            json: user,
+        },
+    };
 }
 
 export function updateUser(user) {
@@ -183,34 +180,32 @@ export function updateUser(user) {
 
 function receiveUserDeleted() {
     return {
-        type: USER_DELETED
-    }
+        type: USER_DELETED,
+    };
 }
 
 export function deleteUser(user) {
-    const endpoint = 'management/users/' + user;
+    const endpoint = `management/users/${user}`;
 
-    const token = localStorage.getItem('auth_token');
-    let loginHeader = new Headers();
+    const token = localStorage.getItem("auth_token");
+    const loginHeader = new Headers();
     loginHeader.append("token", token);
-    let config = {
-        method: 'DELETE',
-        headers: loginHeader
+    const config = {
+        method: "DELETE",
+        headers: loginHeader,
     };
-    return dispatch => {
-        return fetch('http://localhost:8080/befe/rest/' + endpoint, config)
-            .then(response => {
-                switch (response.status) {
-                    case 200:
-                        if (response.ok) {
-                            console.log("user deleted.");
-                            dispatch(getUsers())
-                                .then(() => dispatch(receiveUserDeleted()))
-                        }
-                        break;
-                    default:
-                        console.warn('Some uncatched server response:', response.status);
+    return dispatch => fetch(`http://localhost:8080/befe/rest/${endpoint}`, config)
+        .then((response) => {
+            switch (response.status) {
+            case 200:
+                if (response.ok) {
+                    console.log("user deleted.");
+                    dispatch(getUsers())
+                        .then(() => dispatch(receiveUserDeleted()));
                 }
-            }).catch(err => console.log("Error: ", err))
-    }
+                break;
+            default:
+                console.warn("Some uncatched server response:", response.status);
+            }
+        }).catch(err => console.log("Error: ", err));
 }

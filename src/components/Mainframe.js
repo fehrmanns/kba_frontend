@@ -25,11 +25,10 @@ class Mainframe extends React.Component {
 
         this.state = {
             sitebar: getStorage("sitebar"),
-            loginSuccess: false,
             lang: "de",
         };
 
-        localStorage.getItem("auth_token") && this.checkToken();
+        this.checkToken();
         this.changeLanguage = this.changeLanguage.bind(this);
     }
 
@@ -87,8 +86,8 @@ class Mainframe extends React.Component {
 
 Mainframe.propTypes = {
     dispatch: PropTypes.func.isRequired,
-    quote: PropTypes.string,
     auth: PropTypes.object.isRequired,
+    isAuthenticated: PropTypes.bool.isRequired,
 };
 
 function mapStateToProps(state) {
