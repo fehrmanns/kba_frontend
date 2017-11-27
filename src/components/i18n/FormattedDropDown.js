@@ -20,8 +20,11 @@ class FormattedDropDown extends React.Component {
 }
 
 FormattedDropDown.propTypes = {
+    // eslint-disable-next-line react/no-typos
     intl: intlShape.isRequired,
     titleId: PropTypes.string.isRequired,
+    id: PropTypes.string.isRequired,
+    children: PropTypes.array.isRequired,
 };
 
 export default injectIntl(FormattedDropDown);

@@ -1,4 +1,8 @@
 
+function noSupport() {
+    console.warn("no support for local storage");
+}
+
 export function toggleItem(itemName) {
     if (typeof (Storage) !== "undefined") {
         const storageItem = localStorage.getItem(itemName);
@@ -31,8 +35,4 @@ export function setItem(itemName, value) {
         // Sorry! No Web Storage support..
         noSupport();
     }
-}
-
-function noSupport() {
-    console.warn("no support for local storage");
 }

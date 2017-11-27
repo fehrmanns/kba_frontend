@@ -21,6 +21,7 @@ class FormattedInput extends React.Component {
 }
 
 FormattedInput.propTypes = {
+    // eslint-disable-next-line react/no-typos
     intl: intlShape.isRequired,
     type: PropTypes.string.isRequired,
     placeholder: PropTypes.string.isRequired,

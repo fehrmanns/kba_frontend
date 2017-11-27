@@ -68,10 +68,10 @@ class UserManagementListItem extends React.Component {
                 <td><input id="tableInputLastName" onChange={this.handleChange} value={this.state.lastName} /></td>
                 <td>
                     <FormattedDropDown id="newUser.roleName.selection" bsStyle="link" titleId={roleDropDownTitleId} onSelect={this.handleSelection}>
-                        <MenuItem eventKey="admin"><FormattedMessage id="dropdown.role.admin" /></MenuItem>
+                    <MenuItem eventKey="admin"><FormattedMessage id="dropdown.role.admin" /></MenuItem>
                         <MenuItem eventKey="supervisor"><FormattedMessage id="dropdown.role.supervisor" /></MenuItem>
                         <MenuItem eventKey="analyst"><FormattedMessage id="dropdown.role.analyst" /></MenuItem>
-                    </FormattedDropDown>
+                        </FormattedDropDown>
                 </td>
                 <td className="date">
                     <span>

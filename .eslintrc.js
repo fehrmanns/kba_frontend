@@ -20,5 +20,13 @@ module.exports = {
     "linebreak-style": ["error", "unix"],
     "no-multiple-empty-lines":["error", {"max":2}],
     "react/forbid-prop-types": [2, {"forbid":["any"]}]
+    },
+
+    "globals": {
+        "window":true,
+    },
+
+    "env":{
+        "browser":true,
     }
 }

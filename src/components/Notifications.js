@@ -1,6 +1,6 @@
 import React from "react";
 import {connect} from "react-redux";
-import NotificationItem from "./NotificationItem";
+// import NotificationItem from "./NotificationItem";
 import "../css/notifications.css";
 
 class Notifications extends React.Component {

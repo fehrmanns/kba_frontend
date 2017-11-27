@@ -1,7 +1,8 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import "./../css/sitebar.css";
 import {FormattedMessage} from "react-intl";
+import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
+import "./../css/sitebar.css";
 
 class Sitebar extends React.Component {
     render() {
@@ -56,5 +57,9 @@ class Sitebar extends React.Component {
         );
     }
 }
+
+Sitebar.propTypes = {
+    show: PropTypes.string.isRequired,
+};
 
 export default Sitebar;

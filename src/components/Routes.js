@@ -1,5 +1,5 @@
 import React from "react";
-import {Route, Redirect} from "react-router-dom";
+import { Route, Redirect } from "react-router-dom";
 import SecuredRoute from "./SecuredRoutes";
 import Home from "./../views/Home";
 import Login from "./../views/Login";

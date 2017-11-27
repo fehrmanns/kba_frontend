@@ -2,14 +2,13 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { createStore, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
-import kbaApp from "./reducers";
 import thunkMiddleware from "redux-thunk";
-import api from "./middleware/api";
-
-import registerServiceWorker from "./utilities/registerServiceWorker";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/css/bootstrap-theme.css";
+import kbaApp from "./reducers";
+import api from "./middleware/api";
 import "./css/index.css";
+import registerServiceWorker from "./utilities/registerServiceWorker";
 import Mainframe from "./components/Mainframe";
 // Put any other imports below so that CSS from your
 // components takes precedence over default styles.
@@ -18,6 +17,7 @@ import Mainframe from "./components/Mainframe";
 const createStoreWithMiddleware = applyMiddleware(thunkMiddleware, api)(createStore);
 const store = createStoreWithMiddleware(
     kbaApp,
+    // eslint-disable-next-line no-underscore-dangle
     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
 );
 const rootElement = document.getElementById("root");

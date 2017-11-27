@@ -1,18 +1,16 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
-import {loginUser, logoutUser, probeToken} from "../actions";
-import {BrowserRouter as Router, Route} from "react-router-dom";
-import Routes from "./Routes";
-import Login from "./../views/Login";
-import RestPassword from "./../views/RestPassword";
-import Header from "./Header";
-import Sitebar from "./Sitebar";
-import Notifications from "./Notifications";
-import {toggleItem, getItem, setItem} from "./../utilities/storage";
+import {BrowserRouter as Router} from "react-router-dom";
 import {addLocaleData, IntlProvider} from "react-intl";
 import intlEN from "react-intl/locale-data/en";
 import intlDE from "react-intl/locale-data/de";
+import { loginUser, logoutUser, probeToken} from "../actions";
+import { getItem, setItem, toggleItem } from '../utilities/storage';
+import Routes from "./Routes";
+import Header from "./Header";
+import Sitebar from "./Sitebar";
+import Notifications from "./Notifications";
 import en from "../i18n/messages_en.json";
 import de from "../i18n/messages_de.json";
 import Progress from "./Progress";
@@ -61,17 +59,12 @@ class Mainframe extends React.Component {
             <IntlProvider locale={this.state.lang} messages={langMsg}>
                 <Router>
                     <div className="mainframe container">
-                        <Notifications messages={this.state.messages} />
-                        <Header
-                            changeLanguage={this.changeLanguage}
-                            lang={langMsg}
-                            language={this.state.lang}
-                            logoutUser={() => dispatch(logoutUser())}
-                            toggleMenu={() => this.toggleMenu()}
-                            renderOnLogin={isAuthenticated}
+                        <Notifications messages={this.state.messages}/>
+                        <Header changeLanguage={this.changeLanguage} lang={langMsg} language={this.state.lang}
+                                logoutUser={() => dispatch(logoutUser())} toggleMenu={() => this.toggleMenu()}
+                                renderOnLogin={isAuthenticated}
                         />
-                        <Progress isActive={false} />
-                        {(isAuthenticated) && <Sitebar show={this.state.sitebar} />}
+                            <Progress isActive={false}/>{(isAuthenticated) && <Sitebar show={this.state.sitebar} />}
 
                         {/*
                             <Route path="/" render={() => <RestPassword dispatch={dispatch} user={profile}/>}/>

@@ -1,13 +1,14 @@
 import React from "react";
-import { injectIntl, intlShape } from "react-intl";
+import PropTypes from "prop-types";
+import { injectIntl, intlShape, FormattedMessage } from "react-intl";
 import { Link } from "react-router-dom";
-import { FormattedMessage } from "react-intl";
 import { MenuItem } from "react-bootstrap";
 import FormattedDropDown from "./i18n/FormattedDropDown";
 import "./../css/header.css";
 
 class Header extends React.Component {
     render() {
+        // eslint-disable-next-line prefer-destructuring
         const locale = this.props.intl.locale;
         const dropDownId = `header.dropdown.language.${locale}`;
         const { renderOnLogin } = this.props;
@@ -40,7 +41,12 @@ class Header extends React.Component {
 }
 
 Header.propTypes = {
+    // eslint-disable-next-line react/no-typos
     intl: intlShape.isRequired,
+    renderOnLogin: PropTypes.bool.isRequired,
+    toggleMenu: PropTypes.func.isRequired,
+    changeLanguage: PropTypes.func.isRequired,
+    logoutUser: PropTypes.func.isRequired,
 };
 
 export default injectIntl(Header);
