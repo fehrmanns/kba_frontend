@@ -1,13 +1,12 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import './../css/progress.css'
+import React from "react";
+import PropTypes from "prop-types";
+import "./../css/progress.css";
 
 export default class Progress extends React.Component {
-
     render() {
         const { isActive } = this.props;
         let progressClass = "progress-bar";
-        isActive && (progressClass = progressClass + " progress-bar-striped active");
+        isActive && (progressClass += " progress-bar-striped active");
 
         return (
             <div className="row progress">
@@ -18,5 +17,5 @@ export default class Progress extends React.Component {
 }
 
 Progress.propTypes = {
-    isActive: PropTypes.bool.isRequired
+    isActive: PropTypes.bool.isRequired,
 };

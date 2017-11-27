@@ -1,10 +1,9 @@
-import React from 'react'
-import {connect} from 'react-redux'
-import NotificationItem from './NotificationItem'
-import '../css/notifications.css'
+import React from "react";
+import {connect} from "react-redux";
+import NotificationItem from "./NotificationItem";
+import "../css/notifications.css";
 
 class Notifications extends React.Component {
-
     render() {
         const { messages } = this.props;
         // TODO: this notification has to be closed somehow.
@@ -23,10 +22,9 @@ class Notifications extends React.Component {
 }
 
 function mapStateToProps(state) {
-
     const {messages} = state;
 
-    return { messages }
+    return { messages };
 }
 
-export default connect(mapStateToProps)(Notifications)
+export default connect(mapStateToProps)(Notifications);
