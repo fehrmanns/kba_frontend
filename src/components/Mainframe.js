@@ -109,7 +109,8 @@ class Mainframe extends React.Component {
                             language={this.state.lang}
                             logoutUser={() => dispatch(logoutUser())}
                             toggleMenu={() => this.toggleMenu()}
-                            renderOnLogin={showNavigation}
+                            renderOnLogin={isAuthenticated}
+                            renderOnAccess={showNavigation}
                         />
                         <Progress isActive={false} />
                         {(showNavigation) && <Sitebar show={this.state.sitebar} />}

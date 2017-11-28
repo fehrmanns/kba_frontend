@@ -1,7 +1,9 @@
 import React, {Component} from "react";
-import {updateUser, probeToken} from "../actions";
+import {connect} from "react-redux";
+import PropTypes from "prop-types";
 import {FormattedMessage} from "react-intl";
 import FormattedInput from "../components/i18n/FormattedInput";
+import {updateUser, probeToken} from "../actions";
 import "./../css/login.css";
 
 class PasswordReset extends Component {
@@ -61,8 +63,8 @@ class PasswordReset extends Component {
 
     sendData() {
         const {dispatch} = this.props;
-
-        const userUpdate = Object.assign({}, this.props.user, {password: this.state.password});
+        console.log("user", this.props.auth.user);
+        const userUpdate = Object.assign({}, this.props.auth.user, {password: this.state.password});
         dispatch(updateUser(userUpdate)).then(dispatch(probeToken()));
     }
 
@@ -123,4 +125,18 @@ class PasswordReset extends Component {
     }
 }
 
-export default PasswordReset;
+
+PasswordReset.propTypes = {
+    dispatch: PropTypes.func.isRequired,
+    auth: PropTypes.object.isRequired,
+};
+
+function mapStateToProps(state) {
+    const {auth} = state;
+
+    return {
+        auth,
+    };
+}
+
+export default connect(mapStateToProps)(PasswordReset);

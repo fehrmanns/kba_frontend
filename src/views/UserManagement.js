@@ -67,7 +67,7 @@ class UserManagement extends React.Component {
 
 
     render() {
-        const {userList, userAreLoaded} = this.props;
+        const {userList, userAreLoaded, currentUser} = this.props;
 
         return (
             <div className="usermanagement">
@@ -77,7 +77,7 @@ class UserManagement extends React.Component {
                         <FormattedMessage tagName="h1" id="view.user.title" />
                     </div>
                 </div>
-                {userList ?
+                {(userList && currentUser) ?
                     <div>
                         <div className="row">
                             <div className="col-xs-12">
@@ -104,7 +104,7 @@ class UserManagement extends React.Component {
                         </div>
                         <div className="row">
                             <div className="col-xs-12">
-                                {userAreLoaded && <UserManagementList users={userList} deleteUser={this.deleteUser} updateUser={this.updateUser} />}
+                                {userAreLoaded && <UserManagementList currentUser={currentUser} users={userList} deleteUser={this.deleteUser} updateUser={this.updateUser} />}
                             </div>
                         </div>
                     </div>
@@ -121,13 +121,16 @@ UserManagement.propTypes = {
 };
 
 function mapStateToProps(state) {
-    const {users} = state;
+    const {users, auth} = state;
+    const currentUser = auth.user;
     const userList = users.list;
     const userAreLoaded = users.isLoaded;
 
     return {
         userList,
         userAreLoaded,
+        currentUser,
+        auth,
     };
 }
 

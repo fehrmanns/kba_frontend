@@ -70,7 +70,6 @@ export function logoutUser() {
     };
 }
 
-// Calls the API to get a token
 export function loginUser(creds) {
     const encodeLogin = `Basic ${btoa(`${creds.username}:${creds.password}`)}`;
     const loginHeader = new Headers();
@@ -88,36 +87,36 @@ export function loginUser(creds) {
             .then((response) => {
                 switch (response.status) {
                 // TODO: add correct messages
-                case 200:
-                    response.json()
-                        .then(user => ({user, response}))
-                        .then(({user, response}) => {
-                            if (!response.ok) {
+                    case 200:
+                        response.json()
+                            .then(user => ({user, response}))
+                            .then(({user, response}) => {
+                                if (!response.ok) {
                                 // If there was a problem, we want to
                                 // dispatch the error condition
-                                dispatch(loginError("Login error"));
-                                return Promise.reject(user);
-                            }
-                            // If login was successful, set the token in local storage
-                            localStorage.setItem("profile", JSON.stringify(user.kbaUser));
-                            localStorage.setItem("auth_token", user.authtoken);
-                            localStorage.setItem("refresh_token", user.refreshtoken);
+                                    dispatch(loginError("Login error"));
+                                    return Promise.reject(user);
+                                }
+                                // If login was successful, set the token in local storage
+                                localStorage.setItem("profile", JSON.stringify(user.kbaUser));
+                                localStorage.setItem("auth_token", user.authtoken);
+                                localStorage.setItem("refresh_token", user.refreshtoken);
 
-                            // Dispatch the success action
-                            dispatch(receiveLogin(user));
-                        });
-                    break;
-                case 400:
-                    dispatch(loginError("400"));
-                    break;
-                case 401:
-                    dispatch(loginError("401"));
-                    break;
-                case 500:
-                    console.error("500 Some server error");
-                    break;
-                default:
-                    console.warn("Some uncatched server response:", response.status);
+                                // Dispatch the success action
+                                dispatch(receiveLogin(user));
+                            });
+                        break;
+                    case 400:
+                        dispatch(loginError("400"));
+                        break;
+                    case 401:
+                        dispatch(loginError("401"));
+                        break;
+                    case 500:
+                        console.error("500 Some server error");
+                        break;
+                    default:
+                        console.warn("Some uncatched server response:", response.status);
                 }
             }).catch(err => console.warn("Error: ", err));
     };
@@ -138,15 +137,16 @@ export function probeToken() {
     return dispatch => fetch(`http://localhost:8080/befe/rest/${endpoint}`, config)
         .then((response) => {
             switch (response.status) {
-            case 200:
-                response.json()
-                    .then(user => (!user.active && dispatch(logoutUser())));
-                break;
-            default:
-                dispatch(logoutUser());
+                case 200:
+                    response.json()
+                        .then(user => (!user.active && dispatch(logoutUser())));
+                    break;
+                default:
+                    dispatch(logoutUser());
             }
         }).catch(err => console.log("Error: ", err));
 }
+
 
 // user handling
 export function getUsers() {
@@ -185,14 +185,14 @@ export function updateUser(user) {
     };
 }
 
-export function deleteUser(user) {
+export function deleteUser(userName) {
     return {
         [CALL_API]: {
-            endpoint: `management/users/${user}`,
+            endpoint: `management/users/${userName}`,
             authenticated: true,
             method: "DELETE",
             types: [USER_DELETED, USER_FAILURE],
-            json: user,
+            json: userName,
         },
     };
 }

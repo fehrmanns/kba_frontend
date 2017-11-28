@@ -10,13 +10,13 @@ class Header extends React.Component {
     render() {
         const { locale } = this.props.intl;
         const dropDownId = `header.dropdown.language.${locale}`;
-        const { renderOnLogin } = this.props;
+        const { renderOnLogin, renderOnAccess } = this.props;
 
         return (
             <nav className="navbar navbar-inverse navbar-fixed-top">
                 <div className="container">
                     <div className="navbar-header">
-                        { renderOnLogin &&
+                        { renderOnAccess &&
                             <button type="button" className="navbar-toggle collapsed" onClick={() => this.props.toggleMenu()}>
                                 <span className="sr-only"><FormattedMessage id="header.button.togglenavigation" /></span>
                                 <span className="icon-bar" />
@@ -43,6 +43,7 @@ Header.propTypes = {
     // eslint-disable-next-line react/no-typos
     intl: intlShape.isRequired,
     renderOnLogin: PropTypes.bool.isRequired,
+    renderOnAccess: PropTypes.bool.isRequired,
     toggleMenu: PropTypes.func.isRequired,
     changeLanguage: PropTypes.func.isRequired,
     logoutUser: PropTypes.func.isRequired,

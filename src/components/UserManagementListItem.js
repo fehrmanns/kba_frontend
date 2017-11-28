@@ -1,8 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
+import {MenuItem} from "react-bootstrap";
 import {FormattedDate, FormattedMessage} from "react-intl";
 import FormattedDropDown from "./i18n/FormattedDropDown";
-import {MenuItem} from "react-bootstrap";
 
 
 class UserManagementListItem extends React.Component {
@@ -10,8 +10,8 @@ class UserManagementListItem extends React.Component {
         super(props);
 
         this.state = {
-            firstName: this.props.userItem.firstName,
-            lastName: this.props.userItem.lastName,
+            firstName: this.props.userItem.firstName ? this.props.userItem.firstName : "",
+            lastName: this.props.userItem.lastName ? this.props.userItem.lastName : "",
             roleName: this.props.userItem.roleName,
             active: this.props.userItem.active,
             firstNameModified: false,
@@ -21,6 +21,7 @@ class UserManagementListItem extends React.Component {
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSelection = this.handleSelection.bind(this);
+        this.handleUpdate = this.handleUpdate.bind(this);
     }
 
     handleChange(event) {
@@ -41,7 +42,8 @@ class UserManagementListItem extends React.Component {
 
     compareContent(name, value) {
         const propName = `${name}Modified`;
-        (this.props.userItem[name] !== value) ? this.setState({ [propName]: true }) : this.setState({ [propName]: false });
+        const compareItem = (this.props.userItem[name] === null) ? "" : this.props.userItem[name];
+        (compareItem !== value) ? this.setState({[propName]: true}) : this.setState({[propName]: false});
     }
 
     toggleUser() {
@@ -50,13 +52,27 @@ class UserManagementListItem extends React.Component {
         });
 
         const user = Object.assign({}, this.props.userItem, {active: !this.props.userItem.active});
-
         this.props.updateUser(user, false);
+    }
+
+    handleUpdate() {
+        const user = Object.assign({}, this.props.userItem, {
+            firstName: this.state.firstName,
+            lastName: this.state.lastName,
+            roleName: this.state.roleName,
+        });
+        this.props.updateUser(user, true);
+        this.setState({
+            firstNameModified: false,
+            lastNameModified: false,
+            roleNameModified: false,
+        });
     }
 
 
     render() {
         const user = this.props.userItem;
+        const {currentUser} = this.props;
         const activeUser = this.state.active;
         const roleDropDownTitleId = `dropdown.role.${this.state.roleName}`;
         const modified = this.state.firstNameModified || this.state.lastNameModified || this.state.roleNameModified;
@@ -67,15 +83,19 @@ class UserManagementListItem extends React.Component {
                 <td><input id="tableInputFirstName" onChange={this.handleChange} value={this.state.firstName} /></td>
                 <td><input id="tableInputLastName" onChange={this.handleChange} value={this.state.lastName} /></td>
                 <td>
-                    <FormattedDropDown id="newUser.roleName.selection" bsStyle="link" titleId={roleDropDownTitleId} onSelect={this.handleSelection}>
-                    <MenuItem eventKey="admin"><FormattedMessage id="dropdown.role.admin" /></MenuItem>
-                        <MenuItem eventKey="supervisor"><FormattedMessage id="dropdown.role.supervisor" /></MenuItem>
-                        <MenuItem eventKey="analyst"><FormattedMessage id="dropdown.role.analyst" /></MenuItem>
+                    {(user.loginName !== currentUser.loginName) ?
+                        <FormattedDropDown id="newUser.roleName.selection" bsStyle="link" titleId={roleDropDownTitleId} onSelect={this.handleSelection}>
+                            <MenuItem eventKey="admin"><FormattedMessage id="dropdown.role.admin" /></MenuItem>
+                            <MenuItem eventKey="supervisor"><FormattedMessage id="dropdown.role.supervisor" /></MenuItem>
+                            <MenuItem eventKey="analyst"><FormattedMessage id="dropdown.role.analyst" /></MenuItem>
                         </FormattedDropDown>
+                        :
+                        <FormattedMessage id={roleDropDownTitleId} />
+                    }
                 </td>
                 <td className="date">
                     <span>
-                        {!!user.created && <FormattedDate value={user.created} day="2-digit" month="short" year="numeric" /> }
+                        {!!user.created && <FormattedDate value={user.created} day="2-digit" month="short" year="numeric" />}
                     </span>
                 </td>
                 {/*
@@ -91,22 +111,26 @@ class UserManagementListItem extends React.Component {
                 </td>
                 */}
                 <td className="text-center">
+                    {(user.loginName !== currentUser.loginName) &&
                     <button className={activeUser ? "btn btn-xs btn-warning" : "btn btn-xs btn-info"} onClick={() => this.toggleUser()}>
-                        { activeUser ? <FormattedMessage id="button.user.deactivate" /> : <FormattedMessage id="button.user.activate" /> }
+                        {activeUser ? <FormattedMessage id="button.user.deactivate" /> : <FormattedMessage id="button.user.activate" />}
                     </button>
+                    }
                 </td>
 
-                { modified ?
+                {modified ?
                     <td className="text-center">
-                        <button className="btn btn-xs btn-success" onClick={() => this.props.updateUser(user.loginName)}>
+                        <button className="btn btn-xs btn-success" onClick={() => this.handleUpdate()}>
                             <FormattedMessage id="button.user.update" />
                         </button>
                     </td>
                     :
                     <td className="text-center">
+                        {(user.loginName !== currentUser.loginName) &&
                         <button className="btn btn-xs btn-danger" onClick={() => this.props.deleteUser(user.loginName)}>
                             <FormattedMessage id="button.user.delete" />
                         </button>
+                        }
                     </td>
                 }
             </tr>
@@ -116,6 +140,7 @@ class UserManagementListItem extends React.Component {
 
 UserManagementListItem.propTypes = {
     userItem: PropTypes.object.isRequired,
+    currentUser: PropTypes.object.isRequired,
     updateUser: PropTypes.func.isRequired,
     deleteUser: PropTypes.func.isRequired,
 };

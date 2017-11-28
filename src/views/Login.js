@@ -125,16 +125,19 @@ class Login extends Component {
 
 Login.propTypes = {
     dispatch: PropTypes.func.isRequired,
+    isAuthenticated: PropTypes.bool.isRequired,
+    isFetching: PropTypes.bool.isRequired,
 };
 
 function mapStateToProps(state) {
     const {auth, tokenIsValid} = state;
-    const {isAuthenticated} = auth;
+    const {isAuthenticated, isFetching} = auth;
 
     return {
         auth,
         tokenIsValid,
         isAuthenticated,
+        isFetching,
     };
 }
 
