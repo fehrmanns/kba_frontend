@@ -1,10 +1,10 @@
 import React, {Component} from "react";
-import { updateUser, probeToken} from "../actions";
+import {updateUser, probeToken} from "../actions";
 import {FormattedMessage} from "react-intl";
 import FormattedInput from "../components/i18n/FormattedInput";
 import "./../css/login.css";
 
-class RestPassword extends Component {
+class PasswordReset extends Component {
     constructor(props) {
         super(props);
 
@@ -24,22 +24,22 @@ class RestPassword extends Component {
         const targetName = event.target.id.replace("input", "").replace(/\b[A-Z]/g, letter => letter.toLowerCase());
 
         switch (targetName) {
-        case "password":
-            this.setState({
-                [targetName]: event.target.value,
-                passwordIsValid: true,
-            });
-            break;
-        case "passwordConfirm":
-            this.setState({
-                [targetName]: event.target.value,
-                passwordIsEqual: true,
-            });
-            break;
-        default:
-            this.setState({
-                [targetName]: event.target.value,
-            });
+            case "password":
+                this.setState({
+                    [targetName]: event.target.value,
+                    passwordIsValid: true,
+                });
+                break;
+            case "passwordConfirm":
+                this.setState({
+                    [targetName]: event.target.value,
+                    passwordIsEqual: true,
+                });
+                break;
+            default:
+                this.setState({
+                    [targetName]: event.target.value,
+                });
         }
     }
 
@@ -86,7 +86,15 @@ class RestPassword extends Component {
                                 <FormattedMessage id="input.password" />&nbsp;
                                 {passwordError && <FormattedMessage id="input.passwordError" />}
                             </label>
-                            <FormattedInput type="password" id="inputPassword" className="form-control" placeholder="input.password" required="" onChange={this.handleChange} value={this.state.password} />
+                            <FormattedInput
+                                type="password"
+                                id="inputPassword"
+                                className="form-control"
+                                placeholder="input.password"
+                                required=""
+                                onChange={this.handleChange}
+                                value={this.state.password}
+                            />
                         </div>
                     </div>
                     <div className="col-xs-12">
@@ -95,7 +103,14 @@ class RestPassword extends Component {
                                 <FormattedMessage id="input.passwordConfirm" />&nbsp;
                                 {passwordEqualError && <FormattedMessage id="input.passwordConfirmError" />}
                             </label>
-                            <FormattedInput type="password" id="inputPasswordConfirm" className="form-control" placeholder="input.passwordConfirm" onChange={this.handleChange} value={this.state.passwordConfirm} />
+                            <FormattedInput
+                                type="password"
+                                id="inputPasswordConfirm"
+                                className="form-control"
+                                placeholder="input.passwordConfirm"
+                                onChange={this.handleChange}
+                                value={this.state.passwordConfirm}
+                            />
                         </div>
                     </div>
 
@@ -108,4 +123,4 @@ class RestPassword extends Component {
     }
 }
 
-export default RestPassword;
+export default PasswordReset;

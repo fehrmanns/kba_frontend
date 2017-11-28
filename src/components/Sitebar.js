@@ -59,7 +59,7 @@ class Sitebar extends React.Component {
 }
 
 Sitebar.propTypes = {
-    show: PropTypes.string.isRequired,
+    show: PropTypes.bool.isRequired,
 };
 
 export default Sitebar;

@@ -31,7 +31,7 @@ function receiveLogin(user) {
         type: LOGIN_SUCCESS,
         isFetching: false,
         isAuthenticated: true,
-        id_token: user.auth_token,
+        user,
     };
 }
 

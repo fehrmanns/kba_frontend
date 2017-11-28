@@ -17,13 +17,15 @@ function auth(state = {
         return Object.assign({}, state, {
             isFetching: true,
             isAuthenticated: false,
-            user: action.creds,
+            creds: action.creds,
         });
     case LOGIN_SUCCESS:
         return Object.assign({}, state, {
             isFetching: false,
             isAuthenticated: true,
             errorMessage: "",
+            authtoken: action.authtoken,
+            user: action.user.kbaUser,
         });
     case LOGIN_FAILURE:
         return Object.assign({}, state, {

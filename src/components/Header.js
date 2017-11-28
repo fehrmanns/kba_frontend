@@ -8,8 +8,7 @@ import "./../css/header.css";
 
 class Header extends React.Component {
     render() {
-        // eslint-disable-next-line prefer-destructuring
-        const locale = this.props.intl.locale;
+        const { locale } = this.props.intl;
         const dropDownId = `header.dropdown.language.${locale}`;
         const { renderOnLogin } = this.props;
 

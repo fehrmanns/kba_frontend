@@ -1,19 +1,32 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
-import {BrowserRouter as Router} from "react-router-dom";
+import {BrowserRouter as Router, Route, Redirect} from "react-router-dom";
 import {addLocaleData, IntlProvider} from "react-intl";
 import intlEN from "react-intl/locale-data/en";
 import intlDE from "react-intl/locale-data/de";
-import { loginUser, logoutUser, probeToken} from "../actions";
-import { getItem, setItem, toggleItem } from '../utilities/storage';
-import Routes from "./Routes";
+import {logoutUser, probeToken} from "../actions";
+import {getItem, setItem, toggleItem} from "../utilities/storage";
 import Header from "./Header";
 import Sitebar from "./Sitebar";
 import Notifications from "./Notifications";
 import en from "../i18n/messages_en.json";
 import de from "../i18n/messages_de.json";
 import Progress from "./Progress";
+import Home from "./../views/Home";
+import Login from "./../views/Login";
+import PasswordReset from "./../views/PasswordReset";
+import Recordings from "./../views/Recordings";
+import BiometricProfiles from "./../views/BiometricProfiles";
+import Matchlist from "./../views/Matchlist";
+import Matchall from "./../views/Matchall";
+import Fileimport from "./../views/Fileimport";
+import Joblist from "./../views/Joblist";
+import Importsettings from "./../views/Importsettings";
+import Usersettings from "../views/UserManagement";
+import Organisationsettings from "./../views/Organisationsettings";
+import Categorysettings from "./../views/Categorysettings";
+import License from "./../views/License";
 
 addLocaleData([...intlEN, ...intlDE]);
 
@@ -49,32 +62,63 @@ class Mainframe extends React.Component {
 
 
     render() {
-        const {dispatch, auth, isAuthenticated} = this.props;
+        const {dispatch, isAuthenticated} = this.props;
         const profile = isAuthenticated ? JSON.parse(localStorage.getItem("profile")) : {};
         const passwordExpired = isAuthenticated ? profile.expired : true;
+        const showNavigation = !passwordExpired && isAuthenticated;
         const localeMessages = Object.assign({}, en, de);
         const langMsg = localeMessages[this.state.lang];
 
-        return (
-            <IntlProvider locale={this.state.lang} messages={langMsg}>
-                <Router>
-                    <div className="mainframe container">
-                        <Notifications messages={this.state.messages}/>
-                        <Header changeLanguage={this.changeLanguage} lang={langMsg} language={this.state.lang}
-                                logoutUser={() => dispatch(logoutUser())} toggleMenu={() => this.toggleMenu()}
-                                renderOnLogin={isAuthenticated}
-                        />
-                            <Progress isActive={false}/>{(isAuthenticated) && <Sitebar show={this.state.sitebar} />}
+        let content = "";
 
-                        {/*
-                            <Route path="/" render={() => <RestPassword dispatch={dispatch} user={profile}/>}/>
-                        */}
-                        <div className={(this.state.sitebar === true) ? "show container-fluid" : "container-fluid"}>
-                            <Routes dispatch={dispatch} auth={auth} loginUser={loginUser} />
-                        </div>
-                    </div>
-                </Router>
-            </IntlProvider>
+        if (isAuthenticated === false || isAuthenticated === undefined) {
+            console.log("isAuthenticated === false");
+            content = <Route component={Login} />;
+        } else if (passwordExpired === true) {
+            console.log("expired === true");
+            content = <Route component={PasswordReset} />;
+        } else {
+            console.log("routing elsewhere");
+            content = (
+                <div className={(this.state.sitebar === true) ? "show container-fluid" : "container-fluid"}>
+                    <Route exact path="/login" render={() => (<Redirect to="/" />)} />
+                    <Route exact path="/" component={Home} />
+                    <Route exact path="/recordings" component={Recordings} />
+                    <Route exact path="/biometricprofiles" component={BiometricProfiles} />
+                    <Route exact path="/matchlist" component={Matchlist} />
+                    <Route exact path="/topics" component={Matchall} />
+                    <Route exact path="/fileimport" component={Fileimport} />
+                    <Route exact path="/joblist" component={Joblist} />
+                    <Route exact path="/importsettings" component={Importsettings} />
+                    <Route exact path="/usersettings" component={Usersettings} />
+                    <Route exact path="/organisationsettings" component={Organisationsettings} />
+                    <Route exact path="/categorysettings" component={Categorysettings} />
+                    <Route exact path="/license" component={License} />
+                </div>
+            );
+        }
+
+        return (
+            <IntlProvider locale={this.state.lang} messages={langMsg} >
+                <Router >
+                    <div className="mainframe container" >
+                        <Notifications messages={this.state.messages} />
+                        <Header
+                            changeLanguage={this.changeLanguage}
+                            lang={langMsg}
+                            language={this.state.lang}
+                            logoutUser={() => dispatch(logoutUser())}
+                            toggleMenu={() => this.toggleMenu()}
+                            renderOnLogin={showNavigation}
+                        />
+                        <Progress isActive={false} />
+                        {(showNavigation) && <Sitebar show={this.state.sitebar} />}
+
+                        {content}
+
+                    </div >
+                </Router >
+            </IntlProvider >
         );
     }
 }
@@ -82,6 +126,7 @@ class Mainframe extends React.Component {
 Mainframe.propTypes = {
     dispatch: PropTypes.func.isRequired,
     auth: PropTypes.object.isRequired,
+    isAuthenticated: PropTypes.bool.isRequired,
 };
 
 function mapStateToProps(state) {

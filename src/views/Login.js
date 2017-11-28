@@ -1,6 +1,9 @@
 import React, {Component} from "react";
+import {connect} from "react-redux";
+import PropTypes from "prop-types";
 import {FormattedMessage} from "react-intl";
 import FormattedInput from "../components/i18n/FormattedInput";
+import { loginUser } from "../actions";
 import "./../css/login.css";
 
 class Login extends Component {
@@ -14,6 +17,7 @@ class Login extends Component {
         };
 
         this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -42,7 +46,7 @@ class Login extends Component {
     }
 
     sendData() {
-        const {dispatch, loginUser} = this.props;
+        const {dispatch} = this.props;
 
         const creds = {
             username: this.state.username,
@@ -60,7 +64,7 @@ class Login extends Component {
 
                 <form
                     className={showError ? "form-signin unauthorized" : "form-signin"}
-                    onSubmit={this.handleSubmit.bind(this)}
+                    onSubmit={this.handleSubmit}
                 >
 
                     <h2 className="form-signin-heading">
@@ -118,4 +122,20 @@ class Login extends Component {
     }
 }
 
-export default Login;
+
+Login.propTypes = {
+    dispatch: PropTypes.func.isRequired,
+};
+
+function mapStateToProps(state) {
+    const {auth, tokenIsValid} = state;
+    const {isAuthenticated} = auth;
+
+    return {
+        auth,
+        tokenIsValid,
+        isAuthenticated,
+    };
+}
+
+export default connect(mapStateToProps)(Login);
