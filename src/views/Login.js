@@ -22,9 +22,9 @@ class Login extends Component {
 
     componentWillReceiveProps(nextProps) {
         // check if there is no difference in the input
-        if (nextProps.auth.user) {
-            const userIsDifferent = this.state.username.localeCompare(nextProps.auth.user.username);
-            const passwordIsDifferent = this.state.password.localeCompare(nextProps.auth.user.password);
+        if (nextProps.auth.creds) {
+            const userIsDifferent = this.state.username.localeCompare(nextProps.auth.creds.username);
+            const passwordIsDifferent = this.state.password.localeCompare(nextProps.auth.creds.password);
             const inputIsDifferent = (userIsDifferent || passwordIsDifferent);
 
             (!inputIsDifferent && !nextProps.auth.isFetching && !nextProps.auth.isAuthenticated) && Object.assign({}, this.setState({showError: true}));
