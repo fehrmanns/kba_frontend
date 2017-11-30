@@ -1,9 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {FormattedMessage} from "react-intl";
+import {MenuItem} from "react-bootstrap";
 import FormattedInput from "../components/i18n/FormattedInput";
 import FormattedDropDown from "./i18n/FormattedDropDown";
-import {MenuItem} from "react-bootstrap";
 
 export default class UserManagementAddNew extends React.Component {
     constructor(props) {
@@ -59,7 +59,7 @@ export default class UserManagementAddNew extends React.Component {
 
     handleSelection(value) {
         this.setState({
-            roleName: value,
+            roleName: value.toUpperCase(),
             roleNameIsValid: true,
         });
     }

@@ -27,6 +27,7 @@ function auth(state = {
                 creds: action.creds,
             });
         case LOGIN_SUCCESS:
+            console.warn("200 (Login success)");
             return Object.assign({}, state, {
                 isFetching: false,
                 isAuthenticated: true,

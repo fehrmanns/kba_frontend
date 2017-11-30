@@ -12,7 +12,7 @@ class UserManagementListItem extends React.Component {
         this.state = {
             firstName: this.props.userItem.firstName ? this.props.userItem.firstName : "",
             lastName: this.props.userItem.lastName ? this.props.userItem.lastName : "",
-            roleName: this.props.userItem.roleName,
+            roleName: this.props.userItem.roleName.toLowerCase(),
             active: this.props.userItem.active,
             firstNameModified: false,
             lastNameModified: false,
@@ -59,7 +59,7 @@ class UserManagementListItem extends React.Component {
         const user = Object.assign({}, this.props.userItem, {
             firstName: this.state.firstName,
             lastName: this.state.lastName,
-            roleName: this.state.roleName,
+            roleName: this.state.roleName.toUpperCase(),
         });
         this.props.updateUser(user, true);
         this.setState({

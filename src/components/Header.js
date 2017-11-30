@@ -25,7 +25,7 @@ class Header extends React.Component {
         const dropDownId = `header.dropdown.language.${locale}`;
         const renderOnLogin = this.props.isAuthenticated;
         const username = getLoginName();
-        const renderOnAccess = !this.props.auth.user.expired;
+        const renderOnAccess = !this.props.expired;
 
         return (
             <nav className="navbar navbar-inverse navbar-fixed-top">
@@ -47,11 +47,14 @@ class Header extends React.Component {
                             <MenuItem eventKey="de"><FormattedMessage id="header.dropdown.language.de" /></MenuItem>
                         </FormattedDropDown>
                         {renderOnAccess &&
-                        <FormattedButton
-                            className="btn btn-link"
-                            title="header.user.hint"
-                            onClick={() => this.editPassword()}><FormattedMessage id="header.user.label" />: {username}
-                        </FormattedButton>}
+                            <FormattedButton
+                                className="btn btn-link"
+                                title="header.user.hint"
+                                onClick={() => this.editPassword()}
+                            >
+                                <FormattedMessage id="header.user.label" />: {username}
+                            </FormattedButton>
+                        }
                         {renderOnLogin && <button className="btn btn-link" onClick={() => this.props.logoutUser()}><FormattedMessage id="header.button.logout" /></button>}
                     </div>
                 </div>
@@ -66,15 +69,20 @@ Header.propTypes = {
     toggleMenu: PropTypes.func.isRequired,
     changeLanguage: PropTypes.func.isRequired,
     logoutUser: PropTypes.func.isRequired,
+    auth: PropTypes.object.isRequired,
+    expired: PropTypes.bool.isRequired,
+    isAuthenticated: PropTypes.bool.isRequired,
 };
 
 function mapStateToProps(state) {
     const {auth} = state;
     const {isAuthenticated} = auth;
+    const {expired} = auth.user;
 
     return {
         auth,
         isAuthenticated,
+        expired,
     };
 }
 
