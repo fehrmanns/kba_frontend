@@ -1,4 +1,5 @@
 import {CALL_API} from "./middleware/api";
+import {getLoginName} from "./utilities/storage";
 // There are three possible states for our login
 // process and we need actions for each of them
 export const LOGIN_REQUEST = "LOGIN_REQUEST";
@@ -64,6 +65,7 @@ export function logoutUser() {
     return (dispatch) => {
         dispatch(requestLogout());
         localStorage.removeItem("profile");
+        localStorage.removeItem("loginName");
         localStorage.removeItem("auth_token");
         localStorage.removeItem("refresh_token");
         dispatch(receiveLogout());
@@ -99,6 +101,7 @@ export function loginUser(creds) {
                                 }
                                 // If login was successful, set the token in local storage
                                 localStorage.setItem("profile", JSON.stringify(user.kbaUser));
+                                localStorage.setItem("loginName", JSON.stringify(user.kbaUser.loginName));
                                 localStorage.setItem("auth_token", user.authtoken);
                                 localStorage.setItem("refresh_token", user.refreshtoken);
 
@@ -123,32 +126,21 @@ export function loginUser(creds) {
 }
 
 export function probeToken() {
-    const profile = JSON.parse(localStorage.getItem("profile"));
-    const endpoint = `management/users/${profile.loginName}?inclPrivs=true`;
+    const loginName = getLoginName();
+    const endpoint = `management/users/${loginName}?inclPrivs=true`;
 
-    const token = localStorage.getItem("auth_token");
-    const loginHeader = new Headers();
-    loginHeader.append("token", token);
-    const config = {
-        method: "GET",
-        headers: loginHeader,
+    return {
+        [CALL_API]: {
+            endpoint,
+            authenticated: true,
+            method: "GET",
+            types: [TOKEN_SUCCESS, TOKEN_FAILURE],
+            json: {},
+        },
     };
-
-    return dispatch => fetch(`http://localhost:8080/befe/rest/${endpoint}`, config)
-        .then((response) => {
-            switch (response.status) {
-                case 200:
-                    response.json()
-                        .then(user => (!user.active && dispatch(logoutUser())));
-                    break;
-                default:
-                    dispatch(logoutUser());
-            }
-        }).catch(err => console.log("Error: ", err));
 }
 
-
-// user handling
+// app user handling
 export function getUsers() {
     return {
         [CALL_API]: {

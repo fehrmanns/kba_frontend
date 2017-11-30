@@ -6,7 +6,7 @@ import {addLocaleData, IntlProvider} from "react-intl";
 import intlEN from "react-intl/locale-data/en";
 import intlDE from "react-intl/locale-data/de";
 import {logoutUser, probeToken} from "../actions";
-import {getItem, setItem, toggleItem} from "../utilities/storage";
+import {getToken, getItem, setItem, toggleItem} from "./../utilities/storage";
 import Header from "./Header";
 import Sitebar from "./Sitebar";
 import Notifications from "./Notifications";
@@ -36,16 +36,17 @@ class Mainframe extends React.Component {
         super(props);
 
         this.state = {
-            sitebar: getItem("sitebar"),
+            sitebar: getItem("sitebar") ? getItem("sitebar") : false,
             lang: getItem("language") ? getItem("language") : "de",
         };
 
-        localStorage.getItem("auth_token") && this.checkToken();
+        getToken("auth_token") && this.checkToken();
         this.changeLanguage = this.changeLanguage.bind(this);
     }
 
     checkToken() {
-        this.props.dispatch(probeToken());
+        this.props.dispatch(probeToken())
+            .then((response) => { (response.type === "TOKEN_FAILURE") && this.props.dispatch(logoutUser()); });
     }
 
     changeLanguage(selectedLanguage) {
@@ -62,8 +63,8 @@ class Mainframe extends React.Component {
 
 
     render() {
-        const {dispatch, isAuthenticated} = this.props;
-        const profile = isAuthenticated ? JSON.parse(localStorage.getItem("profile")) : {};
+        const {dispatch, auth, isAuthenticated} = this.props;
+        const profile = isAuthenticated ? auth.user : {};
         const passwordExpired = isAuthenticated ? profile.expired : true;
         const showNavigation = !passwordExpired && isAuthenticated;
         const localeMessages = Object.assign({}, en, de);
@@ -72,13 +73,10 @@ class Mainframe extends React.Component {
         let content = "";
 
         if (isAuthenticated === false || isAuthenticated === undefined) {
-            console.log("isAuthenticated === false");
             content = <Route component={Login} />;
         } else if (passwordExpired === true) {
-            console.log("expired === true");
             content = <Route component={PasswordReset} />;
         } else {
-            console.log("routing elsewhere");
             content = (
                 <div className={(this.state.sitebar === true) ? "show container-fluid" : "container-fluid"}>
                     <Route exact path="/login" render={() => (<Redirect to="/" />)} />
@@ -109,8 +107,6 @@ class Mainframe extends React.Component {
                             language={this.state.lang}
                             logoutUser={() => dispatch(logoutUser())}
                             toggleMenu={() => this.toggleMenu()}
-                            renderOnLogin={isAuthenticated}
-                            renderOnAccess={showNavigation}
                         />
                         <Progress isActive={false} />
                         {(showNavigation) && <Sitebar show={this.state.sitebar} />}

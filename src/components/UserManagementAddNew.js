@@ -32,28 +32,28 @@ export default class UserManagementAddNew extends React.Component {
         const targetName = event.target.id.replace("input", "").replace(/\b[A-Z]/g, letter => letter.toLowerCase());
 
         switch (targetName) {
-        case "loginName":
-            this.setState({
-                [targetName]: event.target.value,
-                loginNameIsValid: true,
-            });
-            break;
-        case "password":
-            this.setState({
-                [targetName]: event.target.value,
-                passwordIsValid: true,
-            });
-            break;
-        case "passwordConfirm":
-            this.setState({
-                [targetName]: event.target.value,
-                passwordIsEqual: true,
-            });
-            break;
-        default:
-            this.setState({
-                [targetName]: event.target.value,
-            });
+            case "loginName":
+                this.setState({
+                    [targetName]: event.target.value,
+                    loginNameIsValid: true,
+                });
+                break;
+            case "password":
+                this.setState({
+                    [targetName]: event.target.value,
+                    passwordIsValid: true,
+                });
+                break;
+            case "passwordConfirm":
+                this.setState({
+                    [targetName]: event.target.value,
+                    passwordIsEqual: true,
+                });
+                break;
+            default:
+                this.setState({
+                    [targetName]: event.target.value,
+                });
         }
     }
 

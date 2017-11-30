@@ -11,6 +11,13 @@ import {
 function auth(state = {
     isFetching: false,
     isAuthenticated: !!localStorage.getItem("auth_token"),
+    creds: {
+        username: "",
+        password: "",
+    },
+    user: {
+        expired: true,
+    },
 }, action) {
     switch (action.type) {
         case LOGIN_REQUEST:
@@ -26,6 +33,20 @@ function auth(state = {
                 errorMessage: "",
                 authtoken: action.authtoken,
                 user: action.user.kbaUser,
+            });
+        case TOKEN_SUCCESS:
+            return Object.assign({}, state, {
+                isFetching: false,
+                isAuthenticated: true,
+                errorMessage: "",
+                user: action.response,
+            });
+            // TODO: check this behaviour
+        case TOKEN_FAILURE:
+            return Object.assign({}, state, {
+                isFetching: false,
+                isAuthenticated: false,
+                errorMessage: action.message,
             });
         case LOGIN_FAILURE:
             return Object.assign({}, state, {
@@ -58,7 +79,11 @@ function token(state = {}, action) {
     }
 }
 
-function users(state = {}, action) {
+function users(state = {
+    isLoaded: false,
+    list: [],
+}, action) {
+    // TODO: define all types
     switch (action.type) {
         case USER_LOADED:
             return Object.assign({}, state, {

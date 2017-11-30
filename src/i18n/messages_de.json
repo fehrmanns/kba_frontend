@@ -12,6 +12,8 @@
         "alert.message.notsaved": "Speichern fehlgeschlagen.",
 
         "header.title": "Klarios Biometrics Analytics",
+        "header.user.label": "Benutzer",
+        "header.user.hint": "Benutzerdaten ändern",
         "header.button.logout": "Ausloggen",
         "header.button.togglenavigation": "Navigation Ein-/Ausblenden",
         "header.dropdown.language.en": "Englisch",
@@ -29,6 +31,7 @@
         "input.firstname":"Vorname",
         "input.lastname":"Nachname",
         "input.password": "Passwort",
+        "input.newPassword": "neues Passwort",
         "input.passwordError": "darf nicht leer sein.",
         "input.passwordConfirm": "Passwort wiederholen",
         "input.passwordConfirmError": "ist nicht korrekt.",

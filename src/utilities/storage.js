@@ -1,4 +1,3 @@
-
 function noSupport() {
     console.warn("no support for local storage");
 }
@@ -11,6 +10,28 @@ export function toggleItem(itemName) {
         // Sorry! No Web Storage support..
         noSupport();
     }
+}
+
+export function getToken() {
+    if (typeof (Storage) !== "undefined") {
+        const storageItem = localStorage.getItem("auth_token");
+
+        return storageItem;
+    }
+    // Sorry! No Web Storage support..
+    noSupport();
+    return null;
+}
+
+export function getLoginName() {
+    if (typeof (Storage) !== "undefined") {
+        const storageItem = localStorage.getItem("loginName");
+
+        return JSON.parse(storageItem);
+    }
+    // Sorry! No Web Storage support..
+    noSupport();
+    return null;
 }
 
 export function getItem(itemName) {

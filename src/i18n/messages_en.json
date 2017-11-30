@@ -12,6 +12,8 @@
         "alert.message.notsaved": "Saving failed.",
 
         "header.title": "Klarios Biometrics Analytics",
+        "header.user.label": "User",
+        "header.user.hint": "Change user data",
         "header.button.logout": "Log out",
         "header.button.togglenavigation": "Toggle navigation",
         "header.dropdown.language.en": "English",
@@ -29,6 +31,7 @@
         "input.firstname":"First name",
         "input.lastname":"Last name",
         "input.password": "Password",
+        "input.newPassword": "New passwort",
         "input.passwordError": "shouldn't be empty.",
         "input.passwordConfirm": "Repeat passwort",
         "input.passwordConfirmError": "isn't correct.",

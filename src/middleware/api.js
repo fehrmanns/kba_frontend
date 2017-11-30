@@ -7,8 +7,6 @@ function callApi(endpoint, authenticated, method, json) {
     const loginHeader = new Headers();
     let config = {};
 
-    // TODO: check if token is valid!
-
     if (authenticated) {
         if (token) {
             loginHeader.append("token", token);
@@ -25,8 +23,6 @@ function callApi(endpoint, authenticated, method, json) {
         method,
         headers: loginHeader,
     });
-
-    console.log("config", config);
 
     // TODO: create good switch for request
     if (method === "GET") {

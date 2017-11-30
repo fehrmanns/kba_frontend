@@ -118,6 +118,9 @@ class UserManagement extends React.Component {
 
 UserManagement.propTypes = {
     dispatch: PropTypes.func.isRequired,
+    userList: PropTypes.array.isRequired,
+    userAreLoaded: PropTypes.bool.isRequired,
+    currentUser: PropTypes.object.isRequired,
 };
 
 function mapStateToProps(state) {

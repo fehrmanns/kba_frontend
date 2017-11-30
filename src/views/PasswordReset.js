@@ -85,7 +85,7 @@ class PasswordReset extends Component {
                     <div className="col-xs-12">
                         <div className={passwordError ? "form-group has-error" : "form-group"}>
                             <label className="control-label" htmlFor="inputPassword">
-                                <FormattedMessage id="input.password" />&nbsp;
+                                <FormattedMessage id="input.newPassword" />&nbsp;
                                 {passwordError && <FormattedMessage id="input.passwordError" />}
                             </label>
                             <FormattedInput
