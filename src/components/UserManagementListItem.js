@@ -12,7 +12,7 @@ class UserManagementListItem extends React.Component {
         this.state = {
             firstName: this.props.userItem.firstName ? this.props.userItem.firstName : "",
             lastName: this.props.userItem.lastName ? this.props.userItem.lastName : "",
-            roleName: this.props.userItem.roleName.toLowerCase(),
+            roleName: (this.props.userItem.roleName.toLowerCase()),
             active: this.props.userItem.active,
             firstNameModified: false,
             lastNameModified: false,
@@ -43,7 +43,7 @@ class UserManagementListItem extends React.Component {
     compareContent(name, value) {
         const propName = `${name}Modified`;
         const compareItem = (this.props.userItem[name] === null) ? "" : this.props.userItem[name];
-        (compareItem !== value) ? this.setState({[propName]: true}) : this.setState({[propName]: false});
+        (compareItem.toLowerCase() !== value) ? this.setState({[propName]: true}) : this.setState({[propName]: false});
     }
 
     toggleUser() {

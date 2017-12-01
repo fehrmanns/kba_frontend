@@ -110,7 +110,7 @@ export default class UserManagementAddNew extends React.Component {
     }
 
     render() {
-        const roleDropDownTitleId = `dropdown.role.${this.state.roleName}`;
+        const roleDropDownTitleId = `dropdown.role.${this.state.roleName.toLowerCase()}`;
         const loginNameError = !this.state.loginNameIsValid;
         const roleNameError = !this.state.roleNameIsValid;
         const passwordError = !this.state.passwordIsValid;
