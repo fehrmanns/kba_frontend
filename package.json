@@ -16,7 +16,8 @@
     "react-scripts": "1.0.14",
     "redux": "^3.7.2",
     "redux-auth-wrapper": "^2.0.2",
-    "redux-thunk": "^2.2.0"
+    "redux-thunk": "^2.2.0",
+    "upgrade": "^1.1.0"
   },
   "devDependencies": {
     "babel-preset-flow": "^6.23.0",
