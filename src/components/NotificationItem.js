@@ -7,10 +7,15 @@ class NotificationItem extends React.Component {
         super(props);
 
         this.state = {
-            dismissible: true,
+            dismissible: this.props.dismissible,
             id: this.props.id,
         };
+        (!this.state.dismissible) && this.setCountDown();
         this.clickHandler = this.clickHandler.bind(this);
+    }
+
+    setCountDown() {
+        setTimeout(() => this.props.removeMessage(this.state.id), 5000);
     }
 
     clickHandler() {
@@ -20,7 +25,7 @@ class NotificationItem extends React.Component {
 
     render() {
         const { type, textId } = this.props;
-        const alertClass = `alert alert-${type}${this.state.dismissible && " alert-dismissible"}`;
+        const alertClass = `alert alert-${type} ${this.state.dismissible && "alert-dismissible"}`;
         const alertTextId = `alert.strong.message.${type}`;
 
         return (
@@ -37,6 +42,7 @@ NotificationItem.propTypes = {
     type: PropTypes.oneOf(["success", "info", "warning", "danger"]).isRequired,
     textId: PropTypes.string.isRequired,
     id: PropTypes.number.isRequired,
+    dismissible: PropTypes.bool.isRequired,
     removeMessage: PropTypes.func.isRequired,
 };
 
