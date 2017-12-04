@@ -8,9 +8,15 @@ class NotificationItem extends React.Component {
 
         this.state = {
             dismissible: true,
-            id: this.props.messageId,
+            id: this.props.id,
         };
+        this.clickHandler = this.clickHandler.bind(this);
     }
+
+    clickHandler() {
+        this.props.removeMessage(this.state.id);
+    }
+
 
     render() {
         const { type, textId } = this.props;
@@ -20,7 +26,7 @@ class NotificationItem extends React.Component {
         return (
             <div className={alertClass} role="alert">
                 {/* TODO: make i18n messages. */}
-                { this.state.dismissible && <button type="button" className="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button> }
+                { this.state.dismissible && <button type="button" className="close" onClick={this.clickHandler}><span aria-hidden="true">&times;</span></button> }
                 <strong><FormattedMessage id={alertTextId} /></strong> <FormattedMessage id={textId} />
             </div>
         );
@@ -30,7 +36,8 @@ class NotificationItem extends React.Component {
 NotificationItem.propTypes = {
     type: PropTypes.oneOf(["success", "info", "warning", "danger"]).isRequired,
     textId: PropTypes.string.isRequired,
-    messageId: PropTypes.number.isRequired,
+    id: PropTypes.number.isRequired,
+    removeMessage: PropTypes.func.isRequired,
 };
 
 export default NotificationItem;

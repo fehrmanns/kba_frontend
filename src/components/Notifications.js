@@ -13,6 +13,7 @@ class Notifications extends React.Component {
             messageAmount: 0,
         };
         this.setLoginError = this.setLoginError.bind(this);
+        this.removeMessageItem = this.removeMessageItem.bind(this);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -21,7 +22,7 @@ class Notifications extends React.Component {
     }
 
     setLoginError() {
-        let allMessages = this.state.messages;
+        const allMessages = this.state.messages;
         allMessages.push(
             {
                 id: this.state.messageAmount + 1,
@@ -40,23 +41,37 @@ class Notifications extends React.Component {
         this.setState({
             messages: allMessages,
         });
-        console.log("new state", this.state);
+    }
+
+    removeMessageItem(id) {
+        this.setState({
+            messages: this.state.messages.filter(object => object.id !== id),
+        });
     }
 
 
     render() {
         // TODO: this notification has to be closed somehow.
         const {messages} = this.state;
-        messages.map(message => console.log("message", message.type));
 
         return (
             <div className="notifications">
-                {messages && messages.map(message => <NotificationItem type={message.type} messageId={message.id} textId={message.text} />)}
                 {/*
                 <NotificationItem type="danger" textId="alert.message.saved"/>
                 <NotificationItem type="info" textId="alert.message.notsaved"/>
                 <NotificationItem type="warning" textId="alert.message.401"/>
-                <NotificationItem type="success" textId="alert.message.200"/> */}
+                <NotificationItem type="success" textId="alert.message.200"/>
+                */}
+
+                {messages && messages.map(message =>
+                    (<NotificationItem
+                        type={message.type}
+                        key={`message_${message.id}`}
+                        id={message.id}
+                        textId={message.text}
+                        dismissible={message.dismissible}
+                        removeMessage={this.removeMessageItem}
+                    />))}
             </div>
         );
     }
