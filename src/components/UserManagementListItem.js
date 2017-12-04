@@ -52,7 +52,7 @@ class UserManagementListItem extends React.Component {
         });
 
         const user = Object.assign({}, this.props.userItem, {active: !this.props.userItem.active});
-        this.props.updateUser(user, false);
+        this.props.updateUser(user, true);
     }
 
     handleUpdate() {
