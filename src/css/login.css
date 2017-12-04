@@ -5,8 +5,13 @@
     border-radius: 5px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
 }
+
 .form-password-change {
     width: 24em;
+}
+
+.form-signin {
+    width: 21em;
 }
 
 .form-signin.unauthorized {
@@ -32,6 +37,7 @@
 .error-label .label {
     position: relative;
     top: -1em;
+    background: #d9534f;
 }
 
 @keyframes wrong-log {

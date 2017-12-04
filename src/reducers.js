@@ -10,6 +10,7 @@ import {
 // we would also want a util to check if the token is expired.
 function auth(state = {
     isFetching: false,
+    failureCounter: 0,
     isAuthenticated: !!localStorage.getItem("auth_token"),
     creds: {
         username: "",
@@ -31,6 +32,7 @@ function auth(state = {
             return Object.assign({}, state, {
                 isFetching: false,
                 isAuthenticated: true,
+                failureCounter: 0,
                 errorMessage: "",
                 authtoken: action.authtoken,
                 user: action.user.kbaUser,
@@ -53,6 +55,7 @@ function auth(state = {
             return Object.assign({}, state, {
                 isFetching: false,
                 isAuthenticated: false,
+                failureCounter: state.failureCounter + 1,
                 errorMessage: action.message,
             });
         case LOGOUT_SUCCESS:

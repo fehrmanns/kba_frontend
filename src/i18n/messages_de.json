@@ -47,6 +47,7 @@
 
         "login.input.heading": "Bitte anmelden",
         "login.label.fail": "Anmeldung fehlgeschlagen",
+        "login.label.failureCounter": "Wenn Sie Probleme mit Ihrem Login haben, wenden Sie sich an Ihren Administrator.",
         "passwordreset.input.heading": "Passwort ändern",
 
         "view.home.title": "Start/Dashboard",

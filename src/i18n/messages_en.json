@@ -47,6 +47,7 @@
 
         "login.input.heading": "Please sign in",
         "login.label.fail": "Login failed",
+        "login.failureCounter": "If you have problems with your login, contact your administrator.",
         "passwordreset.input.heading": "Password change",
 
         "view.home.title": "Home/Dashboard",

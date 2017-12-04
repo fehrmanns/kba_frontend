@@ -100,7 +100,7 @@ class Mainframe extends React.Component {
             <IntlProvider locale={this.state.lang} messages={langMsg} >
                 <Router >
                     <div className="mainframe container" >
-                        <Notifications messages={this.state.messages} />
+                        <Notifications />
                         <Header
                             changeLanguage={this.changeLanguage}
                             lang={langMsg}
@@ -112,7 +112,6 @@ class Mainframe extends React.Component {
                         {(showNavigation) && <Sitebar show={this.state.sitebar} />}
 
                         {content}
-
                     </div >
                 </Router >
             </IntlProvider >

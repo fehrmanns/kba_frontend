@@ -8,6 +8,7 @@ class NotificationItem extends React.Component {
 
         this.state = {
             dismissible: true,
+            id: this.props.messageId,
         };
     }
 
@@ -29,6 +30,7 @@ class NotificationItem extends React.Component {
 NotificationItem.propTypes = {
     type: PropTypes.oneOf(["success", "info", "warning", "danger"]).isRequired,
     textId: PropTypes.string.isRequired,
+    messageId: PropTypes.number.isRequired,
 };
 
 export default NotificationItem;
