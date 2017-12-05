@@ -1,5 +1,6 @@
 import {combineReducers} from "redux";
 import {
+    SERVER_ERROR,
     LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_SUCCESS,
     TOKEN_SUCCESS, TOKEN_FAILURE,
     USER_LOADED, USER_DELETED, USER_ADDED, USER_UPDATED, USER_FAILURE,
@@ -8,9 +9,23 @@ import {
 // The auth reducer. The starting state sets authentication
 // based on a token being in local storage. In a real app,
 // we would also want a util to check if the token is expired.
+function error(state = {
+    type: {},
+}, action) {
+    switch (action.type) {
+        case SERVER_ERROR:
+            return Object.assign({}, state, {
+                type: action.message,
+            });
+        default:
+            return state;
+    }
+}
+
 function auth(state = {
     isFetching: false,
     failureCounter: 0,
+    errorMessage: "",
     isAuthenticated: !!localStorage.getItem("auth_token"),
     creds: {
         username: "",
@@ -25,6 +40,7 @@ function auth(state = {
             return Object.assign({}, state, {
                 isFetching: true,
                 isAuthenticated: false,
+                errorMessage: "",
                 creds: action.creds,
             });
         case LOGIN_SUCCESS:
@@ -62,6 +78,7 @@ function auth(state = {
             return Object.assign({}, state, {
                 isFetching: true,
                 isAuthenticated: false,
+                errorMessage: "",
             });
         default:
             return state;
@@ -110,6 +127,7 @@ function users(state = {
 // We combine the reducers here so that they
 // can be left split apart above
 const kbaApp = combineReducers({
+    error,
     auth,
     token,
     users,

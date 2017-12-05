@@ -6,6 +6,7 @@
         "alert.strong.message.danger": "Achtung!",
 
         "alert.login.failureCounter": "Wenn Sie Probleme mit Ihrem Login haben, wenden Sie sich an Ihren Administrator.",
+        "alert.message.serverError": "Es gab einen Anfragefehler. Bitte versuchen Sie es erneut oder wenden Sie sich an Ihren Administrator.",
         "alert.message.200": "Dieses wird die Systemnachricht.",
         "alert.message.400": "Die Anfrage-Nachricht war fehlerhaft aufgebaut.",
         "alert.message.401": "Anfrage ohne gültige Authentifizierung.",

@@ -15,7 +15,7 @@ class NotificationItem extends React.Component {
     }
 
     setCountDown() {
-        setTimeout(() => this.props.removeMessage(this.state.id), 5000);
+        setTimeout(() => this.props.removeMessage(this.state.id), 7500);
     }
 
     clickHandler() {

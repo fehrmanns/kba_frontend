@@ -2,6 +2,8 @@ import {CALL_API} from "./middleware/api";
 import {getLoginName} from "./utilities/storage";
 // There are three possible states for our login
 // process and we need actions for each of them
+export const SERVER_ERROR = "SERVER_ERROR";
+
 export const LOGIN_REQUEST = "LOGIN_REQUEST";
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const LOGIN_FAILURE = "LOGIN_FAILURE";
@@ -16,6 +18,13 @@ export const USER_ADDED = "USER_ADDED";
 export const USER_DELETED = "USER_DELETED";
 export const USER_UPDATED = "USER_UPDATED";
 export const USER_FAILURE = "USER_FAILURE";
+
+function serverError(message) {
+    return {
+        type: SERVER_ERROR,
+        message,
+    };
+}
 
 // login & logout handling
 function requestLogin(creds) {
@@ -117,11 +126,13 @@ export function loginUser(creds) {
                         break;
                     case 500:
                         console.error("500 Some server error");
+                        dispatch(serverError(response.status));
                         break;
                     default:
                         console.warn("Some uncatched server response:", response.status);
+                        dispatch(serverError(response.status));
                 }
-            }).catch(err => console.warn("Error: ", err));
+            }).catch(err => dispatch(serverError(err)));
     };
 }
 

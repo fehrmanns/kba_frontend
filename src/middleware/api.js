@@ -40,7 +40,7 @@ function callApi(endpoint, authenticated, method, json) {
                 }
                 return json;
             })
-            .catch((err) => { console.warn("api-json:", err); return Promise.reject(err); });
+            .catch((err) => { console.warn("api-json:", err); throw new Error(err); });
     }
 
     return fetch(LURI + endpoint, config)
@@ -57,7 +57,7 @@ function callApi(endpoint, authenticated, method, json) {
             }
             return text;
         })
-        .catch((err) => { console.warn("api-others:", err); return Promise.reject(err); });
+        .catch((err) => { console.warn("api-others:", err); throw new Error(err); });
 }
 
 export const CALL_API = Symbol("Call API");

@@ -10,20 +10,28 @@ class Notifications extends React.Component {
 
         this.state = {
             messages: [],
-            messageAmount: 0,
+            failureCounter: 0,
         };
         this.setLoginError = this.setLoginError.bind(this);
         this.removeMessageItem = this.removeMessageItem.bind(this);
     }
 
     componentWillReceiveProps(nextProps) {
+        // count failed logins to set login-failure-alert
         (nextProps.failureCounter >= 3) && this.setLoginError();
+        this.setState({failureCounter: nextProps.failureCounter});
+        // reset login-failure-alert on successful login
+        (nextProps.failureCounter < this.state.failureCounter) && this.removeMessageItem("alert.login.failureCounter");
+        // throw alert just by server-errors
+        (nextProps.serverError.toString() === "TypeError: Failed to fetch") && this.setServerError();
+        (nextProps.errorMessage.toString() === "TypeError: Failed to fetch") && this.setServerError();
     }
 
     setLoginError() {
         const allMessages = this.state.messages;
         const messageId = "alert.login.failureCounter";
-        if(this.state.messages.filter(object => object.id === messageId).length === 0) {
+
+        if (this.state.messages.filter(object => object.id === messageId).length === 0) {
             allMessages.push({
                 id: messageId,
                 type: "danger",
@@ -33,7 +41,24 @@ class Notifications extends React.Component {
 
             this.setState({
                 messages: allMessages,
-                messageAmount: this.state.messageAmount + 1,
+            });
+        }
+    }
+
+    setServerError() {
+        const allMessages = this.state.messages;
+        const messageId = "alert.message.serverError";
+
+        if (this.state.messages.filter(object => object.id === messageId).length === 0) {
+            allMessages.push({
+                id: messageId,
+                type: "danger",
+                text: messageId,
+                dismissible: true,
+            });
+
+            this.setState({
+                messages: allMessages,
             });
         }
     }
@@ -74,14 +99,19 @@ class Notifications extends React.Component {
 
 Notifications.propTypes = {
     failureCounter: PropTypes.number.isRequired,
+    serverError: PropTypes.object.isRequired,
+    errorMessage: PropTypes.string.isRequired,
 };
 
 function mapStateToProps(state) {
-    const {auth} = state;
-    const {failureCounter} = auth;
+    const {auth, error} = state;
+    const {failureCounter, errorMessage} = auth;
+    const serverError = error.type;
 
     return {
         failureCounter,
+        errorMessage,
+        serverError,
     };
 }
 

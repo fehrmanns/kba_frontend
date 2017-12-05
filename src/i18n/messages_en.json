@@ -6,6 +6,7 @@
         "alert.strong.message.danger": "Attention!",
 
         "alert.login.failureCounter": "If you have problems with your login, contact your administrator.",
+        "alert.message.serverError": "There was a request error. Please try again or contact your administrator.",
         "alert.message.200": "This would be your system message.",
         "alert.message.400": "Bad Request.",
         "alert.message.401": "Unauthorized.",
