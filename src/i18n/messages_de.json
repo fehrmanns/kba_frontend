@@ -5,6 +5,7 @@
         "alert.strong.message.warning": "Vorsicht.",
         "alert.strong.message.danger": "Achtung!",
 
+        "alert.login.failureCounter": "Wenn Sie Probleme mit Ihrem Login haben, wenden Sie sich an Ihren Administrator.",
         "alert.message.200": "Dieses wird die Systemnachricht.",
         "alert.message.400": "Die Anfrage-Nachricht war fehlerhaft aufgebaut.",
         "alert.message.401": "Anfrage ohne gültige Authentifizierung.",
@@ -47,7 +48,6 @@
 
         "login.input.heading": "Bitte anmelden",
         "login.label.fail": "Anmeldung fehlgeschlagen",
-        "login.label.failureCounter": "Wenn Sie Probleme mit Ihrem Login haben, wenden Sie sich an Ihren Administrator.",
         "passwordreset.input.heading": "Passwort ändern",
 
         "view.home.title": "Start/Dashboard",

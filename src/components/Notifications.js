@@ -17,30 +17,25 @@ class Notifications extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        console.log("check", nextProps.failureCounter);
         (nextProps.failureCounter >= 3) && this.setLoginError();
     }
 
     setLoginError() {
         const allMessages = this.state.messages;
-        allMessages.push(
-            {
-                id: this.state.messageAmount + 1,
+        const messageId = "alert.login.failureCounter";
+        if(this.state.messages.filter(object => object.id === messageId).length === 0) {
+            allMessages.push({
+                id: messageId,
                 type: "danger",
-                text: "login.label.failureCounter",
-                dismissible: false,
-            },
-            {
-                id: this.state.messageAmount + 2,
-                type: "warning",
-                text: "login.label.warning",
+                text: messageId,
                 dismissible: true,
-            },
-        );
+            });
 
-        this.setState({
-            messages: allMessages,
-        });
+            this.setState({
+                messages: allMessages,
+                messageAmount: this.state.messageAmount + 1,
+            });
+        }
     }
 
     removeMessageItem(id) {
@@ -66,7 +61,7 @@ class Notifications extends React.Component {
                 {messages && messages.map(message =>
                     (<NotificationItem
                         type={message.type}
-                        key={`message_${message.id}`}
+                        key={message.id}
                         id={message.id}
                         textId={message.text}
                         dismissible={message.dismissible}

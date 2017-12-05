@@ -5,6 +5,7 @@
         "alert.strong.message.warning": "Warning.",
         "alert.strong.message.danger": "Attention!",
 
+        "alert.login.failureCounter": "If you have problems with your login, contact your administrator.",
         "alert.message.200": "This would be your system message.",
         "alert.message.400": "Bad Request.",
         "alert.message.401": "Unauthorized.",
@@ -47,7 +48,6 @@
 
         "login.input.heading": "Please sign in",
         "login.label.fail": "Login failed",
-        "login.failureCounter": "If you have problems with your login, contact your administrator.",
         "passwordreset.input.heading": "Password change",
 
         "view.home.title": "Home/Dashboard",

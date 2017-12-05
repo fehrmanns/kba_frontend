@@ -41,7 +41,7 @@ class NotificationItem extends React.Component {
 NotificationItem.propTypes = {
     type: PropTypes.oneOf(["success", "info", "warning", "danger"]).isRequired,
     textId: PropTypes.string.isRequired,
-    id: PropTypes.number.isRequired,
+    id: PropTypes.string.isRequired,
     dismissible: PropTypes.bool.isRequired,
     removeMessage: PropTypes.func.isRequired,
 };
