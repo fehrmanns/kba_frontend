@@ -27,6 +27,7 @@ import Usersettings from "../views/UserManagement";
 import Organisationsettings from "./../views/Organisationsettings";
 import Categorysettings from "./../views/Categorysettings";
 import License from "./../views/License";
+import PasswordChangeModal from './modals/PasswordChangeModal';
 
 addLocaleData([...intlEN, ...intlDE]);
 
@@ -38,10 +39,12 @@ class Mainframe extends React.Component {
         this.state = {
             sitebar: getItem("sitebar") ? getItem("sitebar") : false,
             lang: getItem("language") ? getItem("language") : "de",
+            showPasswordModal: false,
         };
 
         getToken("auth_token") && this.checkToken();
         this.changeLanguage = this.changeLanguage.bind(this);
+        this.togglePasswordModal = this.togglePasswordModal.bind(this);
     }
 
     checkToken() {
@@ -61,9 +64,16 @@ class Mainframe extends React.Component {
         });
     }
 
+    togglePasswordModal() {
+        this.setState({
+            showPasswordModal: !this.state.showPasswordModal,
+        });
+    }
+
 
     render() {
         const {dispatch, auth, isAuthenticated} = this.props;
+        const {showPasswordModal} = this.state;
         const profile = isAuthenticated ? auth.user : {};
         const passwordExpired = isAuthenticated ? profile.expired : true;
         const showNavigation = !passwordExpired && isAuthenticated;
@@ -107,11 +117,13 @@ class Mainframe extends React.Component {
                             language={this.state.lang}
                             logoutUser={() => dispatch(logoutUser())}
                             toggleMenu={() => this.toggleMenu()}
+                            togglePasswordModal={() => this.togglePasswordModal()}
                         />
                         <Progress isActive={false} />
                         {(showNavigation) && <Sitebar show={this.state.sitebar} />}
 
                         {content}
+                        <PasswordChangeModal modal={showPasswordModal} toggleModal={() => this.togglePasswordModal()} />
                     </div >
                 </Router >
             </IntlProvider >

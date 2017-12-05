@@ -17,7 +17,7 @@ class Header extends React.Component {
     }
 
     editPassword() {
-        console.log("open modal", this.props);
+        this.props.togglePasswordModal();
     }
 
     render() {
