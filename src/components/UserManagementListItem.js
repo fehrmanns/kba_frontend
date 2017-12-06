@@ -1,7 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
+import {connect} from "react-redux";
 import {MenuItem} from "react-bootstrap";
 import {FormattedDate, FormattedMessage} from "react-intl";
+import {openPasswordModal} from "./../actions";
 import FormattedDropDown from "./i18n/FormattedDropDown";
 
 
@@ -111,6 +113,11 @@ class UserManagementListItem extends React.Component {
                 </td>
                 */}
                 <td className="text-center">
+                    <button className="btn btn-xs btn-default" onClick={() => this.props.dispatch(openPasswordModal(user.loginName))}>
+                        <FormattedMessage id="button.user.changePassword" />
+                    </button>
+                </td>
+                <td className="text-center">
                     {(user.loginName !== currentUser.loginName) &&
                     <button className={activeUser ? "btn btn-xs btn-warning" : "btn btn-xs btn-info"} onClick={() => this.toggleUser()}>
                         {activeUser ? <FormattedMessage id="button.user.deactivate" /> : <FormattedMessage id="button.user.activate" />}
@@ -145,4 +152,4 @@ UserManagementListItem.propTypes = {
     deleteUser: PropTypes.func.isRequired,
 };
 
-export default UserManagementListItem;
+export default connect()(UserManagementListItem);

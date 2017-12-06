@@ -1,51 +1,55 @@
 import React from "react";
-import {Modal, Button} from "react-bootstrap";
+import {connect} from "react-redux";
+import PropTypes from "prop-types";
+import {Modal} from "react-bootstrap";
+import {closePasswordModal} from "./../../actions";
+import PasswordChangeForm from "./../PasswordChangeForm";
 
 class PasswordChangeModal extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { show: props.modal };
+        this.state = { show: props.showPasswordModal };
     }
 
     componentWillReceiveProps(nextProps) {
-        if (this.state.show !== nextProps.modal) {
-            this.setState({show: nextProps.modal});
+        if (this.state.show !== nextProps.showPasswordModal) {
+            this.setState({show: nextProps.showPasswordModal});
         }
     }
 
     render() {
         const close = () => {
-            this.props.toggleModal();
-            this.setState({ show: false});
+            this.props.dispatch(closePasswordModal());
         };
 
         return (
-            <div className="modal-container">
+            <div className="modal-container password-change">
                 <Modal
                     show={this.state.show}
                     onHide={close}
                     container={this}
                     aria-labelledby="contained-modal-title"
                 >
-                    <Modal.Header closeButton>
-                        <Modal.Title id="contained-modal-title">Edit Recipe</Modal.Title>
-                    </Modal.Header>
                     <Modal.Body>
-                        <form className="form-group">
-                            <label>Recipe</label>
-                            <input type="text" className="form-control" />
-                            <label>Ingredients</label>
-                            <textarea type="text" className="form-control" />
-                        </form>
+                        <PasswordChangeForm />
                     </Modal.Body>
-                    <Modal.Footer>
-                        <Button bsStyle="primary">Edit Recipe</Button>
-                        <Button onClick={close}>Close</Button>
-                    </Modal.Footer>
                 </Modal>
             </div>
         );
     }
 }
 
-export default PasswordChangeModal;
+PasswordChangeModal.propTypes = {
+    showPasswordModal: PropTypes.bool.isRequired,
+};
+
+function mapStateToProps(state) {
+    const {modals} = state;
+    const {showPasswordModal} = modals;
+
+    return {
+        showPasswordModal,
+    };
+}
+
+export default connect(mapStateToProps)(PasswordChangeModal);

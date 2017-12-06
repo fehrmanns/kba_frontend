@@ -4,24 +4,16 @@ import {connect} from "react-redux";
 import {injectIntl, intlShape, FormattedMessage} from "react-intl";
 import {Link} from "react-router-dom";
 import {MenuItem} from "react-bootstrap";
+import {openPasswordModal} from "./../actions";
 import {getLoginName} from "./../utilities/storage";
 import FormattedDropDown from "./i18n/FormattedDropDown";
 import FormattedButton from "./i18n/FormattedButton";
 import "./../css/header.css";
 
 class Header extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.editPassword = this.editPassword.bind(this);
-    }
-
-    editPassword() {
-        this.props.togglePasswordModal();
-    }
-
     render() {
         const {locale} = this.props.intl;
+        const {dispatch} = this.props;
         const dropDownId = `header.dropdown.language.${locale}`;
         const renderOnLogin = this.props.isAuthenticated;
         const username = getLoginName();
@@ -50,7 +42,7 @@ class Header extends React.Component {
                             <FormattedButton
                                 className="btn btn-link"
                                 title="header.user.hint"
-                                onClick={() => this.editPassword()}
+                                onClick={() => dispatch(openPasswordModal(getLoginName()))}
                             >
                                 <FormattedMessage id="header.user.label" />: {username}
                             </FormattedButton>

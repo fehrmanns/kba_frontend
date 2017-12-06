@@ -19,10 +19,28 @@ export const USER_DELETED = "USER_DELETED";
 export const USER_UPDATED = "USER_UPDATED";
 export const USER_FAILURE = "USER_FAILURE";
 
+export const OPEN_PASSWORD_MODAL = "OPEN_PASSWORD_MODAL";
+export const CLOSE_PASSWORD_MODAL = "CLOSE_PASSWORD_MODAL";
+
 function serverError(message) {
     return {
         type: SERVER_ERROR,
         message,
+    };
+}
+
+// modal handling
+export function openPasswordModal(username) {
+    console.log("open", username);
+    return {
+        type: OPEN_PASSWORD_MODAL,
+        username,
+    };
+}
+
+export function closePasswordModal() {
+    return {
+        type: CLOSE_PASSWORD_MODAL,
     };
 }
 

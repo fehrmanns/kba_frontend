@@ -44,6 +44,7 @@
         "button.user.update": "Update user",
         "button.user.deactivate": "deactivate",
         "button.user.activate": "activate",
+        "button.user.changePassword": "change Password",
         "button.newuser.openform": "Add user",
         "button.newuser.closeform": "Close form",
 

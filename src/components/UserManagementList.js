@@ -24,6 +24,7 @@ export default class UserManagementList extends React.Component {
                             */}
                             <th>{/* placeholder for button */}</th>
                             <th>{/* placeholder for button */}</th>
+                            <th>{/* placeholder for button */}</th>
                         </tr>
                     </thead>
                     <tbody>
