@@ -113,7 +113,7 @@ class UserManagementListItem extends React.Component {
                 </td>
                 */}
                 <td className="text-center">
-                    <button className="btn btn-xs btn-default" onClick={() => this.props.dispatch(openPasswordModal(user.loginName))}>
+                    <button className="btn btn-xs btn-default" onClick={() => this.props.dispatch(openPasswordModal(user))}>
                         <FormattedMessage id="button.user.changePassword" />
                     </button>
                 </td>
@@ -146,6 +146,7 @@ class UserManagementListItem extends React.Component {
 }
 
 UserManagementListItem.propTypes = {
+    dispatch: PropTypes.func.isRequired,
     userItem: PropTypes.object.isRequired,
     currentUser: PropTypes.object.isRequired,
     updateUser: PropTypes.func.isRequired,

@@ -60,10 +60,13 @@ class PasswordChangeForm extends React.Component {
 
         this.sendData();
     }
-    // TODO: close modal on success
+
     sendData() {
         const {dispatch} = this.props;
-        const userUpdate = Object.assign({}, this.props.auth.user, {password: this.state.password});
+        const user = (this.props.user.loginName) ? this.props.user : this.props.auth.user;
+        console.log("user to change", this.props.user);
+        const userUpdate = Object.assign({}, user, {password: this.state.password});
+        console.log("user update", userUpdate);
         dispatch(updateUser(userUpdate)).then(dispatch(probeToken())).then(dispatch(closePasswordModal()));
     }
 
@@ -122,14 +125,17 @@ class PasswordChangeForm extends React.Component {
 
 PasswordChangeForm.propTypes = {
     dispatch: PropTypes.func.isRequired,
+    user: PropTypes.object.isRequired,
     auth: PropTypes.object.isRequired,
 };
 
 function mapStateToProps(state) {
-    const {auth} = state;
+    const {auth, modals} = state;
+    const {user} = modals;
 
     return {
         auth,
+        user,
     };
 }
 

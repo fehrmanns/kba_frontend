@@ -40,6 +40,7 @@ class PasswordChangeModal extends React.Component {
 }
 
 PasswordChangeModal.propTypes = {
+    dispatch: PropTypes.func.isRequired,
     showPasswordModal: PropTypes.bool.isRequired,
 };
 

@@ -30,11 +30,11 @@ function serverError(message) {
 }
 
 // modal handling
-export function openPasswordModal(username) {
-    console.log("open", username);
+export function openPasswordModal(user) {
+    console.log("open", user);
     return {
         type: OPEN_PASSWORD_MODAL,
-        username,
+        user,
     };
 }
 

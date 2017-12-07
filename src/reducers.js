@@ -24,19 +24,19 @@ function error(state = {
 }
 
 function modals(state = {
-    username: "",
+    user: {},
     showPasswordModal: false,
 }, action) {
     switch (action.type) {
         case OPEN_PASSWORD_MODAL:
-            console.log("open", action.username);
+            console.log("open", action.user);
             return Object.assign({}, state, {
-                username: action.username,
+                user: action.user,
                 showPasswordModal: true,
             });
         case CLOSE_PASSWORD_MODAL:
             return Object.assign({}, state, {
-                username: "",
+                user: {},
                 showPasswordModal: false,
             });
         default:
