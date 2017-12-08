@@ -4,6 +4,7 @@ import {
     LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_SUCCESS,
     TOKEN_SUCCESS, TOKEN_FAILURE,
     USER_LOADED, USER_DELETED, USER_ADDED, USER_UPDATED, USER_FAILURE,
+    TYPE_LOADED, TYPE_DELETED, TYPE_ADDED, TYPE_UPDATED, TYPE_FAILURE,
 } from "./actions";
 
 // The auth reducer. The starting state sets authentication
@@ -124,6 +125,30 @@ function users(state = {
     }
 }
 
+function unittypes(state = {
+    isLoaded: false,
+    list: [],
+}, action) {
+    // TODO: define all types
+    switch (action.type) {
+        case TYPE_LOADED:
+            return Object.assign({}, state, {
+                isLoaded: true,
+                list: action.response.kbaOuTypeDtos,
+            });
+        case TYPE_DELETED:
+            return Object.assign({}, state, {});
+        case TYPE_ADDED:
+            return Object.assign({}, state, {});
+        case TYPE_UPDATED:
+            return Object.assign({}, state, {});
+        case TYPE_FAILURE:
+            return Object.assign({}, state, {});
+        default:
+            return state;
+    }
+}
+
 // We combine the reducers here so that they
 // can be left split apart above
 const kbaApp = combineReducers({
@@ -131,6 +156,7 @@ const kbaApp = combineReducers({
     auth,
     token,
     users,
+    unittypes,
 });
 
 export default kbaApp;

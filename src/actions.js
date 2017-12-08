@@ -19,6 +19,12 @@ export const USER_DELETED = "USER_DELETED";
 export const USER_UPDATED = "USER_UPDATED";
 export const USER_FAILURE = "USER_FAILURE";
 
+export const TYPE_LOADED = "TYPE_LOADED";
+export const TYPE_ADDED = "TYPE_ADDED";
+export const TYPE_DELETED = "TYPE_DELETED";
+export const TYPE_UPDATED = "TYPE_UPDATED";
+export const TYPE_FAILURE = "TYPE_FAILURE";
+
 function serverError(message) {
     return {
         type: SERVER_ERROR,
@@ -196,6 +202,54 @@ export function deleteUser(userName) {
             method: "DELETE",
             types: [USER_DELETED, USER_FAILURE],
             json: userName,
+        },
+    };
+}
+
+export function addUnitType(unitType) {
+    return {
+        [CALL_API]: {
+            endpoint: `management/org-unit-types`,
+            authenticated: true,
+            method: "POST",
+            types: [TYPE_ADDED, TYPE_FAILURE],
+            json: unitType,
+        },
+    };
+}
+
+export function updateUnitType(unitType) {
+    return {
+        [CALL_API]: {
+            endpoint: `management/org-unit-types/${unitType.name}`,
+            authenticated: true,
+            method: "PUT",
+            types: [TYPE_UPDATED, TYPE_FAILURE],
+            json: unitType,
+        },
+    };
+}
+
+export function deleteUnitType(unitType) {
+    return {
+        [CALL_API]: {
+            endpoint: `management/org-unit-types/${unitType}`,
+            authenticated: true,
+            method: "DELETE",
+            types: [TYPE_DELETED, TYPE_FAILURE],
+            json: unitType,
+        },
+    };
+}
+
+export function getUnitTypes() {
+    return {
+        [CALL_API]: {
+            endpoint: `management/org-unit-types`,
+            authenticated: true,
+            method: "GET",
+            types: [TYPE_LOADED, TYPE_FAILURE],
+            json: {},
         },
     };
 }

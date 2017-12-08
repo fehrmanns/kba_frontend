@@ -37,6 +37,10 @@
         "input.passwordError": "shouldn't be empty.",
         "input.passwordConfirm": "Repeat passwort",
         "input.passwordConfirmError": "isn't correct.",
+        "input.unittypename": "Type name",
+        "input.abbr":"Abbreviation",
+        "input.containsAccounts":"May contain user accounts",
+        "input.containsArtifacts":"May contain artifacts",
 
         "button.submit": "Submit",
         "button.user.create": "Create user",
@@ -46,6 +50,8 @@
         "button.user.activate": "activate",
         "button.newuser.openform": "Add user",
         "button.newuser.closeform": "Close form",
+        "button.type.delete": "Delete type",
+        "button.type.create": "Create type",
 
         "login.input.heading": "Please sign in",
         "login.label.fail": "Login failed",
@@ -108,6 +114,18 @@
         "usermanagement.list.created": "created",
         "usermanagement.list.modified": "modified",
         "usermanagement.list.modifiedBy": "modified from",
+
+        "oranisationsettings.administration.title": "Organization",
+        "oranisationtypes.administration.title": "Organizational unit types",
+        "unittypes.list.headline": "Organizational unit types",
+        "unittypes.list.name": "Name",
+        "unittypes.list.icon": "Icon",
+        "unittypes.list.abbr": "Abbreviation",
+        "unittypes.list.accountsEnabled": "Create user accounts enabled",
+        "unittypes.list.artifactsEnabled": "Artifact assignable",
+        "unittypes.list.childTypes": "subtypes",
+        "unittypemanagement.addnew.headline": "Create new organizational unit types",
+
         "":""
     }
 }
