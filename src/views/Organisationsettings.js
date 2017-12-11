@@ -41,7 +41,7 @@ class Organisationsettings extends React.Component {
         const {typeList, typesAreLoaded} = this.props;
         return (
             <div className="starter-template">
-                <Tabs defaultActiveKey={1} animation={false} id="noanim-tab-example">
+                <Tabs defaultActiveKey={2} animation={false} id="noanim-tab-example">
                     <Tab eventKey={1} title="Organisationsverwaltung"><FormattedMessage
                         id="oranisationsettings.administration.title"
                         tagName="h1"
@@ -52,7 +52,7 @@ class Organisationsettings extends React.Component {
                         <div className="row">
                             <div className="col-xs-12">
                                 <div>
-                                    <OrganizationUnitTypeAddNew sendData={newType => this.addNewType(newType)} />
+                                    <OrganizationUnitTypeAddNew types={typeList} sendData={newType => this.addNewType(newType)} />
                                 </div>
                             </div>
                         </div>

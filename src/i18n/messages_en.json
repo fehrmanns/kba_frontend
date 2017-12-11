@@ -52,6 +52,10 @@
         "button.newuser.closeform": "Close form",
         "button.type.delete": "Delete type",
         "button.type.create": "Create type",
+        "button.close":"Close",
+        "button.select.icon":"Select icon",
+
+        "modal.heading.icon":"Icon selection",
 
         "login.input.heading": "Please sign in",
         "login.label.fail": "Login failed",

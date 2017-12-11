@@ -53,6 +53,10 @@
         "button.newuser.closeform": "Eingabe schließen",
         "button.type.delete": "Typ löschen",
         "button.type.create": "Typ erstellen",
+        "button.close":"Schließen",
+        "button.select.icon":"Icon auswählen",
+
+        "modal.heading.icon":"Iconauswahl",
 
         "login.input.heading": "Bitte anmelden",
         "login.label.fail": "Anmeldung fehlgeschlagen",

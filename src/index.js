@@ -5,6 +5,7 @@ import { Provider } from "react-redux";
 import thunkMiddleware from "redux-thunk";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/css/bootstrap-theme.css";
+import "react-bootstrap-typeahead/css/Typeahead.css";
 import kbaApp from "./reducers";
 import api from "./middleware/api";
 import "./css/index.css";

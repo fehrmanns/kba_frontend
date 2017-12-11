@@ -8,6 +8,7 @@
     "prop-types": "^15.6.0",
     "react": "^15.6.1",
     "react-bootstrap": "^0.31.3",
+    "react-bootstrap-typeahead": "^2.0.2",
     "react-dom": "^15.6.2",
     "react-intl": "^2.4.0",
     "react-redux": "^5.0.6",
