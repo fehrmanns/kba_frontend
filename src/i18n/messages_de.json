@@ -107,6 +107,16 @@
         "usermanagement.list.modified": "geändert am",
         "usermanagement.list.modifiedBy": "geändert von",
 
+        "categorymanagement.addnew.headline":"Kategorie hinzufügen",
+        "categorymanagement.list.headline":"Kategorie übersicht",
+        "categorymanagement.list.icon":"Symbol",
+        "categorymanagement.list.name": "Name",
+        "button.newcategory.closeform": "Eingabe schließen",
+        "button.newcategory.openform": "Neue Kategorie",
+        "input.categoryname": "Kategorie",
+
+        "input.categoryNameError": "darf nicht leer sein.",
+
         "":""
     }
 }

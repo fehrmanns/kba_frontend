@@ -1,0 +1,30 @@
+.categorymanagement .highlight {
+    margin-top: 15px;
+}
+.categorymanagement .highlight h3 {
+    margin-top: 10px;
+}
+/* dirty table hack */
+.categorymanagement .table tr > td {
+    width: 18%;
+}
+.categorymanagement table input {
+    box-sizing: border-box;
+    display: block;
+    width: 100%;
+    border: 0;
+    background: transparent;
+    padding: 0.1em 0.35em;
+    margin: 0;
+}
+.categorymanagement table .date {
+    min-width: 8em;
+}
+.categorymanagement table .btn-link {
+    color: black;
+    padding: 0;
+}
+.categorymanagement table .deactivated,
+.categorymanagement table .deactivated .btn-link {
+    color: darkgray;
+}

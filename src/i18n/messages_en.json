@@ -106,6 +106,17 @@
         "usermanagement.list.created": "created",
         "usermanagement.list.modified": "modified",
         "usermanagement.list.modifiedBy": "modified from",
+
+        "categorymanagement.addnew.headline":"Add category",
+        "categorymanagement.list.headline":"Category overview",
+        "categorymanagement.list.icon":"Icon",
+        "categorymanagement.list.name": "Name",
+        "button.newcategory.closeform": "Close form",
+        "button.newcategory.openform": "New category",
+        "input.categoryname": "Category",
+
+        "input.categoryNameError": "shouldn't be empty.",
+
         "":""
     }
 }
