@@ -26,18 +26,20 @@ function error(state = {
 function modals(state = {
     user: {},
     showPasswordModal: false,
+    backdrop: true,
 }, action) {
     switch (action.type) {
         case OPEN_PASSWORD_MODAL:
-            console.log("open", action.user);
             return Object.assign({}, state, {
                 user: action.user,
                 showPasswordModal: true,
+                backdrop: action.backdrop,
             });
         case CLOSE_PASSWORD_MODAL:
             return Object.assign({}, state, {
                 user: {},
                 showPasswordModal: false,
+                backdrop: true,
             });
         default:
             return state;

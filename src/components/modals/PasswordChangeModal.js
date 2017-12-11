@@ -21,6 +21,8 @@ class PasswordChangeModal extends React.Component {
         const close = () => {
             this.props.dispatch(closePasswordModal());
         };
+        // eslint-disable-next-line react/no-typos
+        const {backdrop} = this.props;
 
         return (
             <div className="modal-container password-change">
@@ -28,6 +30,7 @@ class PasswordChangeModal extends React.Component {
                     show={this.state.show}
                     onHide={close}
                     container={this}
+                    backdrop={backdrop}
                     aria-labelledby="contained-modal-title"
                 >
                     <Modal.Body>
@@ -46,10 +49,11 @@ PasswordChangeModal.propTypes = {
 
 function mapStateToProps(state) {
     const {modals} = state;
-    const {showPasswordModal} = modals;
+    const {showPasswordModal, backdrop} = modals;
 
     return {
         showPasswordModal,
+        backdrop,
     };
 }
 

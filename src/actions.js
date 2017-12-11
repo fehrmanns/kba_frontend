@@ -30,10 +30,11 @@ function serverError(message) {
 }
 
 // modal handling
-export function openPasswordModal(user) {
-    console.log("open", user);
+export function openPasswordModal(user, backdrop) {
+    const backdropType = backdrop || true;
     return {
         type: OPEN_PASSWORD_MODAL,
+        backdrop: backdropType,
         user,
     };
 }
@@ -195,6 +196,7 @@ export function addUser(user) {
 }
 
 export function updateUser(user) {
+    console.log("update user", user);
     return {
         [CALL_API]: {
             endpoint: `management/users/${user.loginName}`,

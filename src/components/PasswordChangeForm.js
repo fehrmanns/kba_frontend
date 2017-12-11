@@ -3,7 +3,7 @@ import {connect} from "react-redux";
 import PropTypes from "prop-types";
 import {FormattedMessage} from "react-intl";
 import FormattedInput from "./i18n/FormattedInput";
-import {probeToken, updateUser, closePasswordModal} from "../actions";
+import {updateUser, closePasswordModal} from "../actions";
 
 class PasswordChangeForm extends React.Component {
     constructor(props) {
@@ -64,10 +64,8 @@ class PasswordChangeForm extends React.Component {
     sendData() {
         const {dispatch} = this.props;
         const user = (this.props.user.loginName) ? this.props.user : this.props.auth.user;
-        console.log("user to change", this.props.user);
         const userUpdate = Object.assign({}, user, {password: this.state.password});
-        console.log("user update", userUpdate);
-        dispatch(updateUser(userUpdate)).then(dispatch(probeToken())).then(dispatch(closePasswordModal()));
+        dispatch(updateUser(userUpdate)).then(dispatch(closePasswordModal()));
     }
 
 

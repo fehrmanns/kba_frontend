@@ -5,7 +5,7 @@ import {BrowserRouter as Router, Route, Redirect} from "react-router-dom";
 import {addLocaleData, IntlProvider} from "react-intl";
 import intlEN from "react-intl/locale-data/en";
 import intlDE from "react-intl/locale-data/de";
-import {logoutUser, probeToken} from "../actions";
+import {logoutUser, openPasswordModal, probeToken} from "../actions";
 import {getToken, getItem, setItem, toggleItem} from "./../utilities/storage";
 import Header from "./Header";
 import Sitebar from "./Sitebar";
@@ -15,7 +15,6 @@ import de from "../i18n/messages_de.json";
 import Progress from "./Progress";
 import Home from "./../views/Home";
 import Login from "./../views/Login";
-import PasswordReset from "./../views/PasswordReset";
 import Recordings from "./../views/Recordings";
 import BiometricProfiles from "./../views/BiometricProfiles";
 import Matchlist from "./../views/Matchlist";
@@ -44,6 +43,15 @@ class Mainframe extends React.Component {
 
         getToken("auth_token") && this.checkToken();
         this.changeLanguage = this.changeLanguage.bind(this);
+    }
+
+    componentWillReceiveProps(nextProps) {
+        const {isAuthenticated} = nextProps;
+        const profile = isAuthenticated ? nextProps.auth.user : {};
+
+        if (isAuthenticated && profile.expired) {
+            this.props.dispatch(openPasswordModal(profile, "static"));
+        }
     }
 
     checkToken() {
@@ -76,8 +84,6 @@ class Mainframe extends React.Component {
 
         if (isAuthenticated === false || isAuthenticated === undefined) {
             content = <Route component={Login} />;
-        } else if (passwordExpired === true) {
-            content = <Route component={PasswordReset} />;
         } else {
             content = (
                 <div className={(this.state.sitebar === true) ? "show container-fluid" : "container-fluid"}>
