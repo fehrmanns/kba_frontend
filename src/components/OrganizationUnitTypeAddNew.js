@@ -151,7 +151,8 @@ class OrganizationUnitTypeAddNew extends React.Component {
                             id="label.select.icon"
                             className="control-label"
                         />
-                        <div><span className={`icon ${this.state.iconLocation}`} aria-hidden="true" />
+                        <div className="iconArea">
+                            <span className={`icon iconexperience-${this.state.iconLocation}`} aria-hidden="true" />
                             <ImageDialog onSelectIcon={this.onSelectIcon} />
                         </div>
                     </div>

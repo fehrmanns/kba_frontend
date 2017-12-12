@@ -6,6 +6,7 @@ import { Tab, Tabs, Collapse } from "react-bootstrap";
 import { getUnitTypes, deleteUnitType, logoutUser, addUnitType } from "../actions";
 import OrganizationUnitTypeList from "../components/OrganizationUnitTypeList";
 import OrganizationUnitTypeAddNew from "../components/OrganizationUnitTypeAddNew";
+import "./../css/organisationsettings.css";
 
 class Organisationsettings extends React.Component {
     constructor(props) {
@@ -40,7 +41,7 @@ class Organisationsettings extends React.Component {
     render() {
         const {typeList, typesAreLoaded} = this.props;
         return (
-            <div className="starter-template">
+            <div className="organisationsettings starter-template">
                 <Tabs defaultActiveKey={2} animation={false} id="noanim-tab-example">
                     <Tab eventKey={1} title="Organisationsverwaltung"><FormattedMessage
                         id="oranisationsettings.administration.title"
