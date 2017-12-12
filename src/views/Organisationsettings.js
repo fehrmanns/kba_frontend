@@ -6,6 +6,7 @@ import { Tab, Tabs, Collapse } from "react-bootstrap";
 import { getUnitTypes, deleteUnitType, logoutUser, addUnitType } from "../actions";
 import OrganizationUnitTypeList from "../components/OrganizationUnitTypeList";
 import OrganizationUnitTypeAddNew from "../components/OrganizationUnitTypeAddNew";
+import IconDialog from "./../components/IconDialog";
 import "./../css/organisationsettings.css";
 
 class Organisationsettings extends React.Component {
@@ -65,6 +66,7 @@ class Organisationsettings extends React.Component {
                         </div>
                     </Tab>
                 </Tabs>
+                <IconDialog />
             </div>
         );
     }

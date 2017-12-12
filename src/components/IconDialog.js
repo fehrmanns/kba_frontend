@@ -1,8 +1,9 @@
 import * as React from "react";
+import {connect} from "react-redux";
 import PropTypes from "prop-types";
 import { FormattedMessage } from "react-intl";
 import { Modal, Button } from "react-bootstrap";
-import IconItem from "./IconItem";
+import IconItem from "./../components/IconItem";
 import "../css/icondialog.css";
 
 class IconDialog extends React.Component {
@@ -60,7 +61,7 @@ class IconDialog extends React.Component {
                     </Modal.Header>
                     <Modal.Body>
                         <ul className="list-unstyled icon-dialog">
-                            {icons.map(iconItem => <IconItem key={`select_icon_${iconItem}`} icon={iconItem} selectedItem={this.selectedItem} />)}
+                            {icons.map(iconItem => <li key={`select_icon_${iconItem}`}><IconItem icon={iconItem} selectedItem={this.selectedItem} /></li>)}
                         </ul>
                     </Modal.Body>
                     <Modal.Footer>
@@ -77,4 +78,13 @@ class IconDialog extends React.Component {
 IconDialog.propTypes = {
     onSelectIcon: PropTypes.func.isRequired,
 };
-export default IconDialog;
+
+function mapStateToProps(state) {
+    const {auth} = state;
+
+    return {
+        auth,
+    };
+}
+
+export default connect(mapStateToProps)(IconDialog);

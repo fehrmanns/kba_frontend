@@ -24,7 +24,6 @@ class FormattedTypeahead extends React.Component {
 FormattedTypeahead.propTypes = {
     // eslint-disable-next-line react/no-typos
     intl: intlShape.isRequired,
-    type: PropTypes.string.isRequired,
     placeholder: PropTypes.string.isRequired,
 };
 
