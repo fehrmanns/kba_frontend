@@ -3,9 +3,14 @@ import PropTypes from "prop-types";
 import {FormattedMessage} from "react-intl";
 import UserManagementListItem from "./UserManagementListItem";
 
-export default class UserManagementList extends React.Component {
+class UserManagementList extends React.Component {
     render() {
-        const { users, updateUser, deleteUser, currentUser } = this.props;
+        const {
+            users,
+            updateUser,
+            deleteUser,
+            currentUser,
+        } = this.props;
 
         return (
             <div>
@@ -19,15 +24,24 @@ export default class UserManagementList extends React.Component {
                             <th><FormattedMessage id="usermanagement.list.roleName" /></th>
                             <th><FormattedMessage id="usermanagement.list.created" /></th>
                             {/*
-                            <th><FormattedMessage id="usermanagement.list.modified"/></th>
-                            <th><FormattedMessage id="usermanagement.list.modifiedBy"/></th>
-                            */}
+                                <th><FormattedMessage id="usermanagement.list.modified"/></th>
+                                <th><FormattedMessage id="usermanagement.list.modifiedBy"/></th>
+                                */}
+                            <th>{/* placeholder for button */}</th>
                             <th>{/* placeholder for button */}</th>
                             <th>{/* placeholder for button */}</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {users.map(userItem => <UserManagementListItem key={`ListItem.${userItem.loginName}`} currentUser={currentUser} userItem={userItem} updateUser={updateUser} deleteUser={deleteUser} />)}
+                        {users.map(userItem =>
+                            (<UserManagementListItem
+                                key={`ListItem.${userItem.loginName}`}
+                                currentUser={currentUser}
+                                userItem={userItem}
+                                updateUser={updateUser}
+                                deleteUser={deleteUser}
+                            />))
+                        }
                     </tbody>
                 </table>
             </div>
@@ -41,3 +55,5 @@ UserManagementList.propTypes = {
     updateUser: PropTypes.func.isRequired,
     deleteUser: PropTypes.func.isRequired,
 };
+
+export default UserManagementList;

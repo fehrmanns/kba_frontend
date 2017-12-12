@@ -40,6 +40,17 @@
     background: #d9534f;
 }
 
+.password-change .modal-dialog {
+    width: 340px;
+    margin-top: 40px;
+}
+.password-change .modal-body {
+    padding: 30px;
+}
+.password-change h2.form-password-change-heading {
+    margin-top: 0;
+}
+
 @keyframes wrong-log {
     0%,
     100% {

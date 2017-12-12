@@ -5,6 +5,7 @@ import {
     TOKEN_SUCCESS, TOKEN_FAILURE,
     USER_LOADED, USER_DELETED, USER_ADDED, USER_UPDATED, USER_FAILURE,
     TYPE_LOADED, TYPE_DELETED, TYPE_ADDED, TYPE_UPDATED, TYPE_FAILURE,
+    OPEN_PASSWORD_MODAL, CLOSE_PASSWORD_MODAL,
 } from "./actions";
 
 // The auth reducer. The starting state sets authentication
@@ -17,6 +18,29 @@ function error(state = {
         case SERVER_ERROR:
             return Object.assign({}, state, {
                 type: action.message,
+            });
+        default:
+            return state;
+    }
+}
+
+function modals(state = {
+    user: {},
+    showPasswordModal: false,
+    backdrop: true,
+}, action) {
+    switch (action.type) {
+        case OPEN_PASSWORD_MODAL:
+            return Object.assign({}, state, {
+                user: action.user,
+                showPasswordModal: true,
+                backdrop: action.backdrop,
+            });
+        case CLOSE_PASSWORD_MODAL:
+            return Object.assign({}, state, {
+                user: {},
+                showPasswordModal: false,
+                backdrop: true,
             });
         default:
             return state;
@@ -157,6 +181,7 @@ const kbaApp = combineReducers({
     token,
     users,
     unittypes,
+    modals,
 });
 
 export default kbaApp;

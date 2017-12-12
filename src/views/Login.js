@@ -22,6 +22,7 @@ class Login extends Component {
 
     componentWillReceiveProps(nextProps) {
         // check if there is no difference in the input
+
         if (nextProps.auth.creds) {
             const userIsDifferent = this.state.username.localeCompare(nextProps.auth.creds.username);
             const passwordIsDifferent = this.state.password.localeCompare(nextProps.auth.creds.password);

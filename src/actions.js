@@ -25,10 +25,29 @@ export const TYPE_DELETED = "TYPE_DELETED";
 export const TYPE_UPDATED = "TYPE_UPDATED";
 export const TYPE_FAILURE = "TYPE_FAILURE";
 
+export const OPEN_PASSWORD_MODAL = "OPEN_PASSWORD_MODAL";
+export const CLOSE_PASSWORD_MODAL = "CLOSE_PASSWORD_MODAL";
+
 function serverError(message) {
     return {
         type: SERVER_ERROR,
         message,
+    };
+}
+
+// modal handling
+export function openPasswordModal(user, backdrop) {
+    const backdropType = backdrop || true;
+    return {
+        type: OPEN_PASSWORD_MODAL,
+        backdrop: backdropType,
+        user,
+    };
+}
+
+export function closePasswordModal() {
+    return {
+        type: CLOSE_PASSWORD_MODAL,
     };
 }
 
@@ -183,6 +202,7 @@ export function addUser(user) {
 }
 
 export function updateUser(user) {
+    console.log("update user", user);
     return {
         [CALL_API]: {
             endpoint: `management/users/${user.loginName}`,
