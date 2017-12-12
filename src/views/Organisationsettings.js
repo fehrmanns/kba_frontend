@@ -6,7 +6,7 @@ import { Tab, Tabs, Collapse } from "react-bootstrap";
 import { getUnitTypes, deleteUnitType, logoutUser, addUnitType } from "../actions";
 import OrganizationUnitTypeList from "../components/OrganizationUnitTypeList";
 import OrganizationUnitTypeAddNew from "../components/OrganizationUnitTypeAddNew";
-import IconDialog from "./../components/IconDialog";
+import SelectIconModal from "./../components/modals/SelectIconModal";
 import "./../css/organisationsettings.css";
 
 class Organisationsettings extends React.Component {
@@ -40,7 +40,8 @@ class Organisationsettings extends React.Component {
     }
 
     render() {
-        const {typeList, typesAreLoaded} = this.props;
+        const {typeList, typesAreLoaded, dispatch} = this.props;
+
         return (
             <div className="organisationsettings starter-template">
                 <Tabs defaultActiveKey={2} animation={false} id="noanim-tab-example">
@@ -54,19 +55,19 @@ class Organisationsettings extends React.Component {
                         <div className="row">
                             <div className="col-xs-12">
                                 <div>
-                                    <OrganizationUnitTypeAddNew types={typeList} sendData={newType => this.addNewType(newType)} />
+                                    <OrganizationUnitTypeAddNew dispatch={dispatch} types={typeList} sendData={newType => this.addNewType(newType)} />
                                 </div>
                             </div>
                         </div>
                         <div className="row">
                             <div className="col-xs-12">
                                 {typesAreLoaded &&
-                                <OrganizationUnitTypeList types={typeList} deleteType={this.deleteType} />}
+                                <OrganizationUnitTypeList dispatch={dispatch} types={typeList} deleteType={this.deleteType} />}
                             </div>
                         </div>
                     </Tab>
                 </Tabs>
-                <IconDialog />
+                <SelectIconModal />
             </div>
         );
     }

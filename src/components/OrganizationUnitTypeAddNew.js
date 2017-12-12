@@ -1,9 +1,11 @@
 import * as React from "react";
 import PropTypes from "prop-types";
-import { FormattedMessage } from "react-intl";
-import { Checkbox} from "react-bootstrap";
+import {FormattedMessage} from "react-intl";
+import {Checkbox} from "react-bootstrap";
+import {openSelectIconModal, closeSelectIconModal} from "./../actions";
 import FormattedInput from "../components/i18n/FormattedInput";
 import FormattedTypeahead from "../components/i18n/FormattedTypeahead";
+import IconItem from "./IconItem";
 
 class OrganizationUnitTypeAddNew extends React.Component {
     constructor(props) {
@@ -98,6 +100,7 @@ class OrganizationUnitTypeAddNew extends React.Component {
         this.setState({
             iconLocation: icon,
         });
+        this.props.dispatch(closeSelectIconModal());
     }
 
 
@@ -107,7 +110,7 @@ class OrganizationUnitTypeAddNew extends React.Component {
         // TODO: Typeahead drop down is closed after selection and cannot be opened with keyboard entry
         // TODO: checkbox state should change when text is clicked
         return (
-            <form className="highlight" onSubmit={this.handleSubmit} >
+            <form className="highlight" onSubmit={this.handleSubmit}>
                 <div className="row">
                     <div className="col-xs-12">
                         <FormattedMessage tagName="h3" id="unittypemanagement.addnew.headline" />
@@ -151,8 +154,11 @@ class OrganizationUnitTypeAddNew extends React.Component {
                             className="control-label"
                         />
                         <div className="iconArea">
-                            <span className={`icon iconexperience-${this.state.iconLocation}`} aria-hidden="true" />
-                            <button onClick={this.onSelectIcon}>click me</button>
+                            {this.state.iconLocation ?
+                                <IconItem icon={this.state.iconLocation} selectedItem={() => this.props.dispatch(openSelectIconModal(this.onSelectIcon))} />
+                                :
+                                <button className="btn btn-default" onClick={() => this.props.dispatch(openSelectIconModal(this.onSelectIcon))}>click me</button>
+                            }
                         </div>
                     </div>
                 </div>
@@ -206,7 +212,9 @@ class OrganizationUnitTypeAddNew extends React.Component {
         );
     }
 }
+
 OrganizationUnitTypeAddNew.propTypes = {
+    dispatch: PropTypes.func.isRequired,
     types: PropTypes.array.isRequired,
     sendData: PropTypes.func.isRequired,
 };

@@ -27,6 +27,8 @@ export const TYPE_FAILURE = "TYPE_FAILURE";
 
 export const OPEN_PASSWORD_MODAL = "OPEN_PASSWORD_MODAL";
 export const CLOSE_PASSWORD_MODAL = "CLOSE_PASSWORD_MODAL";
+export const OPEN_SELECT_ICON_MODAL = "OPEN_SELECT_ICON_MODAL";
+export const CLOSE_SELECT_ICON_MODAL = "CLOSE_SELECT_ICON_MODAL";
 
 function serverError(message) {
     return {
@@ -48,6 +50,21 @@ export function openPasswordModal(user, backdrop) {
 export function closePasswordModal() {
     return {
         type: CLOSE_PASSWORD_MODAL,
+    };
+}
+
+export function openSelectIconModal(callback) {
+    console.log("openSelectIconModal", callback);
+    return {
+        type: OPEN_SELECT_ICON_MODAL,
+        backdrop: true,
+        method: callback,
+    };
+}
+
+export function closeSelectIconModal() {
+    return {
+        type: CLOSE_SELECT_ICON_MODAL,
     };
 }
 
@@ -202,7 +219,6 @@ export function addUser(user) {
 }
 
 export function updateUser(user) {
-    console.log("update user", user);
     return {
         [CALL_API]: {
             endpoint: `management/users/${user.loginName}`,

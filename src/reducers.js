@@ -5,7 +5,7 @@ import {
     TOKEN_SUCCESS, TOKEN_FAILURE,
     USER_LOADED, USER_DELETED, USER_ADDED, USER_UPDATED, USER_FAILURE,
     TYPE_LOADED, TYPE_DELETED, TYPE_ADDED, TYPE_UPDATED, TYPE_FAILURE,
-    OPEN_PASSWORD_MODAL, CLOSE_PASSWORD_MODAL,
+    OPEN_PASSWORD_MODAL, CLOSE_PASSWORD_MODAL, OPEN_SELECT_ICON_MODAL, CLOSE_SELECT_ICON_MODAL,
 } from "./actions";
 
 // The auth reducer. The starting state sets authentication
@@ -26,7 +26,9 @@ function error(state = {
 
 function modals(state = {
     user: {},
+    setIcon: () => {},
     showPasswordModal: false,
+    showSelectIconModal: false,
     backdrop: true,
 }, action) {
     switch (action.type) {
@@ -40,6 +42,18 @@ function modals(state = {
             return Object.assign({}, state, {
                 user: {},
                 showPasswordModal: false,
+                backdrop: true,
+            });
+        case OPEN_SELECT_ICON_MODAL:
+            return Object.assign({}, state, {
+                setIcon: action.method,
+                showSelectIconModal: true,
+                backdrop: true,
+            });
+        case CLOSE_SELECT_ICON_MODAL:
+            return Object.assign({}, state, {
+                setIcon: () => {},
+                showSelectIconModal: false,
                 backdrop: true,
             });
         default:
