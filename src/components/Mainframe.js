@@ -27,6 +27,7 @@ import Organisationsettings from "./../views/Organisationsettings";
 import Categorysettings from "./../views/Categorysettings";
 import License from "./../views/License";
 import PasswordChangeModal from "./modals/PasswordChangeModal";
+import SelectIconModal from "./../components/modals/SelectIconModal";
 
 addLocaleData([...intlEN, ...intlDE]);
 
@@ -121,6 +122,7 @@ class Mainframe extends React.Component {
 
                         {content}
                         <PasswordChangeModal modal={showPasswordModal} />
+                        <SelectIconModal />
                     </div >
                 </Router >
             </IntlProvider >

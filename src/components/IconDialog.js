@@ -1,8 +1,6 @@
 import * as React from "react";
 import {connect} from "react-redux";
 import PropTypes from "prop-types";
-import {FormattedMessage} from "react-intl";
-import {Modal, Button} from "react-bootstrap";
 import IconItem from "./../components/IconItem";
 import "../css/icondialog.css";
 
@@ -19,7 +17,6 @@ class IconDialog extends React.Component {
 
     selectedItem(event) {
         console.log(event.target.id);
-        const {onSelectIcon} = this.props;
         this.props.setIcon(event.target.id);
     }
 

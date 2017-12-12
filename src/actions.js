@@ -245,7 +245,7 @@ export function deleteUser(userName) {
 export function addUnitType(unitType) {
     return {
         [CALL_API]: {
-            endpoint: `management/org-unit-types`,
+            endpoint: "management/org-unit-types",
             authenticated: true,
             method: "POST",
             types: [TYPE_ADDED, TYPE_FAILURE],
@@ -254,14 +254,14 @@ export function addUnitType(unitType) {
     };
 }
 
-export function updateUnitType(unitType) {
+export function updateUnitType(typeName, unitType) {
     return {
         [CALL_API]: {
-            endpoint: `management/org-unit-types/${unitType.name}`,
+            endpoint: `management/org-unit-types/${typeName}`,
             authenticated: true,
             method: "PUT",
             types: [TYPE_UPDATED, TYPE_FAILURE],
-            json: unitType,
+            json: JSON.stringify(unitType),
         },
     };
 }
@@ -281,7 +281,7 @@ export function deleteUnitType(unitType) {
 export function getUnitTypes() {
     return {
         [CALL_API]: {
-            endpoint: `management/org-unit-types`,
+            endpoint: "management/org-unit-types",
             authenticated: true,
             method: "GET",
             types: [TYPE_LOADED, TYPE_FAILURE],

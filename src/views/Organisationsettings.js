@@ -3,10 +3,9 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { FormattedMessage } from "react-intl";
 import { Tab, Tabs, Collapse } from "react-bootstrap";
-import { getUnitTypes, deleteUnitType, logoutUser, addUnitType } from "../actions";
+import { getUnitTypes, deleteUnitType, logoutUser, addUnitType, updateUnitType } from "../actions";
 import OrganizationUnitTypeList from "../components/OrganizationUnitTypeList";
 import OrganizationUnitTypeAddNew from "../components/OrganizationUnitTypeAddNew";
-import SelectIconModal from "./../components/modals/SelectIconModal";
 import "./../css/organisationsettings.css";
 
 class Organisationsettings extends React.Component {
@@ -15,6 +14,7 @@ class Organisationsettings extends React.Component {
         this.props.dispatch(getUnitTypes());
         this.deleteType = this.deleteType.bind(this);
         this.addNewType = this.addNewType.bind(this);
+        this.updateType = this.updateType.bind(this);
     }
 
     deleteType(type) {
@@ -30,6 +30,17 @@ class Organisationsettings extends React.Component {
 
     addNewType(type) {
         this.props.dispatch(addUnitType(type))
+            .then((response) => {
+                if (response.message === "401") {
+                    this.props.dispatch(logoutUser());
+                } else {
+                    this.props.dispatch(getUnitTypes());
+                }
+            });
+    }
+
+    updateType(typeName, newType) {
+        this.props.dispatch(updateUnitType(typeName, newType))
             .then((response) => {
                 if (response.message === "401") {
                     this.props.dispatch(logoutUser());
@@ -62,12 +73,11 @@ class Organisationsettings extends React.Component {
                         <div className="row">
                             <div className="col-xs-12">
                                 {typesAreLoaded &&
-                                <OrganizationUnitTypeList dispatch={dispatch} types={typeList} deleteType={this.deleteType} />}
+                                <OrganizationUnitTypeList dispatch={dispatch} types={typeList} deleteType={this.deleteType} updateType={this.updateType} />}
                             </div>
                         </div>
                     </Tab>
                 </Tabs>
-                <SelectIconModal />
             </div>
         );
     }

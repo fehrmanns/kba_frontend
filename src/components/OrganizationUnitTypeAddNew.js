@@ -157,7 +157,10 @@ class OrganizationUnitTypeAddNew extends React.Component {
                             {this.state.iconLocation ?
                                 <IconItem icon={this.state.iconLocation} selectedItem={() => this.props.dispatch(openSelectIconModal(this.onSelectIcon))} />
                                 :
-                                <button className="btn btn-default" onClick={() => this.props.dispatch(openSelectIconModal(this.onSelectIcon))}>click me</button>
+                                <button className="btn btn-default" onClick={() => this.props.dispatch(openSelectIconModal(this.onSelectIcon))}><FormattedMessage
+                                    id="button.select.icon"
+                                />
+                                </button>
                             }
                         </div>
                     </div>
