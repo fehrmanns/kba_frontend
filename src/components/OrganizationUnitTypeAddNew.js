@@ -2,10 +2,9 @@ import * as React from "react";
 import PropTypes from "prop-types";
 import { FormattedMessage } from "react-intl";
 import { Checkbox} from "react-bootstrap";
-import {Typeahead} from "react-bootstrap-typeahead";
-
 import FormattedInput from "../components/i18n/FormattedInput";
 import ImageDialog from "./IconDialog";
+import FormattedTypeahead from "../components/i18n/FormattedTypeahead";
 
 class OrganizationUnitTypeAddNew extends React.Component {
     constructor(props) {
@@ -17,27 +16,34 @@ class OrganizationUnitTypeAddNew extends React.Component {
             abbreviation: "",
             containsUsers: false,
             containsArtifacts: false,
-            childrenKbaOuTypeNames: "",
+            childrenKbaOuTypeNames: [],
             nameIsValid: true,
+            childrenKbaOuTypesSelected: [],
         };
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.sendData = this.sendData.bind(this);
+        this.handleSubTypeChange = this.handleSubTypeChange.bind(this);
+        this.onSelectIcon = this.onSelectIcon.bind(this);
     }
 
     handleSubmit(event) {
         event.preventDefault();
     }
 
-    log(event){
-        console.log(event);
+    handleSubTypeChange(event) {
+        const names = event.map(item => item.name);
+        this.setState({
+            childrenKbaOuTypeNames: names,
+            childrenKbaOuTypesSelected: event,
+        });
     }
 
     handleChange(event) {
         event.preventDefault();
-
+        console.log(event);
         const targetName = event.target.id.replace("input", "").replace(/\b[A-Z]/g, letter => letter.toLowerCase());
-
+        console.log(targetName);
         switch (targetName) {
             case "name":
                 this.setState({
@@ -46,16 +52,6 @@ class OrganizationUnitTypeAddNew extends React.Component {
                 });
                 break;
             case "abbreviation":
-                this.setState({
-                    [targetName]: event.target.value,
-                });
-                break;
-            case "containsUsers":
-                this.setState({
-                    [targetName]: event.target.value,
-                });
-                break;
-            case "containsArtifacts":
                 this.setState({
                     [targetName]: event.target.value,
                 });
@@ -80,6 +76,7 @@ class OrganizationUnitTypeAddNew extends React.Component {
 
         const newType = {...this.state};
         delete newType.nameIsValid;
+        delete newType.childrenKbaOuTypesSelected;
 
         this.props.sendData(JSON.stringify(newType));
         this.resetData();
@@ -92,8 +89,15 @@ class OrganizationUnitTypeAddNew extends React.Component {
             abbreviation: "",
             containsUsers: false,
             containsArtifacts: false,
-            childrenKbaOuTypeNames: "",
+            childrenKbaOuTypeNames: [],
             nameIsValid: true,
+            childrenKbaOuTypesSelected: [],
+        });
+    }
+
+    onSelectIcon(icon) {
+        this.setState({
+            iconLocation: icon,
         });
     }
 
@@ -102,6 +106,7 @@ class OrganizationUnitTypeAddNew extends React.Component {
         const nameError = !this.state.nameIsValid;
         const {types} = this.props;
         // TODO: Typeahead drop down is closed after selection and cannot be opened with keyboard entry
+        // TODO: checkbox state should change when text is clicked
         return (
             <form className="highlight" onSubmit={this.handleSubmit} >
                 <div className="row">
@@ -111,7 +116,7 @@ class OrganizationUnitTypeAddNew extends React.Component {
                 </div>
                 <div className="row">
                     <div className={nameError ? "form-group has-error col-xs-6" : "form-group col-xs-6"}>
-                        <label className="control-label" htmlFor="inputUnitTypeName">
+                        <label className="control-label" htmlFor="inputName">
                             <FormattedMessage id="input.unittypename" />&nbsp;
                             {nameError && <FormattedMessage id="input.typeNameError" />}
                         </label>
@@ -124,12 +129,12 @@ class OrganizationUnitTypeAddNew extends React.Component {
                             value={this.state.name}
                         />
                     </div>
-                    <div className="form-group col-xs-6">
+                    <div className="form-group col-xs-4">
                         <FormattedMessage
                             tagName="label"
                             id="input.abbr"
                             className="control-label"
-                            htmlFor="inputAbbr"
+                            htmlFor="inputAbbreviation"
                         />
                         <FormattedInput
                             type="text"
@@ -137,42 +142,56 @@ class OrganizationUnitTypeAddNew extends React.Component {
                             className="form-control"
                             placeholder="input.abbr"
                             onChange={this.handleChange}
-                            value={this.state.abbr}
+                            value={this.state.abbreviation}
                         />
+                    </div>
+                    <div className="form-group col-xs-2">
+                        <FormattedMessage
+                            tagName="label"
+                            id="label.select.icon"
+                            className="control-label"
+                        />
+                        <div><span className={`icon ${this.state.iconLocation}`} aria-hidden="true" />
+                            <ImageDialog onSelectIcon={this.onSelectIcon} />
+                        </div>
                     </div>
                 </div>
                 <div className="row">
                     <div className="form-group col-xs-6">
-                        <Checkbox inline >
+                        <Checkbox id="inputContainsUsers" onChange={() => this.setState({containsUsers: !this.state.containsUsers})} checked={this.state.containsUsers}>
                             <FormattedMessage
                                 tagName="label"
                                 id="input.containsAccounts"
                                 className="control-label"
+                                htmlFor="inputContainsUsers"
                             />
                         </Checkbox>
-                        <Checkbox inline>
+                        <Checkbox id="inputContainsArtifacts" onChange={() => this.setState({containsArtifacts: !this.state.containsArtifacts})} checked={this.state.containsArtifacts}>
                             <FormattedMessage
                                 tagName="label"
                                 id="input.containsArtifacts"
                                 className="control-label"
+                                htmlFor="inputContainsArtifacts"
                             />
                         </Checkbox>
                     </div>
                     <div className="form-group col-xs-6">
-                        <Typeahead
-                            id="childrenKbaOuTypeNames"
+                        <FormattedMessage
+                            tagName="label"
+                            id="input.childrenKbaOuTypes"
+                            className="control-label"
+                            htmlFor="childrenKbaOuTypeNamesSelection"
+                        />
+                        <FormattedTypeahead
+                            id="childrenKbaOuTypeNamesSelection"
                             clearButton
                             labelKey="name"
                             multiple
-                            options={this.props.types}
-                            placeholder="Choose a type..."
-                            onChange={this.log}
+                            placeholder="input.childrenKbaOuTypeNamesSelection"
+                            options={types}
+                            onChange={this.handleSubTypeChange}
+                            selected={this.state.childrenKbaOuTypesSelected}
                         />
-                    </div>
-                </div>
-                <div className="row">
-                    <div className="form-group col-xs-6">
-                        <ImageDialog />
                     </div>
                 </div>
                 <div className="row">

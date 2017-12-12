@@ -41,6 +41,9 @@
         "input.abbr":"Abbreviation",
         "input.containsAccounts":"May contain user accounts",
         "input.containsArtifacts":"May contain artifacts",
+        "input.childrenKbaOuTypes":"Sub types",
+        "input.typeNameError": "shouldn't be empty.",
+        "input.childrenKbaOuTypeNamesSelection":"Select sub types...",
 
         "button.submit": "Submit",
         "button.user.create": "Create user",
@@ -54,6 +57,8 @@
         "button.type.create": "Create type",
         "button.close":"Close",
         "button.select.icon":"Select icon",
+
+        "label.select.icon":"Icon",
 
         "modal.heading.icon":"Icon selection",
 

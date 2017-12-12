@@ -41,7 +41,9 @@
         "input.abbr":"Kürzel",
         "input.containsAccounts":"Darf Benutzerkonten enthalten",
         "input.containsArtifacts":"Darf Artefakte enthalten",
-
+        "input.childrenKbaOuTypes":"Untertypen",
+        "input.typeNameError": "darf nicht leer sein.",
+        "input.childrenKbaOuTypeNamesSelection":"Untertypen auswählen...",
 
         "button.submit": "Absenden",
         "button.user.create": "Benutzer anlegen",
@@ -55,6 +57,8 @@
         "button.type.create": "Typ erstellen",
         "button.close":"Schließen",
         "button.select.icon":"Icon auswählen",
+
+        "label.select.icon":"Icon",
 
         "modal.heading.icon":"Iconauswahl",
 

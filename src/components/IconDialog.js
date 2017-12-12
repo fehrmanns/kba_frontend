@@ -51,6 +51,8 @@ class IconDialog extends React.Component {
 
     selectedItem(event) {
         console.log(event.target.id);
+        const {onSelectIcon} = this.props;
+        onSelectIcon(event.target.id);
         this.close();
     }
 
@@ -68,7 +70,8 @@ class IconDialog extends React.Component {
                     <Modal.Header closeButton>
                         <Modal.Title><FormattedMessage
                             id="modal.heading.icon"
-                        /></Modal.Title>
+                        />
+                        </Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
                         <ul className="list-unstyled icon-dialog">
@@ -78,12 +81,15 @@ class IconDialog extends React.Component {
                     <Modal.Footer>
                         <Button onClick={this.close}><FormattedMessage
                             id="button.close"
-                        /></Button>
+                        />
+                        </Button>
                     </Modal.Footer>
                 </Modal>
             </div>
         );
     }
 }
-
+IconDialog.propTypes = {
+    onSelectIcon: PropTypes.func.isRequired,
+};
 export default IconDialog;
