@@ -8,7 +8,7 @@ class IconItem extends React.Component {
         return (
             <li>
                 <span className="btn btn-default">
-                    <span id={icon} className={`icon ${icon}`} aria-hidden="true" onClick={selectedItem} />
+                    <span id={icon} className={`icon iconexperience-${icon}`} aria-hidden="true" onClick={selectedItem} />
                 </span>
             </li>);
     }
