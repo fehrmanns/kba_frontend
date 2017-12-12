@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { FormattedMessage } from "react-intl";
 import { Checkbox} from "react-bootstrap";
 import FormattedInput from "../components/i18n/FormattedInput";
-import ImageDialog from "./IconDialog";
+import IconDialog from "./IconDialog";
 import FormattedTypeahead from "../components/i18n/FormattedTypeahead";
 
 class OrganizationUnitTypeAddNew extends React.Component {
@@ -153,7 +153,7 @@ class OrganizationUnitTypeAddNew extends React.Component {
                         />
                         <div className="iconArea">
                             <span className={`icon iconexperience-${this.state.iconLocation}`} aria-hidden="true" />
-                            <ImageDialog onSelectIcon={this.onSelectIcon} />
+                            <IconDialog onSelectIcon={this.onSelectIcon} />
                         </div>
                     </div>
                 </div>

@@ -14,8 +14,8 @@ export default class OrganizationUnitTypeList extends React.Component {
                     <thead>
                         <tr>
                             <th><FormattedMessage id="unittypes.list.name" /></th>
-                            <th><FormattedMessage id="unittypes.list.icon" /></th>
                             <th><FormattedMessage id="unittypes.list.abbr" /></th>
+                            <th><FormattedMessage id="unittypes.list.icon" /></th>
                             <th><FormattedMessage id="unittypes.list.accountsEnabled" /></th>
                             <th><FormattedMessage id="unittypes.list.artifactsEnabled" /></th>
                             <th><FormattedMessage id="unittypes.list.childTypes" /></th>
