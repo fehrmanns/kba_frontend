@@ -79,3 +79,7 @@ table input {
 .usermanagement .highlight h3, .organisationsettings .highlight h3 {
     margin-top: 10px;
 }
+
+.icon-area [class*="iconexperience"] {
+    cursor: pointer;
+}

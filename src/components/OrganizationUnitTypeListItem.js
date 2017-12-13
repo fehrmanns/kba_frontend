@@ -96,9 +96,9 @@ class OrganizationUnitTypeListItem extends React.Component {
                 <td><input id="tableInputName" onChange={this.handleChange} value={this.state.name} /></td>
                 <td><input id="tableInputAbbreviation" onChange={this.handleChange} value={this.state.abbreviation} /></td>
                 <td>
-                    <div className="iconArea">
+                    <div className="icon-area">
                         {this.state.iconLocation ?
-                            <IconItem icon={this.state.iconLocation} selectedItem={() => this.props.dispatch(openSelectIconModal(this.onSelectIcon))} />
+                            <IconItem icon={this.state.iconLocation} titleId="button.select.icon" selectedItem={() => this.props.dispatch(openSelectIconModal(this.onSelectIcon))} />
                             :
                             <button className="btn btn-xs btn-default" onClick={() => this.props.dispatch(openSelectIconModal(this.onSelectIcon))}><FormattedMessage
                                 id="button.select.icon"

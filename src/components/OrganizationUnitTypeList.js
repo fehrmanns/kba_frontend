@@ -13,23 +13,25 @@ export default class OrganizationUnitTypeList extends React.Component {
         return (
             <div>
                 <FormattedMessage tagName="h3" id="unittypes.list.headline" />
-                <table className="table table-hover">
-                    <thead>
-                        <tr>
-                            <th><FormattedMessage id="unittypes.list.name" /></th>
-                            <th><FormattedMessage id="unittypes.list.abbr" /></th>
-                            <th><FormattedMessage id="unittypes.list.icon" /></th>
-                            <th className="text-center" ><IconWithTooltip iconClassName="glyphicon-user" textID="unittypes.list.accountsEnabled" /></th>
-                            <th className="text-center" ><IconWithTooltip iconClassName="glyphicon-upload" textID="unittypes.list.artifactsEnabled" /></th>
-                            <th><FormattedMessage id="unittypes.list.childTypes" /></th>
+                <div className="table-responsive">
+                    <table className="table table-hover">
+                        <thead>
+                            <tr>
+                                <th><FormattedMessage id="unittypes.list.name" /></th>
+                                <th><FormattedMessage id="unittypes.list.abbr" /></th>
+                                <th><FormattedMessage id="unittypes.list.icon" /></th>
+                                <th className="text-center" ><IconWithTooltip iconClassName="glyphicon-user" textID="unittypes.list.accountsEnabled" /></th>
+                                <th className="text-center" ><IconWithTooltip iconClassName="glyphicon-upload" textID="unittypes.list.artifactsEnabled" /></th>
+                                <th><FormattedMessage id="unittypes.list.childTypes" /></th>
 
-                            <th>{/* placeholder for button */}</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {types.map(typeItem => <OrganizationUnitTypeListItem key={`ListItem.${typeItem.name}`} types={types} typeItem={typeItem} deleteType={deleteType} dispatch={dispatch} updateType={updateType} />)}
-                    </tbody>
-                </table>
+                                <th>{/* placeholder for button */}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {types.map(typeItem => <OrganizationUnitTypeListItem key={`ListItem.${typeItem.name}`} types={types} typeItem={typeItem} deleteType={deleteType} dispatch={dispatch} updateType={updateType} />)}
+                        </tbody>
+                    </table>
+                </div>
             </div>
         );
     }

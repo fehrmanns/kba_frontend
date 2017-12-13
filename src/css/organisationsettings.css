@@ -1,8 +1,7 @@
 .organisationsettings .checkbox{
-    margin-top: 0px;
+    margin-top: 0;
+    margin-left: 8px;
 }
-
-
 
 .organisationsettings .tab-content{
     margin-top: 15px;

@@ -28,10 +28,6 @@ class OrganizationUnitTypeAddNew extends React.Component {
         this.onSelectIcon = this.onSelectIcon.bind(this);
     }
 
-    handleSubmit(event) {
-        event.preventDefault();
-    }
-
     handleSubTypeChange(event) {
         const names = event.map(item => item.name);
         this.setState({
@@ -101,6 +97,10 @@ class OrganizationUnitTypeAddNew extends React.Component {
         this.props.dispatch(closeSelectIconModal());
     }
 
+    handleSubmit(event) {
+        event.preventDefault();
+        this.sendData();
+    }
 
     render() {
         const nameError = !this.state.nameIsValid;
@@ -115,7 +115,7 @@ class OrganizationUnitTypeAddNew extends React.Component {
                     </div>
                 </div>
                 <div className="row">
-                    <div className={nameError ? "form-group has-error col-xs-6" : "form-group col-xs-6"}>
+                    <div className={nameError ? "form-group has-error col-md-6" : "form-group col-md-6"}>
                         <label className="control-label" htmlFor="inputName">
                             <FormattedMessage id="input.unittypename" />&nbsp;
                             {nameError && <FormattedMessage id="input.typeNameError" />}
@@ -129,7 +129,7 @@ class OrganizationUnitTypeAddNew extends React.Component {
                             value={this.state.name}
                         />
                     </div>
-                    <div className="form-group col-xs-4">
+                    <div className="form-group col-md-3">
                         <FormattedMessage
                             tagName="label"
                             id="input.abbr"
@@ -145,15 +145,15 @@ class OrganizationUnitTypeAddNew extends React.Component {
                             value={this.state.abbreviation}
                         />
                     </div>
-                    <div className="form-group col-xs-2">
+                    <div className="form-group col-md-3">
                         <FormattedMessage
                             tagName="label"
                             id="label.select.icon"
                             className="control-label"
                         />
-                        <div className="iconArea">
+                        <div className="icon-area">
                             {this.state.iconLocation ?
-                                <IconItem icon={this.state.iconLocation} selectedItem={() => this.props.dispatch(openSelectIconModal(this.onSelectIcon))} />
+                                <IconItem icon={this.state.iconLocation} titleId="button.select.icon" selectedItem={() => this.props.dispatch(openSelectIconModal(this.onSelectIcon))} />
                                 :
                                 <button className="btn btn-default" onClick={() => this.props.dispatch(openSelectIconModal(this.onSelectIcon))}><FormattedMessage
                                     id="button.select.icon"
@@ -164,19 +164,15 @@ class OrganizationUnitTypeAddNew extends React.Component {
                     </div>
                 </div>
                 <div className="row">
-                    <div className="form-group col-xs-6">
+                    <div className="form-group col-md-6">
                         <Checkbox id="inputContainsUsers" onChange={() => this.setState({containsUsers: !this.state.containsUsers})} checked={this.state.containsUsers}>
-                            <FormattedMessage
-                                id="input.containsAccounts"
-                            />
+                            <FormattedMessage id="input.containsAccounts" />
                         </Checkbox>
                         <Checkbox id="inputContainsArtifacts" onChange={() => this.setState({containsArtifacts: !this.state.containsArtifacts})} checked={this.state.containsArtifacts}>
-                            <FormattedMessage
-                                id="input.containsArtifacts"
-                            />
+                            <FormattedMessage id="input.containsArtifacts" />
                         </Checkbox>
                     </div>
-                    <div className="form-group col-xs-6">
+                    <div className="form-group col-md-6">
                         <FormattedMessage
                             tagName="label"
                             id="input.childrenKbaOuTypes"
@@ -197,9 +193,8 @@ class OrganizationUnitTypeAddNew extends React.Component {
                 </div>
                 <div className="row">
                     <div className="form-group col-xs-12">
-                        <button className="btn btn-primary pull-right" onClick={this.sendData}><FormattedMessage
-                            id="button.type.create"
-                        />
+                        <button className="btn btn-primary pull-right" onClick={this.sendData}>
+                            <FormattedMessage id="button.type.create" />
                         </button>
                     </div>
                 </div>

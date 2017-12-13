@@ -119,12 +119,12 @@ export default class UserManagementAddNew extends React.Component {
         return (
             <form className="highlight">
                 <div className="row">
-                    <div className="col-xs-12">
+                    <div className="col-sm-12">
                         <FormattedMessage tagName="h3" id="usermanagement.addnew.headline" />
                     </div>
                 </div>
                 <div className="row">
-                    <div className={loginNameError ? "form-group has-error col-xs-6" : "form-group col-xs-6"}>
+                    <div className={loginNameError ? "form-group has-error col-sm-6" : "form-group col-sm-6"}>
                         <label className="control-label" htmlFor="inputLoginName">
                             <FormattedMessage id="input.username" />&nbsp;
                             {loginNameError && <FormattedMessage id="input.loginNameError" />}
@@ -138,7 +138,7 @@ export default class UserManagementAddNew extends React.Component {
                             value={this.state.loginName}
                         />
                     </div>
-                    <div className={roleNameError ? "form-group has-error col-xs-6" : "form-group col-xs-6"}>
+                    <div className={roleNameError ? "form-group has-error col-sm-6" : "form-group col-sm-6"}>
                         <label className="control-label" htmlFor="newUser.roleName.selection">
                             <FormattedMessage id="dropdown.role.plsselect" />&nbsp;
                             {roleNameError && <FormattedMessage id="dropdown.role.error" />}
@@ -155,7 +155,7 @@ export default class UserManagementAddNew extends React.Component {
                     </div>
                 </div>
                 <div className="row">
-                    <div className={passwordError ? "form-group has-error col-xs-6" : "form-group col-xs-6"}>
+                    <div className={passwordError ? "form-group has-error col-sm-6" : "form-group col-sm-6"}>
                         <label className="control-label" htmlFor="inputPassword">
                             <FormattedMessage id="input.password" />&nbsp;
                             {passwordError && <FormattedMessage id="input.passwordError" />}
@@ -169,7 +169,7 @@ export default class UserManagementAddNew extends React.Component {
                             value={this.state.password}
                         />
                     </div>
-                    <div className={passwordEqualError ? "form-group has-error col-xs-6" : "form-group col-xs-6"}>
+                    <div className={passwordEqualError ? "form-group has-error col-sm-6" : "form-group col-sm-6"}>
                         <label className="control-label" htmlFor="inputPasswordConfirm">
                             <FormattedMessage id="input.passwordConfirm" />&nbsp;
                             {passwordEqualError && <FormattedMessage id="input.passwordConfirmError" />}
@@ -185,7 +185,7 @@ export default class UserManagementAddNew extends React.Component {
                     </div>
                 </div>
                 <div className="row">
-                    <div className="form-group col-xs-6">
+                    <div className="form-group col-sm-6">
                         <FormattedMessage
                             tagName="label"
                             id="input.firstname"
@@ -201,7 +201,7 @@ export default class UserManagementAddNew extends React.Component {
                             value={this.state.firstName}
                         />
                     </div>
-                    <div className="form-group col-xs-6">
+                    <div className="form-group col-sm-6">
                         <FormattedMessage
                             tagName="label"
                             id="input.lastname"
@@ -219,7 +219,7 @@ export default class UserManagementAddNew extends React.Component {
                     </div>
                 </div>
                 <div className="row">
-                    <div className="form-group col-xs-12">
+                    <div className="form-group col-sm-12">
                         <button className="btn btn-primary pull-right" onClick={this.sendData}><FormattedMessage
                             id="button.user.create"
                         />
