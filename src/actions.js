@@ -54,7 +54,6 @@ export function closePasswordModal() {
 }
 
 export function openSelectIconModal(callback) {
-    console.log("openSelectIconModal", callback);
     return {
         type: OPEN_SELECT_ICON_MODAL,
         backdrop: true,

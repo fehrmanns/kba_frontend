@@ -3,7 +3,7 @@ import {connect} from "react-redux";
 import PropTypes from "prop-types";
 import {Modal} from "react-bootstrap";
 import IconDialog from "./../IconDialog";
-import {closePasswordModal} from "./../../actions";
+import {closeSelectIconModal} from "./../../actions";
 
 class PasswordChangeModal extends React.Component {
     constructor(props) {
@@ -19,11 +19,10 @@ class PasswordChangeModal extends React.Component {
 
     render() {
         const close = () => {
-            this.props.dispatch(closePasswordModal());
+            this.props.dispatch(closeSelectIconModal());
         };
         // eslint-disable-next-line react/no-typos
         const {backdrop} = this.props;
-
         return (
             <div className="modal-container">
                 <Modal
@@ -48,7 +47,6 @@ PasswordChangeModal.propTypes = {
 };
 
 function mapStateToProps(state) {
-    console.log("mapStateToProps", state);
     const {modals} = state;
     const {showSelectIconModal, backdrop} = modals;
 

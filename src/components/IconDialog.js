@@ -16,7 +16,6 @@ class IconDialog extends React.Component {
     }
 
     selectedItem(event) {
-        console.log(event.target.id);
         this.props.setIcon(event.target.id);
     }
 
