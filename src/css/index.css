@@ -62,3 +62,13 @@ body::after {
     border: 1px solid #e1e1e8;
     border-radius: 4px;
 }
+
+table input {
+    box-sizing: border-box;
+    display: block;
+    width: 100%;
+    border: 0;
+    background: transparent;
+    padding: 0.1em 0.35em;
+    margin: 0;
+}

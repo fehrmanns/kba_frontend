@@ -8,15 +8,6 @@
 .usermanagement .table tr > td {
     width: 18%;
 }
-.usermanagement table input {
-    box-sizing: border-box;
-    display: block;
-    width: 100%;
-    border: 0;
-    background: transparent;
-    padding: 0.1em 0.35em;
-    margin: 0;
-}
 .usermanagement table .date {
     min-width: 8em;
 }

@@ -4,6 +4,7 @@ import {Checkbox} from "react-bootstrap";
 import { FormattedMessage} from "react-intl";
 import IconItem from "./IconItem";
 import { closeSelectIconModal, openSelectIconModal } from "../actions";
+import FormattedTypeahead from "./i18n/FormattedTypeahead";
 
 class OrganizationUnitTypeListItem extends React.Component {
     constructor(props) {
@@ -14,16 +15,18 @@ class OrganizationUnitTypeListItem extends React.Component {
             abbreviation: this.props.typeItem.abbreviation ? this.props.typeItem.abbreviation : "",
             containsUsers: this.props.typeItem.containsUsers,
             containsArtifacts: this.props.typeItem.containsArtifacts,
-            childrenKbaOuTypeNames: [],
+            childrenKbaOuTypeNames: this.props.typeItem.childrenKbaOuTypeNames ? this.props.typeItem.childrenKbaOuTypeNames : [],
             nameModified: false,
             abbreviationModified: false,
             iconLocationModified: false,
             containsUsersModified: false,
             containsArtifactsModified: false,
+            childrenModified: false,
         };
         this.onSelectIcon = this.onSelectIcon.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleUpdate = this.handleUpdate.bind(this);
+        this.handleSubTypeChange = this.handleSubTypeChange.bind(this);
     }
 
     onSelectIcon(icon) {
@@ -73,12 +76,21 @@ class OrganizationUnitTypeListItem extends React.Component {
             iconLocationModified: false,
             containsUsersModified: false,
             containsArtifactsModified: false,
+            childrenModified: false,
+        });
+    }
+
+    handleSubTypeChange(selectedItems) {
+        this.setState({
+            childrenKbaOuTypeNames: selectedItems,
+            childrenModified: true,
         });
     }
 
     render() {
+        const allTypeNames = this.props.types.map(item => item.name);
         const type = this.props.typeItem;
-        const modified = this.state.nameModified || this.state.abbreviationModified || this.state.containsArtifactsModified || this.state.containsUsersModified || this.state.iconLocationModified;
+        const modified = this.state.nameModified || this.state.abbreviationModified || this.state.containsArtifactsModified || this.state.containsUsersModified || this.state.iconLocationModified || this.state.childrenModified;
         return (
             <tr >
                 <td><input id="tableInputName" onChange={this.handleChange} value={this.state.name} /></td>
@@ -88,7 +100,7 @@ class OrganizationUnitTypeListItem extends React.Component {
                         {this.state.iconLocation ?
                             <IconItem icon={this.state.iconLocation} selectedItem={() => this.props.dispatch(openSelectIconModal(this.onSelectIcon))} />
                             :
-                            <button className="btn btn-default" onClick={() => this.props.dispatch(openSelectIconModal(this.onSelectIcon))}><FormattedMessage
+                            <button className="btn btn-xs btn-default" onClick={() => this.props.dispatch(openSelectIconModal(this.onSelectIcon))}><FormattedMessage
                                 id="button.select.icon"
                             />
                             </button>
@@ -113,7 +125,18 @@ class OrganizationUnitTypeListItem extends React.Component {
                     checked={this.state.containsArtifacts}
                 />
                 </td>
-                <td />
+                <td>
+                    <FormattedTypeahead
+                        id="childrenKbaOuTypeNamesSelection"
+                        clearButton
+                        labelKey="name"
+                        multiple
+                        placeholder="input.childrenKbaOuTypeNamesSelection"
+                        options={allTypeNames}
+                        onChange={this.handleSubTypeChange}
+                        selected={this.state.childrenKbaOuTypeNames}
+                    />
+                </td>
                 {modified ?
                     <td className="text-center">
                         <button className="btn btn-xs btn-warning" onClick={this.handleUpdate}>
@@ -136,6 +159,7 @@ OrganizationUnitTypeListItem.propTypes = {
     typeItem: PropTypes.object.isRequired,
     updateType: PropTypes.func.isRequired,
     deleteType: PropTypes.func.isRequired,
+    types: PropTypes.array.isRequired,
 };
 
 export default OrganizationUnitTypeListItem;

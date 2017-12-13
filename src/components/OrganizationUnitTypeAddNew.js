@@ -42,9 +42,7 @@ class OrganizationUnitTypeAddNew extends React.Component {
 
     handleChange(event) {
         event.preventDefault();
-        console.log(event);
         const targetName = event.target.id.replace("input", "").replace(/\b[A-Z]/g, letter => letter.toLowerCase());
-        console.log(targetName);
         switch (targetName) {
             case "name":
                 this.setState({

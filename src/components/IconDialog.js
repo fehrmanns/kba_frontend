@@ -26,7 +26,7 @@ class IconDialog extends React.Component {
         return (
             <div>
                 <ul className="list-unstyled icon-dialog">
-                    {icons.map(iconItem => <li key={`select_icon_${iconItem}`}><IconItem icon={iconItem} selectedItem={this.selectedItem} /></li>)}
+                    {icons.map(iconItem => <li key={`select_icon_${iconItem}`}><span className="btn btn-default"><IconItem icon={iconItem} selectedItem={this.selectedItem} /></span></li>)}
                 </ul>
             </div>
         );

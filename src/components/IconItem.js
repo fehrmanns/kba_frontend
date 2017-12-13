@@ -6,9 +6,7 @@ class IconItem extends React.Component {
         const {icon, selectedItem} = this.props;
 
         return (
-            <span className="btn btn-default">
-                <span id={icon} className={`icon iconexperience-${icon}`} aria-hidden="true" onClick={selectedItem} />
-            </span>
+            <span id={icon} className={`icon iconexperience-${icon}`} aria-hidden="true" onClick={selectedItem} />
         );
     }
 }

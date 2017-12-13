@@ -5,7 +5,9 @@ import OrganizationUnitTypeListItem from "./OrganizationUnitTypeListItem";
 
 export default class OrganizationUnitTypeList extends React.Component {
     render() {
-        const { types, deleteType, dispatch, updateType } = this.props;
+        const {
+            types, deleteType, dispatch, updateType,
+        } = this.props;
 
         return (
             <div>
@@ -25,7 +27,7 @@ export default class OrganizationUnitTypeList extends React.Component {
                         </tr>
                     </thead>
                     <tbody>
-                        {types.map(typeItem => <OrganizationUnitTypeListItem key={`ListItem.${typeItem.name}`} typeItem={typeItem} deleteType={deleteType} dispatch={dispatch} updateType={updateType} />)}
+                        {types.map(typeItem => <OrganizationUnitTypeListItem key={`ListItem.${typeItem.name}`} types={types} typeItem={typeItem} deleteType={deleteType} dispatch={dispatch} updateType={updateType} />)}
                     </tbody>
                 </table>
             </div>
