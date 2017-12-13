@@ -1,20 +1,27 @@
 import React from "react";
 import PropTypes from "prop-types";
+import {FormattedMessage} from "react-intl";
 import { connect } from "react-redux";
-import { FormattedMessage } from "react-intl";
-import { Tab, Tabs, Collapse } from "react-bootstrap";
+import { Tabs, Tab, Collapse } from "react-bootstrap";
 import { getUnitTypes, deleteUnitType, logoutUser, addUnitType, updateUnitType } from "../actions";
 import OrganizationUnitTypeList from "../components/OrganizationUnitTypeList";
 import OrganizationUnitTypeAddNew from "../components/OrganizationUnitTypeAddNew";
 import "./../css/organisationsettings.css";
+import { getItem, toggleItem } from '../utilities/storage';
 
 class Organisationsettings extends React.Component {
     constructor(props) {
         super(props);
+
+        this.state = {
+            open: getItem("add_type_open"),
+        };
         this.props.dispatch(getUnitTypes());
+
         this.deleteType = this.deleteType.bind(this);
         this.addNewType = this.addNewType.bind(this);
         this.updateType = this.updateType.bind(this);
+        this.toggleAddType = this.toggleAddType.bind(this);
     }
 
     deleteType(type) {
@@ -50,24 +57,42 @@ class Organisationsettings extends React.Component {
             });
     }
 
+    toggleAddType() {
+        toggleItem("add_type_open");
+        this.setState({
+            open: getItem("add_type_open"),
+        });
+    }
+
     render() {
         const {typeList, typesAreLoaded, dispatch} = this.props;
 
         return (
             <div className="organisationsettings starter-template">
                 <Tabs defaultActiveKey={2} animation={false} id="noanim-tab-example">
-                    <Tab eventKey={1} title="Organisationsverwaltung"><FormattedMessage
-                        id="oranisationsettings.administration.title"
-                        tagName="h1"
-                    />
-                    </Tab>
-                    <Tab eventKey={2} title="Organistationstypen">
-                        <FormattedMessage id="oranisationtypes.administration.title" tagName="h1" />
+                    <Tab eventKey={1} title="Organisationsverwaltung" />
+                    <Tab eventKey={2} title="Organisationstypen" >
                         <div className="row">
                             <div className="col-xs-12">
-                                <div>
-                                    <OrganizationUnitTypeAddNew dispatch={dispatch} types={typeList} sendData={newType => this.addNewType(newType)} />
-                                </div>
+                                <button
+                                    className="btn btn-primary pull-right "
+                                    onClick={() => this.toggleAddType()}
+                                >
+                                    {this.state.open ?
+                                        <FormattedMessage id="button.input.close" />
+                                        :
+                                        <FormattedMessage id="button.newtype.open" />
+                                    }
+                                </button>
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="col-xs-12">
+                                <Collapse in={this.state.open}>
+                                    <div>
+                                        <OrganizationUnitTypeAddNew dispatch={dispatch} types={typeList} sendData={newType => this.addNewType(newType)} />
+                                    </div>
+                                </Collapse>
                             </div>
                         </div>
                         <div className="row">

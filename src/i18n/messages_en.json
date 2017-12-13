@@ -59,6 +59,8 @@
         "button.close":"Close",
         "button.select.icon":"Select icon",
         "button.save":"Save",
+        "button.input.close":"Close form",
+        "button.newtype.open":"Add type",
 
         "label.select.icon":"Icon",
 
@@ -126,8 +128,8 @@
         "usermanagement.list.modified": "modified",
         "usermanagement.list.modifiedBy": "modified from",
 
-        "oranisationsettings.administration.title": "Organization",
-        "oranisationtypes.administration.title": "Organizational unit types",
+        "organisationsettings.administration.title": "Organization",
+        "organisationtypes.administration.title": "Organizational unit types",
         "unittypes.list.headline": "Organizational unit types",
         "unittypes.list.name": "Name",
         "unittypes.list.icon": "Icon",

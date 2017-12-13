@@ -59,6 +59,8 @@
         "button.close":"Schließen",
         "button.select.icon":"Icon auswählen",
         "button.save":"Speichern",
+        "button.input.close":"Eingabe schließen",
+        "button.newtype.open":"Neuer Typ",
 
         "label.select.icon":"Icon",
 
@@ -126,8 +128,8 @@
         "usermanagement.list.modified": "geändert am",
         "usermanagement.list.modifiedBy": "geändert von",
 
-        "oranisationsettings.administration.title": "Organisationsverwaltung",
-        "oranisationtypes.administration.title": "Typen der Organisationseinheit",
+        "organisationsettings.administration.title": "Organisationsverwaltung",
+        "organisationtypes.administration.title": "Organistationstypen",
         "unittypes.list.headline": "Typen der Organisationseinheit",
         "unittypes.list.name": "Name",
         "unittypes.list.icon": "Icon",

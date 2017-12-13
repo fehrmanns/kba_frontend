@@ -167,18 +167,12 @@ class OrganizationUnitTypeAddNew extends React.Component {
                     <div className="form-group col-xs-6">
                         <Checkbox id="inputContainsUsers" onChange={() => this.setState({containsUsers: !this.state.containsUsers})} checked={this.state.containsUsers}>
                             <FormattedMessage
-                                tagName="label"
                                 id="input.containsAccounts"
-                                className="control-label"
-                                htmlFor="inputContainsUsers"
                             />
                         </Checkbox>
                         <Checkbox id="inputContainsArtifacts" onChange={() => this.setState({containsArtifacts: !this.state.containsArtifacts})} checked={this.state.containsArtifacts}>
                             <FormattedMessage
-                                tagName="label"
                                 id="input.containsArtifacts"
-                                className="control-label"
-                                htmlFor="inputContainsArtifacts"
                             />
                         </Checkbox>
                     </div>

@@ -72,3 +72,10 @@ table input {
     padding: 0.1em 0.35em;
     margin: 0;
 }
+
+.usermanagement .highlight, .organisationsettings .highlight {
+    margin-top: 15px;
+}
+.usermanagement .highlight h3, .organisationsettings .highlight h3 {
+    margin-top: 10px;
+}
