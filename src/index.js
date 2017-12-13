@@ -6,11 +6,11 @@ import thunkMiddleware from "redux-thunk";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/css/bootstrap-theme.css";
 import "react-bootstrap-typeahead/css/Typeahead.css";
-import kbaApp from "./reducers";
-import api from "./middleware/api";
 import "./css/index.css";
 import registerServiceWorker from "./utilities/registerServiceWorker";
 import Mainframe from "./components/Mainframe";
+import api from "./middleware/api";
+import kbaApp from "./reducers";
 // Put any other imports below so that CSS from your
 // components takes precedence over default styles.
 

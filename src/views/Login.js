@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
 import PropTypes from "prop-types";
-import {FormattedMessage} from "react-intl";
+import {injectIntl, FormattedMessage} from "react-intl";
 import FormattedInput from "../components/i18n/FormattedInput";
 import { loginUser } from "../actions";
 import "./../css/login.css";
@@ -23,12 +23,12 @@ class Login extends Component {
     componentWillReceiveProps(nextProps) {
         // check if there is no difference in the input
 
-        if (nextProps.auth.creds) {
+        if (nextProps.auth.creds && (this.props.auth !== nextProps.auth)) {
             const userIsDifferent = this.state.username.localeCompare(nextProps.auth.creds.username);
             const passwordIsDifferent = this.state.password.localeCompare(nextProps.auth.creds.password);
             const inputIsDifferent = (userIsDifferent || passwordIsDifferent);
 
-            (!inputIsDifferent && !nextProps.auth.isFetching && !nextProps.auth.isAuthenticated) && Object.assign({}, this.setState({showError: true}));
+            (!inputIsDifferent && !nextProps.auth.isAuthenticated) && Object.assign({}, this.setState({showError: true}));
         }
     }
 
@@ -142,4 +142,4 @@ function mapStateToProps(state) {
     };
 }
 
-export default connect(mapStateToProps)(Login);
+export default injectIntl(connect(mapStateToProps)(Login));

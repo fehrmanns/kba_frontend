@@ -48,7 +48,7 @@ class Mainframe extends React.Component {
 
     componentWillReceiveProps(nextProps) {
         const {isAuthenticated} = nextProps;
-        const profile = isAuthenticated ? nextProps.auth.user : {};
+        const profile = nextProps.auth.user;
 
         if (isAuthenticated && profile.expired) {
             this.props.dispatch(openPasswordModal(profile, "static"));
@@ -85,6 +85,8 @@ class Mainframe extends React.Component {
 
         if (isAuthenticated === false || isAuthenticated === undefined) {
             content = <Route component={Login} />;
+        } else if (passwordExpired) {
+            content = <Route exact path="/" component={Home} />;
         } else {
             content = (
                 <div className={(this.state.sitebar === true) ? "show container-fluid" : "container-fluid"}>
@@ -106,9 +108,9 @@ class Mainframe extends React.Component {
         }
 
         return (
-            <IntlProvider locale={this.state.lang} messages={langMsg} >
-                <Router >
-                    <div className="mainframe container" >
+            <IntlProvider locale={this.state.lang} messages={langMsg}>
+                <Router>
+                    <div className="mainframe container">
                         <Notifications />
                         <Header
                             changeLanguage={this.changeLanguage}
@@ -117,15 +119,15 @@ class Mainframe extends React.Component {
                             logoutUser={() => dispatch(logoutUser())}
                             toggleMenu={() => this.toggleMenu()}
                         />
-                        <Progress isActive={false} />
+                        <Progress />
                         {(showNavigation) && <Sitebar show={this.state.sitebar} />}
 
                         {content}
                         <PasswordChangeModal modal={showPasswordModal} />
                         <SelectIconModal />
-                    </div >
-                </Router >
-            </IntlProvider >
+                    </div>
+                </Router>
+            </IntlProvider>
         );
     }
 }

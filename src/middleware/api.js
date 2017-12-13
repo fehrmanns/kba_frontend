@@ -1,5 +1,4 @@
 /* Login Uniform Resource Identifier */
-
 const LURI = "http://localhost:8080/befe/rest/";
 
 function callApi(endpoint, authenticated, method, json) {
@@ -67,13 +66,15 @@ export default store => next => (action) => {
 
     // So the middleware doesn't get applied to every single action
     if (typeof callAPI === "undefined") { return next(action); }
-
     const {
         endpoint, types, authenticated, method, json,
     } = callAPI;
 
-    // const [requestType, successType, errorType] = types
-    const [successType, errorType] = types;
+    const [requestType, successType, errorType] = types;
+
+    next({
+        type: requestType,
+    });
 
     return callApi(endpoint, authenticated, method, json).then(
         response =>

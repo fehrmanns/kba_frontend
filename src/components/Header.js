@@ -17,13 +17,12 @@ class Header extends React.Component {
         const dropDownId = `header.dropdown.language.${locale}`;
         const renderOnLogin = this.props.isAuthenticated;
         const username = getLoginName();
-        const renderOnAccess = !this.props.expired;
 
         return (
             <nav className="navbar navbar-inverse navbar-fixed-top">
                 <div className="container">
                     <div className="navbar-header">
-                        {renderOnAccess &&
+                        {renderOnLogin &&
                         <button type="button" className="navbar-toggle collapsed" onClick={() => this.props.toggleMenu()}>
                             <span className="sr-only"><FormattedMessage id="header.button.togglenavigation" /></span>
                             <span className="icon-bar" />
@@ -38,7 +37,7 @@ class Header extends React.Component {
                             <MenuItem eventKey="en"><FormattedMessage id="header.dropdown.language.en" /></MenuItem>
                             <MenuItem eventKey="de"><FormattedMessage id="header.dropdown.language.de" /></MenuItem>
                         </FormattedDropDown>
-                        {renderOnAccess &&
+                        {renderOnLogin &&
                             <FormattedButton
                                 className="btn btn-link"
                                 title="header.user.hint"
@@ -63,20 +62,17 @@ Header.propTypes = {
     changeLanguage: PropTypes.func.isRequired,
     logoutUser: PropTypes.func.isRequired,
     user: PropTypes.object.isRequired,
-    expired: PropTypes.bool.isRequired,
     isAuthenticated: PropTypes.bool.isRequired,
 };
 
 function mapStateToProps(state) {
     const {auth} = state;
     const {isAuthenticated, user} = auth;
-    const {expired} = user;
 
     return {
         auth,
         user,
         isAuthenticated,
-        expired,
     };
 }
 

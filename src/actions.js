@@ -10,15 +10,18 @@ export const LOGIN_FAILURE = "LOGIN_FAILURE";
 export const LOGOUT_REQUEST = "LOGOUT_REQUEST";
 export const LOGOUT_SUCCESS = "LOGOUT_SUCCESS";
 
+export const TOKEN_REQUEST = "TOKEN_REQUEST";
 export const TOKEN_SUCCESS = "TOKEN_SUCCESS";
 export const TOKEN_FAILURE = "TOKEN_FAILURE";
 
+export const USER_REQUEST = "USER_REQUEST";
 export const USER_LOADED = "USER_LOADED";
 export const USER_ADDED = "USER_ADDED";
 export const USER_DELETED = "USER_DELETED";
 export const USER_UPDATED = "USER_UPDATED";
 export const USER_FAILURE = "USER_FAILURE";
 
+export const TYPE_REQUEST = "TYPE_REQUEST";
 export const TYPE_LOADED = "TYPE_LOADED";
 export const TYPE_ADDED = "TYPE_ADDED";
 export const TYPE_DELETED = "TYPE_DELETED";
@@ -142,7 +145,7 @@ export function loginUser(creds) {
                     case 200:
                         response.json()
                             .then(user => ({user, response}))
-                            .then(({user, response}) => {
+                            .then(({user}) => {
                                 if (!response.ok) {
                                 // If there was a problem, we want to
                                 // dispatch the error condition
@@ -186,7 +189,7 @@ export function probeToken() {
             endpoint,
             authenticated: true,
             method: "GET",
-            types: [TOKEN_SUCCESS, TOKEN_FAILURE],
+            types: [TOKEN_REQUEST, TOKEN_SUCCESS, TOKEN_FAILURE],
             json: {},
         },
     };
@@ -199,7 +202,7 @@ export function getUsers() {
             endpoint: "management/users",
             authenticated: true,
             method: "GET",
-            types: [USER_LOADED, USER_FAILURE],
+            types: [USER_REQUEST, USER_LOADED, USER_FAILURE],
             json: {},
         },
     };
@@ -211,7 +214,7 @@ export function addUser(user) {
             endpoint: "management/users",
             authenticated: true,
             method: "POST",
-            types: [USER_ADDED, USER_FAILURE],
+            types: [USER_REQUEST, USER_ADDED, USER_FAILURE],
             json: user,
         },
     };
@@ -223,7 +226,7 @@ export function updateUser(user) {
             endpoint: `management/users/${user.loginName}`,
             authenticated: true,
             method: "PUT",
-            types: [USER_UPDATED, USER_FAILURE],
+            types: [USER_REQUEST, USER_UPDATED, USER_FAILURE],
             json: JSON.stringify(user),
         },
     };
@@ -235,7 +238,7 @@ export function deleteUser(userName) {
             endpoint: `management/users/${userName}`,
             authenticated: true,
             method: "DELETE",
-            types: [USER_DELETED, USER_FAILURE],
+            types: [USER_REQUEST, USER_DELETED, USER_FAILURE],
             json: userName,
         },
     };
@@ -247,7 +250,7 @@ export function addUnitType(unitType) {
             endpoint: "management/org-unit-types",
             authenticated: true,
             method: "POST",
-            types: [TYPE_ADDED, TYPE_FAILURE],
+            types: [TYPE_REQUEST, TYPE_ADDED, TYPE_FAILURE],
             json: unitType,
         },
     };
@@ -259,7 +262,7 @@ export function updateUnitType(typeName, unitType) {
             endpoint: `management/org-unit-types/${typeName}`,
             authenticated: true,
             method: "PUT",
-            types: [TYPE_UPDATED, TYPE_FAILURE],
+            types: [TYPE_REQUEST, TYPE_UPDATED, TYPE_FAILURE],
             json: JSON.stringify(unitType),
         },
     };
@@ -271,7 +274,7 @@ export function deleteUnitType(unitType) {
             endpoint: `management/org-unit-types/${unitType}`,
             authenticated: true,
             method: "DELETE",
-            types: [TYPE_DELETED, TYPE_FAILURE],
+            types: [TYPE_REQUEST, TYPE_DELETED, TYPE_FAILURE],
             json: unitType,
         },
     };
@@ -283,7 +286,7 @@ export function getUnitTypes() {
             endpoint: "management/org-unit-types",
             authenticated: true,
             method: "GET",
-            types: [TYPE_LOADED, TYPE_FAILURE],
+            types: [TYPE_REQUEST, TYPE_LOADED, TYPE_FAILURE],
             json: {},
         },
     };
