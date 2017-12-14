@@ -11,23 +11,9 @@ class OrganizationUnitTreeView extends React.Component {
 
         this.props.dispatch(getAllOrgUnits(true));
 
+        this.getUnit = this.getUnit.bind(this);
         this.onSelect = this.onSelect.bind(this);
         this.onLoadData = this.onLoadData.bind(this);
-    }
-
-    componentDidMount() {
-        setTimeout(() => {
-            this.setState({
-                treeData: [
-                    {name: "pNode 01", key: "0-0"},
-                    {name: "pNode 02", key: "0-1"},
-                    {name: "pNode 03", key: "0-2", isLeaf: true},
-                ],
-                checkedKeys: ["0-0"],
-            });
-        }, 100);
-
-        this.getUnit = this.getUnit.bind(this);
     }
 
     getUnit(unitName) {
@@ -43,14 +29,15 @@ class OrganizationUnitTreeView extends React.Component {
     }
 
     onLoadData(treeNode) {
-        return new Promise((resolve) => {
-            setTimeout(() => {
-                const treeData = [...this.state.treeData];
-                this.getNewTreeData(treeData, treeNode.props.eventKey, this.generateTreeNodes(treeNode), 2);
-                this.setState({treeData});
-                resolve();
-            }, 500);
-        });
+        console.log("onLoadData", treeNode.props.children);
+        // return new Promise((resolve) => {
+        //     setTimeout(() => {
+        //         const treeData = [...this.state.treeData];
+        //         this.getNewTreeData(treeData, treeNode.props.eventKey, this.generateeTreeNodes(treeNode), 2);
+        //         this.setState({treeData});
+        //         resolve();
+        //     }, 500);
+        // });
     }
 
     getNewTreeData(treeData, curKey, child, level) {
@@ -99,19 +86,13 @@ class OrganizationUnitTreeView extends React.Component {
     render() {
         const {unitTree, isFetching} = this.props;
         const loop = (data) => {
-            if (unitTree) {
-                // return data.map((item) => {
-                //     if (item.children) {
-                //         return <TreeNode title={item.name} key={item.created}>{loop(item.children)}</TreeNode>;
-                //     }
-                console.log("unitTree", unitTree);
-                return (
-                    <TreeNode title={unitTree.name} key={unitTree.created} isLeaf={false} disabled={unitTree.key === "0-0-0"} />
-                );
-                // });
-            } else {
-                return <div />;
-            }
+            return data.map((item) => {
+                if (item.childrenKbaOuDTOs) {
+                    return <TreeNode title={item.name} key={`treenode_${item.created}`} isLeaf={item.leaf} disabled={item.key === "0-0-0"}>{loop(item.childrenKbaOuDTOs)}</TreeNode>;
+                } else {
+                    return <TreeNode title={item.name} key={`treenode_${item.created}`} isLeaf={item.leaf} disabled={item.key === "0-0-0"} />;
+                }
+            });
         };
         const treeNodes = loop(unitTree);
 
@@ -128,20 +109,16 @@ class OrganizationUnitTreeView extends React.Component {
                         loadData={this.onLoadData}
                     >
                         {treeNodes}
-                        {/* <TreeNode title={item.name} key={item.key}>{loop(item.children)}</TreeNode> */}
                     </Tree>
                 }
             </div>
-            /* <Tree multiple defaultExpandAll >
-                {loop(gData)}
-            </Tree> */
         );
     }
 }
 
 OrganizationUnitTreeView.propTypes = {
     dispatch: PropTypes.func.isRequired,
-    unitTree: PropTypes.object.isRequired,
+    unitTree: PropTypes.array.isRequired,
     isFetching: PropTypes.bool.isRequired,
 };
 

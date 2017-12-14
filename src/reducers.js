@@ -232,15 +232,16 @@ function unittypes(state = {
 function units(state = {
     isFetching: false,
     list: [],
-    unitTree: {},
+    unitTree: [],
 }, action) {
     // TODO: define all types
     switch (action.type) {
         case UNITS_LOADED:
+            console.log("units", action.response);
             return Object.assign({}, state, {
                 list: action.response.kbaOuDtos,
                 isFetching: false,
-                unitTree: action.response.kbaOuDtos[0],
+                unitTree: action.response.kbaOuDtos,
             });
         case UNIT_ADDED:
             return Object.assign({}, state, {
@@ -249,7 +250,7 @@ function units(state = {
         case UNIT_LOADED:
             console.log("unit", action.response);
             return Object.assign({}, state, {
-                unitTree: action.response,
+                unitTree: [action.response],
                 isFetching: false,
             });
         case UNIT_DELETED:

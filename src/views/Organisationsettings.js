@@ -23,10 +23,6 @@ class Organisationsettings extends React.Component {
         this.props.dispatch(getUnitTypes());
         // this.props.dispatch(getAllOrgUnits());
 
-        this.state = {
-            unitTree: this.props.unitTree,
-        };
-
         this.deleteType = this.deleteType.bind(this);
         this.addNewType = this.addNewType.bind(this);
         this.updateType = this.updateType.bind(this);
@@ -74,21 +70,9 @@ class Organisationsettings extends React.Component {
     }
 
 
-    /*    expandUnitTree(unitToExpand) {
-        this.getUnit(unitToExpand.name);
-        const {unitTree} = this.props;
-        const tree = this.state.treeView;
-
-
-        this.setState({
-            treeView: tree,
-        })
-
-    } */
-
     render() {
         const {
-            typeList, typesAreLoaded, dispatch, allUnits, unitTree,
+            typeList, typesAreLoaded, dispatch, allUnits,
         } = this.props;
 
         return (
@@ -97,7 +81,7 @@ class Organisationsettings extends React.Component {
                     <Tab eventKey={1} title="Organisationsverwaltung">
                         <div className="row">
                             <div className="col-xs-8" >
-                                <OrganizationUnitTreeView allUnits={allUnits} unitTree={unitTree} />
+                                <OrganizationUnitTreeView allUnits={allUnits}/>
                             </div> <div className="col-xs-4" />
                         </div>
                     </Tab>
@@ -143,7 +127,6 @@ Organisationsettings.propTypes = {
     typeList: PropTypes.array.isRequired,
     typesAreLoaded: PropTypes.bool.isRequired,
     allUnits: PropTypes.array.isRequired,
-    unitTree: PropTypes.object.isRequired,
 };
 
 function mapStateToProps(state) {
@@ -151,10 +134,9 @@ function mapStateToProps(state) {
     const typeList = unittypes.list;
     const typesAreLoaded = unittypes.isLoaded;
     const allUnits = units.list;
-    const {unitTree} = units;
 
     return {
-        unittypes, typeList, typesAreLoaded, allUnits, unitTree,
+        unittypes, typeList, typesAreLoaded, allUnits,
     };
 }
 
