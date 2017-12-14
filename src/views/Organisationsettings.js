@@ -70,7 +70,11 @@ class Organisationsettings extends React.Component {
         return (
             <div className="organisationsettings starter-template">
                 <Tabs defaultActiveKey={2} animation={false} id="noanim-tab-example">
-                    <Tab eventKey={1} title="Organisationsverwaltung" />
+                    <Tab eventKey={1} title="Organisationsverwaltung">
+                        <div className="row">
+                            <div className="col-xs-12">some content</div>
+                        </div>
+                    </Tab>
                     <Tab eventKey={2} title="Organisationstypen" >
                         <div className="row">
                             <div className="col-xs-12">

@@ -3,7 +3,7 @@ import {connect} from "react-redux";
 import PropTypes from "prop-types";
 import {injectIntl, FormattedMessage} from "react-intl";
 import FormattedInput from "../components/i18n/FormattedInput";
-import { loginUser } from "../actions";
+import { loginUser, resetLoginError } from "../actions";
 import "./../css/login.css";
 
 class Login extends Component {
@@ -13,32 +13,31 @@ class Login extends Component {
         this.state = {
             username: "",
             password: "",
-            showError: false,
         };
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    componentWillReceiveProps(nextProps) {
-        // check if there is no difference in the input
-
-        if (nextProps.auth.creds && (this.props.auth !== nextProps.auth)) {
-            const userIsDifferent = this.state.username.localeCompare(nextProps.auth.creds.username);
-            const passwordIsDifferent = this.state.password.localeCompare(nextProps.auth.creds.password);
-            const inputIsDifferent = (userIsDifferent || passwordIsDifferent);
-
-            (!inputIsDifferent && !nextProps.auth.isAuthenticated) && Object.assign({}, this.setState({showError: true}));
-        }
-    }
+    // componentWillReceiveProps(nextProps) {
+    //     // check if there is no difference in the input
+    //
+    //     if (nextProps.auth.creds && (this.props.auth !== nextProps.auth)) {
+    //         const userIsDifferent = this.state.username.localeCompare(nextProps.auth.creds.username);
+    //         const passwordIsDifferent = this.state.password.localeCompare(nextProps.auth.creds.password);
+    //         const inputIsDifferent = (userIsDifferent || passwordIsDifferent);
+    //
+    //         (!inputIsDifferent && !nextProps.auth.isAuthenticated) && Object.assign({}, this.setState({showError: true}));
+    //     }
+    // }
 
     handleChange(event) {
         const targetName = event.target.id.replace("input", "").toLowerCase();
 
         this.setState({
             [targetName]: event.target.value,
-            showError: false,
         });
+        this.props.dispatch(resetLoginError());
     }
 
     handleSubmit(event) {
@@ -58,7 +57,7 @@ class Login extends Component {
 
 
     render() {
-        const {showError} = this.state;
+        const showError = !!this.props.errorMessage;
 
         return (
             <div className="flex-container">
@@ -127,18 +126,18 @@ class Login extends Component {
 Login.propTypes = {
     dispatch: PropTypes.func.isRequired,
     isAuthenticated: PropTypes.bool.isRequired,
-    isFetching: PropTypes.bool.isRequired,
+    errorMessage: PropTypes.string.isRequired,
 };
 
 function mapStateToProps(state) {
     const {auth, tokenIsValid} = state;
-    const {isAuthenticated, isFetching} = auth;
+    const {isAuthenticated, errorMessage} = auth;
 
     return {
         auth,
         tokenIsValid,
         isAuthenticated,
-        isFetching,
+        errorMessage,
     };
 }
 

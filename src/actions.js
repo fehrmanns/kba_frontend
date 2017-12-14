@@ -5,6 +5,7 @@ import {getLoginName} from "./utilities/storage";
 export const SERVER_ERROR = "SERVER_ERROR";
 
 export const LOGIN_REQUEST = "LOGIN_REQUEST";
+export const LOGIN_RESET_ERROR = "LOGIN_RESET_ERROR";
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const LOGIN_FAILURE = "LOGIN_FAILURE";
 export const LOGOUT_REQUEST = "LOGOUT_REQUEST";
@@ -92,6 +93,15 @@ function receiveLogin(user) {
 function loginError(message) {
     return {
         type: LOGIN_FAILURE,
+        isFetching: false,
+        isAuthenticated: false,
+        message,
+    };
+}
+
+export function resetLoginError(message) {
+    return {
+        type: LOGIN_RESET_ERROR,
         isFetching: false,
         isAuthenticated: false,
         message,
