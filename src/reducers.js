@@ -239,8 +239,8 @@ function units(state = {
         case UNITS_LOADED:
             return Object.assign({}, state, {
                 list: action.response.kbaOuDtos,
-                loadedUnit: {},
                 isFetching: false,
+                unitTree: action.response.kbaOuDtos[0],
             });
         case UNIT_ADDED:
             return Object.assign({}, state, {

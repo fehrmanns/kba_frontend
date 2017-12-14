@@ -3,13 +3,13 @@ import PropTypes from "prop-types";
 import {FormattedMessage} from "react-intl";
 import Tree, {TreeNode} from "rc-tree";
 import {connect} from "react-redux";
-import {getOrgUnit, logoutUser} from "../actions";
+import {getAllOrgUnits, getOrgUnit, logoutUser} from "../actions";
 
 class OrganizationUnitTreeView extends React.Component {
     constructor(props) {
         super(props);
 
-        this.getUnit("System");
+        this.props.dispatch(getAllOrgUnits(true));
 
         this.onSelect = this.onSelect.bind(this);
         this.onLoadData = this.onLoadData.bind(this);
@@ -19,11 +19,11 @@ class OrganizationUnitTreeView extends React.Component {
         setTimeout(() => {
             this.setState({
                 treeData: [
-                    { name: 'pNode 01', key: '0-0' },
-                    { name: 'pNode 02', key: '0-1' },
-                    { name: 'pNode 03', key: '0-2', isLeaf: true },
+                    {name: "pNode 01", key: "0-0"},
+                    {name: "pNode 02", key: "0-1"},
+                    {name: "pNode 03", key: "0-2", isLeaf: true},
                 ],
-                checkedKeys: ['0-0'],
+                checkedKeys: ["0-0"],
             });
         }, 100);
 
@@ -39,7 +39,7 @@ class OrganizationUnitTreeView extends React.Component {
     }
 
     onSelect(info) {
-        console.log('onSelect', info);
+        console.log("onSelect", info);
     }
 
     onLoadData(treeNode) {
@@ -47,7 +47,7 @@ class OrganizationUnitTreeView extends React.Component {
             setTimeout(() => {
                 const treeData = [...this.state.treeData];
                 this.getNewTreeData(treeData, treeNode.props.eventKey, this.generateTreeNodes(treeNode), 2);
-                this.setState({ treeData });
+                this.setState({treeData});
                 resolve();
             }, 500);
         });
@@ -91,41 +91,46 @@ class OrganizationUnitTreeView extends React.Component {
         const arr = [];
         const key = treeNode.props.eventKey;
         for (let i = 0; i < 3; i++) {
-            arr.push({ name: `leaf ${key}-${i}`, key: `${key}-${i}` });
+            arr.push({name: `leaf ${key}-${i}`, key: `${key}-${i}`});
         }
         return arr;
     }
 
     render() {
-        console.log("unitTree", this.props.unitTree);
-        const {treeView} = this.props;
+        const {unitTree, isFetching} = this.props;
         const loop = (data) => {
-            if (treeView) {
-                return data.map((item) => {
-                    if (item.children) {
-                        return <TreeNode title={item.name} key={item.created}>{loop(item.children)}</TreeNode>;
-                    }
-                    return (
-                        <TreeNode title={item.name} key={item.created} isLeaf={item.isLeaf} disabled={item.key === '0-0-0'} />
-                    );
-                });
+            if (unitTree) {
+                // return data.map((item) => {
+                //     if (item.children) {
+                //         return <TreeNode title={item.name} key={item.created}>{loop(item.children)}</TreeNode>;
+                //     }
+                console.log("unitTree", unitTree);
+                return (
+                    <TreeNode title={unitTree.name} key={unitTree.created} isLeaf={false} disabled={unitTree.key === "0-0-0"} />
+                );
+                // });
             } else {
                 return <div />;
             }
         };
-        const treeNodes = loop(treeView);
+        const treeNodes = loop(unitTree);
 
 
         return (
             <div>
                 <h1>Baum?!</h1>
-                <Tree
-                    onSelect={this.onSelect}
-                    loadData={this.onLoadData}
-                >
-                    {treeNodes}
-                    {/* <TreeNode title={item.name} key={item.key}>{loop(item.children)}</TreeNode> */}
-                </Tree>
+
+                {isFetching ?
+                    <div className="loader" />
+                    :
+                    <Tree
+                        onSelect={this.onSelect}
+                        loadData={this.onLoadData}
+                    >
+                        {treeNodes}
+                        {/* <TreeNode title={item.name} key={item.key}>{loop(item.children)}</TreeNode> */}
+                    </Tree>
+                }
             </div>
             /* <Tree multiple defaultExpandAll >
                 {loop(gData)}
@@ -135,17 +140,19 @@ class OrganizationUnitTreeView extends React.Component {
 }
 
 OrganizationUnitTreeView.propTypes = {
+    dispatch: PropTypes.func.isRequired,
     unitTree: PropTypes.object.isRequired,
+    isFetching: PropTypes.bool.isRequired,
 };
 
 function mapStateToProps(state) {
     const {unittypes, units} = state;
     const typeList = unittypes.list;
     const typesAreLoaded = unittypes.isLoaded;
-    const {unitTree} = units;
+    const {unitTree, isFetching} = units;
 
     return {
-        unittypes, typeList, typesAreLoaded, unitTree,
+        unittypes, typeList, typesAreLoaded, unitTree, isFetching,
     };
 }
 

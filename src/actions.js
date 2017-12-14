@@ -312,10 +312,10 @@ export function getUnitTypes() {
     };
 }
 
-export function getAllOrgUnits() {
+export function getAllOrgUnits(rootNodeOnly = false) {
     return {
         [CALL_API]: {
-            endpoint: "management/org-units",
+            endpoint: `management/org-units?rootNodeOnly=${rootNodeOnly}`,
             authenticated: true,
             method: "GET",
             types: [UNITS_REQUEST, UNITS_LOADED, UNIT_FAILURE],
