@@ -230,9 +230,9 @@ function unittypes(state = {
 }
 
 function units(state = {
-    isLoaded: false,
+    isFetching: false,
     list: [],
-    loadedUnit: {},
+    unitTree: {},
 }, action) {
     // TODO: define all types
     switch (action.type) {
@@ -247,8 +247,9 @@ function units(state = {
                 isFetching: false,
             });
         case UNIT_LOADED:
+            console.log("unit", action.response);
             return Object.assign({}, state, {
-                loadedUnit: action.response,
+                unitTree: action.response,
                 isFetching: false,
             });
         case UNIT_DELETED:

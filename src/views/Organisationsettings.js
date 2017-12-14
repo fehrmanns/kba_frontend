@@ -21,19 +21,16 @@ class Organisationsettings extends React.Component {
             open: getItem("add_type_open"),
         };
         this.props.dispatch(getUnitTypes());
-        this.props.dispatch(getAllOrgUnits());
-        this.getUnit("System");
+        // this.props.dispatch(getAllOrgUnits());
 
         this.state = {
-            unitTree: this.props.loadedUnit,
+            unitTree: this.props.unitTree,
         };
-
 
         this.deleteType = this.deleteType.bind(this);
         this.addNewType = this.addNewType.bind(this);
         this.updateType = this.updateType.bind(this);
         this.toggleAddType = this.toggleAddType.bind(this);
-        this.getUnit = this.getUnit.bind(this);
     }
 
     deleteType(type) {
@@ -69,14 +66,6 @@ class Organisationsettings extends React.Component {
             });
     }
 
-    getUnit(unitName) {
-        this.props.dispatch(getOrgUnit(unitName)).then((response) => {
-            if (response.message === "401") {
-                this.props.dispatch(logoutUser());
-            }
-        });
-    }
-
     toggleAddType() {
         toggleItem("add_type_open");
         this.setState({
@@ -87,7 +76,7 @@ class Organisationsettings extends React.Component {
 
     /*    expandUnitTree(unitToExpand) {
         this.getUnit(unitToExpand.name);
-        const {loadedUnit} = this.props;
+        const {unitTree} = this.props;
         const tree = this.state.treeView;
 
 
@@ -99,7 +88,7 @@ class Organisationsettings extends React.Component {
 
     render() {
         const {
-            typeList, typesAreLoaded, dispatch, allUnits, loadedUnit,
+            typeList, typesAreLoaded, dispatch, allUnits, unitTree,
         } = this.props;
 
         return (
@@ -108,7 +97,7 @@ class Organisationsettings extends React.Component {
                     <Tab eventKey={1} title="Organisationsverwaltung" />
                     <div className="row">
                         <div className="col-xs-8" >
-                            <OrganizationUnitTreeView allUnits={allUnits} loadedUnit={loadedUnit} />
+                            <OrganizationUnitTreeView allUnits={allUnits} unitTree={unitTree} />
                         </div> <div className="col-xs-4" />
                     </div>
                     <Tab eventKey={2} title="Organisationstypen" >
@@ -153,7 +142,7 @@ Organisationsettings.propTypes = {
     typeList: PropTypes.array.isRequired,
     typesAreLoaded: PropTypes.bool.isRequired,
     allUnits: PropTypes.array.isRequired,
-    loadedUnit: PropTypes.object.isRequired,
+    unitTree: PropTypes.object.isRequired,
 };
 
 function mapStateToProps(state) {
@@ -161,10 +150,10 @@ function mapStateToProps(state) {
     const typeList = unittypes.list;
     const typesAreLoaded = unittypes.isLoaded;
     const allUnits = units.list;
-    const {loadedUnit} = units;
+    const {unitTree} = units;
 
     return {
-        unittypes, typeList, typesAreLoaded, allUnits, loadedUnit,
+        unittypes, typeList, typesAreLoaded, allUnits, unitTree,
     };
 }
 
