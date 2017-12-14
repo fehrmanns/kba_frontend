@@ -6,6 +6,7 @@
     "bootstrap": "^3.3.7",
     "npm": "^5.5.1",
     "prop-types": "^15.6.0",
+    "rc-tree": "^1.7.10",
     "react": "^15.6.1",
     "react-bootstrap": "^0.31.3",
     "react-bootstrap-typeahead": "^2.0.2",

@@ -34,6 +34,16 @@ export const CLOSE_PASSWORD_MODAL = "CLOSE_PASSWORD_MODAL";
 export const OPEN_SELECT_ICON_MODAL = "OPEN_SELECT_ICON_MODAL";
 export const CLOSE_SELECT_ICON_MODAL = "CLOSE_SELECT_ICON_MODAL";
 
+
+export const UNITS_LOADED = "UNITS_LOADED";
+export const UNIT_LOADED = "UNIT_LOADED";
+export const UNIT_ADDED = "UNIT_ADDED";
+export const UNIT_DELETED = "UNIT_DELETED";
+export const UNIT_UPDATED = "UNIT_UPDATED";
+export const UNIT_FAILURE = "UNIT_FAILURE";
+export const UNITS_REQUEST = "UNITS_REQUEST";
+export const UNIT_ROOT = "UNIT_ROOT";
+
 function serverError(message) {
     return {
         type: SERVER_ERROR,
@@ -297,6 +307,78 @@ export function getUnitTypes() {
             authenticated: true,
             method: "GET",
             types: [TYPE_REQUEST, TYPE_LOADED, TYPE_FAILURE],
+            json: {},
+        },
+    };
+}
+
+export function getAllOrgUnits() {
+    return {
+        [CALL_API]: {
+            endpoint: "management/org-units",
+            authenticated: true,
+            method: "GET",
+            types: [UNITS_REQUEST, UNITS_LOADED, UNIT_FAILURE],
+            json: {},
+        },
+    };
+}
+
+export function getOrgUnit(unitName) {
+    return {
+        [CALL_API]: {
+            endpoint: `management/org-units/${unitName}`,
+            authenticated: true,
+            method: "GET",
+            types: [UNITS_REQUEST, UNIT_LOADED, UNIT_FAILURE],
+            json: {},
+        },
+    };
+}
+
+export function deleteOrgUnit(unitName) {
+    return {
+        [CALL_API]: {
+            endpoint: `management/org-units/${unitName}`,
+            authenticated: true,
+            method: "DELETE",
+            types: [UNITS_REQUEST, UNIT_DELETED, UNIT_FAILURE],
+            json: {},
+        },
+    };
+}
+
+export function createOrgUnit(unit) {
+    return {
+        [CALL_API]: {
+            endpoint: "management/org-units/",
+            authenticated: true,
+            method: "POST",
+            types: [UNITS_REQUEST, UNIT_ADDED, UNIT_FAILURE],
+            json: JSON.stringify(unit),
+        },
+    };
+}
+
+export function updateOrgUnit(unit, unitName) {
+    return {
+        [CALL_API]: {
+            endpoint: `management/org-units/${unitName}`,
+            authenticated: true,
+            method: "POST",
+            types: [UNITS_REQUEST, UNIT_UPDATED, UNIT_FAILURE],
+            json: JSON.stringify(unit),
+        },
+    };
+}
+
+export function getRootUnit() {
+    return {
+        [CALL_API]: {
+            endpoint: "management/org-units/root",
+            authenticated: true,
+            method: "GET",
+            types: [UNITS_REQUEST, UNIT_ROOT, UNIT_FAILURE],
             json: {},
         },
     };

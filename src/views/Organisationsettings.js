@@ -3,11 +3,15 @@ import PropTypes from "prop-types";
 import {FormattedMessage} from "react-intl";
 import { connect } from "react-redux";
 import { Tabs, Tab, Collapse } from "react-bootstrap";
-import { getUnitTypes, deleteUnitType, logoutUser, addUnitType, updateUnitType } from "../actions";
+import {
+    getUnitTypes, deleteUnitType, logoutUser, addUnitType, updateUnitType, getAllOrgUnits,
+    getOrgUnit, getRootUnit,
+} from "../actions";
 import OrganizationUnitTypeList from "../components/OrganizationUnitTypeList";
 import OrganizationUnitTypeAddNew from "../components/OrganizationUnitTypeAddNew";
 import "./../css/organisationsettings.css";
-import { getItem, toggleItem } from '../utilities/storage';
+import { getItem, toggleItem } from "../utilities/storage";
+import OrganizationUnitTreeView from "../components/OrganizationUnitTreeView";
 
 class Organisationsettings extends React.Component {
     constructor(props) {
@@ -17,11 +21,19 @@ class Organisationsettings extends React.Component {
             open: getItem("add_type_open"),
         };
         this.props.dispatch(getUnitTypes());
+        this.props.dispatch(getAllOrgUnits());
+        this.getUnit("System");
+
+        this.state = {
+            unitTree: this.props.loadedUnit,
+        };
+
 
         this.deleteType = this.deleteType.bind(this);
         this.addNewType = this.addNewType.bind(this);
         this.updateType = this.updateType.bind(this);
         this.toggleAddType = this.toggleAddType.bind(this);
+        this.getUnit = this.getUnit.bind(this);
     }
 
     deleteType(type) {
@@ -57,6 +69,14 @@ class Organisationsettings extends React.Component {
             });
     }
 
+    getUnit(unitName) {
+        this.props.dispatch(getOrgUnit(unitName)).then((response) => {
+            if (response.message === "401") {
+                this.props.dispatch(logoutUser());
+            }
+        });
+    }
+
     toggleAddType() {
         toggleItem("add_type_open");
         this.setState({
@@ -64,17 +84,33 @@ class Organisationsettings extends React.Component {
         });
     }
 
+
+    /*    expandUnitTree(unitToExpand) {
+        this.getUnit(unitToExpand.name);
+        const {loadedUnit} = this.props;
+        const tree = this.state.treeView;
+
+
+        this.setState({
+            treeView: tree,
+        })
+
+    } */
+
     render() {
-        const {typeList, typesAreLoaded, dispatch} = this.props;
+        const {
+            typeList, typesAreLoaded, dispatch, allUnits, loadedUnit,
+        } = this.props;
 
         return (
             <div className="organisationsettings starter-template">
-                <Tabs defaultActiveKey={2} animation={false} id="noanim-tab-example">
-                    <Tab eventKey={1} title="Organisationsverwaltung">
-                        <div className="row">
-                            <div className="col-xs-12">some content</div>
-                        </div>
-                    </Tab>
+                <Tabs defaultActiveKey={1} animation={false} id="noanim-tab-example">
+                    <Tab eventKey={1} title="Organisationsverwaltung" />
+                    <div className="row">
+                        <div className="col-xs-8" >
+                            <OrganizationUnitTreeView allUnits={allUnits} loadedUnit={loadedUnit} />
+                        </div> <div className="col-xs-4" />
+                    </div>
                     <Tab eventKey={2} title="Organisationstypen" >
                         <div className="row">
                             <div className="col-xs-12">
@@ -116,14 +152,20 @@ Organisationsettings.propTypes = {
     dispatch: PropTypes.func.isRequired,
     typeList: PropTypes.array.isRequired,
     typesAreLoaded: PropTypes.bool.isRequired,
+    allUnits: PropTypes.array.isRequired,
+    loadedUnit: PropTypes.object.isRequired,
 };
 
 function mapStateToProps(state) {
-    const {unittypes} = state;
+    const {unittypes, units} = state;
     const typeList = unittypes.list;
     const typesAreLoaded = unittypes.isLoaded;
+    const allUnits = units.list;
+    const {loadedUnit} = units;
 
-    return {unittypes, typeList, typesAreLoaded};
+    return {
+        unittypes, typeList, typesAreLoaded, allUnits, loadedUnit,
+    };
 }
 
 export default connect(mapStateToProps)(Organisationsettings);

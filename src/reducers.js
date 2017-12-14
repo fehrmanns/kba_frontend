@@ -6,6 +6,7 @@ import {
     USER_REQUEST, USER_LOADED, USER_DELETED, USER_ADDED, USER_UPDATED, USER_FAILURE,
     TYPE_REQUEST, TYPE_LOADED, TYPE_DELETED, TYPE_ADDED, TYPE_UPDATED, TYPE_FAILURE,
     OPEN_PASSWORD_MODAL, CLOSE_PASSWORD_MODAL, OPEN_SELECT_ICON_MODAL, CLOSE_SELECT_ICON_MODAL,
+    UNITS_REQUEST, UNITS_LOADED, UNIT_ADDED, UNIT_DELETED, UNIT_UPDATED, UNIT_FAILURE, UNIT_LOADED, UNIT_ROOT,
 } from "./actions";
 
 // The auth reducer. The starting state sets authentication
@@ -228,6 +229,55 @@ function unittypes(state = {
     }
 }
 
+function units(state = {
+    isLoaded: false,
+    list: [],
+    loadedUnit: {},
+}, action) {
+    // TODO: define all types
+    switch (action.type) {
+        case UNITS_LOADED:
+            return Object.assign({}, state, {
+                list: action.response.kbaOuDtos,
+                loadedUnit: {},
+                isFetching: false,
+            });
+        case UNIT_ADDED:
+            return Object.assign({}, state, {
+                isFetching: false,
+            });
+        case UNIT_LOADED:
+            return Object.assign({}, state, {
+                loadedUnit: action.response,
+                isFetching: false,
+            });
+        case UNIT_DELETED:
+            return Object.assign({}, state, {
+                isFetching: false,
+            });
+        case UNIT_UPDATED:
+            return Object.assign({}, state, {
+                isFetching: false,
+            });
+        case UNIT_ROOT:
+            return Object.assign({}, state, {
+                isFetching: false,
+                loadedUnit: action.response,
+            });
+        case UNIT_FAILURE:
+            return Object.assign({}, state, {
+                isFetching: false,
+            });
+        case UNITS_REQUEST:
+            return Object.assign({}, state, {
+                isFetching: true,
+                isLoaded: false,
+            });
+        default:
+            return state;
+    }
+}
+
 // We combine the reducers here so that they
 // can be left split apart above
 const kbaApp = combineReducers({
@@ -237,6 +287,7 @@ const kbaApp = combineReducers({
     users,
     unittypes,
     modals,
+    units,
 });
 
 export default kbaApp;
