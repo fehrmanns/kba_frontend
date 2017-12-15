@@ -44,6 +44,11 @@
         "input.childrenKbaOuTypes":"Untertypen",
         "input.typeNameError": "darf nicht leer sein.",
         "input.childrenKbaOuTypeNamesSelection":"Untertypen auswählen...",
+        "input.unitname":"Name",
+        "input.notempty":"darf nicht leer sein.",
+        "input.parentKbaOuName":"Eltern Organisationseinheit",
+        "input.kbaOuTypeName":"Organisationseinheitstyp",
+        "input.kbaOuTypeNameSelection":"Typ auswählen...",
 
         "button.submit": "Absenden",
         "button.user.create": "Benutzer anlegen",
@@ -139,6 +144,7 @@
         "unittypes.list.childTypes": "Untertypen",
         "unittypemanagement.addnew.headline": "Neuen Organisationseinheitstyp erstellen",
 
+        "unitmanagement.addnew.headline":"Neue Organisationseinheit erstellen",
         "":""
     }
 }

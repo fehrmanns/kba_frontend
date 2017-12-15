@@ -12,6 +12,7 @@ import OrganizationUnitTypeAddNew from "../components/OrganizationUnitTypeAddNew
 import "./../css/organisationsettings.css";
 import { getItem, toggleItem } from "../utilities/storage";
 import OrganizationUnitTreeView from "../components/OrganizationUnitTreeView";
+import OrganizationUnitAddEdit from "../components/OrganizationUnitAddEdit";
 
 class Organisationsettings extends React.Component {
     constructor(props) {
@@ -80,9 +81,12 @@ class Organisationsettings extends React.Component {
                 <Tabs defaultActiveKey={1} animation={false} id="noanim-tab-example">
                     <Tab eventKey={1} title="Organisationsverwaltung">
                         <div className="row">
-                            <div className="col-xs-8" >
-                                <OrganizationUnitTreeView allUnits={allUnits}/>
-                            </div> <div className="col-xs-4" />
+                            <div className="col-xs-6" >
+                                <OrganizationUnitTreeView allUnits={allUnits} />
+                            </div>
+                            <div className="col-xs-6" >
+                                <OrganizationUnitAddEdit />
+                            </div>
                         </div>
                     </Tab>
                     <Tab eventKey={2} title="Organisationstypen" >

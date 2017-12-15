@@ -28,6 +28,7 @@ export const TYPE_ADDED = "TYPE_ADDED";
 export const TYPE_DELETED = "TYPE_DELETED";
 export const TYPE_UPDATED = "TYPE_UPDATED";
 export const TYPE_FAILURE = "TYPE_FAILURE";
+export const TYPE_BYNAME_LOADED = "TYPE_BYNAME_LOADED";
 
 export const OPEN_PASSWORD_MODAL = "OPEN_PASSWORD_MODAL";
 export const CLOSE_PASSWORD_MODAL = "CLOSE_PASSWORD_MODAL";
@@ -42,6 +43,7 @@ export const UNIT_DELETED = "UNIT_DELETED";
 export const UNIT_UPDATED = "UNIT_UPDATED";
 export const UNIT_FAILURE = "UNIT_FAILURE";
 export const UNITS_REQUEST = "UNITS_REQUEST";
+export const UNIT_SELECTED = "UNIT_SELECTED";
 export const UNIT_ROOT = "UNIT_ROOT";
 
 function serverError(message) {
@@ -72,6 +74,14 @@ export function openSelectIconModal(callback) {
         type: OPEN_SELECT_ICON_MODAL,
         backdrop: true,
         method: callback,
+    };
+}
+
+export function selectUnit(unit) {
+    console.log("selectUnit", unit);
+    return {
+        type: UNIT_SELECTED,
+        selectedUnit: unit,
     };
 }
 
@@ -296,6 +306,19 @@ export function deleteUnitType(unitType) {
             method: "DELETE",
             types: [TYPE_REQUEST, TYPE_DELETED, TYPE_FAILURE],
             json: unitType,
+        },
+    };
+}
+
+export function getUnitType(typeName) {
+    console.log("getUnitType",typeName);
+    return {
+        [CALL_API]: {
+            endpoint: `management/org-unit-types/${typeName}`,
+            authenticated: true,
+            method: "GET",
+            types: [TYPE_REQUEST, TYPE_BYNAME_LOADED, TYPE_FAILURE],
+            json: {},
         },
     };
 }

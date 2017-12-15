@@ -4,9 +4,9 @@ import {
     LOGIN_REQUEST, LOGIN_RESET_ERROR, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_SUCCESS,
     TOKEN_REQUEST, TOKEN_SUCCESS, TOKEN_FAILURE,
     USER_REQUEST, USER_LOADED, USER_DELETED, USER_ADDED, USER_UPDATED, USER_FAILURE,
-    TYPE_REQUEST, TYPE_LOADED, TYPE_DELETED, TYPE_ADDED, TYPE_UPDATED, TYPE_FAILURE,
+    TYPE_REQUEST, TYPE_LOADED, TYPE_DELETED, TYPE_ADDED, TYPE_UPDATED, TYPE_BYNAME_LOADED, TYPE_FAILURE,
     OPEN_PASSWORD_MODAL, CLOSE_PASSWORD_MODAL, OPEN_SELECT_ICON_MODAL, CLOSE_SELECT_ICON_MODAL,
-    UNITS_REQUEST, UNITS_LOADED, UNIT_ADDED, UNIT_DELETED, UNIT_UPDATED, UNIT_FAILURE, UNIT_LOADED, UNIT_ROOT,
+    UNITS_REQUEST, UNITS_LOADED, UNIT_ADDED, UNIT_DELETED, UNIT_UPDATED, UNIT_FAILURE, UNIT_LOADED, UNIT_SELECTED,
 } from "./actions";
 
 // The auth reducer. The starting state sets authentication
@@ -194,6 +194,7 @@ function unittypes(state = {
     isFetching: false,
     isLoaded: false,
     list: [],
+    loadedType: {},
 }, action) {
     // TODO: define all types
     switch (action.type) {
@@ -220,6 +221,12 @@ function unittypes(state = {
             return Object.assign({}, state, {
                 isFetching: false,
             });
+        case TYPE_BYNAME_LOADED:
+            console.log("TYPE_BYNAME_LOADED", action.response);
+            return Object.assign({}, state, {
+                loadedType: [action.response],
+                isFetching: false,
+            });
         case TYPE_FAILURE:
             return Object.assign({}, state, {
                 isFetching: false,
@@ -233,6 +240,7 @@ function units(state = {
     isFetching: false,
     list: [],
     unitTree: [],
+    selectedUnit: {},
 }, action) {
     // TODO: define all types
     switch (action.type) {
@@ -252,6 +260,7 @@ function units(state = {
             return Object.assign({}, state, {
                 unitTree: [action.response],
                 isFetching: false,
+                selectedUnit: action.response,
             });
         case UNIT_DELETED:
             return Object.assign({}, state, {
@@ -261,10 +270,10 @@ function units(state = {
             return Object.assign({}, state, {
                 isFetching: false,
             });
-        case UNIT_ROOT:
+        case UNIT_SELECTED:
             return Object.assign({}, state, {
+                selectedUnit: action.unit,
                 isFetching: false,
-                loadedUnit: action.response,
             });
         case UNIT_FAILURE:
             return Object.assign({}, state, {

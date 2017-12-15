@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import {FormattedMessage} from "react-intl";
 import Tree, {TreeNode} from "rc-tree";
 import {connect} from "react-redux";
-import {getAllOrgUnits, getOrgUnit, logoutUser} from "../actions";
+import {getAllOrgUnits, getOrgUnit, logoutUser, selectUnit, getUnitType } from "../actions";
 
 class OrganizationUnitTreeView extends React.Component {
     constructor(props) {
@@ -24,8 +24,11 @@ class OrganizationUnitTreeView extends React.Component {
         });
     }
 
-    onSelect(info) {
-        console.log("onSelect", info);
+    onSelect(keys, selectedNode) {
+        this.getUnit(selectedNode.node.props.title);
+        console.log(this.props.selectedUnit);
+        getUnitType(this.props.selectedUnit.kbaOuTypeName);
+        selectUnit(this.props.selectedUnit);
     }
 
     onLoadData(treeNode) {
@@ -120,16 +123,17 @@ OrganizationUnitTreeView.propTypes = {
     dispatch: PropTypes.func.isRequired,
     unitTree: PropTypes.array.isRequired,
     isFetching: PropTypes.bool.isRequired,
+    selectedUnit: PropTypes.object.isRequired,
 };
 
 function mapStateToProps(state) {
     const {unittypes, units} = state;
     const typeList = unittypes.list;
     const typesAreLoaded = unittypes.isLoaded;
-    const {unitTree, isFetching} = units;
+    const {unitTree, isFetching, selectedUnit} = units;
 
     return {
-        unittypes, typeList, typesAreLoaded, unitTree, isFetching,
+        unittypes, typeList, typesAreLoaded, unitTree, isFetching, selectedUnit,
     };
 }
 

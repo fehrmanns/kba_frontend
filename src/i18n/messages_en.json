@@ -44,6 +44,11 @@
         "input.childrenKbaOuTypes":"Sub types",
         "input.typeNameError": "shouldn't be empty.",
         "input.childrenKbaOuTypeNamesSelection":"Select sub types...",
+        "input.unitname":"Name",
+        "input.notempty":"shouldn't be empty.",
+        "input.parentKbaOuName":"Parent organizational unit",
+        "input.kbaOuTypeName":"organizational unit type",
+        "input.kbaOuTypeNameSelection":"Select type...",
 
         "button.submit": "Submit",
         "button.user.create": "Create user",
@@ -138,6 +143,8 @@
         "unittypes.list.artifactsEnabled": "Artifact assignable",
         "unittypes.list.childTypes": "subtypes",
         "unittypemanagement.addnew.headline": "Create new organizational unit types",
+
+        "unitmanagement.addnew.headline":"Create new organizational unit",
 
         "":""
     }
