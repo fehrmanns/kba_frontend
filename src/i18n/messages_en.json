@@ -68,6 +68,7 @@
         "button.input.close":"Close form",
         "button.newtype.open":"Add type",
         "button.unit.create":"New organizational unit",
+        "button.clear":"Reset",
 
         "label.select.icon":"Icon",
 

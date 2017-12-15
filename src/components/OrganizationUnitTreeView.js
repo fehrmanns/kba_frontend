@@ -3,13 +3,13 @@ import PropTypes from "prop-types";
 import {FormattedMessage} from "react-intl";
 import Tree, {TreeNode} from "rc-tree";
 import {connect} from "react-redux";
-import {getAllOrgUnits, getOrgUnit, logoutUser, selectUnit, getUnitType } from "../actions";
+import { getRootUnit, getOrgUnit, logoutUser, selectUnit, getUnitType } from '../actions';
 
 class OrganizationUnitTreeView extends React.Component {
     constructor(props) {
         super(props);
 
-        this.props.dispatch(getAllOrgUnits(true));
+        this.props.dispatch(getRootUnit(true));
 
         this.getUnit = this.getUnit.bind(this);
         this.onSelect = this.onSelect.bind(this);

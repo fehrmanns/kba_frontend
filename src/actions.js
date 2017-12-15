@@ -43,6 +43,7 @@ export const UNIT_DELETED = "UNIT_DELETED";
 export const UNIT_UPDATED = "UNIT_UPDATED";
 export const UNIT_FAILURE = "UNIT_FAILURE";
 export const UNITS_REQUEST = "UNITS_REQUEST";
+export const ROOTUNIT_LOADED = "ROOTUNIT_LOADED";
 export const UNIT_SELECTED = "UNIT_SELECTED";
 export const UNIT_ROOT = "UNIT_ROOT";
 
@@ -335,10 +336,10 @@ export function getUnitTypes() {
     };
 }
 
-export function getAllOrgUnits(rootNodeOnly = false) {
+export function getAllOrgUnits() {
     return {
         [CALL_API]: {
-            endpoint: `management/org-units?rootNodeOnly=${rootNodeOnly}`,
+            endpoint: `management/org-units`,
             authenticated: true,
             method: "GET",
             types: [UNITS_REQUEST, UNITS_LOADED, UNIT_FAILURE],
@@ -398,10 +399,10 @@ export function updateOrgUnit(unitName, unit) {
 export function getRootUnit() {
     return {
         [CALL_API]: {
-            endpoint: "management/org-units/root",
+            endpoint: `management/org-units?rootNodeOnly=true`,
             authenticated: true,
             method: "GET",
-            types: [UNITS_REQUEST, UNIT_ROOT, UNIT_FAILURE],
+            types: [UNITS_REQUEST, ROOTUNIT_LOADED, UNIT_FAILURE],
             json: {},
         },
     };

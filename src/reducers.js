@@ -6,7 +6,7 @@ import {
     USER_REQUEST, USER_LOADED, USER_DELETED, USER_ADDED, USER_UPDATED, USER_FAILURE,
     TYPE_REQUEST, TYPE_LOADED, TYPE_DELETED, TYPE_ADDED, TYPE_UPDATED, TYPE_BYNAME_LOADED, TYPE_FAILURE,
     OPEN_PASSWORD_MODAL, CLOSE_PASSWORD_MODAL, OPEN_SELECT_ICON_MODAL, CLOSE_SELECT_ICON_MODAL,
-    UNITS_REQUEST, UNITS_LOADED, UNIT_ADDED, UNIT_DELETED, UNIT_UPDATED, UNIT_FAILURE, UNIT_LOADED, UNIT_SELECTED,
+    UNITS_REQUEST, UNITS_LOADED, UNIT_ADDED, UNIT_DELETED, UNIT_UPDATED, UNIT_FAILURE, UNIT_LOADED, UNIT_SELECTED, ROOTUNIT_LOADED,
 } from "./actions";
 
 // The auth reducer. The starting state sets authentication
@@ -222,7 +222,6 @@ function unittypes(state = {
                 isFetching: false,
             });
         case TYPE_BYNAME_LOADED:
-            console.log("TYPE_BYNAME_LOADED", action.response);
             return Object.assign({}, state, {
                 loadedType: [action.response],
                 isFetching: false,
@@ -246,11 +245,10 @@ function units(state = {
     // TODO: define all types
     switch (action.type) {
         case UNITS_LOADED:
-            console.log("units", action.response);
+            console.log("TYPE_LOADED", action.response.kbaOuDtos);
             return Object.assign({}, state, {
                 list: action.response.kbaOuDtos,
                 isFetching: false,
-                unitTree: action.response.kbaOuDtos,
             });
         case UNIT_ADDED:
             return Object.assign({}, state, {
@@ -276,6 +274,11 @@ function units(state = {
             return Object.assign({}, state, {
                 selectedUnit: action.unit,
                 isFetching: false,
+            });
+        case ROOTUNIT_LOADED:
+            return Object.assign({}, state, {
+                isFetching: false,
+                unitTree: action.response.kbaOuDtos,
             });
         case UNIT_FAILURE:
             return Object.assign({}, state, {

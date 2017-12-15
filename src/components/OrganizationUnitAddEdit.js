@@ -4,8 +4,7 @@ import {connect} from "react-redux";
 import {FormattedMessage} from "react-intl";
 import FormattedInput from "../components/i18n/FormattedInput";
 import FormattedTypeahead from "../components/i18n/FormattedTypeahead";
-import IconItem from "./IconItem";
-import { getUnitType, logoutUser, updateOrgUnit, createOrgUnit } from "../actions";
+import { getUnitType, logoutUser, updateOrgUnit, createOrgUnit, getAllOrgUnits } from "../actions";
 
 class OrganizationUnitAddEdit extends React.Component {
     constructor(props) {
@@ -21,11 +20,13 @@ class OrganizationUnitAddEdit extends React.Component {
             parentIsValid: true,
             edit: false,
         };
+        this.getAllUnits();
         this.handleTypeChange = this.handleTypeChange.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.sendData = this.sendData.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleUnitChange = this.handleUnitChange.bind(this);
+        this.clear = this.clear.bind(this);
     }
 
     handleSubmit(event) {
@@ -116,10 +117,39 @@ class OrganizationUnitAddEdit extends React.Component {
             nameIsValid: true,
             edit: false,
         });
+        this.reset();
+    }
+
+    clear(event) {
+        event.preventDefault();
+        this.reset();
+    }
+
+    reset() {
+        this.setState({
+            nameNotModified: "",
+            name: "",
+            parentKbaOuName: "",
+            nameIsValid: true,
+            selectedType: [],
+            selectedParentUnit: [],
+            typeIsValid: true,
+            parentIsValid: true,
+            edit: false,
+        });
     }
 
     updateUnit(unitName, unit) {
         this.props.dispatch(updateOrgUnit(unitName, unit))
+            .then((response) => {
+                if (response.message === "401") {
+                    this.props.dispatch(logoutUser());
+                }
+            });
+    }
+
+    getAllUnits() {
+        this.props.dispatch(getAllOrgUnits())
             .then((response) => {
                 if (response.message === "401") {
                     this.props.dispatch(logoutUser());
@@ -150,6 +180,7 @@ class OrganizationUnitAddEdit extends React.Component {
         const typeError = !this.state.typeIsValid;
         const parentError = !this.state.parentIsValid;
         const types = this.props.types.map(item => item.name);
+        console.log("this.props.unitList", this.props.unitList);
         const unitNames = this.props.unitList.map(item => item.name);
         return (
             <form className="highlight" onSubmit={this.handleSubmit}>
@@ -158,6 +189,16 @@ class OrganizationUnitAddEdit extends React.Component {
                         {this.state.edit ? <FormattedMessage tagName="h3" id="unitmanagement.edit.headline" />
                             : <FormattedMessage tagName="h3" id="unitmanagement.addnew.headline" />
                         }
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="col-xs-12">
+                        <button
+                            className="btn btn-primary pull-right "
+                            onClick={this.clear}
+                        >
+                            <FormattedMessage id="button.clear" />
+                        </button>
                     </div>
                 </div>
                 <div className="row">
