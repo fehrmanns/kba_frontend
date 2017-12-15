@@ -241,6 +241,7 @@ function units(state = {
     list: [],
     unitTree: [],
     selectedUnit: {},
+    typeNames: [],
 }, action) {
     // TODO: define all types
     switch (action.type) {
@@ -261,6 +262,7 @@ function units(state = {
                 unitTree: [action.response],
                 isFetching: false,
                 selectedUnit: action.response,
+                typeNames: [action.response.kbaOuTypeName],
             });
         case UNIT_DELETED:
             return Object.assign({}, state, {

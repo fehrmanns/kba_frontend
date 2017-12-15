@@ -11,17 +11,21 @@ class OrganizationUnitAddEdit extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            nameNotModified: "",
             name: "",
             parentKbaOuName: "",
-            kbaOuTypeName: "",
             nameIsValid: true,
             selectedType: [],
+            selectedParentUnit: [],
             typeIsValid: true,
+            parentIsValid: true,
+            edit: false,
         };
         this.handleTypeChange = this.handleTypeChange.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.sendData = this.sendData.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleUnitChange = this.handleUnitChange.bind(this);
     }
 
     handleSubmit(event) {
@@ -31,12 +35,19 @@ class OrganizationUnitAddEdit extends React.Component {
 
     componentWillReceiveProps(nextProps) {
         console.log("componentWillReceiveProps", nextProps);
+        console.log("Props", nextProps.selectedUnit.kbaOuTypeName);
+        const toEdit = !!nextProps.selectedUnit.name;
+        console.log(toEdit);
         this.setState({
+            nameNotModified: nextProps.selectedUnit.name,
             name: nextProps.selectedUnit.name,
             parentKbaOuName: nextProps.selectedUnit.parentKbaOuName,
-            selectedType: nextProps.loadedType,
+            selectedType: nextProps.typeNames,
+            selectedParentUnit: [],
             nameIsValid: true,
             typeIsValid: true,
+            parentIsValid: true,
+            edit: toEdit,
         });
     }
 
@@ -64,30 +75,46 @@ class OrganizationUnitAddEdit extends React.Component {
         });
     }
 
+    handleUnitChange(item) {
+        console.log("item", item);
+        this.setState({
+            selectedParentUnit: item,
+        });
+    }
+
     sendData(event) {
         event.preventDefault();
 
         const nameIsValid = !!this.state.name;
         const typeIsValid = !!(this.state.selectedType && this.state.selectedType.length > 0);
+        const parentIsValid = !!((this.state.selectedParentUnit && this.state.selectedParentUnit.length > 0) || this.state.parentKbaOuName);
         this.setState({
             nameIsValid,
             typeIsValid,
+            parentIsValid,
         });
 
         if (!nameIsValid || !typeIsValid) return;
         console.log("this.state.kbaOuTypeName", this.state.name);
         const newUnit = {
             name: this.state.name,
-            parentKbaOuName: this.state.parentKbaOuName,
+            parentKbaOuName: this.state.edit ? this.state.parentKbaOuName : this.state.selectedParentUnit[0],
             kbaOuTypeName: this.state.selectedType ? this.state.selectedType[0] : "",
         };
         console.log("newUnit", newUnit);
-        this.createUnit(newUnit);
+        if (this.state.edit) {
+            console.log("edit", this.state.nameNotModified);
+            this.updateUnit(this.state.nameNotModified, newUnit);
+        } else {
+            console.log("create");
+            this.createUnit(newUnit);
+        }
         this.setState({
             name: "",
             parentKbaOuName: "",
             selectedType: [],
             nameIsValid: true,
+            edit: false,
         });
     }
 
@@ -121,12 +148,16 @@ class OrganizationUnitAddEdit extends React.Component {
     render() {
         const nameError = !this.state.nameIsValid;
         const typeError = !this.state.typeIsValid;
-        const {types} = this.props;
+        const parentError = !this.state.parentIsValid;
+        const types = this.props.types.map(item => item.name);
+        const unitNames = this.props.unitList.map(item => item.name);
         return (
             <form className="highlight" onSubmit={this.handleSubmit}>
                 <div className="row">
                     <div className="col-xs-12">
-                        <FormattedMessage tagName="h3" id="unitmanagement.addnew.headline" />
+                        {this.state.edit ? <FormattedMessage tagName="h3" id="unitmanagement.edit.headline" />
+                            : <FormattedMessage tagName="h3" id="unitmanagement.addnew.headline" />
+                        }
                     </div>
                 </div>
                 <div className="row">
@@ -149,12 +180,6 @@ class OrganizationUnitAddEdit extends React.Component {
                             <FormattedMessage id="input.kbaOuTypeName" />&nbsp;
                             {typeError && <FormattedMessage id="input.notempty" />}
                         </label>
-                        {/*    <FormattedMessage
-                            tagName="label"
-                            id="input.kbaOuTypeName"
-                            className="control-label"
-                            htmlFor="kbaOuTypeNameSelection"
-                        /> */}
                         <FormattedTypeahead
                             id="kbaOuTypeNameSelection"
                             clearButton
@@ -167,20 +192,43 @@ class OrganizationUnitAddEdit extends React.Component {
                     </div>
                 </div>
                 <div className="row">
-                    <div className="form-group col-md-6">
-                        <label className="control-label" htmlFor="parentKbaOuName">
-                            <FormattedMessage id="input.parentKbaOuName" />
-                        </label>
-                        <label className="control-label" htmlFor="parentKbaOuName">
-                            <span>{this.state.parentKbaOuName}</span>
-                        </label>
-                    </div>
+                    {this.state.edit ?
+                        <div className="form-group col-md-6">
+                            <label className="control-label" htmlFor="parentKbaOuName">
+                                <FormattedMessage id="input.parentKbaOuName" />
+                            </label>
+                            <label className="control-label" htmlFor="parentKbaOuName">
+                                <span>{this.state.parentKbaOuName}</span>
+                            </label>
+                        </div>
+                        :
+                        <div className={parentError ? "form-group has-error col-md-6" : "form-group col-md-6"}>
+                            <label className="control-label" htmlFor="parentKbaOuName">
+                                <FormattedMessage id="input.parentKbaOuName" />&nbsp;
+                                {parentError && <FormattedMessage id="input.notempty" />}
+                            </label>
+                            <FormattedTypeahead
+                                id="parentKbaOuNameSelection"
+                                clearButton
+                                labelKey="name"
+                                placeholder="input.parentKbaOuNameSelection"
+                                options={unitNames}
+                                onChange={this.handleUnitChange}
+                                selected={this.state.selectedParentUnit}
+                            />
+                        </div>
+                    }
                 </div>
                 <div className="row">
                     <div className="form-group col-xs-12">
-                        <button className="btn btn-primary pull-right" onClick={this.sendData}>
-                            <FormattedMessage id="button.type.create" />
-                        </button>
+                        {this.state.edit ?
+                            <button className="btn btn-primary pull-right" onClick={this.sendData}>
+                                <FormattedMessage id="button.save" />
+                            </button>
+                            :
+                            <button className="btn btn-primary pull-right" onClick={this.sendData}>
+                                <FormattedMessage id="button.unit.create" />
+                            </button>}
                     </div>
                 </div>
             </form>
@@ -192,17 +240,19 @@ OrganizationUnitAddEdit.propTypes = {
     selectedUnit: PropTypes.object.isRequired,
     types: PropTypes.array.isRequired,
     dispatch: PropTypes.func.isRequired,
-    loadedType: PropTypes.object.isRequired,
+    typeNames: PropTypes.array.isRequired,
+    unitList: PropTypes.array.isRequired,
 };
 
 function mapStateToProps(state) {
     const {units, unittypes} = state;
     const {selectedUnit} = units;
     const types = unittypes.list;
-    const loadedType = unittypes.loadedType;
+    const {typeNames} = units;
+    const unitList = units.list;
 
     return {
-        selectedUnit, types, loadedType,
+        selectedUnit, types, typeNames, unitList,
     };
 }
 export default connect(mapStateToProps)(OrganizationUnitAddEdit);

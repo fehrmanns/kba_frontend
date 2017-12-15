@@ -383,12 +383,12 @@ export function createOrgUnit(unit) {
     };
 }
 
-export function updateOrgUnit(unit, unitName) {
+export function updateOrgUnit(unitName, unit) {
     return {
         [CALL_API]: {
             endpoint: `management/org-units/${unitName}`,
             authenticated: true,
-            method: "POST",
+            method: "PUT",
             types: [UNITS_REQUEST, UNIT_UPDATED, UNIT_FAILURE],
             json: JSON.stringify(unit),
         },

@@ -49,6 +49,7 @@
         "input.parentKbaOuName":"Parent organizational unit",
         "input.kbaOuTypeName":"organizational unit type",
         "input.kbaOuTypeNameSelection":"Select type...",
+        "input.parentKbaOuNameSelection":"Select parent organizational unit...",
 
         "button.submit": "Submit",
         "button.user.create": "Create user",
@@ -66,6 +67,7 @@
         "button.save":"Save",
         "button.input.close":"Close form",
         "button.newtype.open":"Add type",
+        "button.unit.create":"New organizational unit",
 
         "label.select.icon":"Icon",
 
@@ -145,6 +147,7 @@
         "unittypemanagement.addnew.headline": "Create new organizational unit types",
 
         "unitmanagement.addnew.headline":"Create new organizational unit",
+        "unitmanagement.edit.headline":"Edit organizational unit",
 
         "":""
     }

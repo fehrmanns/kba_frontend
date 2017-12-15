@@ -26,9 +26,10 @@ class OrganizationUnitTreeView extends React.Component {
 
     onSelect(keys, selectedNode) {
         this.getUnit(selectedNode.node.props.title);
+
+        selectUnit(this.props.selectedUnit);
         console.log(this.props.selectedUnit);
         getUnitType(this.props.selectedUnit.kbaOuTypeName);
-        selectUnit(this.props.selectedUnit);
     }
 
     onLoadData(treeNode) {
