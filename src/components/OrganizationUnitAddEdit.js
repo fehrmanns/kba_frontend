@@ -238,9 +238,11 @@ class OrganizationUnitAddEdit extends React.Component {
                             <label className="control-label" htmlFor="parentKbaOuName">
                                 <FormattedMessage id="input.parentKbaOuName" />
                             </label>
-                            <label className="control-label" htmlFor="parentKbaOuName">
-                                <span>{this.state.parentKbaOuName}</span>
-                            </label>
+                            <div>
+                                <label className="control-label" htmlFor="parentKbaOuName">
+                                    <span>{this.state.parentKbaOuName}</span>
+                                </label>
+                            </div>
                         </div>
                         :
                         <div className={parentError ? "form-group has-error col-md-6" : "form-group col-md-6"}>
