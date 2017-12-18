@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import {FormattedMessage} from "react-intl";
 import Tree, {TreeNode} from "rc-tree";
 import {connect} from "react-redux";
-import { getRootUnit, getOrgUnit, logoutUser, selectUnit, getUnitType } from '../actions';
+import {getRootUnit, getOrgUnit, logoutUser, selectUnit, getUnitType} from "../actions";
 
 class OrganizationUnitTreeView extends React.Component {
     constructor(props) {
@@ -89,31 +89,87 @@ class OrganizationUnitTreeView extends React.Component {
 
     render() {
         const {unitTree, isFetching} = this.props;
-        const loop = (data) => {
-            return data.map((item) => {
-                if (item.childrenKbaOuDTOs) {
-                    return <TreeNode title={item.name} key={`treenode_${item.created}`} isLeaf={item.leaf} disabled={item.key === "0-0-0"}>{loop(item.childrenKbaOuDTOs)}</TreeNode>;
-                } else {
-                    return <TreeNode title={item.name} key={`treenode_${item.created}`} isLeaf={item.leaf} disabled={item.key === "0-0-0"} />;
-                }
-            });
-        };
+        const loop = data => data.map((item) => {
+            if (item.childrenKbaOuDTOs) {
+                return <TreeNode title={item.name} key={`treenode_${item.created}`} isLeaf={item.leaf} disabled={item.key === "0-0-0"}>{loop(item.childrenKbaOuDTOs)}</TreeNode>;
+            }
+            return <TreeNode title={item.name} key={`treenode_${item.created}`} isLeaf={item.leaf} disabled={item.key === "0-0-0"} />;
+        });
         const treeNodes = loop(unitTree);
 
 
         return (
             <div>
-                <h1>Baum?!</h1>
-
-                {isFetching ?
-                    <div className="loader" />
-                    :
-                    <Tree
-                        onSelect={this.onSelect}
-                        loadData={this.onLoadData}
-                    >
-                        {treeNodes}
-                    </Tree>
+                <h2>Baum?!</h2>
+                <ul className="org-tree">
+                    <li>
+                        <span className="label label-default">
+                            <span className="glyphicon glyphicon-menu-down" />
+                            <span>System</span>
+                        </span>
+                        <ul>
+                            <li>
+                                <span className="label label-default">
+                                    <span className="glyphicon glyphicon-menu-right" />
+                                    <span>Node</span>
+                                </span>
+                            </li>
+                            <li>
+                                <span className="label label-default">
+                                    <span className="glyphicon glyphicon-menu-down" />
+                                    <span>Node</span>
+                                </span>
+                                <ul>
+                                    <li>
+                                        <span className="label label-default">
+                                            <span className="glyphicon glyphicon-menu-right" />
+                                            <span>Node</span>
+                                        </span>
+                                    </li>
+                                    <li>
+                                        <span className="label label-default">
+                                            <span className="glyphicon glyphicon-menu-down" />
+                                            <span>Node</span>
+                                        </span>
+                                        <ul>
+                                            <li>
+                                                <span className="label label-default">
+                                                    <span className="glyphicon glyphicon-menu-right" />
+                                                    <span>Node</span>
+                                                </span>
+                                            </li>
+                                            <li>
+                                                <span className="label label-default">
+                                                    <span className="glyphicon glyphicon-menu-right" />
+                                                    <span>Node</span>
+                                                </span>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <span className="label label-default">
+                                            <span className="glyphicon glyphicon-menu-down" />
+                                            <span>Node</span>
+                                        </span>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <br />
+                <br />
+                <br />
+                {
+                    isFetching ?
+                        <div className="loader" />
+                        :
+                        <Tree
+                            onSelect={this.onSelect}
+                            loadData={this.onLoadData}
+                        >
+                            {treeNodes}
+                        </Tree>
                 }
             </div>
         );

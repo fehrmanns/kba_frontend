@@ -81,10 +81,10 @@ class Organisationsettings extends React.Component {
                 <Tabs defaultActiveKey={1} animation={false} id="noanim-tab-example">
                     <Tab eventKey={1} title="Organisationsverwaltung">
                         <div className="row">
-                            <div className="col-xs-6" >
+                            <div className="col-md-6" >
                                 <OrganizationUnitTreeView allUnits={allUnits} />
                             </div>
-                            <div className="col-xs-6" >
+                            <div className="col-md-6" >
                                 <OrganizationUnitAddEdit />
                             </div>
                         </div>

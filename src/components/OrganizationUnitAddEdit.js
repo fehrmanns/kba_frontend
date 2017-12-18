@@ -187,7 +187,7 @@ class OrganizationUnitAddEdit extends React.Component {
                 <div className="row">
                     <div className="col-xs-12">
                         {this.state.edit ? <FormattedMessage tagName="h3" id="unitmanagement.edit.headline" />
-                            : <FormattedMessage tagName="h3" id="unitmanagement.addnew.headline" />
+                            : <FormattedMessage tagName="h2" id="unitmanagement.addnew.headline" />
                         }
                     </div>
                 </div>
@@ -202,7 +202,7 @@ class OrganizationUnitAddEdit extends React.Component {
                     </div>
                 </div>
                 <div className="row">
-                    <div className={nameError ? "form-group has-error col-md-6" : "form-group col-md-6"}>
+                    <div className={nameError ? "form-group has-error col-lg-6" : "form-group col-lg-6"}>
                         <label className="control-label" htmlFor="inputName">
                             <FormattedMessage id="input.unitname" />&nbsp;
                             {nameError && <FormattedMessage id="input.notempty" />}
@@ -216,7 +216,7 @@ class OrganizationUnitAddEdit extends React.Component {
                             value={this.state.name}
                         />
                     </div>
-                    <div className={typeError ? "form-group has-error col-md-6" : "form-group col-md-6"}>
+                    <div className={typeError ? "form-group has-error col-lg-6" : "form-group col-lg-6"}>
                         <label className="control-label" htmlFor="inputName">
                             <FormattedMessage id="input.kbaOuTypeName" />&nbsp;
                             {typeError && <FormattedMessage id="input.notempty" />}
@@ -234,7 +234,7 @@ class OrganizationUnitAddEdit extends React.Component {
                 </div>
                 <div className="row">
                     {this.state.edit ?
-                        <div className="form-group col-md-6">
+                        <div className="form-group col-lg-6">
                             <label className="control-label" htmlFor="parentKbaOuName">
                                 <FormattedMessage id="input.parentKbaOuName" />
                             </label>
@@ -245,7 +245,7 @@ class OrganizationUnitAddEdit extends React.Component {
                             </div>
                         </div>
                         :
-                        <div className={parentError ? "form-group has-error col-md-6" : "form-group col-md-6"}>
+                        <div className={parentError ? "form-group has-error col-lg-6" : "form-group col-lg-6"}>
                             <label className="control-label" htmlFor="parentKbaOuName">
                                 <FormattedMessage id="input.parentKbaOuName" />&nbsp;
                                 {parentError && <FormattedMessage id="input.notempty" />}

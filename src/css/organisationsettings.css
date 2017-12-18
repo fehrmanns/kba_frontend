@@ -6,3 +6,63 @@
 .organisationsettings .tab-content{
     margin-top: 15px;
 }
+
+.org-tree {
+    font-size: 1.1em;
+    font-weight: lighter;
+}
+.org-tree, .org-tree ul, .org-tree li {
+    position: relative;
+}
+
+.org-tree,
+.org-tree ul {
+    list-style: none;
+    padding: 0;
+}
+
+.org-tree ul {
+    padding-left: 22px;
+}
+
+.org-tree li {
+    padding: .2em 0 0;
+}
+.org-tree li::before, .org-tree li::after {
+    content: "";
+    position: absolute;
+    left: -12px;
+}
+.org-tree li::before {
+    border-top: 1px dotted #ccc;
+    top: 0.8em;
+    width: 0.7em;
+    height: 0;
+}
+.org-tree li::after {
+    border-left: 1px dotted #ccc;
+    height: 100%;
+    width: 0;
+    top: 2px;
+}
+.org-tree ul > li:last-child::after {
+    height: 8px;
+}
+ul.org-tree > li:first-child::before,
+ul.org-tree > li:first-child::after {
+    border: 0;
+}
+
+.org-tree .label {
+    display: inline-block;
+    padding: .35em .7em .3em .6em;
+    border: 1px solid transparent;
+}
+.org-tree .label:hover {
+    border: 1px solid #337ab7;
+    opacity: 0.8;
+    cursor: pointer;
+}
+.org-tree .glyphicon {
+    margin-right: 6px;
+}
