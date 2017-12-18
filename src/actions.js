@@ -35,15 +35,15 @@ export const CLOSE_PASSWORD_MODAL = "CLOSE_PASSWORD_MODAL";
 export const OPEN_SELECT_ICON_MODAL = "OPEN_SELECT_ICON_MODAL";
 export const CLOSE_SELECT_ICON_MODAL = "CLOSE_SELECT_ICON_MODAL";
 
-
+export const UNITS_REQUEST = "UNITS_REQUEST";
 export const UNITS_LOADED = "UNITS_LOADED";
+export const ROOTUNIT_LOADED = "ROOTUNIT_LOADED";
+export const UNIT_REQUEST = "UNIT_REQUEST";
 export const UNIT_LOADED = "UNIT_LOADED";
 export const UNIT_ADDED = "UNIT_ADDED";
 export const UNIT_DELETED = "UNIT_DELETED";
 export const UNIT_UPDATED = "UNIT_UPDATED";
 export const UNIT_FAILURE = "UNIT_FAILURE";
-export const UNITS_REQUEST = "UNITS_REQUEST";
-export const ROOTUNIT_LOADED = "ROOTUNIT_LOADED";
 export const UNIT_SELECTED = "UNIT_SELECTED";
 export const UNIT_ROOT = "UNIT_ROOT";
 
@@ -346,7 +346,15 @@ export function getAllOrgUnits() {
     };
 }
 
+function requestOrgUnit() {
+    return {
+        type: UNIT_REQUEST,
+        isFetching: true,
+    };
+}
+
 export function getOrgUnit(unitName) {
+    requestOrgUnit();
     return {
         [CALL_API]: {
             endpoint: `management/org-units/${unitName}`,

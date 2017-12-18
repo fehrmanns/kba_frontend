@@ -6,7 +6,7 @@ import {
     USER_REQUEST, USER_LOADED, USER_DELETED, USER_ADDED, USER_UPDATED, USER_FAILURE,
     TYPE_REQUEST, TYPE_LOADED, TYPE_DELETED, TYPE_ADDED, TYPE_UPDATED, TYPE_BYNAME_LOADED, TYPE_FAILURE,
     OPEN_PASSWORD_MODAL, CLOSE_PASSWORD_MODAL, OPEN_SELECT_ICON_MODAL, CLOSE_SELECT_ICON_MODAL,
-    UNITS_REQUEST, UNITS_LOADED, UNIT_ADDED, UNIT_DELETED, UNIT_UPDATED, UNIT_FAILURE, UNIT_LOADED, UNIT_SELECTED, ROOTUNIT_LOADED,
+    UNITS_REQUEST, UNITS_LOADED, UNIT_REQUEST, UNIT_ADDED, UNIT_DELETED, UNIT_UPDATED, UNIT_FAILURE, UNIT_LOADED, UNIT_SELECTED, ROOTUNIT_LOADED,
 } from "./actions";
 
 // The auth reducer. The starting state sets authentication
@@ -238,16 +238,32 @@ function unittypes(state = {
 function units(state = {
     isFetching: false,
     list: [],
+    rootUnit: {},
     unitTree: {},
     selectedUnit: {},
     typeNames: [],
 }, action) {
     // TODO: define all types
     switch (action.type) {
+        case UNITS_REQUEST:
+            return Object.assign({}, state, {
+                isFetching: true,
+                isLoaded: false,
+            });
         case UNITS_LOADED:
             return Object.assign({}, state, {
                 list: action.response.kbaOuDtos,
                 isFetching: false,
+            });
+        case ROOTUNIT_LOADED:
+            return Object.assign({}, state, {
+                isFetching: false,
+                rootUnit: action.response.kbaOuDtos[0],
+            });
+        case UNIT_REQUEST:
+            return Object.assign({}, state, {
+                isFetching: true,
+                unitTree: {},
             });
         case UNIT_ADDED:
             return Object.assign({}, state, {
@@ -255,7 +271,7 @@ function units(state = {
             });
         case UNIT_LOADED:
             return Object.assign({}, state, {
-                unitTree: [action.response],
+                unitTree: action.response,
                 isFetching: false,
                 selectedUnit: action.response,
                 typeNames: [action.response.kbaOuTypeName],
@@ -273,19 +289,9 @@ function units(state = {
                 selectedUnit: action.unit,
                 isFetching: false,
             });
-        case ROOTUNIT_LOADED:
-            return Object.assign({}, state, {
-                isFetching: false,
-                unitTree: action.response.kbaOuDtos[0],
-            });
         case UNIT_FAILURE:
             return Object.assign({}, state, {
                 isFetching: false,
-            });
-        case UNITS_REQUEST:
-            return Object.assign({}, state, {
-                isFetching: true,
-                isLoaded: false,
             });
         default:
             return state;

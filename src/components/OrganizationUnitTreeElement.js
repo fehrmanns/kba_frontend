@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
-import {selectUnit} from "../actions";
+import {selectUnit, getOrgUnit} from "../actions";
 import OrganisationUnitTreeElement from './OrganizationUnitTreeElement';
 
 class OrganizationUnitTreeElement extends React.Component {
@@ -10,29 +10,46 @@ class OrganizationUnitTreeElement extends React.Component {
 
         this.state = {
             openKnot: false,
-            hasChildren: true,
             thisElement: this.props.treeElement,
+            hasChildren: !this.props.treeElement.leaf,
+            children: this.props.treeElement.childrenKbaOuDTOs,
         };
 
         this.onSelect = this.onSelect.bind(this);
         this.toggleView = this.toggleView.bind(this);
+        console.log("component new load", this.props.treeElement);
+    }
+
+    componentWillReceiveProps(nextProps) {
+        this.setState({
+            thisElement: nextProps.treeElement,
+            hasChildren: !nextProps.treeElement.leaf,
+            children: nextProps.treeElement.childrenKbaOuDTOs,
+        });
     }
 
     onSelect(e) {
         e.preventDefault();
         e.stopPropagation();
         this.props.dispatch(selectUnit(this.state.thisElement));
-        console.log("onSelect", this.state.thisElement);
     }
 
     onKeyPress() {
         console.log("key press on element.");
     }
 
+    getChildChildren() {
+        this.state.children.map((child) => {
+            console.log("ask for child", this.state.children[0].name);
+            this.props.dispatch(getOrgUnit(child.name)).then(response => console.log("full item", response.childrenKbaOuDTOs));
+        });
+    }
+
     toggleView(e) {
         e.preventDefault();
         e.stopPropagation();
-        console.log("Toggle element.");
+
+        this.getChildChildren();
         this.setState({
             openKnot: !this.state.openKnot,
         });
@@ -41,43 +58,33 @@ class OrganizationUnitTreeElement extends React.Component {
 
     render() {
         const {
-            toggleChildren,
             openKnot,
             hasChildren,
             thisElement,
+            children,
         } = this.state;
-        const {unitTree, selectedUnit, isFetching} = this.props;
+        const {
+            treeElement,
+            selectedUnit,
+            isFetching,
+        } = this.props;
         const nodeClass = (selectedUnit.name === thisElement.name) ? "label label-default selected" : "label label-default";
         const toggleClass = openKnot ? "glyphicon glyphicon-menu-down" : "glyphicon glyphicon-menu-right";
-        const showChildren = hasChildren && toggleChildren;
+        const showChildren = hasChildren && openKnot;
 
         return (
             <li>
                 <span className={nodeClass}>
                     <span role="button" tabIndex={0} onKeyPress={this.onKeyPress} onClick={this.toggleView} className={toggleClass} />
-                    <span role="button" tabIndex={0} onKeyPress={this.onKeyPress} onClick={this.onSelect}>{unitTree.name}</span>
+                    <span role="button" tabIndex={0} onKeyPress={this.onKeyPress} onClick={this.onSelect}>{treeElement.name}</span>
                 </span>
                 {showChildren &&
                 <ul>
                     {isFetching ?
                         <div className="loader" />
                         :
-                        <ul className="org-tree">
-                            <OrganisationUnitTreeElement treeElement={unitTree} />
-                        </ul>
+                        children.map(child => (<OrganisationUnitTreeElement key={`orgUnitTreeElement${child.name}`} treeElement={child} />))
                     }
-                    <li>
-                        <span className="label label-default">
-                            <span className="glyphicon glyphicon-menu-right" />
-                            <span>Node</span>
-                        </span>
-                    </li>
-                    <li>
-                        <span className="label label-default">
-                            <span className="glyphicon glyphicon-menu-right" />
-                            <span>Node</span>
-                        </span>
-                    </li>
                 </ul>
                 }
             </li>
@@ -87,7 +94,6 @@ class OrganizationUnitTreeElement extends React.Component {
 
 OrganizationUnitTreeElement.propTypes = {
     dispatch: PropTypes.func.isRequired,
-    unitTree: PropTypes.object.isRequired,
     selectedUnit: PropTypes.object.isRequired,
     treeElement: PropTypes.object.isRequired,
     isFetching: PropTypes.bool.isRequired,
