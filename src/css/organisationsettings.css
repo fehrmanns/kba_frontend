@@ -34,19 +34,19 @@
     left: -12px;
 }
 .org-tree li::before {
-    border-top: 1px dotted #ccc;
+    border-top: 1px dashed #ccc;
     top: 0.8em;
-    width: 0.7em;
+    width: 0.6em;
     height: 0;
 }
 .org-tree li::after {
-    border-left: 1px dotted #ccc;
+    border-left: 1px dashed #ccc;
     height: 100%;
     width: 0;
-    top: 2px;
+    top: 0.25em;
 }
 .org-tree ul > li:last-child::after {
-    height: 8px;
+    height: 0.5em;
 }
 ul.org-tree > li:first-child::before,
 ul.org-tree > li:first-child::after {
@@ -58,7 +58,8 @@ ul.org-tree > li:first-child::after {
     padding: .35em .7em .3em .6em;
     border: 1px solid transparent;
 }
-.org-tree .label:hover {
+.org-tree li:hover .label,
+.org-tree .label.selected {
     border: 1px solid #337ab7;
     opacity: 0.8;
     cursor: pointer;

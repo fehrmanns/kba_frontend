@@ -238,14 +238,13 @@ function unittypes(state = {
 function units(state = {
     isFetching: false,
     list: [],
-    unitTree: [],
+    unitTree: {},
     selectedUnit: {},
     typeNames: [],
 }, action) {
     // TODO: define all types
     switch (action.type) {
         case UNITS_LOADED:
-            console.log("TYPE_LOADED", action.response.kbaOuDtos);
             return Object.assign({}, state, {
                 list: action.response.kbaOuDtos,
                 isFetching: false,
@@ -255,7 +254,6 @@ function units(state = {
                 isFetching: false,
             });
         case UNIT_LOADED:
-            console.log("unit", action.response);
             return Object.assign({}, state, {
                 unitTree: [action.response],
                 isFetching: false,
@@ -278,7 +276,7 @@ function units(state = {
         case ROOTUNIT_LOADED:
             return Object.assign({}, state, {
                 isFetching: false,
-                unitTree: action.response.kbaOuDtos,
+                unitTree: action.response.kbaOuDtos[0],
             });
         case UNIT_FAILURE:
             return Object.assign({}, state, {

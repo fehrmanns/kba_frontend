@@ -79,10 +79,9 @@ export function openSelectIconModal(callback) {
 }
 
 export function selectUnit(unit) {
-    console.log("selectUnit", unit);
     return {
         type: UNIT_SELECTED,
-        selectedUnit: unit,
+        unit,
     };
 }
 
@@ -312,7 +311,6 @@ export function deleteUnitType(unitType) {
 }
 
 export function getUnitType(typeName) {
-    console.log("getUnitType",typeName);
     return {
         [CALL_API]: {
             endpoint: `management/org-unit-types/${typeName}`,

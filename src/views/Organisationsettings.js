@@ -85,7 +85,9 @@ class Organisationsettings extends React.Component {
                                 <OrganizationUnitTreeView allUnits={allUnits} />
                             </div>
                             <div className="col-md-6" >
+                                {/*
                                 <OrganizationUnitAddEdit />
+                                */}
                             </div>
                         </div>
                     </Tab>
