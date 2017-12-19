@@ -120,6 +120,7 @@ class UserManagementListItem extends React.Component {
                         clearButton
                         labelKey="name"
                         multiple
+                        disabled={(user.loginName === currentUser.loginName)}
                         placeholder="input.childrenKbaOuTypeNamesSelection"
                         options={unitNames}
                         onChange={this.handleUnitChange}
