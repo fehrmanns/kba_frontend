@@ -73,6 +73,10 @@ table input {
     margin: 0;
 }
 
+.label-margin {
+    margin-top: calc(1em + 11px);
+}
+
 .usermanagement .highlight, .organisationsettings .highlight {
     margin-top: 15px;
 }

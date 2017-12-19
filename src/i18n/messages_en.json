@@ -52,6 +52,8 @@
         "input.kbaOuTypeName":"organizational unit type",
         "input.kbaOuTypeNameSelection":"Select type...",
         "input.parentKbaOuNameSelection":"Select parent organizational unit...",
+        "input.KbaOuSelection":"organizational unit",
+        "input.KbaOuSelectionPlaceholder":"belongs to...",
 
         "button.submit": "Submit",
         "button.user.create": "Create user",

@@ -182,6 +182,7 @@ class OrganizationUnitAddEdit extends React.Component {
         const types = this.props.types.map(item => item.name);
         console.log("this.props.unitList", this.props.unitList);
         const unitNames = this.props.unitList.map(item => item.name);
+
         return (
             <form className="highlight" onSubmit={this.handleSubmit}>
                 <div className="row">

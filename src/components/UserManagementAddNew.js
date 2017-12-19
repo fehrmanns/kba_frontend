@@ -3,9 +3,11 @@ import PropTypes from "prop-types";
 import {FormattedMessage} from "react-intl";
 import {MenuItem} from "react-bootstrap";
 import FormattedInput from "../components/i18n/FormattedInput";
+import FormattedTypeahead from "../components/i18n/FormattedTypeahead";
 import FormattedDropDown from "./i18n/FormattedDropDown";
+import {connect} from "react-redux";
 
-export default class UserManagementAddNew extends React.Component {
+class UserManagementAddNew extends React.Component {
     constructor(props) {
         super(props);
 
@@ -115,6 +117,10 @@ export default class UserManagementAddNew extends React.Component {
         const roleNameError = !this.state.roleNameIsValid;
         const passwordError = !this.state.passwordIsValid;
         const passwordEqualError = !this.state.passwordIsEqual;
+        const {unitList} = this.props;
+        console.log("unitList", unitList);
+        const unitNames = unitList.map(item => item.name);
+        const parentError = false;
 
         return (
             <form className="highlight">
@@ -219,8 +225,24 @@ export default class UserManagementAddNew extends React.Component {
                     </div>
                 </div>
                 <div className="row">
-                    <div className="form-group col-sm-12">
-                        <button className="btn btn-primary pull-right" onClick={this.sendData}><FormattedMessage
+                    <div className={parentError ? "form-group has-error col-sm-6" : "form-group col-sm-6"}>
+                        <label className="control-label" htmlFor="parentKbaOuName">
+                            <FormattedMessage id="input.KbaOuSelection" />&nbsp;
+                            {parentError && <FormattedMessage id="input.notempty" />}
+                        </label>
+                        <FormattedTypeahead
+                            id="parentKbaOuNameSelection"
+                            clearButton
+                            multiple
+                            labelKey="name"
+                            placeholder="input.KbaOuSelectionPlaceholder"
+                            options={unitNames}
+                            onChange={this.handleUnitChange}
+                            selected={this.state.selectedParentUnit}
+                        />
+                    </div>
+                    <div className="form-group col-sm-6">
+                        <button className="btn btn-primary pull-right label-margin" id="createNewUserButton" onClick={this.sendData}><FormattedMessage
                             id="button.user.create"
                         />
                         </button>
@@ -233,4 +255,18 @@ export default class UserManagementAddNew extends React.Component {
 
 UserManagementAddNew.propTypes = {
     sendData: PropTypes.func.isRequired,
+    unitList: PropTypes.array.isRequired,
+    typeNames: PropTypes.array.isRequired,
 };
+
+function mapStateToProps(state) {
+    const {units, unittypes} = state;
+    const types = unittypes.list;
+    const {typeNames} = units;
+    const unitList = units.list;
+
+    return {
+        types, typeNames, unitList,
+    };
+}
+export default connect(mapStateToProps)(UserManagementAddNew);

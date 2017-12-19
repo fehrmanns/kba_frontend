@@ -52,6 +52,8 @@
         "input.kbaOuTypeName":"Organisationseinheitstyp",
         "input.kbaOuTypeNameSelection":"Typ auswählen...",
         "input.parentKbaOuNameSelection":"Eltern Organisationseinheit auswählen...",
+        "input.KbaOuSelection":"Organisationseinheit",
+        "input.KbaOuSelectionPlaceholder":"gehört zu...",
 
         "button.submit": "Absenden",
         "button.user.create": "Benutzer anlegen",

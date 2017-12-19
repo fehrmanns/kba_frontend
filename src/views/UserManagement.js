@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import {FormattedMessage} from "react-intl";
-import {addUser, getUsers, updateUser, deleteUser, logoutUser} from "../actions";
+import {addUser, getUsers, updateUser, deleteUser, logoutUser, getAllOrgUnits} from "../actions";
 import UserManagementAddNew from "../components/UserManagementAddNew";
 import UserManagementList from "../components/UserManagementList";
 import {Collapse} from "react-bootstrap";
@@ -18,6 +18,7 @@ class UserManagement extends React.Component {
         };
 
         this.props.dispatch(getUsers());
+        this.props.dispatch(getAllOrgUnits());
         this.addNewUser = this.addNewUser.bind(this);
         this.updateUser = this.updateUser.bind(this);
         this.deleteUser = this.deleteUser.bind(this);

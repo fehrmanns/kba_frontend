@@ -56,17 +56,22 @@ ul.org-tree > li:first-child::after {
 .org-tree li > span > span:focus {
     outline: none;
 }
+.org-tree li > span:hover.label,
+.org-tree .label.selected {
+    border: 1px solid #337ab7;
+    opacity: 0.8;
+    cursor: pointer;
+}
 
 .org-tree .label {
     display: inline-block;
     padding: .35em .7em .3em .6em;
     border: 1px solid transparent;
 }
-.org-tree li > span:hover.label,
-.org-tree .label.selected {
-    border: 1px solid #337ab7;
-    opacity: 0.8;
-    cursor: pointer;
+.label.label-white {
+    color: #777777;
+    background-color: #FFFFFF;
+    border: 1px solid #777777;
 }
 .org-tree .label-name {
     margin: 0.2em 0 0.1em;
