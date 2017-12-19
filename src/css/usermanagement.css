@@ -1,15 +1,24 @@
 /* dirty table hack */
 .usermanagement .table tr > td {
-    width: 18%;
+
 }
-.usermanagement table .date {
+.usermanagement .table tr > td.date {
     min-width: 8em;
 }
-.usermanagement table .btn-link {
+.usermanagement .table tr > td.button-td {
+    width: 40px;
+}
+.usermanagement .table tr > td.typeahead-td .form-control {
+    border: 0;
+    padding: 0;
+    box-shadow: none;
+    background-color: transparent;
+}
+.usermanagement .table .btn-link {
     color: black;
     padding: 0;
 }
-.usermanagement table .deactivated,
-.usermanagement table .deactivated .btn-link {
+.usermanagement .table .deactivated,
+.usermanagement .table .deactivated .btn-link {
     color: darkgray;
 }

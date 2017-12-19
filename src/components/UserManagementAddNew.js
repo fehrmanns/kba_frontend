@@ -1,11 +1,11 @@
 import React from "react";
+import {connect} from "react-redux";
 import PropTypes from "prop-types";
 import {FormattedMessage} from "react-intl";
 import {MenuItem} from "react-bootstrap";
 import FormattedInput from "../components/i18n/FormattedInput";
 import FormattedTypeahead from "../components/i18n/FormattedTypeahead";
 import FormattedDropDown from "./i18n/FormattedDropDown";
-import {connect} from "react-redux";
 
 class UserManagementAddNew extends React.Component {
     constructor(props) {
@@ -18,13 +18,16 @@ class UserManagementAddNew extends React.Component {
             password: "",
             passwordConfirm: "",
             roleName: "default",
+            kbaOuNames: [],
             loginNameIsValid: true,
             passwordIsValid: true,
             passwordIsEqual: true,
             roleNameIsValid: true,
+            kbaOuNamesIsValid: true,
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSelection = this.handleSelection.bind(this);
+        this.handleUnitChange = this.handleUnitChange.bind(this);
         this.sendData = this.sendData.bind(this);
     }
 
@@ -66,12 +69,21 @@ class UserManagementAddNew extends React.Component {
         });
     }
 
+    handleUnitChange(item) {
+        console.log("item", item);
+        this.setState({
+            kbaOuNames: item,
+            kbaOuNamesIsValid: true,
+        });
+    }
+
     sendData(event) {
         event.preventDefault();
 
         const loginNameIsValid = !!this.state.loginName;
         const passwordIsValid = !!this.state.password;
         const roleNameIsValid = (this.state.roleName !== "default");
+        const kbaOuNamesIsValid = (this.state.kbaOuNames.length !== 0);
         const passwordIsEqual = (!!this.state.passwordConfirm) && (this.state.passwordConfirm === this.state.password);
 
         this.setState({
@@ -79,8 +91,9 @@ class UserManagementAddNew extends React.Component {
             roleNameIsValid,
             passwordIsValid,
             passwordIsEqual,
+            kbaOuNamesIsValid,
         });
-        const isValid = loginNameIsValid && roleNameIsValid && passwordIsValid && passwordIsEqual;
+        const isValid = loginNameIsValid && roleNameIsValid && passwordIsValid && passwordIsEqual && kbaOuNamesIsValid;
 
         if (!isValid) return;
 
@@ -90,6 +103,7 @@ class UserManagementAddNew extends React.Component {
         delete newUser.passwordConfirm;
         delete newUser.passwordIsValid;
         delete newUser.passwordIsEqual;
+        delete newUser.kbaOuNamesIsValid;
 
         this.props.sendData(JSON.stringify(newUser));
         this.resetData();
@@ -103,11 +117,13 @@ class UserManagementAddNew extends React.Component {
             lastName: "",
             password: "",
             passwordConfirm: "",
+            kbaOuNames: [],
             roleName: "default",
             loginNameIsValid: true,
             passwordIsValid: true,
             passwordIsEqual: true,
             roleNameIsValid: true,
+            kbaOuNamesIsValid: true,
         });
     }
 
@@ -117,10 +133,9 @@ class UserManagementAddNew extends React.Component {
         const roleNameError = !this.state.roleNameIsValid;
         const passwordError = !this.state.passwordIsValid;
         const passwordEqualError = !this.state.passwordIsEqual;
+        const kbaOuNamesError = !this.state.kbaOuNamesIsValid;
         const {unitList} = this.props;
-        console.log("unitList", unitList);
         const unitNames = unitList.map(item => item.name);
-        const parentError = false;
 
         return (
             <form className="highlight">
@@ -225,10 +240,10 @@ class UserManagementAddNew extends React.Component {
                     </div>
                 </div>
                 <div className="row">
-                    <div className={parentError ? "form-group has-error col-sm-6" : "form-group col-sm-6"}>
+                    <div className={kbaOuNamesError ? "form-group has-error col-sm-6" : "form-group col-sm-6"}>
                         <label className="control-label" htmlFor="parentKbaOuName">
                             <FormattedMessage id="input.KbaOuSelection" />&nbsp;
-                            {parentError && <FormattedMessage id="input.notempty" />}
+                            {kbaOuNamesError && <FormattedMessage id="input.notempty" />}
                         </label>
                         <FormattedTypeahead
                             id="parentKbaOuNameSelection"
@@ -238,13 +253,12 @@ class UserManagementAddNew extends React.Component {
                             placeholder="input.KbaOuSelectionPlaceholder"
                             options={unitNames}
                             onChange={this.handleUnitChange}
-                            selected={this.state.selectedParentUnit}
+                            selected={this.state.kbaOuNames}
                         />
                     </div>
                     <div className="form-group col-sm-6">
-                        <button className="btn btn-primary pull-right label-margin" id="createNewUserButton" onClick={this.sendData}><FormattedMessage
-                            id="button.user.create"
-                        />
+                        <button className="btn btn-primary pull-right label-margin" id="createNewUserButton" onClick={this.sendData}>
+                            <FormattedMessage id="button.user.create" />
                         </button>
                     </div>
                 </div>
@@ -256,17 +270,15 @@ class UserManagementAddNew extends React.Component {
 UserManagementAddNew.propTypes = {
     sendData: PropTypes.func.isRequired,
     unitList: PropTypes.array.isRequired,
-    typeNames: PropTypes.array.isRequired,
 };
 
 function mapStateToProps(state) {
     const {units, unittypes} = state;
     const types = unittypes.list;
-    const {typeNames} = units;
     const unitList = units.list;
 
     return {
-        types, typeNames, unitList,
+        types, unitList,
     };
 }
 export default connect(mapStateToProps)(UserManagementAddNew);

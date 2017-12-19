@@ -15,7 +15,7 @@ class UserManagementList extends React.Component {
         return (
             <div>
                 <FormattedMessage tagName="h3" id="usermanagement.list.headline" />
-                <div className="table-responsive">
+                <div>
                     <table className="table table-hover">
                         <thead>
                             <tr>
@@ -23,11 +23,12 @@ class UserManagementList extends React.Component {
                                 <th><FormattedMessage id="usermanagement.list.firstName" /></th>
                                 <th><FormattedMessage id="usermanagement.list.lastName" /></th>
                                 <th><FormattedMessage id="usermanagement.list.roleName" /></th>
+                                <th><FormattedMessage id="usermanagement.list.unit" /></th>
                                 <th><FormattedMessage id="usermanagement.list.created" /></th>
                                 {/*
                                     <th><FormattedMessage id="usermanagement.list.modified"/></th>
                                     <th><FormattedMessage id="usermanagement.list.modifiedBy"/></th>
-                                    */}
+                                */}
                                 <th>{/* placeholder for button */}</th>
                                 <th>{/* placeholder for button */}</th>
                                 <th>{/* placeholder for button */}</th>

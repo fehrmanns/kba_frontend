@@ -137,6 +137,7 @@
         "usermanagement.list.roleName": "Rolle",
         "usermanagement.list.created": "angelegt am",
         "usermanagement.list.modified": "geändert am",
+        "usermanagement.list.unit": "Organisation",
         "usermanagement.list.modifiedBy": "geändert von",
 
         "organisationsettings.administration.title": "Organisationsverwaltung",

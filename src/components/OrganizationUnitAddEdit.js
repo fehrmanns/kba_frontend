@@ -29,16 +29,8 @@ class OrganizationUnitAddEdit extends React.Component {
         this.clear = this.clear.bind(this);
     }
 
-    handleSubmit(event) {
-        event.preventDefault();
-        this.sendData();
-    }
-
     componentWillReceiveProps(nextProps) {
-        console.log("componentWillReceiveProps", nextProps);
-        console.log("Props", nextProps.selectedUnit.kbaOuTypeName);
         const toEdit = !!nextProps.selectedUnit.name;
-        console.log(toEdit);
         this.setState({
             nameNotModified: nextProps.selectedUnit.name,
             name: nextProps.selectedUnit.name,
@@ -69,15 +61,18 @@ class OrganizationUnitAddEdit extends React.Component {
         }
     }
 
+    handleSubmit(event) {
+        event.preventDefault();
+        this.sendData();
+    }
+
     handleTypeChange(item) {
-        console.log("item", item);
         this.setState({
             selectedType: item,
         });
     }
 
     handleUnitChange(item) {
-        console.log("item", item);
         this.setState({
             selectedParentUnit: item,
         });

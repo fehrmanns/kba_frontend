@@ -136,6 +136,7 @@
         "usermanagement.list.firstName": "First name",
         "usermanagement.list.lastName": "Last name",
         "usermanagement.list.roleName": "Role",
+        "usermanagement.list.unit": "Organisation",
         "usermanagement.list.created": "created",
         "usermanagement.list.modified": "modified",
         "usermanagement.list.modifiedBy": "modified from",

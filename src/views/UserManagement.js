@@ -12,11 +12,7 @@ import "./../css/usermanagement.css";
 class UserManagement extends React.Component {
     constructor(props) {
         super(props);
-
-        this.state = {
-            open: getItem("add_user_open"),
-        };
-
+        this.state = { open: getItem("add_user_open") };
         this.props.dispatch(getUsers());
         this.props.dispatch(getAllOrgUnits());
         this.addNewUser = this.addNewUser.bind(this);

@@ -5,6 +5,8 @@ import {MenuItem} from "react-bootstrap";
 import {FormattedDate, FormattedMessage} from "react-intl";
 import {openPasswordModal} from "./../actions";
 import FormattedDropDown from "./i18n/FormattedDropDown";
+import FormattedButton from "./i18n/FormattedButton";
+import FormattedTypeahead from "./i18n/FormattedTypeahead";
 
 
 class UserManagementListItem extends React.Component {
@@ -16,20 +18,24 @@ class UserManagementListItem extends React.Component {
             lastName: this.props.userItem.lastName ? this.props.userItem.lastName : "",
             roleName: (this.props.userItem.roleName.toLowerCase()),
             active: this.props.userItem.active,
+            kbaOuNames: this.props.userItem.kbaOuNames ? this.props.userItem.kbaOuNames : [],
             firstNameModified: false,
             lastNameModified: false,
             roleNameModified: false,
+            kbaOuNamesModified: false,
         };
 
+        // TODO: add validation
         this.handleChange = this.handleChange.bind(this);
         this.handleSelection = this.handleSelection.bind(this);
+        this.handleUnitChange = this.handleUnitChange.bind(this);
         this.handleUpdate = this.handleUpdate.bind(this);
     }
 
     handleChange(event) {
         event.preventDefault();
 
-        const targetName = event.target.id.replace("tableInput", "").replace(/\b[A-Z]/g, letter => letter.toLowerCase());
+        const targetName = event.target.id.replace("tableInput", "").replace(/\b[A-Z]/g, letter => letter.toLowerCase()).replace(`-${this.props.userItem.loginName}`, "");
 
         this.setState({
             [targetName]: event.target.value,
@@ -57,33 +63,46 @@ class UserManagementListItem extends React.Component {
         this.props.updateUser(user, true);
     }
 
+    handleUnitChange(item) {
+        console.log("item", item);
+        const isModified = (item.length !== 0 && item !== this.props.userItem.kbaOuNames);
+
+        this.setState({
+            kbaOuNames: item,
+            kbaOuNamesModified: isModified,
+        });
+    }
+
     handleUpdate() {
         const user = Object.assign({}, this.props.userItem, {
             firstName: this.state.firstName,
             lastName: this.state.lastName,
             roleName: this.state.roleName.toUpperCase(),
+            kbaOuNames: this.state.kbaOuNames,
         });
         this.props.updateUser(user, true);
         this.setState({
             firstNameModified: false,
             lastNameModified: false,
             roleNameModified: false,
+            kbaOuNamesModified: false,
         });
     }
 
 
     render() {
         const user = this.props.userItem;
-        const {currentUser} = this.props;
+        const {currentUser, unitList} = this.props;
         const activeUser = this.state.active;
         const roleDropDownTitleId = `dropdown.role.${this.state.roleName}`;
-        const modified = this.state.firstNameModified || this.state.lastNameModified || this.state.roleNameModified;
+        const modified = this.state.firstNameModified || this.state.lastNameModified || this.state.roleNameModified || this.state.kbaOuNamesModified;
+        const unitNames = unitList.map(item => item.name);
 
         return (
             <tr className={!activeUser && "deactivated"}>
                 <td><span>{user.loginName}</span></td>
-                <td><input id="tableInputFirstName" onChange={this.handleChange} value={this.state.firstName} /></td>
-                <td><input id="tableInputLastName" onChange={this.handleChange} value={this.state.lastName} /></td>
+                <td><input id={`tableInputFirstName-${user.loginName}`} onChange={this.handleChange} value={this.state.firstName} /></td>
+                <td><input id={`tableInputLastName-${user.loginName}`} onChange={this.handleChange} value={this.state.lastName} /></td>
                 <td>
                     {(user.loginName !== currentUser.loginName) ?
                         <FormattedDropDown id="newUser.roleName.selection" bsStyle="link" titleId={roleDropDownTitleId} onSelect={this.handleSelection}>
@@ -94,6 +113,18 @@ class UserManagementListItem extends React.Component {
                         :
                         <FormattedMessage id={roleDropDownTitleId} />
                     }
+                </td>
+                <td className="typeahead-td">
+                    <FormattedTypeahead
+                        id="childrenKbaOuTypeNamesSelection"
+                        clearButton
+                        labelKey="name"
+                        multiple
+                        placeholder="input.childrenKbaOuTypeNamesSelection"
+                        options={unitNames}
+                        onChange={this.handleUnitChange}
+                        selected={this.state.kbaOuNames}
+                    />
                 </td>
                 <td className="date">
                     <span>
@@ -112,31 +143,31 @@ class UserManagementListItem extends React.Component {
                     </span>
                 </td>
                 */}
-                <td className="text-center">
-                    <button className="btn btn-xs btn-default" onClick={() => this.props.dispatch(openPasswordModal(user))}>
-                        <FormattedMessage id="button.user.changePassword" />
-                    </button>
+                <td className="button-td">
+                    <FormattedButton title="button.user.changePassword" className="btn btn-xs btn-default" onClick={() => this.props.dispatch(openPasswordModal(user))}>
+                        <span className="glyphicon glyphicon-lock" />
+                    </FormattedButton>
                 </td>
-                <td className="text-center">
+                <td className="button-td">
                     {(user.loginName !== currentUser.loginName) &&
-                    <button className={activeUser ? "btn btn-xs btn-warning" : "btn btn-xs btn-info"} onClick={() => this.toggleUser()}>
-                        {activeUser ? <FormattedMessage id="button.user.deactivate" /> : <FormattedMessage id="button.user.activate" />}
-                    </button>
+                    <FormattedButton title={activeUser ? "button.user.deactivate" : "button.user.activate"} className={activeUser ? "btn btn-xs btn-warning" : "btn btn-xs btn-info"} onClick={() => this.toggleUser()}>
+                        {activeUser ? <span className="glyphicon glyphicon-pause" /> : <span className="glyphicon glyphicon-play" />}
+                    </FormattedButton>
                     }
                 </td>
 
                 {modified ?
-                    <td className="text-center">
-                        <button className="btn btn-xs btn-success" onClick={() => this.handleUpdate()}>
-                            <FormattedMessage id="button.user.update" />
-                        </button>
+                    <td className="button-td">
+                        <FormattedButton title="button.user.update" className="btn btn-xs btn-success" onClick={() => this.handleUpdate()}>
+                            <span className="glyphicon glyphicon-pencil" />
+                        </FormattedButton>
                     </td>
                     :
-                    <td className="text-center">
+                    <td className="button-td">
                         {(user.loginName !== currentUser.loginName) &&
-                        <button className="btn btn-xs btn-danger" onClick={() => this.props.deleteUser(user.loginName)}>
-                            <FormattedMessage id="button.user.delete" />
-                        </button>
+                        <FormattedButton title="button.user.delete" className="btn btn-xs btn-danger" onClick={() => this.props.deleteUser(user.loginName)}>
+                            <span className="glyphicon glyphicon-trash" />
+                        </FormattedButton>
                         }
                     </td>
                 }
@@ -151,6 +182,17 @@ UserManagementListItem.propTypes = {
     currentUser: PropTypes.object.isRequired,
     updateUser: PropTypes.func.isRequired,
     deleteUser: PropTypes.func.isRequired,
+    unitList: PropTypes.array.isRequired,
 };
 
-export default connect()(UserManagementListItem);
+function mapStateToProps(state) {
+    const {units, unittypes} = state;
+    const types = unittypes.list;
+    const unitList = units.list;
+
+    return {
+        types, unitList,
+    };
+}
+
+export default connect(mapStateToProps)(UserManagementListItem);
