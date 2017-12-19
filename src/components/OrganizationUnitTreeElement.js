@@ -36,14 +36,12 @@ class OrganizationUnitTreeElement extends React.Component {
             });
             this.getChildren(nextProps.treeElement.name);
         }
-        console.log("unitTree: "+nextProps.unitTree.name, nextProps.unitTree);
-        console.log("this.state.thisElement.name", this.state.thisElement.name);
-        console.log("nextProps.unitTree.name", nextProps.unitTree.name);
         if (this.state.thisElement.name === nextProps.unitTree.name && nextProps.unitTree.childrenKbaOuDTOs) {
-            console.log("nextProps.unitTree", nextProps.unitTree);
+            const hasChildren = !!nextProps.unitTree.childrenKbaOuDTOs;
             this.setState({
                 children: nextProps.unitTree.childrenKbaOuDTOs,
                 isFetching: false,
+                hasChildren,
             });
         }
     }
@@ -53,6 +51,7 @@ class OrganizationUnitTreeElement extends React.Component {
         e.preventDefault();
         e.stopPropagation();
         this.props.dispatch(selectUnit(this.state.thisElement));
+        console.log(`${this.state.thisElement.name} selected`);
     }
 
     onKeyPress() {
@@ -60,7 +59,6 @@ class OrganizationUnitTreeElement extends React.Component {
     }
 
     getChildren(name) {
-        console.log("this.state.thisElement.name", this.state);
         this.props.dispatch(getOrgUnit(name));
     }
 
@@ -87,10 +85,10 @@ class OrganizationUnitTreeElement extends React.Component {
             treeElement,
             selectedUnit,
         } = this.props;
+
         const nodeClass = (selectedUnit.name === thisElement.name) ? "label label-default selected" : "label label-default";
         const toggleClass = openKnot ? "glyphicon glyphicon-menu-down" : "glyphicon glyphicon-menu-right";
         const showChildren = hasChildren && openKnot;
-        console.log("children", children);
 
         return (
             <li>

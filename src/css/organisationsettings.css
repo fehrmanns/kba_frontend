@@ -62,7 +62,7 @@ ul.org-tree > li:first-child::after {
     padding: .35em .7em .3em .6em;
     border: 1px solid transparent;
 }
-.org-tree li:hover .label,
+.org-tree li > span:hover.label,
 .org-tree .label.selected {
     border: 1px solid #337ab7;
     opacity: 0.8;

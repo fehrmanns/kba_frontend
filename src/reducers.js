@@ -270,11 +270,10 @@ function units(state = {
                 isFetching: false,
             });
         case UNIT_LOADED:
-            console.log("UNIT_LOADED", action.response);
             return Object.assign({}, state, {
                 unitTree: action.response,
                 isFetching: false,
-                selectedUnit: action.response,
+                selectedUnit: {},
                 typeNames: [action.response.kbaOuTypeName],
             });
         case UNIT_DELETED:
