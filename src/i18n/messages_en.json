@@ -13,6 +13,8 @@
         "alert.message.saved": "Change was saved.",
         "alert.message.notsaved": "Saving failed.",
 
+        "alert.message.childunitnotloaded": "Tree elements couldn't get loaded.",
+
         "header.title": "Klarios Biometrics Analytics",
         "header.user.label": "User",
         "header.user.hint": "Change user data",

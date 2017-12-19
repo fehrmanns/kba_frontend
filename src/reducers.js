@@ -270,6 +270,7 @@ function units(state = {
                 isFetching: false,
             });
         case UNIT_LOADED:
+            console.log("UNIT_LOADED", action.response);
             return Object.assign({}, state, {
                 unitTree: action.response,
                 isFetching: false,

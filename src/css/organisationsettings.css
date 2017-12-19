@@ -10,6 +10,7 @@
 .org-tree {
     font-size: 1.1em;
     font-weight: lighter;
+    margin-bottom: 30px;
 }
 .org-tree, .org-tree ul, .org-tree li {
     position: relative;
@@ -52,6 +53,9 @@ ul.org-tree > li:first-child::before,
 ul.org-tree > li:first-child::after {
     border: 0;
 }
+.org-tree li > span > span:focus {
+    outline: none;
+}
 
 .org-tree .label {
     display: inline-block;
@@ -64,6 +68,16 @@ ul.org-tree > li:first-child::after {
     opacity: 0.8;
     cursor: pointer;
 }
+.org-tree .label-name {
+    margin: 0.2em 0 0.1em;
+    display: inline-block;
+}
 .org-tree .glyphicon {
     margin-right: 6px;
+}
+
+.org-tree .glyphicon.loader {
+    font-size: 0.1em;
+    margin: 1em 9em 6em 3.5em;
+
 }

@@ -13,6 +13,8 @@
         "alert.message.saved": "Änderung wurde gespeichert.",
         "alert.message.notsaved": "Speichern fehlgeschlagen.",
 
+        "alert.message.childunitnotloaded": "Baumelemente konnten nicht geladen werden.",
+
         "header.title": "Klarios Biometrics Analytics",
         "header.user.label": "Benutzer",
         "header.user.hint": "Benutzerdaten ändern",
