@@ -1,5 +1,7 @@
 {
     "en": {
+        "KBA_USER_CANNOT_BE_ASSIGNED_TO_KBA_OU":"The user cannot be assigned to the selected organizational unit.",
+
         "alert.strong.message.success": "Very good!",
         "alert.strong.message.info": "Information:",
         "alert.strong.message.warning": "Warning.",

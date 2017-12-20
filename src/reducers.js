@@ -1,6 +1,6 @@
 import {combineReducers} from "redux";
 import {
-    SERVER_ERROR,
+    SERVER_ERROR, ERROR_RESET,
     LOGIN_REQUEST, LOGIN_RESET_ERROR, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_SUCCESS,
     TOKEN_REQUEST, TOKEN_SUCCESS, TOKEN_FAILURE,
     USER_REQUEST, USER_LOADED, USER_DELETED, USER_ADDED, USER_UPDATED, USER_FAILURE,
@@ -13,12 +13,28 @@ import {
 // based on a token being in local storage. In a real app,
 // we would also want a util to check if the token is expired.
 function error(state = {
-    type: {},
+    server: {},
+    unit: {},
+    user: {},
 }, action) {
     switch (action.type) {
         case SERVER_ERROR:
             return Object.assign({}, state, {
-                type: action.message,
+                server: action.message,
+            });
+        case UNIT_FAILURE:
+            return Object.assign({}, state, {
+                unit: action.message,
+            });
+        case USER_FAILURE:
+            return Object.assign({}, state, {
+                user: action.message,
+            });
+        case ERROR_RESET:
+            return Object.assign({}, state, {
+                server: {},
+                unit: {},
+                user: {},
             });
         default:
             return state;
@@ -155,6 +171,7 @@ function users(state = {
     isFetching: false,
     isLoaded: false,
     list: [],
+    errorMessage: "",
 }, action) {
     // TODO: define/check all types
     switch (action.type) {

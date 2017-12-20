@@ -1,5 +1,7 @@
 {
     "de": {
+        "KBA_USER_CANNOT_BE_ASSIGNED_TO_KBA_OU":"Der Benutzer kann der Organisationseinheit nicht zugewiesen werden.",
+
         "alert.strong.message.success": "Sehr gut!",
         "alert.strong.message.info": "Information:",
         "alert.strong.message.warning": "Vorsicht.",
