@@ -135,11 +135,12 @@ class OrganizationUnitAddEdit extends React.Component {
     }
 
     updateUnit(unitName, unit) {
+        // TODO: unit in tree has to be updated
+        // TODO: unit list has to be updated
         this.props.dispatch(updateOrgUnit(unitName, unit))
             .then((response) => {
-                if (response.message === "401") {
-                    this.props.dispatch(logoutUser());
-                }
+                (response.message === "401") && this.props.dispatch(logoutUser());
+                (response.message === "200") && console.log("unit has to be updated:", unit);
             });
     }
 
@@ -161,7 +162,10 @@ class OrganizationUnitAddEdit extends React.Component {
             });
     }
 
+    // TODO: unit in tree has to be added
+    // TODO: unit list has to be updated
     createUnit(newUnit) {
+        console.log("createOrgUnit", newUnit);
         this.props.dispatch(createOrgUnit(newUnit))
             .then((response) => {
                 if (response.message === "401") {

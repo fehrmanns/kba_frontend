@@ -156,7 +156,7 @@ function users(state = {
     isLoaded: false,
     list: [],
 }, action) {
-    // TODO: define all types
+    // TODO: define/check all types
     switch (action.type) {
         case USER_REQUEST:
             return Object.assign({}, state, {
@@ -182,7 +182,6 @@ function users(state = {
                 isFetching: false,
             });
         case USER_FAILURE:
-            console.log("USER_FAILURE kba_exception", action);
             return Object.assign({}, state, {
                 isFetching: false,
             });
