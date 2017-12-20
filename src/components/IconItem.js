@@ -8,6 +8,7 @@ class IconItem extends React.Component {
             intl,
             titleId,
             icon,
+            size,
             selectedItem,
         } = this.props;
 
@@ -17,13 +18,14 @@ class IconItem extends React.Component {
         }) : "";
 
         return (
-            <span id={icon} title={formattedTitle} className={`icon iconexperience-${icon}`} aria-hidden="true" onClick={selectedItem} />
+            <span id={icon} title={formattedTitle} className={`icon iconexperience-${size}-${icon}`} aria-hidden="true" onClick={selectedItem} />
         );
     }
 }
 
 IconItem.defaultProps = {
     titleId: "",
+    size: 16,
 };
 
 IconItem.propTypes = {
@@ -31,6 +33,7 @@ IconItem.propTypes = {
     intl: intlShape.isRequired,
     titleId: PropTypes.string,
     icon: PropTypes.string.isRequired,
+    size: PropTypes.oneOf([16, 32]),
     selectedItem: PropTypes.func.isRequired,
 };
 

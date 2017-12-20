@@ -27,7 +27,7 @@
 }
 
 .org-tree li {
-    padding: .2em 0 0;
+    padding: 6px 0 0;
 }
 .org-tree li::before, .org-tree li::after {
     content: "";
@@ -36,59 +36,54 @@
 }
 .org-tree li::before {
     border-top: 1px dashed #ccc;
-    top: 0.8em;
-    width: 0.6em;
+    top: 20px;
+    width: 10px;
     height: 0;
 }
 .org-tree li::after {
     border-left: 1px dashed #ccc;
     height: 100%;
     width: 0;
-    top: 0.25em;
+    top: 1px;
 }
 .org-tree ul > li:last-child::after {
-    height: 0.5em;
+    height: 20px;
 }
 ul.org-tree > li:first-child::before,
 ul.org-tree > li:first-child::after {
     border: 0;
 }
-.org-tree li > span > span:focus {
-    outline: none;
-}
-.org-tree li > span:hover.label,
-.org-tree .label.selected {
-    border: 1px solid #337ab7;
-    opacity: 0.8;
-    cursor: pointer;
+
+.org-tree .loader-container {
+    width: 12px;
+    height: 18px;
 }
 
-.org-tree .label {
-    display: inline-block;
-    padding: .35em .7em .3em .6em;
-    border: 1px solid transparent;
+.org-tree .loader-container .loader,
+.org-tree .loader-container .loader:before,
+.org-tree .loader-container .loader:after {
+    width: 5px;
+    height: 5px;
 }
-.label.label-white {
-    color: #777777;
-    background-color: #FFFFFF;
-    border: 1px solid #777777;
+.org-tree .loader-container .loader {
+    position: absolute;
+    font-size: 5px;
+    margin: 0 8px;
+    top: 0;
+    left: 5px;
 }
-.org-tree li > span:hover.label.label-white,
-.org-tree .label.label-white.selected {
-    background-color: #337ab7;
-    color: #FFFFFF;
+.org-tree .loader-container .loader:before {
+    left: -1.5em;
 }
-
-.org-tree .label-name {
-    margin: 0.2em 0 0.1em;
-    display: inline-block;
-}
-.org-tree .glyphicon {
-    margin-right: 6px;
+.org-tree .loader-container .loader:after {
+    left: 1.5em;
 }
 
-.org-tree .glyphicon.loader {
-    font-size: 0.1em;
-    margin: 1em 9em 6em 3.5em;
-
+.org-tree [class*="iconexperience-"] {
+    position: absolute;
+    top: 6px;
+    left: 8px;
+}
+.org-tree .knot-name {
+    padding-left: 18px;
 }

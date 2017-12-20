@@ -1,7 +1,7 @@
 import * as React from "react";
 import {connect} from "react-redux";
 import PropTypes from "prop-types";
-import IconItem from "./../components/IconItem";
+import IconItem from "./IconItem";
 import "../css/icondialog.css";
 
 class IconDialog extends React.Component {
@@ -25,7 +25,7 @@ class IconDialog extends React.Component {
         return (
             <div>
                 <ul className="list-unstyled icon-dialog">
-                    {icons.map(iconItem => <li key={`select_icon_${iconItem}`}><span className="btn btn-default"><IconItem icon={iconItem} selectedItem={this.selectedItem} /></span></li>)}
+                    {icons.map(iconItem => <li key={`select_icon_${iconItem}`}><span className="btn btn-default"><IconItem icon={iconItem} size={32} selectedItem={this.selectedItem} /></span></li>)}
                 </ul>
             </div>
         );

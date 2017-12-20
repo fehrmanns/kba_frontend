@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import {FormattedMessage} from "react-intl";
 import {getOrgUnit, selectUnit} from "../actions";
+import IconItem from "./IconItem";
 import OrganisationUnitTreeElement from "./OrganizationUnitTreeElement";
 
 class OrganizationUnitTreeElement extends React.Component {
@@ -85,16 +86,29 @@ class OrganizationUnitTreeElement extends React.Component {
             treeElement,
             selectedUnit,
         } = this.props;
-
-        const nodeClass = (selectedUnit.name === thisElement.name) ? "label label-white selected" : "label label-white";
+console.log("unittypes", this.props.types);
+        const activeClass = (selectedUnit.name === thisElement.name) ? "btn btn-sm btn-default active focus" : "btn btn-sm btn-default";
         const toggleClass = openKnot ? "glyphicon glyphicon-menu-down" : "glyphicon glyphicon-menu-right";
         const showChildren = hasChildren && openKnot;
 
         return (
             <li>
-                <span className={nodeClass}>
-                    {hasChildren && <span role="button" tabIndex={0} onKeyPress={this.onKeyPress} onClick={this.toggleView} className={isFetching ? "glyphicon loader" : toggleClass} />}
-                    <span className="label-name" role="button" tabIndex={0} onKeyPress={this.onKeyPress} onClick={this.onSelect}>{treeElement.name}</span>
+                <span className="btn-group">
+                    {hasChildren &&
+                        <button className="btn btn-sm btn-default" onKeyPress={this.onKeyPress} onClick={this.toggleView}>
+                            {isFetching ?
+                                <div className="loader-container">
+                                    <span className="loader" />
+                                </div>
+                                :
+                                <span className={toggleClass} />
+                            }
+                        </button>
+                    }
+                    <button className={activeClass} onKeyPress={this.onKeyPress} onClick={this.onSelect}>
+                        <IconItem size={16} titleId={treeElement.name} icon="blackboard" selectedItem={() => {}} />
+                        <span className="knot-name">{treeElement.name}</span>
+                    </button>
                 </span>
                 {showChildren &&
                 <ul>
@@ -118,13 +132,15 @@ OrganizationUnitTreeElement.propTypes = {
     dispatch: PropTypes.func.isRequired,
     selectedUnit: PropTypes.object.isRequired,
     treeElement: PropTypes.object.isRequired,
+    types: PropTypes.array.isRequired,
 };
 
 function mapStateToProps(state) {
-    const {units} = state;
+    const {units, unittypes} = state;
     const {selectedUnit, unitTree, isFetching} = units;
+    const types = unittypes.list;
 
-    return {selectedUnit, unitTree, isFetching};
+    return {selectedUnit, unitTree, types, isFetching};
 }
 
 export default connect(mapStateToProps)(OrganizationUnitTreeElement);
