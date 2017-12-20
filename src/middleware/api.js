@@ -39,16 +39,19 @@ function callApi(endpoint, authenticated, method, json) {
                 }
                 return json;
             })
-            .catch((err) => { console.warn("api-json:", err); throw new Error(err); });
+            .catch((err) => { console.log("api-json:", err); throw new Error(err); });
     }
 
     return fetch(LURI + endpoint, config)
         .then((response) => {
-            console.warn("server response", response.headers.get("kba_exception"));
+            console.warn("kba exc", response.headers.get("kba_exception"));
             if (response.status === 200 || response.status === 201) {
                 return response;
             }
-            return Promise.reject(new Error(response.status));
+            return Promise.reject({
+                status: response.status,
+                message: response.headers.get("kba_exception"),
+            });
         })
         .then(response =>
             response.text().then(text => ({ text, response }))).then(({ text, response }) => {
@@ -57,7 +60,9 @@ function callApi(endpoint, authenticated, method, json) {
             }
             return text;
         })
-        .catch((err) => { console.warn("api-others:", err); throw new Error(err); });
+        .catch((err) => {
+            console.warn("api-others:", err); throw err;
+        });
 }
 
 export const CALL_API = Symbol("Call API");
@@ -84,7 +89,7 @@ export default store => next => (action) => {
                 type: successType,
             }),
         error => next({
-            status: error,
+            status: error.status,
             message: error.message || "There was an error.",
             type: errorType,
         }),

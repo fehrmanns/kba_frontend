@@ -55,6 +55,7 @@ class OrganizationUnitTreeElement extends React.Component {
         console.log(`${this.state.thisElement.name} selected`);
     }
 
+    //TODO add key functionality
     onKeyPress() {
         console.log("key press on element.");
     }

@@ -3,6 +3,7 @@ import {connect} from "react-redux";
 import PropTypes from "prop-types";
 import NotificationItem from "./NotificationItem";
 import "../css/notifications.css";
+import {resetError} from "./../actions";
 
 class Notifications extends React.Component {
     constructor(props) {
@@ -25,7 +26,12 @@ class Notifications extends React.Component {
         // throw alert just by server-errors
         (nextProps.serverError.toString() === "TypeError: Failed to fetch") && this.setServerError();
         (nextProps.errorMessage.toString() === "TypeError: Failed to fetch") && this.setServerError();
+
+        (nextProps.usersErrorMsg.toString() !== "") && this.setError(nextProps.usersErrorMsg);
+
+        //this.props.dispatch(resetError());
     }
+
 
     setLoginError() {
         const allMessages = this.state.messages;
@@ -44,7 +50,6 @@ class Notifications extends React.Component {
             });
         }
     }
-
     setServerError() {
         const allMessages = this.state.messages;
         const messageId = "alert.message.serverError";
@@ -63,6 +68,25 @@ class Notifications extends React.Component {
         }
     }
 
+    setError(msgId) {
+        const allMessages = this.state.messages;
+        const messageId = msgId;
+
+        console.log("msgs1", messageId);
+
+        if (this.state.messages.filter(object => object.id === messageId).length === 0) {
+            allMessages.push({
+                id: messageId,
+                type: "danger",
+                text: messageId,
+                dismissible: true,
+            });
+
+            this.setState({
+                messages: allMessages,
+            });
+        }
+    }
     removeMessageItem(id) {
         this.setState({
             messages: this.state.messages.filter(object => object.id !== id),
@@ -73,7 +97,7 @@ class Notifications extends React.Component {
     render() {
         // TODO: this notification has to be closed somehow.
         const {messages} = this.state;
-
+        console.log("msgs", messages);
         return (
             <div className="notifications">
                 {/*
@@ -101,17 +125,22 @@ Notifications.propTypes = {
     failureCounter: PropTypes.number.isRequired,
     serverError: PropTypes.object.isRequired,
     errorMessage: PropTypes.string.isRequired,
+    usersErrorMsg: PropTypes.object.isRequired,
+    dispatch: PropTypes.func.isRequired,
 };
 
 function mapStateToProps(state) {
     const {auth, error} = state;
-    const {failureCounter, errorMessage} = auth;
-    const serverError = error.type;
+    const {failureCounter} = auth;
+    const errorMessage = auth.errorMessage;
+    const serverError = error.server;
+    const usersErrorMsg = error.user;
 
     return {
         failureCounter,
         errorMessage,
         serverError,
+        usersErrorMsg,
     };
 }
 

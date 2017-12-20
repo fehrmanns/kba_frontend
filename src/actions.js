@@ -3,6 +3,7 @@ import {getLoginName} from "./utilities/storage";
 // There are three possible states for our login
 // process and we need actions for each of them
 export const SERVER_ERROR = "SERVER_ERROR";
+export const ERROR_RESET = "ERROR_RESET";
 
 export const LOGIN_REQUEST = "LOGIN_REQUEST";
 export const LOGIN_RESET_ERROR = "LOGIN_RESET_ERROR";
@@ -51,6 +52,12 @@ function serverError(message) {
     return {
         type: SERVER_ERROR,
         message,
+    };
+}
+
+export function resetError() {
+    return {
+        type: ERROR_RESET,
     };
 }
 
