@@ -178,14 +178,14 @@ export function loginUser(creds) {
         return fetch("http://localhost:8080/befe/rest/login", config)
             .then((response) => {
                 switch (response.status) {
-                // TODO: add correct messages
+                    // TODO: add correct messages
                     case 200:
                         response.json()
                             .then(user => ({user, response}))
                             .then(({user}) => {
                                 if (!response.ok) {
-                                // If there was a problem, we want to
-                                // dispatch the error condition
+                                    // If there was a problem, we want to
+                                    // dispatch the error condition
                                     dispatch(loginError("Login error"));
                                     return Promise.reject(user);
                                 }
@@ -196,7 +196,7 @@ export function loginUser(creds) {
                                 localStorage.setItem("refresh_token", user.refreshtoken);
 
                                 // Dispatch the success action
-                                dispatch(receiveLogin(user));
+                                return dispatch(receiveLogin(user));
                             });
                         break;
                     case 400:
@@ -344,7 +344,7 @@ export function getUnitTypes() {
 export function getAllOrgUnits() {
     return {
         [CALL_API]: {
-            endpoint: `management/org-units`,
+            endpoint: "management/org-units",
             authenticated: true,
             method: "GET",
             types: [UNITS_REQUEST, UNITS_LOADED, UNIT_FAILURE],
