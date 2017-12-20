@@ -37,7 +37,6 @@ class OrganizationUnitTreeElement extends React.Component {
             this.getChildren(nextProps.treeElement.name);
         }
         if (this.state.thisElement.name === nextProps.unitTree.name && nextProps.unitTree.childrenKbaOuDTOs) {
-            console.log("children", nextProps.unitTree.childrenKbaOuDTOs);
             const hasChildren = !!nextProps.unitTree.childrenKbaOuDTOs;
             this.setState({
                 children: nextProps.unitTree.childrenKbaOuDTOs,

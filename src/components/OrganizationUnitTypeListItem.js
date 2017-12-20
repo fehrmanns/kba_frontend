@@ -88,9 +88,19 @@ class OrganizationUnitTypeListItem extends React.Component {
     }
 
     render() {
+        const {
+            nameModified,
+            abbreviationModified,
+            containsArtifactsModified,
+            containsUsersModified,
+            iconLocationModified,
+            childrenModified,
+        } = this.state;
+        const modified = nameModified || abbreviationModified || containsArtifactsModified || containsUsersModified || iconLocationModified || childrenModified;
         const allTypeNames = this.props.types.map(item => item.name);
         const type = this.props.typeItem;
-        const modified = this.state.nameModified || this.state.abbreviationModified || this.state.containsArtifactsModified || this.state.containsUsersModified || this.state.iconLocationModified || this.state.childrenModified;
+
+
         return (
             <tr >
                 <td><input id="tableInputName" onChange={this.handleChange} value={this.state.name} /></td>

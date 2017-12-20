@@ -175,7 +175,6 @@ class OrganizationUnitAddEdit extends React.Component {
         const typeError = !this.state.typeIsValid;
         const parentError = !this.state.parentIsValid;
         const types = this.props.types.map(item => item.name);
-        console.log("this.props.unitList", this.props.unitList);
         const unitNames = this.props.unitList.map(item => item.name);
 
         return (
