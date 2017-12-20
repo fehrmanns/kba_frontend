@@ -135,6 +135,7 @@ class UserManagementAddNew extends React.Component {
         const passwordEqualError = !this.state.passwordIsEqual;
         const kbaOuNamesError = !this.state.kbaOuNamesIsValid;
         const {unitList} = this.props;
+        console.log("unitList", unitList);
         const unitNames = unitList.map(item => item.name);
 
         return (

@@ -182,6 +182,7 @@ function users(state = {
                 isFetching: false,
             });
         case USER_FAILURE:
+            console.log("USER_FAILURE kba_exception", action);
             return Object.assign({}, state, {
                 isFetching: false,
             });

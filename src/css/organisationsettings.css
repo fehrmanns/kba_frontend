@@ -73,6 +73,12 @@ ul.org-tree > li:first-child::after {
     background-color: #FFFFFF;
     border: 1px solid #777777;
 }
+.org-tree li > span:hover.label.label-white,
+.org-tree .label.label-white.selected {
+    background-color: #337ab7;
+    color: #FFFFFF;
+}
+
 .org-tree .label-name {
     margin: 0.2em 0 0.1em;
     display: inline-block;
