@@ -130,8 +130,9 @@ Login.propTypes = {
 };
 
 function mapStateToProps(state) {
-    const {auth, tokenIsValid} = state;
-    const {isAuthenticated, errorMessage} = auth;
+    const {auth, tokenIsValid, error} = state;
+    const {isAuthenticated} = auth;
+    const {errorMessage} = error;
 
     return {
         auth,

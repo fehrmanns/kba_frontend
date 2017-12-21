@@ -1,6 +1,9 @@
 {
     "de": {
         "KBA_USER_CANNOT_BE_ASSIGNED_TO_KBA_OU":"Der Benutzer kann der Organisationseinheit nicht zugewiesen werden.",
+        "KBA_OU_TYPE_ALREADY_EXISTS":"Ein Organisationstype mit diesem Namen existiert bereits.",
+        "KBA_OU_ALREADY_EXISTS":"Eine Organisationseinheit mit diesem Namen existiert bereits.",
+        "MANDATORY_PARAMETER_NOT_SET":"Pflichtparameter nicht gesetzt.",
 
         "alert.strong.message.success": "Sehr gut!",
         "alert.strong.message.info": "Information:",

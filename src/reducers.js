@@ -16,6 +16,8 @@ function error(state = {
     server: {},
     unit: {},
     user: {},
+    unittypes: {},
+    errorMessage: "",
 }, action) {
     switch (action.type) {
         case SERVER_ERROR:
@@ -24,11 +26,29 @@ function error(state = {
             });
         case UNIT_FAILURE:
             return Object.assign({}, state, {
-                unit: action.message,
+                unit: {
+                    message: action.message,
+                    status: action.status,
+                },
             });
         case USER_FAILURE:
             return Object.assign({}, state, {
                 user: {
+                    message: action.message,
+                    status: action.status,
+                },
+            });
+        case LOGIN_FAILURE:
+            return Object.assign({}, state, {
+                errorMessage: action.message,
+            });
+        case TOKEN_FAILURE:
+            return Object.assign({}, state, {
+                errorMessage: action.message,
+            });
+        case TYPE_FAILURE:
+            return Object.assign({}, state, {
+                unittypes: {
                     message: action.message,
                     status: action.status,
                 },
@@ -38,6 +58,8 @@ function error(state = {
                 server: {},
                 unit: {},
                 user: {},
+                unittypes: {},
+                errorMessage: "",
             });
         default:
             return state;
@@ -84,7 +106,6 @@ function modals(state = {
 function auth(state = {
     isFetching: false,
     failureCounter: 0,
-    errorMessage: "",
     isAuthenticated: !!localStorage.getItem("auth_token"),
     creds: {
         username: "",
@@ -99,13 +120,11 @@ function auth(state = {
             return Object.assign({}, state, {
                 isFetching: true,
                 isAuthenticated: false,
-                errorMessage: "",
                 creds: action.creds,
             });
         case LOGIN_RESET_ERROR:
             return Object.assign({}, state, {
                 isFetching: false,
-                errorMessage: "",
                 creds: action.creds,
             });
         case LOGIN_SUCCESS:
@@ -113,7 +132,6 @@ function auth(state = {
                 isFetching: false,
                 isAuthenticated: true,
                 failureCounter: 0,
-                errorMessage: "",
                 authtoken: action.authtoken,
                 user: action.user.kbaUser,
             });
@@ -122,13 +140,11 @@ function auth(state = {
                 isFetching: false,
                 isAuthenticated: false,
                 failureCounter: state.failureCounter + 1,
-                errorMessage: action.message,
             });
         case LOGOUT_SUCCESS:
             return Object.assign({}, state, {
                 isFetching: false,
                 isAuthenticated: false,
-                errorMessage: "",
             });
         case TOKEN_REQUEST:
             return Object.assign({}, state, {
@@ -139,7 +155,6 @@ function auth(state = {
             return Object.assign({}, state, {
                 isFetching: false,
                 isAuthenticated: true,
-                errorMessage: "",
                 user: action.response,
             });
         // TODO: check this behaviour
@@ -147,7 +162,6 @@ function auth(state = {
             return Object.assign({}, state, {
                 isFetching: false,
                 isAuthenticated: false,
-                errorMessage: action.message,
             });
         default:
             return state;
@@ -174,7 +188,6 @@ function users(state = {
     isFetching: false,
     isLoaded: false,
     list: [],
-    errorMessage: "",
 }, action) {
     // TODO: define/check all types
     switch (action.type) {

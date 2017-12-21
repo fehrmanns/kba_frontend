@@ -27,9 +27,11 @@ class Notifications extends React.Component {
         (nextProps.failureCounter < this.state.failureCounter) && this.removeMessageItem("alert.login.failureCounter");
         // throw alert just by server-errors
         (nextProps.serverError.toString() === "TypeError: Failed to fetch") && this.setServerError();
-        (nextProps.errorMessage.toString() === "TypeError: Failed to fetch") && this.setServerError();
+        (nextProps.errorMessage && nextProps.errorMessage.toString() === "TypeError: Failed to fetch") && this.setServerError();
 
         (nextProps.usersErrorMsg.message) && this.setError(nextProps.usersErrorMsg);
+        (nextProps.unittypeError.message) && this.setError(nextProps.unittypeError);
+        (nextProps.unitError.message) && this.setError(nextProps.unitError);
 
         if (this.state.resetErrorMsgs) {
             this.props.dispatch(resetError());
@@ -134,20 +136,26 @@ Notifications.propTypes = {
     errorMessage: PropTypes.string.isRequired,
     usersErrorMsg: PropTypes.object.isRequired,
     dispatch: PropTypes.func.isRequired,
+    unittypeError: PropTypes.object.isRequired,
+    unitError: PropTypes.object.isRequired,
 };
 
 function mapStateToProps(state) {
     const {auth, error} = state;
     const {failureCounter} = auth;
-    const errorMessage = auth.errorMessage;
+    const {errorMessage} = error.errorMessage;
     const serverError = error.server;
     const usersErrorMsg = error.user;
+    const unittypeError = error.unittypes;
+    const unitError = error.unit;
 
     return {
         failureCounter,
         errorMessage,
         serverError,
         usersErrorMsg,
+        unittypeError,
+        unitError,
     };
 }
 
