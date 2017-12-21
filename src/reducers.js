@@ -28,7 +28,10 @@ function error(state = {
             });
         case USER_FAILURE:
             return Object.assign({}, state, {
-                user: action.message,
+                user: {
+                    message: action.message,
+                    status: action.status,
+                },
             });
         case ERROR_RESET:
             return Object.assign({}, state, {

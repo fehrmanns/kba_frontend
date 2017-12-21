@@ -12,12 +12,14 @@ class Notifications extends React.Component {
         this.state = {
             messages: [],
             failureCounter: 0,
+            resetErrorMsgs: true,
         };
         this.setLoginError = this.setLoginError.bind(this);
         this.removeMessageItem = this.removeMessageItem.bind(this);
     }
 
     componentWillReceiveProps(nextProps) {
+        console.log("next", nextProps.usersErrorMsg);
         // count failed logins to set login-failure-alert
         (nextProps.failureCounter >= 3) && this.setLoginError();
         this.setState({failureCounter: nextProps.failureCounter});
@@ -27,9 +29,14 @@ class Notifications extends React.Component {
         (nextProps.serverError.toString() === "TypeError: Failed to fetch") && this.setServerError();
         (nextProps.errorMessage.toString() === "TypeError: Failed to fetch") && this.setServerError();
 
-        (nextProps.usersErrorMsg.toString() !== "") && this.setError(nextProps.usersErrorMsg);
+        (nextProps.usersErrorMsg.message) && this.setError(nextProps.usersErrorMsg);
 
-        //this.props.dispatch(resetError());
+        if (this.state.resetErrorMsgs) {
+            this.props.dispatch(resetError());
+            this.setState({resetErrorMsgs: false});
+        } else {
+            this.setState({resetErrorMsgs: true});
+        }
     }
 
 
@@ -70,7 +77,7 @@ class Notifications extends React.Component {
 
     setError(msgId) {
         const allMessages = this.state.messages;
-        const messageId = msgId;
+        const messageId = msgId.message;
 
         console.log("msgs1", messageId);
 
