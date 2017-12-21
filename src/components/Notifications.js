@@ -1,6 +1,7 @@
 import React from "react";
 import {connect} from "react-redux";
 import PropTypes from "prop-types";
+import {resetError} from './../actions';
 import NotificationItem from "./NotificationItem";
 import "../css/notifications.css";
 
@@ -11,6 +12,7 @@ class Notifications extends React.Component {
         this.state = {
             messages: [],
             failureCounter: 0,
+            resetErrorMsgs: true,
         };
         this.setLoginError = this.setLoginError.bind(this);
         this.removeMessageItem = this.removeMessageItem.bind(this);
@@ -24,11 +26,18 @@ class Notifications extends React.Component {
         (nextProps.failureCounter < this.state.failureCounter) && this.removeMessageItem("alert.login.failureCounter");
         // throw alert just by server-errors
         (nextProps.serverError.toString() === "TypeError: Failed to fetch") && this.setServerError();
-        (nextProps.errorMessage.toString() === "TypeError: Failed to fetch") && this.setServerError();
+        (nextProps.errorMessage && nextProps.errorMessage.toString() === "TypeError: Failed to fetch") && this.setServerError();
 
-        (nextProps.usersErrorMsg.toString() !== "") && this.setError(nextProps.usersErrorMsg);
+        (nextProps.usersErrorMsg.message) && this.setError(nextProps.usersErrorMsg);
+        (nextProps.unittypeError.message) && this.setError(nextProps.unittypeError);
+        (nextProps.unitError.message) && this.setError(nextProps.unitError);
 
-        //this.props.dispatch(resetError());
+        if (this.state.resetErrorMsgs) {
+            this.props.dispatch(resetError());
+            this.setState({resetErrorMsgs: false});
+        } else {
+            this.setState({resetErrorMsgs: true});
+        }
     }
 
 
@@ -69,7 +78,7 @@ class Notifications extends React.Component {
 
     setError(msgId) {
         const allMessages = this.state.messages;
-        const messageId = msgId;
+        const messageId = msgId.message;
 
         if (this.state.messages.filter(object => object.id === messageId).length === 0) {
             allMessages.push({
@@ -94,8 +103,6 @@ class Notifications extends React.Component {
     render() {
         // TODO: this notification has to be closed somehow.
         const {messages} = this.state;
-
-
         return (
             <div className="notifications">
                 {/*
@@ -125,20 +132,26 @@ Notifications.propTypes = {
     errorMessage: PropTypes.string.isRequired,
     usersErrorMsg: PropTypes.object.isRequired,
     dispatch: PropTypes.func.isRequired,
+    unittypeError: PropTypes.object.isRequired,
+    unitError: PropTypes.object.isRequired,
 };
 
 function mapStateToProps(state) {
     const {auth, error} = state;
     const {failureCounter} = auth;
-    const errorMessage = auth.errorMessage;
+    const {errorMessage} = error;
     const serverError = error.server;
     const usersErrorMsg = error.user;
+    const unittypeError = error.unittypes;
+    const unitError = error.unit;
 
     return {
         failureCounter,
         errorMessage,
         serverError,
         usersErrorMsg,
+        unittypeError,
+        unitError,
     };
 }
 

@@ -70,7 +70,6 @@ class UserManagementAddNew extends React.Component {
     }
 
     handleUnitChange(item) {
-        console.log("item", item);
         this.setState({
             kbaOuNames: item,
             kbaOuNamesIsValid: true,

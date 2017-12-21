@@ -4,7 +4,7 @@ import {connect} from "react-redux";
 import {FormattedMessage} from "react-intl";
 import FormattedInput from "../components/i18n/FormattedInput";
 import FormattedTypeahead from "../components/i18n/FormattedTypeahead";
-import {getUnitType, logoutUser, updateOrgUnit, createOrgUnit, getAllOrgUnits} from "../actions";
+import {logoutUser, updateOrgUnit, createOrgUnit, getAllOrgUnits} from "../actions";
 
 class OrganizationUnitAddEdit extends React.Component {
     constructor(props) {

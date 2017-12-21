@@ -21,11 +21,11 @@ class OrganizationUnitTypeAddNew extends React.Component {
             nameIsValid: true,
             childrenKbaOuTypesSelected: [],
         };
-        this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.sendData = this.sendData.bind(this);
         this.handleSubTypeChange = this.handleSubTypeChange.bind(this);
         this.onSelectIcon = this.onSelectIcon.bind(this);
+        this.openIconModal = this.openIconModal.bind(this);
     }
 
     handleSubTypeChange(event) {
@@ -59,6 +59,7 @@ class OrganizationUnitTypeAddNew extends React.Component {
     }
 
     sendData(event) {
+        console.log("sendData", event);
         event.preventDefault();
 
         const nameIsValid = !!this.state.name;
@@ -90,16 +91,16 @@ class OrganizationUnitTypeAddNew extends React.Component {
         });
     }
 
+    openIconModal(event) {
+        event.preventDefault();
+        this.props.dispatch(openSelectIconModal(this.onSelectIcon));
+    }
+
     onSelectIcon(icon) {
         this.setState({
             iconLocation: icon,
         });
         this.props.dispatch(closeSelectIconModal());
-    }
-
-    handleSubmit(event) {
-        event.preventDefault();
-        this.sendData();
     }
 
     render() {
@@ -108,7 +109,7 @@ class OrganizationUnitTypeAddNew extends React.Component {
         // TODO: Typeahead drop down is closed after selection and cannot be opened with keyboard entry
         // TODO: checkbox state should change when text is clicked
         return (
-            <form className="highlight" onSubmit={this.handleSubmit}>
+            <form className="highlight" onSubmit={this.sendData}>
                 <div className="row">
                     <div className="col-xs-12">
                         <FormattedMessage tagName="h3" id="unittypemanagement.addnew.headline" />
@@ -153,9 +154,9 @@ class OrganizationUnitTypeAddNew extends React.Component {
                         />
                         <div className="icon-area">
                             {this.state.iconLocation ?
-                                <IconItem icon={this.state.iconLocation} titleId="button.select.icon" selectedItem={() => this.props.dispatch(openSelectIconModal(this.onSelectIcon))} />
+                                <IconItem icon={this.state.iconLocation} size={32} titleId="button.select.icon" selectedItem={this.openIconModal} />
                                 :
-                                <button className="btn btn-default" onClick={() => this.props.dispatch(openSelectIconModal(this.onSelectIcon))}><FormattedMessage
+                                <button className="btn btn-default" onClick={this.openIconModal}><FormattedMessage
                                     id="button.select.icon"
                                 />
                                 </button>

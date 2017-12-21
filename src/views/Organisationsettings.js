@@ -31,35 +31,17 @@ class Organisationsettings extends React.Component {
 
     deleteType(type) {
         this.props.dispatch(deleteUnitType(type))
-            .then((response) => {
-                if (response.message === "401") {
-                    this.props.dispatch(logoutUser());
-                } else {
-                    this.props.dispatch(getUnitTypes());
-                }
-            });
+            .then(this.props.dispatch(getUnitTypes()));
     }
 
     addNewType(type) {
         this.props.dispatch(addUnitType(type))
-            .then((response) => {
-                if (response.message === "401") {
-                    this.props.dispatch(logoutUser());
-                } else {
-                    this.props.dispatch(getUnitTypes());
-                }
-            });
+            .then(this.props.dispatch(getUnitTypes()));
     }
 
     updateType(typeName, newType) {
         this.props.dispatch(updateUnitType(typeName, newType))
-            .then((response) => {
-                if (response.message === "401") {
-                    this.props.dispatch(logoutUser());
-                } else {
-                    this.props.dispatch(getUnitTypes());
-                }
-            });
+            .then(this.props.dispatch(getUnitTypes()));
     }
 
     toggleAddType() {

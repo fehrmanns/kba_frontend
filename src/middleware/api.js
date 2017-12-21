@@ -1,7 +1,8 @@
+import {logoutUser} from "./../actions";
 /* Login Uniform Resource Identifier */
 const LURI = "http://localhost:8080/befe/rest/";
 
-function callApi(endpoint, authenticated, method, json) {
+function callApi(endpoint, authenticated, method, json, store) {
     const token = localStorage.getItem("auth_token") || null;
     const loginHeader = new Headers();
     let config = {};
@@ -27,41 +28,45 @@ function callApi(endpoint, authenticated, method, json) {
     if (method === "GET") {
         return fetch(LURI + endpoint, config)
             .then((response) => {
-                if (response.status === 200) {
-                    return response;
-                }
-                return Promise.reject(new Error(response.status));
+                if (response.status === 200) { return response; }
+                if (response.status === 401) { store.dispatch(logoutUser()); }
+                const errorObject = {
+                    status: response.status,
+                    message: response.headers.get("kba_exception"),
+                };
+                return Promise.reject(errorObject);
             })
             .then(response =>
                 response.json().then(json => ({json, response}))).then(({json, response}) => {
-                if (!response.ok) {
-                    return Promise.reject(json);
-                }
+                if (!response.ok) { return Promise.reject(json); }
                 return json;
             })
-            .catch((err) => { console.log("api-json:", err); throw new Error(err); });
+            .catch((err) => {
+                console.log("api-json:", err);
+                throw err;
+            });
     }
 
     return fetch(LURI + endpoint, config)
         .then((response) => {
-            console.warn("kba exc", response.headers.get("kba_exception"));
-            if (response.status === 200 || response.status === 201) {
-                return response;
-            }
-            return Promise.reject({
+            if (response.status === 200 || response.status === 201) { return response; }
+            if (response.status === 401) { store.dispatch(logoutUser()); }
+            const errorObject = {
                 status: response.status,
                 message: response.headers.get("kba_exception"),
-            });
+            };
+            return Promise.reject(errorObject);
         })
         .then(response =>
-            response.text().then(text => ({ text, response }))).then(({ text, response }) => {
+            response.text().then(text => ({text, response}))).then(({text, response}) => {
             if (!response.ok) {
                 return Promise.reject(text);
             }
             return text;
         })
         .catch((err) => {
-            console.warn("api-others:", err); throw err;
+            console.warn("api-others:", err);
+            throw err;
         });
 }
 
@@ -82,7 +87,7 @@ export default store => next => (action) => {
         type: requestType,
     });
 
-    return callApi(endpoint, authenticated, method, json).then(
+    return callApi(endpoint, authenticated, method, json, store).then(
         response =>
             next({
                 response,
