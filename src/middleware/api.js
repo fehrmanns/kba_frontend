@@ -44,7 +44,6 @@ function callApi(endpoint, authenticated, method, json) {
 
     return fetch(LURI + endpoint, config)
         .then((response) => {
-            console.warn("kba exc", response.headers.get("kba_exception"));
             if (response.status === 200 || response.status === 201) {
                 return response;
             }
