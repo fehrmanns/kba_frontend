@@ -4,7 +4,7 @@ import {connect} from "react-redux";
 import {FormattedMessage} from "react-intl";
 import FormattedInput from "../components/i18n/FormattedInput";
 import FormattedTypeahead from "../components/i18n/FormattedTypeahead";
-import { getUnitType, logoutUser, updateOrgUnit, createOrgUnit, getAllOrgUnits } from "../actions";
+import {getUnitType, logoutUser, updateOrgUnit, createOrgUnit, getAllOrgUnits} from "../actions";
 
 class OrganizationUnitAddEdit extends React.Component {
     constructor(props) {
@@ -44,38 +44,13 @@ class OrganizationUnitAddEdit extends React.Component {
         });
     }
 
-    handleChange(event) {
-        event.preventDefault();
-        const targetName = event.target.id.replace("input", "").replace(/\b[A-Z]/g, letter => letter.toLowerCase());
-        switch (targetName) {
-            case "name":
-                this.setState({
-                    [targetName]: event.target.value,
-                    nameIsValid: true,
-                });
-                break;
-            default:
-                this.setState({
-                    [targetName]: event.target.value,
-                });
-        }
-    }
-
-    handleSubmit(event) {
-        event.preventDefault();
-        this.sendData();
-    }
-
-    handleTypeChange(item) {
-        this.setState({
-            selectedType: item,
-        });
-    }
-
-    handleUnitChange(item) {
-        this.setState({
-            selectedParentUnit: item,
-        });
+    getAllUnits() {
+        this.props.dispatch(getAllOrgUnits())
+            .then((response) => {
+                if (response.message === "401") {
+                    this.props.dispatch(logoutUser());
+                }
+            });
     }
 
     sendData(event) {
@@ -84,34 +59,20 @@ class OrganizationUnitAddEdit extends React.Component {
         const nameIsValid = !!this.state.name;
         const typeIsValid = !!(this.state.selectedType && this.state.selectedType.length > 0);
         const parentIsValid = !!((this.state.selectedParentUnit && this.state.selectedParentUnit.length > 0) || this.state.parentKbaOuName);
+
         this.setState({
             nameIsValid,
             typeIsValid,
             parentIsValid,
         });
-
         if (!nameIsValid || !typeIsValid) return;
-        console.log("this.state.kbaOuTypeName", this.state.name);
+
         const newUnit = {
             name: this.state.name,
             parentKbaOuName: this.state.edit ? this.state.parentKbaOuName : this.state.selectedParentUnit[0],
             kbaOuTypeName: this.state.selectedType ? this.state.selectedType[0] : "",
         };
-        console.log("newUnit", newUnit);
-        if (this.state.edit) {
-            console.log("edit", this.state.nameNotModified);
-            this.updateUnit(this.state.nameNotModified, newUnit);
-        } else {
-            console.log("create");
-            this.createUnit(newUnit);
-        }
-        this.setState({
-            name: "",
-            parentKbaOuName: "",
-            selectedType: [],
-            nameIsValid: true,
-            edit: false,
-        });
+        (this.state.edit) ? this.updateUnit(this.state.nameNotModified, newUnit) : this.createUnit(newUnit);
         this.reset();
     }
 
@@ -144,28 +105,30 @@ class OrganizationUnitAddEdit extends React.Component {
             });
     }
 
-    getAllUnits() {
-        this.props.dispatch(getAllOrgUnits())
-            .then((response) => {
-                if (response.message === "401") {
-                    this.props.dispatch(logoutUser());
-                }
-            });
+    handleUnitChange(item) {
+        this.setState({
+            selectedParentUnit: item,
+        });
     }
 
-    getUnitType(typeName) {
-        this.props.dispatch(getUnitType(typeName))
-            .then((response) => {
-                if (response.message === "401") {
-                    this.props.dispatch(logoutUser());
-                }
-            });
+    handleTypeChange(item) {
+        this.setState({
+            selectedType: item,
+        });
+    }
+
+    handleSubmit(event) {
+        event.preventDefault();
+        this.sendData();
+    }
+
+    handleChange(event) {
+        this.setState({name: event.target.value});
     }
 
     // TODO: unit in tree has to be added
     // TODO: unit list has to be updated
     createUnit(newUnit) {
-        console.log("createOrgUnit", newUnit);
         this.props.dispatch(createOrgUnit(newUnit))
             .then((response) => {
                 if (response.message === "401") {
@@ -180,20 +143,23 @@ class OrganizationUnitAddEdit extends React.Component {
         const parentError = !this.state.parentIsValid;
         const types = this.props.types.map(item => item.name);
         const unitNames = this.props.unitList.map(item => item.name);
+        const {name} = this.state;
 
         return (
             <form className="highlight" onSubmit={this.handleSubmit}>
                 <div className="row">
                     <div className="col-xs-12">
-                        {this.state.edit ? <FormattedMessage tagName="h3" id="unitmanagement.edit.headline" />
-                            : <FormattedMessage tagName="h2" id="unitmanagement.addnew.headline" />
+                        {this.state.edit ?
+                            <FormattedMessage tagName="h3" id="unitmanagement.edit.headline" />
+                            :
+                            <FormattedMessage tagName="h3" id="unitmanagement.addnew.headline" />
                         }
                     </div>
                 </div>
                 <div className="row">
                     <div className="col-xs-12">
                         <button
-                            className="btn btn-primary pull-right "
+                            className="btn btn-default pull-right "
                             onClick={this.clear}
                         >
                             <FormattedMessage id="button.clear" />
@@ -207,12 +173,12 @@ class OrganizationUnitAddEdit extends React.Component {
                             {nameError && <FormattedMessage id="input.notempty" />}
                         </label>
                         <FormattedInput
+                            onChange={this.handleChange}
+                            value={name}
                             type="text"
                             id="inputName"
                             className="form-control"
                             placeholder="input.unitname"
-                            onChange={this.handleChange}
-                            value={this.state.name}
                         />
                     </div>
                     <div className={typeError ? "form-group has-error col-lg-6" : "form-group col-lg-6"}>
@@ -297,4 +263,5 @@ function mapStateToProps(state) {
         selectedUnit, types, typeNames, unitList,
     };
 }
+
 export default connect(mapStateToProps)(OrganizationUnitAddEdit);

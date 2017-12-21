@@ -4,8 +4,7 @@ import {FormattedMessage} from "react-intl";
 import { connect } from "react-redux";
 import { Tabs, Tab, Collapse } from "react-bootstrap";
 import {
-    getUnitTypes, deleteUnitType, logoutUser, addUnitType, updateUnitType, getAllOrgUnits,
-    getOrgUnit, getRootUnit,
+    getUnitTypes, deleteUnitType, logoutUser, addUnitType, updateUnitType,
 } from "../actions";
 import OrganizationUnitTypeList from "../components/OrganizationUnitTypeList";
 import OrganizationUnitTypeAddNew from "../components/OrganizationUnitTypeAddNew";

@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
-import {getRootUnit} from "../actions";
+import {getRootUnit, getUnitTypes} from "../actions";
 import OrganisationUnitTreeElement from "./OrganizationUnitTreeElement";
 
 class OrganizationUnitTreeView extends React.Component {
@@ -9,6 +9,7 @@ class OrganizationUnitTreeView extends React.Component {
         super(props);
 
         this.props.dispatch(getRootUnit(true));
+        this.props.dispatch(getUnitTypes());
     }
 
     render() {

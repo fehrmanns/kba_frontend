@@ -3,7 +3,6 @@ import {connect} from "react-redux";
 import PropTypes from "prop-types";
 import NotificationItem from "./NotificationItem";
 import "../css/notifications.css";
-import {resetError} from "./../actions";
 
 class Notifications extends React.Component {
     constructor(props) {
@@ -72,8 +71,6 @@ class Notifications extends React.Component {
         const allMessages = this.state.messages;
         const messageId = msgId;
 
-        console.log("msgs1", messageId);
-
         if (this.state.messages.filter(object => object.id === messageId).length === 0) {
             allMessages.push({
                 id: messageId,
@@ -97,7 +94,8 @@ class Notifications extends React.Component {
     render() {
         // TODO: this notification has to be closed somehow.
         const {messages} = this.state;
-        console.log("msgs", messages);
+
+
         return (
             <div className="notifications">
                 {/*

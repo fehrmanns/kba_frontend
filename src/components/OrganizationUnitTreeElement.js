@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import {FormattedMessage} from "react-intl";
 import {getOrgUnit, selectUnit} from "../actions";
-import IconItem from "./IconItem";
 import OrganisationUnitTreeElement from "./OrganizationUnitTreeElement";
 
 class OrganizationUnitTreeElement extends React.Component {
@@ -12,6 +11,7 @@ class OrganizationUnitTreeElement extends React.Component {
 
         this.state = {
             openKnot: false,
+            icon: "",
             thisElement: this.props.treeElement,
             hasChildren: this.props.treeElement.leaf ? !this.props.treeElement.leaf : true,
             children: this.props.treeElement.childrenKbaOuDTOs,
@@ -45,6 +45,13 @@ class OrganizationUnitTreeElement extends React.Component {
                 hasChildren,
             });
         }
+        if (nextProps.treeElement.kbaOuTypeName !== "" && nextProps.types !== []) {
+            const iconType = nextProps.types.filter(type => type.name === nextProps.treeElement.kbaOuTypeName);
+            const icon = (iconType.length > 0) ? iconType[0].iconLocation : "";
+            this.setState({
+                icon,
+            });
+        }
     }
 
 
@@ -52,10 +59,9 @@ class OrganizationUnitTreeElement extends React.Component {
         e.preventDefault();
         e.stopPropagation();
         this.props.dispatch(selectUnit(this.state.thisElement));
-        console.log(`${this.state.thisElement.name} selected`);
     }
 
-    //TODO add key functionality
+    // TODO add key functionality
     onKeyPress() {
         console.log("key press on element.");
     }
@@ -82,12 +88,13 @@ class OrganizationUnitTreeElement extends React.Component {
             children,
             isFetching,
             childLoadError,
+            icon,
         } = this.state;
         const {
             treeElement,
             selectedUnit,
         } = this.props;
-console.log("unittypes", this.props.types);
+
         const activeClass = (selectedUnit.name === thisElement.name) ? "btn btn-sm btn-default active focus" : "btn btn-sm btn-default";
         const toggleClass = openKnot ? "glyphicon glyphicon-menu-down" : "glyphicon glyphicon-menu-right";
         const showChildren = hasChildren && openKnot;
@@ -107,7 +114,7 @@ console.log("unittypes", this.props.types);
                         </button>
                     }
                     <button className={activeClass} onKeyPress={this.onKeyPress} onClick={this.onSelect}>
-                        <IconItem size={16} titleId={treeElement.name} icon="blackboard" selectedItem={() => {}} />
+                        <span title={icon} className={`icon iconexperience-16-${icon}`} />
                         <span className="knot-name">{treeElement.name}</span>
                     </button>
                 </span>

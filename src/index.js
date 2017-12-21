@@ -6,7 +6,6 @@ import thunkMiddleware from "redux-thunk";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/css/bootstrap-theme.css";
 import "react-bootstrap-typeahead/css/Typeahead.css";
-import "rc-tree/assets/index.css";
 import "./css/index.css";
 import registerServiceWorker from "./utilities/registerServiceWorker";
 import Mainframe from "./components/Mainframe";
