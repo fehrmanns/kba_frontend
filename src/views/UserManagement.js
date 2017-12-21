@@ -24,35 +24,17 @@ class UserManagement extends React.Component {
 
     addNewUser(newUser) {
         this.props.dispatch(addUser(newUser))
-            .then((response) => {
-                if (response.message === "401") {
-                    this.props.dispatch(logoutUser());
-                } else {
-                    this.props.dispatch(getUsers());
-                }
-            });
+            .then(this.props.dispatch(getUsers()));
     }
     // we got a reload option here in case the admin has changed user data and didn't save them.
     updateUser(user, reload = true) {
         this.props.dispatch(updateUser(user))
-            .then((response) => {
-                if (response.message === "401") {
-                    this.props.dispatch(logoutUser());
-                } else {
-                    reload && this.props.dispatch(getUsers());
-                }
-            });
+            .then(reload && this.props.dispatch(getUsers()));
     }
 
     deleteUser(user) {
         this.props.dispatch(deleteUser(user))
-            .then((response) => {
-                if (response.message === "401") {
-                    this.props.dispatch(logoutUser());
-                } else {
-                    this.props.dispatch(getUsers());
-                }
-            });
+            .then(this.props.dispatch(getUsers()));
     }
 
     toggleAddUser() {

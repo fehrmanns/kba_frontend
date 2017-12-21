@@ -139,39 +139,23 @@ class OrganizationUnitAddEdit extends React.Component {
         // TODO: unit list has to be updated
         this.props.dispatch(updateOrgUnit(unitName, unit))
             .then((response) => {
-                (response.message === "401") && this.props.dispatch(logoutUser());
                 (response.message === "200") && console.log("unit has to be updated:", unit);
             });
     }
 
     getAllUnits() {
-        this.props.dispatch(getAllOrgUnits())
-            .then((response) => {
-                if (response.message === "401") {
-                    this.props.dispatch(logoutUser());
-                }
-            });
+        this.props.dispatch(getAllOrgUnits());
     }
 
     getUnitType(typeName) {
-        this.props.dispatch(getUnitType(typeName))
-            .then((response) => {
-                if (response.message === "401") {
-                    this.props.dispatch(logoutUser());
-                }
-            });
+        this.props.dispatch(getUnitType(typeName));
     }
 
     // TODO: unit in tree has to be added
     // TODO: unit list has to be updated
     createUnit(newUnit) {
         console.log("createOrgUnit", newUnit);
-        this.props.dispatch(createOrgUnit(newUnit))
-            .then((response) => {
-                if (response.message === "401") {
-                    this.props.dispatch(logoutUser());
-                }
-            });
+        this.props.dispatch(createOrgUnit(newUnit));
     }
 
     render() {

@@ -19,7 +19,6 @@ class Notifications extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        console.log("next", nextProps.usersErrorMsg);
         // count failed logins to set login-failure-alert
         (nextProps.failureCounter >= 3) && this.setLoginError();
         this.setState({failureCounter: nextProps.failureCounter});
@@ -81,8 +80,6 @@ class Notifications extends React.Component {
         const allMessages = this.state.messages;
         const messageId = msgId.message;
 
-        console.log("msgs1", messageId);
-
         if (this.state.messages.filter(object => object.id === messageId).length === 0) {
             allMessages.push({
                 id: messageId,
@@ -106,7 +103,6 @@ class Notifications extends React.Component {
     render() {
         // TODO: this notification has to be closed somehow.
         const {messages} = this.state;
-        console.log("msgs", messages);
         return (
             <div className="notifications">
                 {/*
@@ -143,7 +139,7 @@ Notifications.propTypes = {
 function mapStateToProps(state) {
     const {auth, error} = state;
     const {failureCounter} = auth;
-    const {errorMessage} = error.errorMessage;
+    const {errorMessage} = error;
     const serverError = error.server;
     const usersErrorMsg = error.user;
     const unittypeError = error.unittypes;
