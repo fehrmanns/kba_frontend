@@ -72,6 +72,9 @@ table input {
     padding: 0.1em 0.35em;
     margin: 0;
 }
+.table .rbt-token {
+    border-radius: 8px;
+}
 
 .label-margin {
     margin-top: calc(1em + 11px);
