@@ -45,9 +45,8 @@ class OrganizationUnitTreeElement extends React.Component {
                 hasChildren,
             });
         }
-        if (nextProps.treeElement.kbaOuTypeName !== "" && nextProps.types !== []) {
-            const iconType = nextProps.types.filter(type => type.name === nextProps.treeElement.kbaOuTypeName);
-            const icon = (iconType.length > 0) ? iconType[0].iconLocation : "";
+        if (nextProps.treeElement.kbaOuTypeIconLocation) {
+            const icon = nextProps.treeElement.kbaOuTypeIconLocation;
             this.setState({
                 icon,
             });
@@ -140,15 +139,13 @@ OrganizationUnitTreeElement.propTypes = {
     dispatch: PropTypes.func.isRequired,
     selectedUnit: PropTypes.object.isRequired,
     treeElement: PropTypes.object.isRequired,
-    types: PropTypes.array.isRequired,
 };
 
 function mapStateToProps(state) {
-    const {units, unittypes} = state;
+    const {units} = state;
     const {selectedUnit, unitTree, isFetching} = units;
-    const types = unittypes.list;
 
-    return {selectedUnit, unitTree, types, isFetching};
+    return {selectedUnit, unitTree, isFetching};
 }
 
 export default connect(mapStateToProps)(OrganizationUnitTreeElement);
