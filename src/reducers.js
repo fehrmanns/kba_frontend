@@ -1,7 +1,7 @@
 import {combineReducers} from "redux";
 import {
-    SERVER_ERROR, ERROR_RESET,
-    LOGIN_REQUEST, LOGIN_RESET_ERROR, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_SUCCESS,
+    SERVER_ERROR, ERROR_RESET, LOGIN_ERROR_RESET,
+    LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_SUCCESS,
     TOKEN_REQUEST, TOKEN_SUCCESS, TOKEN_FAILURE,
     USER_REQUEST, USER_LOADED, USER_DELETED, USER_ADDED, USER_UPDATED, USER_FAILURE,
     TYPE_REQUEST, TYPE_LOADED, TYPE_DELETED, TYPE_ADDED, TYPE_UPDATED, TYPE_BYNAME_LOADED, TYPE_FAILURE,
@@ -60,6 +60,9 @@ function error(state = {
                 unit: {},
                 user: {},
                 unittypes: {},
+            });
+        case LOGIN_ERROR_RESET:
+            return Object.assign({}, state, {
                 errorMessage: "",
             });
         default:
@@ -123,7 +126,7 @@ function auth(state = {
                 isAuthenticated: false,
                 creds: action.creds,
             });
-        case LOGIN_RESET_ERROR:
+        case LOGIN_ERROR_RESET:
             return Object.assign({}, state, {
                 isFetching: false,
                 creds: action.creds,

@@ -2,10 +2,10 @@ import React from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import {FormattedMessage} from "react-intl";
-import {addUser, getUsers, updateUser, deleteUser, logoutUser, getAllOrgUnits} from "../actions";
+import {Collapse} from "react-bootstrap";
+import {addUser, getUsers, updateUser, deleteUser, getAllOrgUnits} from "../actions";
 import UserManagementAddNew from "../components/UserManagementAddNew";
 import UserManagementList from "../components/UserManagementList";
-import {Collapse} from "react-bootstrap";
 import {toggleItem, getItem} from "./../utilities/storage";
 import "./../css/usermanagement.css";
 

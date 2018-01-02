@@ -19,25 +19,13 @@ class Login extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    // componentWillReceiveProps(nextProps) {
-    //     // check if there is no difference in the input
-    //
-    //     if (nextProps.auth.creds && (this.props.auth !== nextProps.auth)) {
-    //         const userIsDifferent = this.state.username.localeCompare(nextProps.auth.creds.username);
-    //         const passwordIsDifferent = this.state.password.localeCompare(nextProps.auth.creds.password);
-    //         const inputIsDifferent = (userIsDifferent || passwordIsDifferent);
-    //
-    //         (!inputIsDifferent && !nextProps.auth.isAuthenticated) && Object.assign({}, this.setState({showError: true}));
-    //     }
-    // }
-
     handleChange(event) {
         const targetName = event.target.id.replace("input", "").toLowerCase();
 
         this.setState({
             [targetName]: event.target.value,
         });
-        this.props.dispatch(resetLoginError());
+        (!!this.props.errorMessage) && this.props.dispatch(resetLoginError());
     }
 
     handleSubmit(event) {
@@ -125,19 +113,16 @@ class Login extends Component {
 
 Login.propTypes = {
     dispatch: PropTypes.func.isRequired,
-    isAuthenticated: PropTypes.bool.isRequired,
     errorMessage: PropTypes.string.isRequired,
 };
 
 function mapStateToProps(state) {
     const {auth, tokenIsValid, error} = state;
-    const {isAuthenticated} = auth;
     const {errorMessage} = error;
 
     return {
         auth,
         tokenIsValid,
-        isAuthenticated,
         errorMessage,
     };
 }

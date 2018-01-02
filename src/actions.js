@@ -6,7 +6,7 @@ export const SERVER_ERROR = "SERVER_ERROR";
 export const ERROR_RESET = "ERROR_RESET";
 
 export const LOGIN_REQUEST = "LOGIN_REQUEST";
-export const LOGIN_RESET_ERROR = "LOGIN_RESET_ERROR";
+export const LOGIN_ERROR_RESET = "LOGIN_ERROR_RESET";
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const LOGIN_FAILURE = "LOGIN_FAILURE";
 export const LOGOUT_REQUEST = "LOGOUT_REQUEST";
@@ -58,6 +58,12 @@ function serverError(message) {
 export function resetError() {
     return {
         type: ERROR_RESET,
+    };
+}
+
+export function resetLoginError() {
+    return {
+        type: LOGIN_ERROR_RESET,
     };
 }
 
@@ -120,15 +126,6 @@ function receiveLogin(user) {
 function loginError(message) {
     return {
         type: LOGIN_FAILURE,
-        isFetching: false,
-        isAuthenticated: false,
-        message,
-    };
-}
-
-export function resetLoginError(message) {
-    return {
-        type: LOGIN_RESET_ERROR,
         isFetching: false,
         isAuthenticated: false,
         message,
