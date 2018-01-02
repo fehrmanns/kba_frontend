@@ -278,6 +278,18 @@ export function deleteUser(userName) {
     };
 }
 
+export function getUserPermissions(userName) {
+    return {
+        [CALL_API]: {
+            endpoint: `management/users/${userName}`,
+            authenticated: true,
+            method: "DELETE",
+            types: [USER_REQUEST, USER_DELETED, USER_FAILURE],
+            json: userName,
+        },
+    };
+}
+
 export function addUnitType(unitType) {
     return {
         [CALL_API]: {

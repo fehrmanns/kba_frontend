@@ -53,11 +53,13 @@ class Mainframe extends React.Component {
         if (isAuthenticated && profile.expired) {
             this.props.dispatch(openPasswordModal(profile, "static"));
         }
+        if (isAuthenticated && (isAuthenticated !== this.props.isAuthenticated)) {
+            this.checkToken();
+        }
     }
 
     checkToken() {
-        this.props.dispatch(probeToken())
-            .then((response) => { (response.type === "TOKEN_FAILURE") && this.props.dispatch(logoutUser()); });
+        this.props.dispatch(probeToken());
     }
 
     changeLanguage(selectedLanguage) {
