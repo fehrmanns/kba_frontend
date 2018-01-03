@@ -46,7 +46,8 @@ export const UNIT_DELETED = "UNIT_DELETED";
 export const UNIT_UPDATED = "UNIT_UPDATED";
 export const UNIT_FAILURE = "UNIT_FAILURE";
 export const UNIT_SELECTED = "UNIT_SELECTED";
-export const UNIT_ROOT = "UNIT_ROOT";
+export const UNIT_UPDATE_REQUEST = "UNIT_UPDATE_REQUEST";
+export const RESET_UNIT_UPDATE_STATUS = "RESET_UNIT_UPDATE_STATUS";
 
 function serverError(message) {
     return {
@@ -359,6 +360,7 @@ function requestOrgUnit() {
 
 export function getOrgUnit(unitName) {
     requestOrgUnit();
+    // TODO: make it work.
     return {
         [CALL_API]: {
             endpoint: `management/org-units/${unitName}`,
@@ -394,7 +396,14 @@ export function createOrgUnit(unit) {
     };
 }
 
-export function updateOrgUnit(unitName, unit) {
+function orgUnitToUpdate(unitName, unit) {
+    return {
+        type: UNIT_UPDATE_REQUEST,
+        orgUnitToUpdate: unitName,
+        orgUnitUpdate: unit,
+    };
+}
+function sendOrgUnitUpdate(unitName, unit) {
     return {
         [CALL_API]: {
             endpoint: `management/org-units/${unitName}`,
@@ -406,10 +415,23 @@ export function updateOrgUnit(unitName, unit) {
     };
 }
 
+export function resetUnitUpdateStatus() {
+    return {
+        type: RESET_UNIT_UPDATE_STATUS,
+    };
+}
+
+export function updateOrgUnit(unitName, unit) {
+    return (dispatch) => {
+        dispatch(orgUnitToUpdate(unitName, unit));
+        dispatch(sendOrgUnitUpdate(unitName, unit));
+    };
+}
+
 export function getRootUnit() {
     return {
         [CALL_API]: {
-            endpoint: `management/org-units?rootNodeOnly=true`,
+            endpoint: "management/org-units?rootNodeOnly=true",
             authenticated: true,
             method: "GET",
             types: [UNITS_REQUEST, ROOTUNIT_LOADED, UNIT_FAILURE],

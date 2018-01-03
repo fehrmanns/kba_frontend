@@ -4,7 +4,7 @@ import {connect} from "react-redux";
 import {FormattedMessage} from "react-intl";
 import FormattedInput from "../components/i18n/FormattedInput";
 import FormattedTypeahead from "../components/i18n/FormattedTypeahead";
-import {logoutUser, updateOrgUnit, createOrgUnit, getAllOrgUnits} from "../actions";
+import {updateOrgUnit, createOrgUnit, getAllOrgUnits} from "../actions";
 
 class OrganizationUnitAddEdit extends React.Component {
     constructor(props) {
@@ -35,22 +35,24 @@ class OrganizationUnitAddEdit extends React.Component {
             nameNotModified: nextProps.selectedUnit.name,
             name: nextProps.selectedUnit.name,
             parentKbaOuName: nextProps.selectedUnit.parentKbaOuName,
-            selectedType: nextProps.typeNames,
             selectedParentUnit: [],
             nameIsValid: true,
             typeIsValid: true,
             parentIsValid: true,
             edit: toEdit,
         });
+        if (nextProps.selectedUnit.kbaOuTypeName && this.state.selectedType[0] !== nextProps.selectedUnit.kbaOuTypeName) {
+            const selectedTypeArray = [];
+            selectedTypeArray[0] = nextProps.selectedUnit.kbaOuTypeName ? nextProps.selectedUnit.kbaOuTypeName : "";
+
+            this.setState({
+                selectedType: selectedTypeArray,
+            });
+        }
     }
 
     getAllUnits() {
-        this.props.dispatch(getAllOrgUnits())
-            .then((response) => {
-                if (response.message === "401") {
-                    this.props.dispatch(logoutUser());
-                }
-            });
+        this.props.dispatch(getAllOrgUnits());
     }
 
     sendData(event) {
@@ -96,13 +98,7 @@ class OrganizationUnitAddEdit extends React.Component {
     }
 
     updateUnit(unitName, unit) {
-        // TODO: unit in tree has to be updated
-        // TODO: unit list has to be updated
-        this.props.dispatch(updateOrgUnit(unitName, unit))
-            .then((response) => {
-                (response.message === "401") && this.props.dispatch(logoutUser());
-                (response.message === "200") && console.log("unit has to be updated:", unit);
-            });
+        this.props.dispatch(updateOrgUnit(unitName, unit));
     }
 
     handleUnitChange(item) {
@@ -112,6 +108,7 @@ class OrganizationUnitAddEdit extends React.Component {
     }
 
     handleTypeChange(item) {
+        console.log("item", item);
         this.setState({
             selectedType: item,
         });
@@ -129,12 +126,7 @@ class OrganizationUnitAddEdit extends React.Component {
     // TODO: unit in tree has to be added
     // TODO: unit list has to be updated
     createUnit(newUnit) {
-        this.props.dispatch(createOrgUnit(newUnit))
-            .then((response) => {
-                if (response.message === "401") {
-                    this.props.dispatch(logoutUser());
-                }
-            });
+        this.props.dispatch(createOrgUnit(newUnit));
     }
 
     render() {

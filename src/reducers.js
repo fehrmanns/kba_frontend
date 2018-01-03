@@ -6,7 +6,7 @@ import {
     USER_REQUEST, USER_LOADED, USER_DELETED, USER_ADDED, USER_UPDATED, USER_FAILURE,
     TYPE_REQUEST, TYPE_LOADED, TYPE_DELETED, TYPE_ADDED, TYPE_UPDATED, TYPE_BYNAME_LOADED, TYPE_FAILURE,
     OPEN_PASSWORD_MODAL, CLOSE_PASSWORD_MODAL, OPEN_SELECT_ICON_MODAL, CLOSE_SELECT_ICON_MODAL,
-    UNITS_REQUEST, UNITS_LOADED, UNIT_REQUEST, UNIT_ADDED, UNIT_DELETED, UNIT_UPDATED, UNIT_FAILURE, UNIT_LOADED, UNIT_SELECTED, ROOTUNIT_LOADED,
+    UNITS_REQUEST, UNITS_LOADED, UNIT_REQUEST, UNIT_ADDED, UNIT_DELETED, UNIT_UPDATE_REQUEST, RESET_UNIT_UPDATE_STATUS, UNIT_UPDATED, UNIT_FAILURE, UNIT_LOADED, UNIT_SELECTED, ROOTUNIT_LOADED,
 } from "./actions";
 
 // The auth reducer. The starting state sets authentication
@@ -19,7 +19,6 @@ function error(state = {
     unittypes: {},
     errorMessage: "",
 }, action) {
-    console.log("action.type", action.type);
     switch (action.type) {
         case SERVER_ERROR:
             return Object.assign({}, state, {
@@ -282,6 +281,11 @@ function units(state = {
 }, action) {
     // TODO: define all types
     switch (action.type) {
+        case ROOTUNIT_LOADED:
+            return Object.assign({}, state, {
+                isFetching: false,
+                rootUnit: action.response.kbaOuDtos[0],
+            });
         case UNITS_REQUEST:
             return Object.assign({}, state, {
                 isFetching: true,
@@ -292,10 +296,10 @@ function units(state = {
                 list: action.response.kbaOuDtos,
                 isFetching: false,
             });
-        case ROOTUNIT_LOADED:
+        case UNIT_SELECTED:
             return Object.assign({}, state, {
+                selectedUnit: action.unit,
                 isFetching: false,
-                rootUnit: action.response.kbaOuDtos[0],
             });
         case UNIT_REQUEST:
             return Object.assign({}, state, {
@@ -317,18 +321,27 @@ function units(state = {
             return Object.assign({}, state, {
                 isFetching: false,
             });
+        case UNIT_UPDATE_REQUEST:
+            return Object.assign({}, state, {
+                isFetching: true,
+                orgUnitToUpdate: action.orgUnitToUpdate,
+                orgUnitUpdate: action.orgUnitUpdate,
+                updateSuccess: false,
+            });
         case UNIT_UPDATED:
             return Object.assign({}, state, {
                 isFetching: false,
-            });
-        case UNIT_SELECTED:
-            return Object.assign({}, state, {
-                selectedUnit: action.unit,
-                isFetching: false,
+                updateSuccess: true,
             });
         case UNIT_FAILURE:
             return Object.assign({}, state, {
                 isFetching: false,
+                updateSuccess: false,
+            });
+        case RESET_UNIT_UPDATE_STATUS:
+            return Object.assign({}, state, {
+                isFetching: false,
+                updateSuccess: false,
             });
         default:
             return state;

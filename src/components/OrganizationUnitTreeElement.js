@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import {FormattedMessage} from "react-intl";
-import {getOrgUnit, selectUnit} from "../actions";
+import {getOrgUnit, selectUnit, resetUnitUpdateStatus} from "../actions";
 import OrganisationUnitTreeElement from "./OrganizationUnitTreeElement";
 
 class OrganizationUnitTreeElement extends React.Component {
@@ -45,14 +45,33 @@ class OrganizationUnitTreeElement extends React.Component {
                 hasChildren,
             });
         }
-        if (nextProps.treeElement.kbaOuTypeIconLocation) {
+        if (!this.state.icon) {
             const icon = nextProps.treeElement.kbaOuTypeIconLocation;
+            console.log("kbaOuTypeIconLocation", nextProps.treeElement.name + ": " + icon);
             this.setState({
                 icon,
             });
         }
-    }
 
+        if (nextProps.updateSuccess && (nextProps.orgUnitToUpdate === this.state.thisElement.name)) {
+            if (nextProps.orgUnitUpdate.kbaOuTypeName !== this.state.thisElement.kbaOuTypeName) {
+                const iconType = nextProps.types.filter(type => type.name === nextProps.orgUnitUpdate.kbaOuTypeName);
+                const icon = (iconType.length > 0) ? iconType[0].iconLocation : "";
+                console.log("nextProps.orgUnitToUpdate", nextProps.orgUnitToUpdate);
+                console.log("icon filter", icon);
+
+                this.setState({
+                    icon,
+                });
+            }
+            if (nextProps.orgUnitUpdate.name !== this.state.thisElement.name || nextProps.orgUnitUpdate.kbaOuTypeName !== this.state.thisElement.kbaOuTypeName) {
+                this.setState({
+                    thisElement: Object.assign({}, this.state.thisElement, nextProps.orgUnitUpdate),
+                });
+            }
+            this.props.dispatch(resetUnitUpdateStatus());
+        }
+    }
 
     onSelect(e) {
         e.preventDefault();
@@ -70,6 +89,7 @@ class OrganizationUnitTreeElement extends React.Component {
     }
 
     toggleView(e) {
+        console.warn("toggle view.");
         e.preventDefault();
         e.stopPropagation();
 
@@ -90,7 +110,6 @@ class OrganizationUnitTreeElement extends React.Component {
             icon,
         } = this.state;
         const {
-            treeElement,
             selectedUnit,
         } = this.props;
 
@@ -113,8 +132,9 @@ class OrganizationUnitTreeElement extends React.Component {
                         </button>
                     }
                     <button className={activeClass} onKeyPress={this.onKeyPress} onClick={this.onSelect}>
-                        <span title={icon} className={`icon iconexperience-16-${icon}`} />
-                        <span className="knot-name">{treeElement.name}</span>
+                        {console.log("render -> ", `${thisElement.name}: ${icon}`)}
+                        {icon && <span title={icon} className={`icon iconexperience-16-${icon}`} />}
+                        <span className="knot-name">{thisElement.name}</span>
                     </button>
                 </span>
                 {showChildren &&
@@ -139,13 +159,19 @@ OrganizationUnitTreeElement.propTypes = {
     dispatch: PropTypes.func.isRequired,
     selectedUnit: PropTypes.object.isRequired,
     treeElement: PropTypes.object.isRequired,
+    types: PropTypes.array.isRequired,
 };
 
 function mapStateToProps(state) {
-    const {units} = state;
-    const {selectedUnit, unitTree, isFetching} = units;
+    const {units, unittypes} = state;
+    const {
+        selectedUnit, unitTree, isFetching, orgUnitToUpdate, orgUnitUpdate, updateSuccess,
+    } = units;
+    const types = unittypes.list;
 
-    return {selectedUnit, unitTree, isFetching};
+    return {
+        selectedUnit, unitTree, isFetching, orgUnitToUpdate, orgUnitUpdate, updateSuccess, types,
+    };
 }
 
 export default connect(mapStateToProps)(OrganizationUnitTreeElement);
