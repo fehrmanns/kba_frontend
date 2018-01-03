@@ -49,6 +49,13 @@ export const UNIT_SELECTED = "UNIT_SELECTED";
 export const UNIT_UPDATE_REQUEST = "UNIT_UPDATE_REQUEST";
 export const RESET_UNIT_UPDATE_STATUS = "RESET_UNIT_UPDATE_STATUS";
 
+export const CATEGORY_REQUEST = "CATEGORY_REQUEST";
+export const CATEGORY_LOADED = "CATEGORY_LOADED";
+export const CATEGORY_ADDED = "CATEGORY_ADDED";
+export const CATEGORY_UPDATED = "CATEGORY_UPDATED";
+export const CATEGORY_DELETED = "CATEGORY_DELETED";
+export const CATEGORY_FAILURE = "CATEGORY_FAILURE";
+
 function serverError(message) {
     return {
         type: SERVER_ERROR,
@@ -403,6 +410,7 @@ function orgUnitToUpdate(unitName, unit) {
         orgUnitUpdate: unit,
     };
 }
+
 function sendOrgUnitUpdate(unitName, unit) {
     return {
         [CALL_API]: {
@@ -436,6 +444,55 @@ export function getRootUnit() {
             method: "GET",
             types: [UNITS_REQUEST, ROOTUNIT_LOADED, UNIT_FAILURE],
             json: {},
+        },
+    };
+}
+
+// category handling
+export function getCategories() {
+    return {
+        [CALL_API]: {
+            endpoint: "categories/",
+            authenticated: true,
+            method: "GET",
+            types: [CATEGORY_REQUEST, CATEGORY_LOADED, CATEGORY_FAILURE],
+            json: {},
+        },
+    };
+}
+
+export function addCategory(category) {
+    return {
+        [CALL_API]: {
+            endpoint: "categories/",
+            authenticated: true,
+            method: "POST",
+            types: [CATEGORY_REQUEST, CATEGORY_ADDED, CATEGORY_FAILURE],
+            json: category,
+        },
+    };
+}
+
+export function updateCategory(category) {
+    return {
+        [CALL_API]: {
+            endpoint: `categories/${category.name}`,
+            authenticated: true,
+            method: "PUT",
+            types: [CATEGORY_REQUEST, CATEGORY_UPDATED, CATEGORY_FAILURE],
+            json: JSON.stringify(category),
+        },
+    };
+}
+
+export function deleteCategory(categoryName) {
+    return {
+        [CALL_API]: {
+            endpoint: `categories/${categoryName}`,
+            authenticated: true,
+            method: "DELETE",
+            types: [CATEGORY_REQUEST, CATEGORY_DELETED, CATEGORY_FAILURE],
+            json: categoryName,
         },
     };
 }

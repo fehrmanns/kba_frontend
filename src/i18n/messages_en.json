@@ -59,6 +59,8 @@
         "input.parentKbaOuNameSelection":"Select parent organizational unit...",
         "input.KbaOuSelection":"organizational unit",
         "input.KbaOuSelectionPlaceholder":"belongs to...",
+        "input.categoryname": "Category",
+        "input.categoryNameError": "shouldn't be empty.",
 
         "button.submit": "Submit",
         "button.user.create": "Create user",
@@ -78,6 +80,9 @@
         "button.newtype.open":"Add type",
         "button.unit.create":"New organizational unit",
         "button.clear":"Reset",
+        "button.category.closeform": "Close form",
+        "button.category.openform": "New category",
+        "button.category.create": "Create category",
 
         "label.select.icon":"Icon",
 
@@ -150,11 +155,6 @@
         "categorymanagement.list.headline":"Category overview",
         "categorymanagement.list.icon":"Icon",
         "categorymanagement.list.name": "Name",
-        "button.newcategory.closeform": "Close form",
-        "button.newcategory.openform": "New category",
-        "input.categoryname": "Category",
-
-        "input.categoryNameError": "shouldn't be empty.",
 
         "organisationsettings.administration.title": "Organization",
         "organisationtypes.administration.title": "Organizational unit types",

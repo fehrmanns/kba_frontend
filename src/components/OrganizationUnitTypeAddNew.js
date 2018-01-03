@@ -59,7 +59,6 @@ class OrganizationUnitTypeAddNew extends React.Component {
     }
 
     sendData(event) {
-        console.log("sendData", event);
         event.preventDefault();
 
         const nameIsValid = !!this.state.name;

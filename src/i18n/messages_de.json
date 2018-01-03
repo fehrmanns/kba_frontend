@@ -59,6 +59,8 @@
         "input.parentKbaOuNameSelection":"Eltern Organisationseinheit auswählen...",
         "input.KbaOuSelection":"Organisationseinheit",
         "input.KbaOuSelectionPlaceholder":"gehört zu...",
+        "input.categoryname": "Kategorie",
+        "input.categoryNameError": "darf nicht leer sein.",
 
         "button.submit": "Absenden",
         "button.user.create": "Benutzer anlegen",
@@ -78,6 +80,9 @@
         "button.newtype.open":"Typ hinzufügen",
         "button.unit.create":"Neue Organisationseinheit",
         "button.clear":"Zurücksetzen",
+        "button.category.closeform": "Eingabe schließen",
+        "button.category.openform": "Neue Kategorie",
+        "button.category.create": "Kategorie erstellen",
 
         "label.select.icon":"Icon",
 
@@ -147,14 +152,9 @@
         "usermanagement.list.modifiedBy": "geändert von",
 
         "categorymanagement.addnew.headline":"Kategorie hinzufügen",
-        "categorymanagement.list.headline":"Kategorie übersicht",
+        "categorymanagement.list.headline":"Kategorieübersicht",
         "categorymanagement.list.icon":"Symbol",
         "categorymanagement.list.name": "Name",
-        "button.newcategory.closeform": "Eingabe schließen",
-        "button.newcategory.openform": "Neue Kategorie",
-        "input.categoryname": "Kategorie",
-
-        "input.categoryNameError": "darf nicht leer sein.",
 
         "organisationsettings.administration.title": "Organisationsverwaltung",
         "organisationtypes.administration.title": "Organistationstypen",

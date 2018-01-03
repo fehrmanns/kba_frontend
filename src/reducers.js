@@ -7,6 +7,7 @@ import {
     TYPE_REQUEST, TYPE_LOADED, TYPE_DELETED, TYPE_ADDED, TYPE_UPDATED, TYPE_BYNAME_LOADED, TYPE_FAILURE,
     OPEN_PASSWORD_MODAL, CLOSE_PASSWORD_MODAL, OPEN_SELECT_ICON_MODAL, CLOSE_SELECT_ICON_MODAL,
     UNITS_REQUEST, UNITS_LOADED, UNIT_REQUEST, UNIT_ADDED, UNIT_DELETED, UNIT_UPDATE_REQUEST, RESET_UNIT_UPDATE_STATUS, UNIT_UPDATED, UNIT_FAILURE, UNIT_LOADED, UNIT_SELECTED, ROOTUNIT_LOADED,
+    CATEGORY_REQUEST, CATEGORY_LOADED, CATEGORY_ADDED, CATEGORY_UPDATED, CATEGORY_DELETED, CATEGORY_FAILURE,
 } from "./actions";
 
 // The auth reducer. The starting state sets authentication
@@ -349,6 +350,39 @@ function units(state = {
     }
 }
 
+function categories(state = {
+    isFetching: false,
+}, action) {
+    switch (action.type) {
+        case CATEGORY_REQUEST:
+            return Object.assign({}, state, {
+                isFetching: true,
+            });
+        case CATEGORY_LOADED:
+            return Object.assign({}, state, {
+                isFetching: false,
+            });
+        case CATEGORY_ADDED:
+            return Object.assign({}, state, {
+                isFetching: false,
+            });
+        case CATEGORY_UPDATED:
+            return Object.assign({}, state, {
+                isFetching: false,
+            });
+        case CATEGORY_DELETED:
+            return Object.assign({}, state, {
+                isFetching: false,
+            });
+        case CATEGORY_FAILURE:
+            return Object.assign({}, state, {
+                isFetching: false,
+            });
+        default:
+            return state;
+    }
+}
+
 // We combine the reducers here so that they
 // can be left split apart above
 const kbaApp = combineReducers({
@@ -359,6 +393,7 @@ const kbaApp = combineReducers({
     unittypes,
     modals,
     units,
+    categories,
 });
 
 export default kbaApp;
