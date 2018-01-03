@@ -1,15 +1,24 @@
 {
     "de": {
+        "KBA_USER_CANNOT_BE_ASSIGNED_TO_KBA_OU":"Der Benutzer kann der Organisationseinheit nicht zugewiesen werden.",
+        "KBA_OU_TYPE_ALREADY_EXISTS":"Ein Organisationstype mit diesem Namen existiert bereits.",
+        "KBA_OU_ALREADY_EXISTS":"Eine Organisationseinheit mit diesem Namen existiert bereits.",
+        "MANDATORY_PARAMETER_NOT_SET":"Pflichtparameter nicht gesetzt.",
+
         "alert.strong.message.success": "Sehr gut!",
         "alert.strong.message.info": "Information:",
         "alert.strong.message.warning": "Vorsicht.",
         "alert.strong.message.danger": "Achtung!",
 
+        "alert.login.failureCounter": "Wenn Sie Probleme mit Ihrem Login haben, wenden Sie sich an Ihren Administrator.",
+        "alert.message.serverError": "Es gab einen Anfragefehler. Bitte versuchen Sie es erneut oder wenden Sie sich an Ihren Administrator.",
         "alert.message.200": "Dieses wird die Systemnachricht.",
         "alert.message.400": "Die Anfrage-Nachricht war fehlerhaft aufgebaut.",
         "alert.message.401": "Anfrage ohne gültige Authentifizierung.",
         "alert.message.saved": "Änderung wurde gespeichert.",
         "alert.message.notsaved": "Speichern fehlgeschlagen.",
+
+        "alert.message.childunitnotloaded": "Baumelemente konnten nicht geladen werden.",
 
         "header.title": "Klarios Biometrics Analytics",
         "header.user.label": "Benutzer",
@@ -35,6 +44,21 @@
         "input.passwordError": "darf nicht leer sein.",
         "input.passwordConfirm": "Passwort wiederholen",
         "input.passwordConfirmError": "ist nicht korrekt.",
+        "input.unittypename": "Typname",
+        "input.abbr":"Kürzel",
+        "input.containsAccounts":"Darf Benutzerkonten enthalten",
+        "input.containsArtifacts":"Darf Artefakte enthalten",
+        "input.childrenKbaOuTypes":"Untertypen",
+        "input.typeNameError": "darf nicht leer sein.",
+        "input.childrenKbaOuTypeNamesSelection":"Untertypen auswählen...",
+        "input.unitname":"Name",
+        "input.notempty":"darf nicht leer sein.",
+        "input.parentKbaOuName":"Eltern Organisationseinheit",
+        "input.kbaOuTypeName":"Organisationseinheitstyp",
+        "input.kbaOuTypeNameSelection":"Typ auswählen...",
+        "input.parentKbaOuNameSelection":"Eltern Organisationseinheit auswählen...",
+        "input.KbaOuSelection":"Organisationseinheit",
+        "input.KbaOuSelectionPlaceholder":"gehört zu...",
 
         "button.submit": "Absenden",
         "button.user.create": "Benutzer anlegen",
@@ -42,8 +66,22 @@
         "button.user.update": "Speichern",
         "button.user.deactivate": "deaktivieren",
         "button.user.activate": "aktivieren",
+        "button.user.changePassword": "Passwort ändern",
         "button.newuser.openform": "Neuer Benutzer",
         "button.newuser.closeform": "Eingabe schließen",
+        "button.type.delete": "Typ löschen",
+        "button.type.create": "Typ erstellen",
+        "button.close":"Schließen",
+        "button.select.icon":"Icon auswählen",
+        "button.save":"Speichern",
+        "button.input.close":"Eingabe schließen",
+        "button.newtype.open":"Typ hinzufügen",
+        "button.unit.create":"Neue Organisationseinheit",
+        "button.clear":"Zurücksetzen",
+
+        "label.select.icon":"Icon",
+
+        "modal.heading.icon":"Iconauswahl",
 
         "login.input.heading": "Bitte anmelden",
         "login.label.fail": "Anmeldung fehlgeschlagen",
@@ -105,6 +143,7 @@
         "usermanagement.list.roleName": "Rolle",
         "usermanagement.list.created": "angelegt am",
         "usermanagement.list.modified": "geändert am",
+        "usermanagement.list.unit": "Organisation",
         "usermanagement.list.modifiedBy": "geändert von",
 
         "categorymanagement.addnew.headline":"Kategorie hinzufügen",
@@ -117,6 +156,19 @@
 
         "input.categoryNameError": "darf nicht leer sein.",
 
+        "organisationsettings.administration.title": "Organisationsverwaltung",
+        "organisationtypes.administration.title": "Organistationstypen",
+        "unittypes.list.headline": "Typen der Organisationseinheit",
+        "unittypes.list.name": "Name",
+        "unittypes.list.icon": "Icon",
+        "unittypes.list.abbr": "Kürzel",
+        "unittypes.list.accountsEnabled": "Benutzerkonten anlegen möglich",
+        "unittypes.list.artifactsEnabled": "Artefakte zuweisbar",
+        "unittypes.list.childTypes": "Untertypen",
+        "unittypemanagement.addnew.headline": "Neuen Organisationseinheitstyp erstellen",
+
+        "unitmanagement.addnew.headline":"Neue Organisationseinheit erstellen",
+        "unitmanagement.edit.headline":"Organisationseinheit bearbeiten",
         "":""
     }
 }

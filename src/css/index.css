@@ -62,3 +62,31 @@ body::after {
     border: 1px solid #e1e1e8;
     border-radius: 4px;
 }
+
+table input {
+    box-sizing: border-box;
+    display: block;
+    width: 100%;
+    border: 0;
+    background: transparent;
+    padding: 0.1em 0.35em;
+    margin: 0;
+}
+.table .rbt-token {
+    border-radius: 8px;
+}
+
+.label-margin {
+    margin-top: calc(1em + 11px);
+}
+
+.usermanagement .highlight, .organisationsettings .highlight {
+    margin-top: 15px;
+}
+.usermanagement .highlight h3, .organisationsettings .highlight h3 {
+    margin-top: 10px;
+}
+
+.icon-area [class*="iconexperience"] {
+    cursor: pointer;
+}

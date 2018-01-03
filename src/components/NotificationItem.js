@@ -7,19 +7,31 @@ class NotificationItem extends React.Component {
         super(props);
 
         this.state = {
-            dismissible: true,
+            dismissible: this.props.dismissible,
+            id: this.props.id,
         };
+        (!this.state.dismissible) && this.setCountDown();
+        this.clickHandler = this.clickHandler.bind(this);
     }
+
+    setCountDown() {
+        setTimeout(() => this.props.removeMessage(this.state.id), 7500);
+    }
+
+    clickHandler() {
+        this.props.removeMessage(this.state.id);
+    }
+
 
     render() {
         const { type, textId } = this.props;
-        const alertClass = `alert alert-${type}${this.state.dismissible && " alert-dismissible"}`;
+        const alertClass = `alert alert-${type} ${this.state.dismissible && "alert-dismissible"}`;
         const alertTextId = `alert.strong.message.${type}`;
 
         return (
             <div className={alertClass} role="alert">
                 {/* TODO: make i18n messages. */}
-                { this.state.dismissible && <button type="button" className="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button> }
+                { this.state.dismissible && <button type="button" className="close" onClick={this.clickHandler}><span aria-hidden="true">&times;</span></button> }
                 <strong><FormattedMessage id={alertTextId} /></strong> <FormattedMessage id={textId} />
             </div>
         );
@@ -29,6 +41,9 @@ class NotificationItem extends React.Component {
 NotificationItem.propTypes = {
     type: PropTypes.oneOf(["success", "info", "warning", "danger"]).isRequired,
     textId: PropTypes.string.isRequired,
+    id: PropTypes.string.isRequired,
+    dismissible: PropTypes.bool.isRequired,
+    removeMessage: PropTypes.func.isRequired,
 };
 
 export default NotificationItem;

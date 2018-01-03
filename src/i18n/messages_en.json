@@ -1,15 +1,24 @@
 {
     "en": {
+        "KBA_USER_CANNOT_BE_ASSIGNED_TO_KBA_OU":"The user cannot be assigned to the selected organizational unit.",
+        "KBA_OU_TYPE_ALREADY_EXISTS":"A organizational unit type with this name already exists.",
+        "KBA_OU_ALREADY_EXISTS":"A organizational unit with this name already exists.",
+        "MANDATORY_PARAMETER_NOT_SET":"Mandatory parameter not set.",
+
         "alert.strong.message.success": "Very good!",
         "alert.strong.message.info": "Information:",
         "alert.strong.message.warning": "Warning.",
         "alert.strong.message.danger": "Attention!",
 
+        "alert.login.failureCounter": "If you have problems with your login, contact your administrator.",
+        "alert.message.serverError": "There was a request error. Please try again or contact your administrator.",
         "alert.message.200": "This would be your system message.",
         "alert.message.400": "Bad Request.",
         "alert.message.401": "Unauthorized.",
         "alert.message.saved": "Change was saved.",
         "alert.message.notsaved": "Saving failed.",
+
+        "alert.message.childunitnotloaded": "Tree elements couldn't get loaded.",
 
         "header.title": "Klarios Biometrics Analytics",
         "header.user.label": "User",
@@ -35,6 +44,21 @@
         "input.passwordError": "shouldn't be empty.",
         "input.passwordConfirm": "Repeat passwort",
         "input.passwordConfirmError": "isn't correct.",
+        "input.unittypename": "Type name",
+        "input.abbr":"Abbreviation",
+        "input.containsAccounts":"May contain user accounts",
+        "input.containsArtifacts":"May contain artifacts",
+        "input.childrenKbaOuTypes":"Sub types",
+        "input.typeNameError": "shouldn't be empty.",
+        "input.childrenKbaOuTypeNamesSelection":"Select sub types...",
+        "input.unitname":"Name",
+        "input.notempty":"shouldn't be empty.",
+        "input.parentKbaOuName":"Parent organizational unit",
+        "input.kbaOuTypeName":"organizational unit type",
+        "input.kbaOuTypeNameSelection":"Select type...",
+        "input.parentKbaOuNameSelection":"Select parent organizational unit...",
+        "input.KbaOuSelection":"organizational unit",
+        "input.KbaOuSelectionPlaceholder":"belongs to...",
 
         "button.submit": "Submit",
         "button.user.create": "Create user",
@@ -42,8 +66,22 @@
         "button.user.update": "Update user",
         "button.user.deactivate": "deactivate",
         "button.user.activate": "activate",
+        "button.user.changePassword": "change Password",
         "button.newuser.openform": "Add user",
         "button.newuser.closeform": "Close form",
+        "button.type.delete": "Delete type",
+        "button.type.create": "Create type",
+        "button.close":"Close",
+        "button.select.icon":"Select icon",
+        "button.save":"Save",
+        "button.input.close":"Close form",
+        "button.newtype.open":"Add type",
+        "button.unit.create":"New organizational unit",
+        "button.clear":"Reset",
+
+        "label.select.icon":"Icon",
+
+        "modal.heading.icon":"Icon selection",
 
         "login.input.heading": "Please sign in",
         "login.label.fail": "Login failed",
@@ -103,6 +141,7 @@
         "usermanagement.list.firstName": "First name",
         "usermanagement.list.lastName": "Last name",
         "usermanagement.list.roleName": "Role",
+        "usermanagement.list.unit": "Organisation",
         "usermanagement.list.created": "created",
         "usermanagement.list.modified": "modified",
         "usermanagement.list.modifiedBy": "modified from",
@@ -116,6 +155,20 @@
         "input.categoryname": "Category",
 
         "input.categoryNameError": "shouldn't be empty.",
+
+        "organisationsettings.administration.title": "Organization",
+        "organisationtypes.administration.title": "Organizational unit types",
+        "unittypes.list.headline": "Organizational unit types",
+        "unittypes.list.name": "Name",
+        "unittypes.list.icon": "Icon",
+        "unittypes.list.abbr": "Abbreviation",
+        "unittypes.list.accountsEnabled": "Create user accounts enabled",
+        "unittypes.list.artifactsEnabled": "Artifact assignable",
+        "unittypes.list.childTypes": "subtypes",
+        "unittypemanagement.addnew.headline": "Create new organizational unit types",
+
+        "unitmanagement.addnew.headline":"Create new organizational unit",
+        "unitmanagement.edit.headline":"Edit organizational unit",
 
         "":""
     }

@@ -1,0 +1,89 @@
+.organisationsettings .checkbox{
+    margin-top: 0;
+    margin-left: 8px;
+}
+
+.organisationsettings .tab-content{
+    margin-top: 15px;
+}
+
+.org-tree {
+    font-size: 1.1em;
+    font-weight: lighter;
+    margin-bottom: 30px;
+}
+.org-tree, .org-tree ul, .org-tree li {
+    position: relative;
+}
+
+.org-tree,
+.org-tree ul {
+    list-style: none;
+    padding: 0;
+}
+
+.org-tree ul {
+    padding-left: 22px;
+}
+
+.org-tree li {
+    padding: 6px 0 0;
+}
+.org-tree li::before, .org-tree li::after {
+    content: "";
+    position: absolute;
+    left: -12px;
+}
+.org-tree li::before {
+    border-top: 1px dashed #ccc;
+    top: 20px;
+    width: 10px;
+    height: 0;
+}
+.org-tree li::after {
+    border-left: 1px dashed #ccc;
+    height: 100%;
+    width: 0;
+    top: 1px;
+}
+.org-tree ul > li:last-child::after {
+    height: 20px;
+}
+ul.org-tree > li:first-child::before,
+ul.org-tree > li:first-child::after {
+    border: 0;
+}
+
+.org-tree .loader-container {
+    width: 12px;
+    height: 18px;
+}
+
+.org-tree .loader-container .loader,
+.org-tree .loader-container .loader:before,
+.org-tree .loader-container .loader:after {
+    width: 5px;
+    height: 5px;
+}
+.org-tree .loader-container .loader {
+    position: absolute;
+    font-size: 5px;
+    margin: 0 8px;
+    top: 0;
+    left: 5px;
+}
+.org-tree .loader-container .loader:before {
+    left: -1.5em;
+}
+.org-tree .loader-container .loader:after {
+    left: 1.5em;
+}
+
+.org-tree [class*="iconexperience-"] {
+    position: absolute;
+    top: 6px;
+    left: 8px;
+}
+.org-tree .knot-name {
+    padding-left: 18px;
+}

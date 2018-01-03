@@ -1,12 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
+import {connect} from "react-redux";
 import "./../css/progress.css";
 
-export default class Progress extends React.Component {
+class Progress extends React.Component {
     render() {
-        const { isActive } = this.props;
         let progressClass = "progress-bar";
-        isActive && (progressClass += " progress-bar-striped active");
+        this.props.isFetching && (progressClass += " progress-bar-striped active");
 
         return (
             <div className="row progress">
@@ -17,5 +17,23 @@ export default class Progress extends React.Component {
 }
 
 Progress.propTypes = {
-    isActive: PropTypes.bool.isRequired,
+    isFetching: PropTypes.bool.isRequired,
 };
+
+function mapStateToProps(state) {
+    const {
+        auth,
+        token,
+        users,
+        unittypes,
+        units,
+    } = state;
+
+    const isFetching = auth.isFetching || token.isFetching || users.isFetching || unittypes.isFetching || units.isFetching;
+
+    return {
+        isFetching,
+    };
+}
+
+export default connect(mapStateToProps)(Progress);

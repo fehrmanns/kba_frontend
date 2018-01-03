@@ -2,22 +2,19 @@ import React from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import {FormattedMessage} from "react-intl";
-import {addUser, getUsers, updateUser, deleteUser, logoutUser} from "../actions";
+import {Collapse} from "react-bootstrap";
+import {addUser, getUsers, updateUser, deleteUser, getAllOrgUnits} from "../actions";
 import UserManagementAddNew from "../components/UserManagementAddNew";
 import UserManagementList from "../components/UserManagementList";
-import {Collapse} from "react-bootstrap";
 import {toggleItem, getItem} from "./../utilities/storage";
 import "./../css/usermanagement.css";
 
 class UserManagement extends React.Component {
     constructor(props) {
         super(props);
-
-        this.state = {
-            open: getItem("add_user_open"),
-        };
-
+        this.state = {open: getItem("add_user_open")};
         this.props.dispatch(getUsers());
+        this.props.dispatch(getAllOrgUnits());
         this.addNewUser = this.addNewUser.bind(this);
         this.updateUser = this.updateUser.bind(this);
         this.deleteUser = this.deleteUser.bind(this);
@@ -26,36 +23,18 @@ class UserManagement extends React.Component {
 
 
     addNewUser(newUser) {
-        this.props.dispatch(addUser(newUser))
-            .then((response) => {
-                if (response.message === "401") {
-                    this.props.dispatch(logoutUser());
-                } else {
-                    this.props.dispatch(getUsers());
-                }
-            });
+        this.props.dispatch(addUser(newUser)).then(() => this.props.dispatch(getUsers()));
     }
+
     // we got a reload option here in case the admin has changed user data and didn't save them.
     updateUser(user, reload = true) {
         this.props.dispatch(updateUser(user))
-            .then((response) => {
-                if (response.message === "401") {
-                    this.props.dispatch(logoutUser());
-                } else {
-                    reload && this.props.dispatch(getUsers());
-                }
-            });
+            .then(reload && (() => this.props.dispatch(getUsers())));
     }
 
     deleteUser(user) {
         this.props.dispatch(deleteUser(user))
-            .then((response) => {
-                if (response.message === "401") {
-                    this.props.dispatch(logoutUser());
-                } else {
-                    this.props.dispatch(getUsers());
-                }
-            });
+            .then(() => this.props.dispatch(getUsers()));
     }
 
     toggleAddUser() {

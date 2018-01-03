@@ -1,0 +1,15 @@
+ul.icon-dialog {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+.icon-dialog li {
+    margin: 0 2px 5px;
+}
+
+.icon-dialog .btn {
+    width: 3em;
+    text-align: center;
+    padding: 5px 4px 0;
+}
