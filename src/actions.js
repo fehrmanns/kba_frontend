@@ -47,6 +47,7 @@ export const UNIT_UPDATED = "UNIT_UPDATED";
 export const UNIT_FAILURE = "UNIT_FAILURE";
 export const UNIT_SELECTED = "UNIT_SELECTED";
 export const UNIT_ROOT = "UNIT_ROOT";
+export const SET_RIGHTS = "SET_RIGHTS";
 
 function serverError(message) {
     return {
@@ -95,6 +96,13 @@ export function selectUnit(unit) {
     return {
         type: UNIT_SELECTED,
         unit,
+    };
+}
+
+export function setRights(rights) {
+    return {
+        type: SET_RIGHTS,
+        rights,
     };
 }
 

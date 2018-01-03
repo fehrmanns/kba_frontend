@@ -165,7 +165,7 @@ class UserManagementListItem extends React.Component {
                     </td>
                     :
                     <td className="button-td">
-                        {(user.loginName !== currentUser.loginName) &&
+                        {((user.loginName !== currentUser.loginName) && this.props.rights.users.delete) &&
                         <FormattedButton title="button.user.delete" className="btn btn-xs btn-danger" onClick={() => this.props.deleteUser(user.loginName)}>
                             <span className="glyphicon glyphicon-trash" />
                         </FormattedButton>
@@ -184,15 +184,17 @@ UserManagementListItem.propTypes = {
     updateUser: PropTypes.func.isRequired,
     deleteUser: PropTypes.func.isRequired,
     unitList: PropTypes.array.isRequired,
+    rights: PropTypes.object.isRequired,
 };
 
 function mapStateToProps(state) {
-    const {units, unittypes} = state;
+    const {units, unittypes, auth} = state;
     const types = unittypes.list;
     const unitList = units.list;
+    const {rights} = auth;
 
     return {
-        types, unitList,
+        types, unitList, rights,
     };
 }
 

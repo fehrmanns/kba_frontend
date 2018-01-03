@@ -6,8 +6,24 @@ import {
     USER_REQUEST, USER_LOADED, USER_DELETED, USER_ADDED, USER_UPDATED, USER_FAILURE,
     TYPE_REQUEST, TYPE_LOADED, TYPE_DELETED, TYPE_ADDED, TYPE_UPDATED, TYPE_BYNAME_LOADED, TYPE_FAILURE,
     OPEN_PASSWORD_MODAL, CLOSE_PASSWORD_MODAL, OPEN_SELECT_ICON_MODAL, CLOSE_SELECT_ICON_MODAL,
-    UNITS_REQUEST, UNITS_LOADED, UNIT_REQUEST, UNIT_ADDED, UNIT_DELETED, UNIT_UPDATED, UNIT_FAILURE, UNIT_LOADED, UNIT_SELECTED, ROOTUNIT_LOADED,
+    UNITS_REQUEST, UNITS_LOADED, UNIT_REQUEST, UNIT_ADDED, UNIT_DELETED, UNIT_UPDATED, UNIT_FAILURE, UNIT_LOADED, UNIT_SELECTED, ROOTUNIT_LOADED, SET_RIGHTS,
 } from "./actions";
+
+function createDefaultRights() {
+    const paths = ["users", "org-unit-types", "org-units", "categories", "engine-settings", "imports"];
+    const rightsFormatted = {
+    };
+
+    for (let i = 0; i < paths.length; i += 1) {
+        rightsFormatted[paths[i]] = {
+            delete: false,
+            put: false,
+            post: false,
+            get: false,
+        };
+    }
+    return rightsFormatted;
+}
 
 // The auth reducer. The starting state sets authentication
 // based on a token being in local storage. In a real app,
@@ -118,6 +134,7 @@ function auth(state = {
     user: {
         expired: false,
     },
+    rights: createDefaultRights(),
 }, action) {
     switch (action.type) {
         case LOGIN_REQUEST:
@@ -144,11 +161,13 @@ function auth(state = {
                 isFetching: false,
                 isAuthenticated: false,
                 failureCounter: state.failureCounter + 1,
+                rights: createDefaultRights(),
             });
         case LOGOUT_SUCCESS:
             return Object.assign({}, state, {
                 isFetching: false,
                 isAuthenticated: false,
+                rights: createDefaultRights(),
             });
         case TOKEN_REQUEST:
             return Object.assign({}, state, {
@@ -166,6 +185,12 @@ function auth(state = {
             return Object.assign({}, state, {
                 isFetching: false,
                 isAuthenticated: false,
+                rights: createDefaultRights(),
+            });
+        case SET_RIGHTS:
+            return Object.assign({}, state, {
+                isFetching: false,
+                rights: action.rights,
             });
         default:
             return state;
@@ -334,6 +359,8 @@ function units(state = {
             return state;
     }
 }
+
+
 
 // We combine the reducers here so that they
 // can be left split apart above
