@@ -4,7 +4,7 @@ import {connect} from "react-redux";
 import {FormattedMessage} from "react-intl";
 import FormattedInput from "../components/i18n/FormattedInput";
 import FormattedTypeahead from "../components/i18n/FormattedTypeahead";
-import {updateOrgUnit, createOrgUnit, getAllOrgUnits} from "../actions";
+import {updateOrgUnit, createOrgUnit, getAllOrgUnits, selectUnit} from "../actions";
 
 class OrganizationUnitAddEdit extends React.Component {
     constructor(props) {
@@ -74,8 +74,13 @@ class OrganizationUnitAddEdit extends React.Component {
             parentKbaOuName: this.state.edit ? this.state.parentKbaOuName : this.state.selectedParentUnit[0],
             kbaOuTypeName: this.state.selectedType ? this.state.selectedType[0] : "",
         };
-        (this.state.edit) ? this.updateUnit(this.state.nameNotModified, newUnit) : this.createUnit(newUnit);
-        this.reset();
+        if (this.state.edit) {
+            this.updateUnit(this.state.nameNotModified, newUnit);
+            this.props.dispatch(selectUnit(newUnit));
+        } else {
+            this.createUnit(newUnit);
+            this.reset();
+        }
     }
 
     clear(event) {
@@ -108,7 +113,6 @@ class OrganizationUnitAddEdit extends React.Component {
     }
 
     handleTypeChange(item) {
-        console.log("item", item);
         this.setState({
             selectedType: item,
         });

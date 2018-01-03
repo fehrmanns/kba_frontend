@@ -359,8 +359,8 @@ function requestOrgUnit() {
 }
 
 export function getOrgUnit(unitName) {
-    requestOrgUnit();
     // TODO: make it work.
+    requestOrgUnit();
     return {
         [CALL_API]: {
             endpoint: `management/org-units/${unitName}`,
@@ -415,16 +415,16 @@ function sendOrgUnitUpdate(unitName, unit) {
     };
 }
 
-export function resetUnitUpdateStatus() {
-    return {
-        type: RESET_UNIT_UPDATE_STATUS,
-    };
-}
-
 export function updateOrgUnit(unitName, unit) {
     return (dispatch) => {
         dispatch(orgUnitToUpdate(unitName, unit));
         dispatch(sendOrgUnitUpdate(unitName, unit));
+    };
+}
+
+export function resetUnitUpdateStatus() {
+    return {
+        type: RESET_UNIT_UPDATE_STATUS,
     };
 }
 

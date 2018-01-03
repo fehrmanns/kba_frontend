@@ -278,6 +278,7 @@ function units(state = {
     unitTree: {},
     selectedUnit: {},
     typeNames: [],
+    updateSuccess: false,
 }, action) {
     // TODO: define all types
     switch (action.type) {
