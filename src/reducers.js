@@ -352,6 +352,7 @@ function units(state = {
 
 function categories(state = {
     isFetching: false,
+    bundle: [],
 }, action) {
     switch (action.type) {
         case CATEGORY_REQUEST:
@@ -361,6 +362,7 @@ function categories(state = {
         case CATEGORY_LOADED:
             return Object.assign({}, state, {
                 isFetching: false,
+                bundle: action.response.kbaCategoryDtos,
             });
         case CATEGORY_ADDED:
             return Object.assign({}, state, {

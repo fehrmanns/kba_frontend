@@ -61,6 +61,7 @@
         "input.KbaOuSelectionPlaceholder":"belongs to...",
         "input.categoryname": "Category",
         "input.categoryNameError": "shouldn't be empty.",
+        "input.categorydescription": "Description",
 
         "button.submit": "Submit",
         "button.user.create": "Create user",

@@ -155,9 +155,8 @@ class OrganizationUnitTypeAddNew extends React.Component {
                             {this.state.iconLocation ?
                                 <IconItem icon={this.state.iconLocation} size={32} titleId="button.select.icon" selectedItem={this.openIconModal} />
                                 :
-                                <button className="btn btn-default" onClick={this.openIconModal}><FormattedMessage
-                                    id="button.select.icon"
-                                />
+                                <button className="btn btn-default" onClick={this.openIconModal}>
+                                    <FormattedMessage id="button.select.icon" />
                                 </button>
                             }
                         </div>

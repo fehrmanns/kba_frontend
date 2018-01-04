@@ -2,7 +2,7 @@ import React from "react";
 import {connect} from "react-redux";
 import PropTypes from "prop-types";
 import {FormattedMessage} from "react-intl";
-import {openSelectIconModal, closeSelectIconModal} from "./../actions";
+import {openSelectIconModal, closeSelectIconModal, addCategory, getCategories} from "./../actions";
 import FormattedInput from "../components/i18n/FormattedInput";
 import IconItem from "./IconItem";
 
@@ -12,14 +12,15 @@ class CategoryManagementAddNew extends React.Component {
 
         this.state = {
             iconLocation: "",
-            categoryName: "",
+            name: "",
+            description: "",
             categoryNameIsValid: true,
         };
 
-        // TODO: bring data to life.
-        // this.props.dispatch();
         this.onSelectIcon = this.onSelectIcon.bind(this);
         this.openIconModal = this.openIconModal.bind(this);
+        this.handleChange = this.handleChange.bind(this);
+        this.sendData = this.sendData.bind(this);
     }
 
     onSelectIcon(icon) {
@@ -32,7 +33,7 @@ class CategoryManagementAddNew extends React.Component {
     resetData() {
         this.setState({
             iconLocation: "",
-            categoryName: "",
+            name: "",
             categoryNameIsValid: true,
         });
     }
@@ -40,19 +41,18 @@ class CategoryManagementAddNew extends React.Component {
     sendData(event) {
         event.preventDefault();
 
-        // const nameIsValid = !!this.state.name;
-        //
-        // this.setState({
-        //     nameIsValid,
-        // });
-        //
-        // if (!nameIsValid) return;
+        const categoryNameIsValid = !!this.state.name;
 
-        // const newType = {...this.state};
-        // delete newType.nameIsValid;
-        // delete newType.childrenKbaOuTypesSelected;
+        this.setState({
+            categoryNameIsValid,
+        });
 
-        // this.props.sendData(JSON.stringify(newType));
+        if (!categoryNameIsValid) return;
+
+        const newType = {...this.state};
+        delete newType.categoryNameIsValid;
+
+        this.props.dispatch(addCategory(JSON.stringify(newType))).then(() => this.props.dispatch(getCategories()));
         this.resetData();
     }
 
@@ -63,11 +63,24 @@ class CategoryManagementAddNew extends React.Component {
 
     handleChange(event) {
         event.preventDefault();
-
-        this.setState({
-            categoryName: event.target.value,
-            categoryNameIsValid: true,
-        });
+        const targetName = event.target.id.replace("category", "").replace(/\b[A-Z]/g, letter => letter.toLowerCase());
+        switch (targetName) {
+            case "name":
+                this.setState({
+                    name: event.target.value,
+                    categoryNameIsValid: true,
+                });
+                break;
+            case "description":
+                this.setState({
+                    [targetName]: event.target.value,
+                });
+                break;
+            default:
+                this.setState({
+                    [targetName]: event.target.value,
+                });
+        }
     }
 
     render() {
@@ -81,7 +94,7 @@ class CategoryManagementAddNew extends React.Component {
                     </div>
                 </div>
                 <div className="row">
-                    <div className={categoryNameError ? "form-group has-error col-sm-6" : "form-group col-sm-6"}>
+                    <div className={categoryNameError ? "form-group has-error col-sm-4" : "form-group col-sm-4"}>
                         <label className="control-label" htmlFor="categoryName">
                             <FormattedMessage id="input.categoryname" />&nbsp;
                             {categoryNameError && <FormattedMessage id="input.categoryNameError" />}
@@ -92,10 +105,25 @@ class CategoryManagementAddNew extends React.Component {
                             className="form-control"
                             placeholder="input.categoryname"
                             onChange={this.handleChange}
-                            value={this.state.categoryName}
+                            value={this.state.name}
                         />
                     </div>
-                    <div className="form-group col-md-3">
+                    <div className="form-group col-sm-8">
+                        <label className="control-label" htmlFor="categoryDescription">
+                            <FormattedMessage id="input.categorydescription" />
+                        </label>
+                        <FormattedInput
+                            type="text"
+                            id="categoryDescription"
+                            className="form-control"
+                            placeholder="input.categorydescription"
+                            onChange={this.handleChange}
+                            value={this.state.description}
+                        />
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="form-group col-md-6">
                         <FormattedMessage
                             tagName="label"
                             id="label.select.icon"
@@ -105,14 +133,13 @@ class CategoryManagementAddNew extends React.Component {
                             {this.state.iconLocation ?
                                 <IconItem icon={this.state.iconLocation} size={32} titleId="button.select.icon" selectedItem={this.openIconModal} />
                                 :
-                                <button className="btn btn-default" onClick={this.openIconModal}><FormattedMessage
-                                    id="button.select.icon"
-                                />
+                                <button className="btn btn-default" onClick={this.openIconModal}>
+                                    <FormattedMessage id="button.select.icon" />
                                 </button>
                             }
                         </div>
                     </div>
-                    <div className="form-group col-md-3">
+                    <div className="form-group col-md-6">
                         <button className="btn btn-primary pull-right label-margin" onClick={this.sendData}>
                             <FormattedMessage id="button.category.create" />
                         </button>

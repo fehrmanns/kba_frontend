@@ -25,8 +25,6 @@ class Categorysettings extends React.Component {
     }
 
     render() {
-        const categoryList = true;
-
         return (
             <div className="categorymanagement">
                 <div className="row">
@@ -34,40 +32,36 @@ class Categorysettings extends React.Component {
                         <FormattedMessage tagName="h1" id="view.category.title" />
                     </div>
                 </div>
-                {categoryList ?
-                    <div>
-                        <div className="row">
-                            <div className="col-xs-12">
-                                <button
-                                    className="btn btn-primary pull-right"
-                                    onClick={() => this.toggleAddCategory()}
-                                >
-                                    {this.state.open ?
-                                        <FormattedMessage id="button.category.closeform" />
-                                        :
-                                        <FormattedMessage id="button.category.openform" />
-                                    }
-                                </button>
-                            </div>
-                        </div>
-                        <div className="row">
-                            <div className="col-xs-12">
-                                <Collapse in={this.state.open}>
-                                    <div>
-                                        <CategoryManagementAddNew sendData={newUser => this.addNewUser(newUser)} />
-                                    </div>
-                                </Collapse>
-                            </div>
-                        </div>
-                        <div className="row">
-                            <div className="col-xs-12">
-                                <CategoryManagementList />
-                            </div>
+                <div>
+                    <div className="row">
+                        <div className="col-xs-12">
+                            <button
+                                className="btn btn-primary pull-right"
+                                onClick={() => this.toggleAddCategory()}
+                            >
+                                {this.state.open ?
+                                    <FormattedMessage id="button.category.closeform" />
+                                    :
+                                    <FormattedMessage id="button.category.openform" />
+                                }
+                            </button>
                         </div>
                     </div>
-                    :
-                    <div className="loader">Loading...</div>
-                }
+                    <div className="row">
+                        <div className="col-xs-12">
+                            <Collapse in={this.state.open}>
+                                <div>
+                                    <CategoryManagementAddNew sendData={newUser => this.addNewUser(newUser)} />
+                                </div>
+                            </Collapse>
+                        </div>
+                    </div>
+                    <div className="row">
+                        <div className="col-xs-12">
+                            <CategoryManagementList />
+                        </div>
+                    </div>
+                </div>
             </div>
         );
     }

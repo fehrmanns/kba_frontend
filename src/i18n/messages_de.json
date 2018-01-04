@@ -61,6 +61,7 @@
         "input.KbaOuSelectionPlaceholder":"gehört zu...",
         "input.categoryname": "Kategorie",
         "input.categoryNameError": "darf nicht leer sein.",
+        "input.categorydescription": "Beschreibung",
 
         "button.submit": "Absenden",
         "button.user.create": "Benutzer anlegen",
