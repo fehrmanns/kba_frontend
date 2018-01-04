@@ -6,7 +6,7 @@ import {
     USER_REQUEST, USER_LOADED, USER_DELETED, USER_ADDED, USER_UPDATED, USER_FAILURE,
     TYPE_REQUEST, TYPE_LOADED, TYPE_DELETED, TYPE_ADDED, TYPE_UPDATED, TYPE_BYNAME_LOADED, TYPE_FAILURE,
     OPEN_PASSWORD_MODAL, CLOSE_PASSWORD_MODAL, OPEN_SELECT_ICON_MODAL, CLOSE_SELECT_ICON_MODAL,
-    UNITS_REQUEST, UNITS_LOADED, UNIT_REQUEST, UNIT_ADDED, UNIT_DELETED, UNIT_UPDATE_REQUEST, RESET_UNIT_UPDATE_STATUS, UNIT_UPDATED, UNIT_FAILURE, UNIT_LOADED, UNIT_SELECTED, ROOTUNIT_LOADED, SET_RIGHTS,
+    UNITS_REQUEST, UNITS_LOADED, UNIT_REQUEST, UNIT_ADDED, UNIT_DELETED, UNIT_UPDATE_REQUEST, RESET_UNIT_UPDATE_STATUS, UNIT_UPDATED, UNIT_FAILURE, UNIT_LOADED, UNIT_SELECTED, ROOTUNIT_LOADED, SET_RIGHTS, SET_EXPIRED_VALUE,
 } from "./actions";
 
 function createDefaultRights() {
@@ -191,6 +191,12 @@ function auth(state = {
                 isFetching: false,
                 rights: action.rights,
             });
+        case SET_EXPIRED_VALUE:
+            return Object.assign({}, state, {
+                user: Object.assign({}, state.user, {
+                    expired: action.expired,
+                }),
+            });
         default:
             return state;
     }
@@ -373,7 +379,6 @@ function units(state = {
             return state;
     }
 }
-
 
 
 // We combine the reducers here so that they

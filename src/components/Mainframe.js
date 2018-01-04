@@ -54,7 +54,7 @@ class Mainframe extends React.Component {
         if (isAuthenticated && profile.expired) {
             this.props.dispatch(openPasswordModal(profile, "static"));
         }
-        if (isAuthenticated && (isAuthenticated !== this.props.isAuthenticated)) {
+        if (isAuthenticated && (((isAuthenticated !== this.props.isAuthenticated) && !profile.expired) || (!profile.expired && (profile.expired !== this.props.expired)))) {
             this.checkToken();
         }
     }
@@ -140,16 +140,19 @@ Mainframe.propTypes = {
     dispatch: PropTypes.func.isRequired,
     auth: PropTypes.object.isRequired,
     isAuthenticated: PropTypes.bool.isRequired,
+    expired: PropTypes.bool.isRequired,
 };
 
 function mapStateToProps(state) {
     const {auth, tokenIsValid} = state;
     const {isAuthenticated} = auth;
+    const {expired} = auth.user;
 
     return {
         auth,
         tokenIsValid,
         isAuthenticated,
+        expired,
     };
 }
 

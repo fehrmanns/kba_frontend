@@ -101,10 +101,28 @@ class UserManagementListItem extends React.Component {
         return (
             <tr className={!activeUser && "deactivated"}>
                 <td><span>{user.loginName}</span></td>
-                <td><input id={`tableInputFirstName-${user.loginName}`} onChange={this.handleChange} value={this.state.firstName} /></td>
-                <td><input id={`tableInputLastName-${user.loginName}`} onChange={this.handleChange} value={this.state.lastName} /></td>
                 <td>
-                    {(user.loginName !== currentUser.loginName) ?
+                    {this.props.rights.users.put ?
+                        <input
+                            id={`tableInputFirstName-${user.loginName}`}
+                            onChange={this.handleChange}
+                            value={this.state.firstName}
+                        />
+                        :
+                        <span>{this.state.firstName}</span>
+                    }
+                </td>
+                <td>{this.props.rights.users.put ?
+                    <input
+                        id={`tableInputLastName-${user.loginName}`}
+                        onChange={this.handleChange}
+                        value={this.state.lastName}
+                    />
+                    : <span>{this.state.firstName}</span>
+                }
+                </td>
+                <td>
+                    {(user.loginName !== currentUser.loginName && this.props.rights.users.put) ?
                         <FormattedDropDown id="newUser.roleName.selection" bsStyle="link" titleId={roleDropDownTitleId} onSelect={this.handleSelection}>
                             <MenuItem eventKey="admin"><FormattedMessage id="dropdown.role.admin" /></MenuItem>
                             <MenuItem eventKey="supervisor"><FormattedMessage id="dropdown.role.supervisor" /></MenuItem>
@@ -120,7 +138,7 @@ class UserManagementListItem extends React.Component {
                         clearButton
                         labelKey="name"
                         multiple
-                        disabled={(user.loginName === currentUser.loginName)}
+                        disabled={(user.loginName === currentUser.loginName) || !this.props.rights.users.put}
                         placeholder="input.childrenKbaOuTypeNamesSelection"
                         options={unitNames}
                         onChange={this.handleUnitChange}
@@ -145,19 +163,25 @@ class UserManagementListItem extends React.Component {
                 </td>
                 */}
                 <td className="button-td">
-                    <FormattedButton title="button.user.changePassword" className="btn btn-xs btn-default" onClick={() => this.props.dispatch(openPasswordModal(user))}>
+                    {this.props.rights.users.put &&
+                    <FormattedButton
+                        title="button.user.changePassword"
+                        className="btn btn-xs btn-default"
+                        onClick={() => this.props.dispatch(openPasswordModal(user))}
+                    >
                         <span className="glyphicon glyphicon-lock" />
                     </FormattedButton>
+                    }
                 </td>
                 <td className="button-td">
-                    {(user.loginName !== currentUser.loginName) &&
+                    {(user.loginName !== currentUser.loginName && this.props.rights.users.put) &&
                     <FormattedButton title={activeUser ? "button.user.deactivate" : "button.user.activate"} className={activeUser ? "btn btn-xs btn-warning" : "btn btn-xs btn-info"} onClick={() => this.toggleUser()}>
                         {activeUser ? <span className="glyphicon glyphicon-pause" /> : <span className="glyphicon glyphicon-play" />}
                     </FormattedButton>
                     }
                 </td>
 
-                {modified ?
+                {(modified && this.props.rights.users.put) ?
                     <td className="button-td">
                         <FormattedButton title="button.user.update" className="btn btn-xs btn-success" onClick={() => this.handleUpdate()}>
                             <span className="glyphicon glyphicon-pencil" />

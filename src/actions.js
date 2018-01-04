@@ -50,6 +50,8 @@ export const UNIT_UPDATE_REQUEST = "UNIT_UPDATE_REQUEST";
 export const RESET_UNIT_UPDATE_STATUS = "RESET_UNIT_UPDATE_STATUS";
 export const SET_RIGHTS = "SET_RIGHTS";
 
+export const SET_EXPIRED_VALUE = "SET_EXPIRED_VALUE";
+
 function serverError(message) {
     return {
         type: SERVER_ERROR,
@@ -110,6 +112,13 @@ export function setRights(rights) {
 export function closeSelectIconModal() {
     return {
         type: CLOSE_SELECT_ICON_MODAL,
+    };
+}
+
+export function setExpiredValue() {
+    return {
+        type: SET_EXPIRED_VALUE,
+        expired: false,
     };
 }
 
