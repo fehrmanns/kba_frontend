@@ -83,8 +83,26 @@ class Mainframe extends React.Component {
         const showNavigation = !passwordExpired && isAuthenticated;
         const localeMessages = Object.assign({}, en, de);
         const langMsg = localeMessages[this.state.lang];
+        const {rights} = this.props;
 
         let content = "";
+
+        const PrivateRoute = ({ component: Component, ...rest }) => (
+            <Route
+                {...rest}
+                render={props => (
+                    rights.pathMapping.hasPermissionsForPath(rest.path.substr(1, rest.path.length)) ? (
+                        <Component {...props} />
+                    ) : (
+                        <Redirect to={{
+                            pathname: "/",
+                            state: { from: props.location },
+                        }}
+                        />
+                    )
+                )}
+            />
+        );
 
         if (isAuthenticated === false || isAuthenticated === undefined) {
             content = <Route component={Login} />;
@@ -95,17 +113,17 @@ class Mainframe extends React.Component {
                 <div className={(this.state.sitebar === true) ? "show container-fluid" : "container-fluid"}>
                     <Route exact path="/login" render={() => (<Redirect to="/" />)} />
                     <Route exact path="/" component={Home} />
-                    <Route exact path="/recordings" component={Recordings} />
-                    <Route exact path="/biometricprofiles" component={BiometricProfiles} />
-                    <Route exact path="/matchlist" component={Matchlist} />
-                    <Route exact path="/topics" component={Matchall} />
-                    <Route exact path="/fileimport" component={Fileimport} />
-                    <Route exact path="/joblist" component={Joblist} />
-                    <Route exact path="/importsettings" component={Importsettings} />
-                    <Route exact path="/usersettings" component={Usersettings} />
-                    <Route exact path="/organisationsettings" component={Organisationsettings} />
-                    <Route exact path="/categorysettings" component={Categorysettings} />
-                    <Route exact path="/license" component={License} />
+                    <PrivateRoute exact path="/recordings" component={Recordings} />
+                    <PrivateRoute exact path="/biometricprofiles" component={BiometricProfiles} />
+                    <PrivateRoute exact path="/matchlist" component={Matchlist} />
+                    <PrivateRoute exact path="/topics" component={Matchall} />
+                    <PrivateRoute exact path="/fileimport" component={Fileimport} />
+                    <PrivateRoute exact path="/joblist" component={Joblist} />
+                    <PrivateRoute exact path="/importsettings" component={Importsettings} />
+                    <PrivateRoute exact path="/usersettings" component={Usersettings} />
+                    <PrivateRoute exact path="/organisationsettings" component={Organisationsettings} />
+                    <PrivateRoute exact path="/categorysettings" component={Categorysettings} />
+                    <PrivateRoute exact path="/license" component={License} />
                 </div>
             );
         }
@@ -141,11 +159,12 @@ Mainframe.propTypes = {
     auth: PropTypes.object.isRequired,
     isAuthenticated: PropTypes.bool.isRequired,
     expired: PropTypes.bool.isRequired,
+    rights: PropTypes.object.isRequired,
 };
 
 function mapStateToProps(state) {
     const {auth, tokenIsValid} = state;
-    const {isAuthenticated} = auth;
+    const {isAuthenticated, rights} = auth;
     const {expired} = auth.user;
 
     return {
@@ -153,6 +172,7 @@ function mapStateToProps(state) {
         tokenIsValid,
         isAuthenticated,
         expired,
+        rights,
     };
 }
 

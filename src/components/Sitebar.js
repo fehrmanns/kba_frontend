@@ -6,7 +6,6 @@ import PropTypes from "prop-types";
 import "./../css/sitebar.css";
 
 class Sitebar extends React.Component {
-
     render() {
         const {rights} = this.props;
         return (
@@ -42,12 +41,12 @@ class Sitebar extends React.Component {
                     <li>
                         <Link to="/importsettings"><FormattedMessage id="menu.sitebar.settings.import" /></Link>
                     </li>
-                    {(rights.users.hasPermissions()) &&
+                    {rights.pathMapping.hasPermissionsForPath("usersettings") &&
                     <li>
                         <Link to="/usersettings"><FormattedMessage id="menu.sitebar.settings.user" /></Link>
                     </li>
                     }
-                    {(rights["org-units"].hasPermissions() || rights["org-unit-types"].hasPermissions()) &&
+                    {rights.pathMapping.hasPermissionsForPath("organisationsettings") &&
                     <li>
                         <Link to="/organisationsettings"><FormattedMessage
                             id="menu.sitebar.settings.organisation"

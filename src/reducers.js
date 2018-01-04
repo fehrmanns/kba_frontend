@@ -11,9 +11,9 @@ import {
 
 function createDefaultRights() {
     const paths = ["users", "org-unit-types", "org-units", "categories", "engine-settings", "imports"];
+
     const rightsFormatted = {
     };
-
     for (let i = 0; i < paths.length; i += 1) {
         rightsFormatted[paths[i]] = {
             delete: false,
@@ -26,6 +26,24 @@ function createDefaultRights() {
 
         };
     }
+
+    const pathMapping = {
+        usersettings: ["users"],
+        organisationsettings: ["org-unit-types", "org-units"],
+        categorysettings: ["categories"],
+        importsettings: ["engine-settings"],
+        recordings: ["imports"],
+        hasPermissionsForPath(path) {
+            const length = this[path] ? this[path].length : 0;
+            for (let i = 0; i < length; i += 1) {
+                if (rightsFormatted[this[path][i]].hasPermissions()) {
+                    return true;
+                }
+            }
+            return false;
+        },
+    };
+    rightsFormatted.pathMapping = pathMapping;
     return rightsFormatted;
 }
 
