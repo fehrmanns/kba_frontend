@@ -51,6 +51,7 @@ export const RESET_UNIT_UPDATE_STATUS = "RESET_UNIT_UPDATE_STATUS";
 export const SET_RIGHTS = "SET_RIGHTS";
 
 export const SET_EXPIRED_VALUE = "SET_EXPIRED_VALUE";
+export const PASSWORD_REQUEST = "PASSWORD_REQUEST";
 
 function serverError(message) {
     return {
@@ -279,6 +280,18 @@ export function updateUser(user) {
             authenticated: true,
             method: "PUT",
             types: [USER_REQUEST, USER_UPDATED, USER_FAILURE],
+            json: JSON.stringify(user),
+        },
+    };
+}
+
+export function updateUserPassword(user) {
+    return {
+        [CALL_API]: {
+            endpoint: `management/users/${user.loginName}`,
+            authenticated: true,
+            method: "PUT",
+            types: [PASSWORD_REQUEST, USER_UPDATED, USER_FAILURE],
             json: JSON.stringify(user),
         },
     };
