@@ -84,6 +84,7 @@
         "button.category.closeform": "Close form",
         "button.category.openform": "New category",
         "button.category.create": "Create category",
+        "button.category.delete": "Delete category",
 
         "label.select.icon":"Icon",
 
@@ -156,6 +157,7 @@
         "categorymanagement.list.headline":"Category overview",
         "categorymanagement.list.icon":"Icon",
         "categorymanagement.list.name": "Name",
+        "categorymanagement.list.description": "Description",
 
         "organisationsettings.administration.title": "Organization",
         "organisationtypes.administration.title": "Organizational unit types",

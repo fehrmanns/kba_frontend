@@ -84,6 +84,7 @@
         "button.category.closeform": "Eingabe schließen",
         "button.category.openform": "Neue Kategorie",
         "button.category.create": "Kategorie erstellen",
+        "button.category.delete": "Kategorie löschen",
 
         "label.select.icon":"Icon",
 
@@ -167,6 +168,7 @@
         "unittypes.list.artifactsEnabled": "Artefakte zuweisbar",
         "unittypes.list.childTypes": "Untertypen",
         "unittypemanagement.addnew.headline": "Neuen Organisationseinheitstyp erstellen",
+        "categorymanagement.list.description": "Beschreibung",
 
         "unitmanagement.addnew.headline":"Neue Organisationseinheit erstellen",
         "unitmanagement.edit.headline":"Organisationseinheit bearbeiten",

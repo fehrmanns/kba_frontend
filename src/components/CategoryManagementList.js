@@ -21,7 +21,6 @@ class CategoryManagementList extends React.Component {
     }
 
     render() {
-        console.log("bundle", this.props.bundle);
         const categoryList = this.props.bundle;
 
         return (
@@ -33,11 +32,11 @@ class CategoryManagementList extends React.Component {
                             <tr>
                                 <th><FormattedMessage id="categorymanagement.list.icon" /></th>
                                 <th><FormattedMessage id="categorymanagement.list.name" /></th>
+                                <th><FormattedMessage id="categorymanagement.list.description" /></th>
                                 {/*
                             <th><FormattedMessage id="usermanagement.list.modified"/></th>
                             <th><FormattedMessage id="usermanagement.list.modifiedBy"/></th>
                             */}
-                                <th>{/* placeholder for button */}</th>
                                 <th>{/* placeholder for button */}</th>
                             </tr>
                         </thead>
@@ -62,7 +61,7 @@ CategoryManagementList.propTypes = {
 
 function mapStateToProps(state) {
     const {categories} = state;
-    const {bundle, isFetching} = categories;
+    const {bundle} = categories;
 
     return {
         bundle,

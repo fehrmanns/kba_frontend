@@ -102,7 +102,7 @@ class OrganizationUnitTypeListItem extends React.Component {
 
 
         return (
-            <tr >
+            <tr>
                 <td><input id="tableInputName" onChange={this.handleChange} value={this.state.name} /></td>
                 <td><input id="tableInputAbbreviation" onChange={this.handleChange} value={this.state.abbreviation} /></td>
                 <td>

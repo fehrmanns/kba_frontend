@@ -34,6 +34,7 @@ class CategoryManagementAddNew extends React.Component {
         this.setState({
             iconLocation: "",
             name: "",
+            description: "",
             categoryNameIsValid: true,
         });
     }
