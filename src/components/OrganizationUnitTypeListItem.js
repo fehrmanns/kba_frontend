@@ -1,4 +1,5 @@
 import React from "react";
+import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import {Checkbox} from "react-bootstrap";
 import { FormattedMessage} from "react-intl";
@@ -99,21 +100,38 @@ class OrganizationUnitTypeListItem extends React.Component {
         const modified = nameModified || abbreviationModified || containsArtifactsModified || containsUsersModified || iconLocationModified || childrenModified;
         const allTypeNames = this.props.types.map(item => item.name);
         const type = this.props.typeItem;
-
+        const {rights} = this.props;
 
         return (
+
             <tr >
-                <td><input id="tableInputName" onChange={this.handleChange} value={this.state.name} /></td>
-                <td><input id="tableInputAbbreviation" onChange={this.handleChange} value={this.state.abbreviation} /></td>
+                <td>
+                    {(rights["org-unit-types"].put) ?
+                        <input id="tableInputName" onChange={this.handleChange} value={this.state.name} />
+                        :
+                        <span>{this.state.name}</span>
+                    }
+                </td>
+                <td>
+                    {(rights["org-unit-types"].put) ?
+                        <input id="tableInputAbbreviation" onChange={this.handleChange} value={this.state.abbreviation} />
+                        :
+                        <span>{this.state.abbreviation}</span>
+                    }
+                </td>
                 <td>
                     <div className="icon-area">
-                        {this.state.iconLocation ?
-                            <IconItem icon={this.state.iconLocation} titleId="button.select.icon" selectedItem={() => this.props.dispatch(openSelectIconModal(this.onSelectIcon))} />
-                            :
-                            <button className="btn btn-xs btn-default" onClick={() => this.props.dispatch(openSelectIconModal(this.onSelectIcon))}><FormattedMessage
-                                id="button.select.icon"
-                            />
-                            </button>
+                        {this.state.iconLocation &&
+                        <IconItem
+                            icon={this.state.iconLocation}
+                            titleId="button.select.icon"
+                            selectedItem={rights["org-unit-types"].put ? () => this.props.dispatch(openSelectIconModal(this.onSelectIcon)) : () => {}}
+                        />
+                        }
+                        {!this.state.iconLocation && rights["org-unit-types"].put &&
+                        <button className="btn btn-xs btn-default" onClick={() => this.props.dispatch(openSelectIconModal(this.onSelectIcon))} >
+                            <FormattedMessage id="button.select.icon" />
+                        </button>
                         }
                     </div>
                 </td>
@@ -124,6 +142,7 @@ class OrganizationUnitTypeListItem extends React.Component {
                         this.compareBool("containsUsers", !this.state.containsUsers);
                     }}
                     checked={this.state.containsUsers}
+                    disabled={!rights["org-unit-types"].put}
                 />
                 </td>
                 <td><Checkbox
@@ -133,6 +152,7 @@ class OrganizationUnitTypeListItem extends React.Component {
                         this.compareBool("containsArtifacts", !this.state.containsArtifacts);
                     }}
                     checked={this.state.containsArtifacts}
+                    disabled={!rights["org-unit-types"].put}
                 />
                 </td>
                 <td>
@@ -145,14 +165,17 @@ class OrganizationUnitTypeListItem extends React.Component {
                         options={allTypeNames}
                         onChange={this.handleSubTypeChange}
                         selected={this.state.childrenKbaOuTypeNames}
+                        disabled={!rights["org-unit-types"].put}
                     />
                 </td>
-                {modified ?
-                    <td className="text-center">
-                        <button className="btn btn-xs btn-warning" onClick={this.handleUpdate}>
-                            <FormattedMessage id="button.save" />
-                        </button>
-                    </td> :
+                {modified && rights["org-unit-types"].put &&
+                <td className="text-center">
+                    <button className="btn btn-xs btn-warning" onClick={this.handleUpdate}>
+                        <FormattedMessage id="button.save" />
+                    </button>
+                </td>
+                }
+                {!modified && rights["org-unit-types"].delete &&
                     <td className="text-center">
                         <button className="btn btn-xs btn-danger" onClick={() => this.props.deleteType(type.name)}>
                             <FormattedMessage id="button.type.delete" />
@@ -170,6 +193,16 @@ OrganizationUnitTypeListItem.propTypes = {
     updateType: PropTypes.func.isRequired,
     deleteType: PropTypes.func.isRequired,
     types: PropTypes.array.isRequired,
+    rights: PropTypes.object.isRequired,
 };
 
-export default OrganizationUnitTypeListItem;
+function mapStateToProps(state) {
+    const {auth} = state;
+    const {rights} = auth;
+
+    return {
+        rights,
+    };
+}
+
+export default connect(mapStateToProps)(OrganizationUnitTypeListItem);

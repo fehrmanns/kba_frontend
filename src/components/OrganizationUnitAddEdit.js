@@ -31,23 +31,25 @@ class OrganizationUnitAddEdit extends React.Component {
 
     componentWillReceiveProps(nextProps) {
         const toEdit = !!nextProps.selectedUnit.name;
-        this.setState({
-            nameNotModified: nextProps.selectedUnit.name,
-            name: nextProps.selectedUnit.name,
-            parentKbaOuName: nextProps.selectedUnit.parentKbaOuName,
-            selectedParentUnit: [],
-            nameIsValid: true,
-            typeIsValid: true,
-            parentIsValid: true,
-            edit: toEdit,
-        });
-        if (nextProps.selectedUnit.kbaOuTypeName && this.state.selectedType[0] !== nextProps.selectedUnit.kbaOuTypeName) {
-            const selectedTypeArray = [];
-            selectedTypeArray[0] = nextProps.selectedUnit.kbaOuTypeName ? nextProps.selectedUnit.kbaOuTypeName : "";
-
+        if (this.props.rights["org-units"].put) {
             this.setState({
-                selectedType: selectedTypeArray,
+                nameNotModified: nextProps.selectedUnit.name,
+                name: nextProps.selectedUnit.name,
+                parentKbaOuName: nextProps.selectedUnit.parentKbaOuName,
+                selectedParentUnit: [],
+                nameIsValid: true,
+                typeIsValid: true,
+                parentIsValid: true,
+                edit: toEdit,
             });
+            if (nextProps.selectedUnit.kbaOuTypeName && this.state.selectedType[0] !== nextProps.selectedUnit.kbaOuTypeName) {
+                const selectedTypeArray = [];
+                selectedTypeArray[0] = nextProps.selectedUnit.kbaOuTypeName ? nextProps.selectedUnit.kbaOuTypeName : "";
+
+                this.setState({
+                    selectedType: selectedTypeArray,
+                });
+            }
         }
     }
 
@@ -140,6 +142,7 @@ class OrganizationUnitAddEdit extends React.Component {
         const types = this.props.types.map(item => item.name);
         const unitNames = this.props.unitList.map(item => item.name);
         const {name} = this.state;
+        const {rights} = this.props;
 
         return (
             <form className="highlight" onSubmit={this.handleSubmit}>
@@ -225,14 +228,16 @@ class OrganizationUnitAddEdit extends React.Component {
                 </div>
                 <div className="row">
                     <div className="form-group col-xs-12">
-                        {this.state.edit ?
-                            <button className="btn btn-primary pull-right" onClick={this.sendData}>
-                                <FormattedMessage id="button.save" />
-                            </button>
-                            :
+                        {(this.state.edit && rights["org-units"].put) &&
+                        <button className="btn btn-primary pull-right" onClick={this.sendData}>
+                            <FormattedMessage id="button.save" />
+                        </button>
+                        }
+                        {(!this.state.edit && rights["org-units"].post) &&
                             <button className="btn btn-primary pull-right" onClick={this.sendData}>
                                 <FormattedMessage id="button.unit.create" />
-                            </button>}
+                            </button>
+                        }
                     </div>
                 </div>
             </form>
@@ -246,17 +251,19 @@ OrganizationUnitAddEdit.propTypes = {
     dispatch: PropTypes.func.isRequired,
     typeNames: PropTypes.array.isRequired,
     unitList: PropTypes.array.isRequired,
+    rights: PropTypes.object.isRequired,
 };
 
 function mapStateToProps(state) {
-    const {units, unittypes} = state;
+    const {units, unittypes, auth} = state;
     const {selectedUnit} = units;
     const types = unittypes.list;
     const {typeNames} = units;
     const unitList = units.list;
+    const {rights} = auth;
 
     return {
-        selectedUnit, types, typeNames, unitList,
+        selectedUnit, types, typeNames, unitList, rights,
     };
 }
 

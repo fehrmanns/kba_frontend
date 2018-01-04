@@ -54,53 +54,67 @@ class Organisationsettings extends React.Component {
 
     render() {
         const {
-            typeList, typesAreLoaded, dispatch, allUnits,
+            typeList, typesAreLoaded, dispatch, allUnits, rights,
         } = this.props;
 
+        // TODO: Tab titles
         return (
             <div className="organisationsettings starter-template">
                 <Tabs defaultActiveKey={1} animation={false} id="noanim-tab-example">
+                    {rights["org-units"].get &&
                     <Tab eventKey={1} title="Organisationsverwaltung">
                         <div className="row">
-                            <div className="col-md-6" >
+                            <div className="col-md-6">
                                 <OrganizationUnitTreeView allUnits={allUnits} />
                             </div>
-                            <div className="col-md-6" >
+                            {(rights["org-units"].post || rights["org-units"].put) &&
+                            <div className="col-md-6">
                                 <OrganizationUnitAddEdit />
                             </div>
+                            }
                         </div>
                     </Tab>
-                    <Tab eventKey={2} title="Organisationstypen" >
+                    }
+                    {rights["org-unit-types"].get &&
+                    <Tab eventKey={2} title="Organisationstypen">
+                        {rights["org-unit-types"].post &&
                         <div className="row">
                             <div className="col-xs-12">
                                 <button
                                     className="btn btn-primary pull-right "
                                     onClick={() => this.toggleAddType()}
                                 >
-                                    {this.state.open ?
-                                        <FormattedMessage id="button.input.close" />
-                                        :
-                                        <FormattedMessage id="button.newtype.open" />
+                                    {this.state.open ? <FormattedMessage id="button.input.close" />
+                                        : <FormattedMessage id="button.newtype.open" />
                                     }
                                 </button>
                             </div>
-                        </div>
-                        <div className="row">
                             <div className="col-xs-12">
                                 <Collapse in={this.state.open}>
                                     <div>
-                                        <OrganizationUnitTypeAddNew dispatch={dispatch} types={typeList} sendData={newType => this.addNewType(newType)} />
+                                        <OrganizationUnitTypeAddNew
+                                            dispatch={dispatch}
+                                            types={typeList}
+                                            sendData={newType => this.addNewType(newType)}
+                                        />
                                     </div>
                                 </Collapse>
                             </div>
                         </div>
+                        }
                         <div className="row">
                             <div className="col-xs-12">
                                 {typesAreLoaded &&
-                                <OrganizationUnitTypeList dispatch={dispatch} types={typeList} deleteType={this.deleteType} updateType={this.updateType} />}
+                                <OrganizationUnitTypeList
+                                    dispatch={dispatch}
+                                    types={typeList}
+                                    deleteType={this.deleteType}
+                                    updateType={this.updateType}
+                                />}
                             </div>
                         </div>
                     </Tab>
+                    }
                 </Tabs>
             </div>
         );
@@ -112,16 +126,18 @@ Organisationsettings.propTypes = {
     typeList: PropTypes.array.isRequired,
     typesAreLoaded: PropTypes.bool.isRequired,
     allUnits: PropTypes.array.isRequired,
+    rights: PropTypes.object.isRequired,
 };
 
 function mapStateToProps(state) {
-    const {unittypes, units} = state;
+    const {unittypes, units, auth} = state;
     const typeList = unittypes.list;
     const typesAreLoaded = unittypes.isLoaded;
     const allUnits = units.list;
+    const {rights} = auth;
 
     return {
-        unittypes, typeList, typesAreLoaded, allUnits,
+        unittypes, typeList, typesAreLoaded, allUnits, rights,
     };
 }
 
