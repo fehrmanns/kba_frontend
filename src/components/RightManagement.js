@@ -38,10 +38,14 @@ class RightManagement extends React.Component {
     }
 }
 
+RightManagement.defaultProps = {
+    kbaRestServices: [],
+};
+
 RightManagement.propTypes = {
     dispatch: PropTypes.func.isRequired,
     rights: PropTypes.object.isRequired,
-    kbaRestServices: PropTypes.array.isRequired,
+    kbaRestServices: PropTypes.array,
 };
 
 function mapStateToProps(state) {
@@ -53,3 +57,4 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps)(RightManagement);
+

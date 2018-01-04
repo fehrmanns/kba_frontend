@@ -20,6 +20,10 @@ function createDefaultRights() {
             put: false,
             post: false,
             get: false,
+            hasPermissions() {
+                return !!Object.values(this).filter(value => value === true).length;
+            },
+
         };
     }
     return rightsFormatted;
@@ -132,6 +136,7 @@ function auth(state = {
     },
     user: {
         expired: false,
+        kbaRestServices: [],
     },
     rights: createDefaultRights(),
 }, action) {
