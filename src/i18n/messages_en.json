@@ -5,6 +5,18 @@
         "KBA_OU_ALREADY_EXISTS":"A organizational unit with this name already exists.",
         "MANDATORY_PARAMETER_NOT_SET":"Mandatory parameter not set.",
 
+        "DONT_STORE_MEDIA":"Do not store media data",
+        "STORE_MODERATELY_COMPRESSED_MEDIA":"Store moderate compressed media",
+        "STORE_STRONGLY_COMPRESSED_MEDIA":"Store highly compressed media",
+        "STORE_VERY_STRONGLY_COMPRESSED_MEDIA":"Store ultra compressed media",
+        "STORE_UNMODIFIED_ORIGINAL":"Store original content",
+
+        "ALWAYS_ONE_SPEAKER_PER_CHANNEL":"Always one speaker per channel",
+        "ALWAYS_TWO_SPEAKERS_PER_CHANNEL":"Always two speakers per channel",
+        "PRECISE_SPEAKER_COUNT_CHECK":"Precise speaker count check",
+        "FAST_SPEAKER_COUNT_CHECK":"Quick speaker count check",
+        "CLUSTERING_SPEAKER_COUNT_CHECK":"Clustering speaker count check",
+
         "alert.strong.message.success": "Very good!",
         "alert.strong.message.info": "Information:",
         "alert.strong.message.warning": "Warning.",
@@ -59,6 +71,11 @@
         "input.parentKbaOuNameSelection":"Select parent organizational unit...",
         "input.KbaOuSelection":"organizational unit",
         "input.KbaOuSelectionPlaceholder":"belongs to...",
+        "input.settingname":"Name",
+        "input.description":"Description",
+        "input.keepPcm":"Keep raw PCM",
+        "input.storagepolicy":"Storage policy",
+        "input.speaker":"Speaker count detection policy",
 
         "button.submit": "Submit",
         "button.user.create": "Create user",
@@ -78,6 +95,8 @@
         "button.newtype.open":"Add type",
         "button.unit.create":"New organizational unit",
         "button.clear":"Reset",
+        "button.setting.create":"Create engine setting",
+        "button.newsetting.open":"New engine setting",
 
         "label.select.icon":"Icon",
 
@@ -159,6 +178,10 @@
 
         "unitmanagement.addnew.headline":"Create new organizational unit",
         "unitmanagement.edit.headline":"Edit organizational unit",
+
+        "enginesetting.addnew.headline":"Create engine setting",
+        "selection.storagepolicy":"Please select",
+        "selection.speaker":"Please select",
 
         "":""
     }

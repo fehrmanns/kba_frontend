@@ -53,6 +53,14 @@ export const SET_RIGHTS = "SET_RIGHTS";
 export const SET_EXPIRED_VALUE = "SET_EXPIRED_VALUE";
 export const PASSWORD_REQUEST = "PASSWORD_REQUEST";
 
+export const ENGINESETTINGS_REQUEST = "ENGINESETTINGS_REQUEST";
+export const ENGINESETTINGS_FAILURE = "ENGINESETTINGS_FAILURE";
+export const ENGINESETTING_DELETED = "ENGINESETTING_DELETED";
+export const ENGINESETTING_UPDATED = "ENGINESETTING_UPDATED";
+export const ENGINESETTINGS_LOADED = "ENGINESETTINGS_LOADED";
+export const ENGINESETTING_CREATED = "ENGINESETTING_CREATED";
+
+
 function serverError(message) {
     return {
         type: SERVER_ERROR,
@@ -477,6 +485,54 @@ export function getRootUnit() {
             authenticated: true,
             method: "GET",
             types: [UNITS_REQUEST, ROOTUNIT_LOADED, UNIT_FAILURE],
+            json: {},
+        },
+    };
+}
+
+export function getEngineSettings() {
+    return {
+        [CALL_API]: {
+            endpoint: "engine-settings",
+            authenticated: true,
+            method: "GET",
+            types: [ENGINESETTINGS_REQUEST, ENGINESETTINGS_LOADED, ENGINESETTINGS_FAILURE],
+            json: {},
+        },
+    };
+}
+
+export function createEngineSetting(setting) {
+    return {
+        [CALL_API]: {
+            endpoint: "engine-settings",
+            authenticated: true,
+            method: "POST",
+            types: [ENGINESETTINGS_REQUEST, ENGINESETTING_CREATED, ENGINESETTINGS_FAILURE],
+            json: JSON.stringify(setting),
+        },
+    };
+}
+
+export function updateEngineSetting(setting, name) {
+    return {
+        [CALL_API]: {
+            endpoint: `engine-settings/${name}`,
+            authenticated: true,
+            method: "PUT",
+            types: [ENGINESETTINGS_REQUEST, ENGINESETTING_UPDATED, ENGINESETTINGS_FAILURE],
+            json: JSON.stringify(setting),
+        },
+    };
+}
+
+export function deleteEngineSetting(settingname) {
+    return {
+        [CALL_API]: {
+            endpoint: `engine-settings/${settingname}`,
+            authenticated: true,
+            method: "DELETE",
+            types: [ENGINESETTINGS_REQUEST, ENGINESETTING_DELETED, ENGINESETTINGS_FAILURE],
             json: {},
         },
     };

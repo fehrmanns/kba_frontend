@@ -5,6 +5,18 @@
         "KBA_OU_ALREADY_EXISTS":"Eine Organisationseinheit mit diesem Namen existiert bereits.",
         "MANDATORY_PARAMETER_NOT_SET":"Pflichtparameter nicht gesetzt.",
 
+        "DONT_STORE_MEDIA":"Daten nicht speichern",
+        "STORE_MODERATELY_COMPRESSED_MEDIA":"Daten mäßig komprimiert speichern",
+        "STORE_STRONGLY_COMPRESSED_MEDIA":"Daten hoch komprimiert speichern",
+        "STORE_VERY_STRONGLY_COMPRESSED_MEDIA":"Daten sehr hoch komprimiert speichern",
+        "STORE_UNMODIFIED_ORIGINAL":"Originaldaten speichern",
+
+        "ALWAYS_ONE_SPEAKER_PER_CHANNEL":"Immer ein Sprecher pro Kanal",
+        "ALWAYS_TWO_SPEAKERS_PER_CHANNEL":"Immer zwei Sprecher pro Kanal",
+        "PRECISE_SPEAKER_COUNT_CHECK":"Sprecheranzahl genau ermitteln",
+        "FAST_SPEAKER_COUNT_CHECK":"Sprecheranzahl schnell ermitteln",
+        "CLUSTERING_SPEAKER_COUNT_CHECK":"Clustering Sprecheranzahl ermitteln",
+
         "alert.strong.message.success": "Sehr gut!",
         "alert.strong.message.info": "Information:",
         "alert.strong.message.warning": "Vorsicht.",
@@ -59,6 +71,11 @@
         "input.parentKbaOuNameSelection":"Eltern Organisationseinheit auswählen...",
         "input.KbaOuSelection":"Organisationseinheit",
         "input.KbaOuSelectionPlaceholder":"gehört zu...",
+        "input.settingname":"Name",
+        "input.description":"Beschreibung",
+        "input.keepPcm":"Unbearbeitete PCM behalten",
+        "input.storagepolicy":"Speicherstrategie",
+        "input.speaker":"Strategie zur Erkennung der Sprecheranzahl",
 
         "button.submit": "Absenden",
         "button.user.create": "Benutzer anlegen",
@@ -78,6 +95,8 @@
         "button.newtype.open":"Typ hinzufügen",
         "button.unit.create":"Neue Organisationseinheit",
         "button.clear":"Zurücksetzen",
+        "button.setting.create":"Verarbeitungsrichtlinie erstellen",
+        "button.newsetting.open":"Neue Verarbeitungsrichtlinie",
 
         "label.select.icon":"Icon",
 
@@ -159,6 +178,11 @@
 
         "unitmanagement.addnew.headline":"Neue Organisationseinheit erstellen",
         "unitmanagement.edit.headline":"Organisationseinheit bearbeiten",
+
+        "enginesetting.addnew.headline":"Verarbeitungsrichtlinie erstellen",
+        "selection.storagepolicy":"Bitte auswählen",
+        "selection.speaker":"Bitte auswählen",
+
         "":""
     }
 }

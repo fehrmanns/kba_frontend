@@ -6,7 +6,9 @@ import {
     USER_REQUEST, USER_LOADED, USER_DELETED, USER_ADDED, USER_UPDATED, USER_FAILURE,
     TYPE_REQUEST, TYPE_LOADED, TYPE_DELETED, TYPE_ADDED, TYPE_UPDATED, TYPE_BYNAME_LOADED, TYPE_FAILURE,
     OPEN_PASSWORD_MODAL, CLOSE_PASSWORD_MODAL, OPEN_SELECT_ICON_MODAL, CLOSE_SELECT_ICON_MODAL,
-    UNITS_REQUEST, UNITS_LOADED, UNIT_REQUEST, UNIT_ADDED, UNIT_DELETED, UNIT_UPDATE_REQUEST, RESET_UNIT_UPDATE_STATUS, UNIT_UPDATED, UNIT_FAILURE, UNIT_LOADED, UNIT_SELECTED, ROOTUNIT_LOADED, SET_RIGHTS, SET_EXPIRED_VALUE, PASSWORD_REQUEST,
+    UNITS_REQUEST, UNITS_LOADED, UNIT_REQUEST, UNIT_ADDED, UNIT_DELETED, UNIT_UPDATE_REQUEST, RESET_UNIT_UPDATE_STATUS, UNIT_UPDATED, UNIT_FAILURE, UNIT_LOADED, UNIT_SELECTED, ROOTUNIT_LOADED,
+    SET_RIGHTS, SET_EXPIRED_VALUE, PASSWORD_REQUEST,
+    ENGINESETTINGS_REQUEST, ENGINESETTINGS_FAILURE, ENGINESETTINGS_LOADED, ENGINESETTING_CREATED, ENGINESETTING_UPDATED, ENGINESETTING_DELETED,
 } from "./actions";
 
 function createDefaultRights() {
@@ -34,12 +36,15 @@ function createDefaultRights() {
         importsettings: ["engine-settings"],
         recordings: ["imports"],
         hasPermissionsForPath(path) {
+            console.log("path", path);
             const length = this[path] ? this[path].length : 0;
             for (let i = 0; i < length; i += 1) {
                 if (rightsFormatted[this[path][i]].hasPermissions()) {
+                    console.log(true);
                     return true;
                 }
             }
+            console.log(false);
             return false;
         },
     };
@@ -210,6 +215,7 @@ function auth(state = {
                 rights: createDefaultRights(),
             });
         case SET_RIGHTS:
+            console.log("SET_RIGHTS", action.rights);
             return Object.assign({}, state, {
                 isFetching: false,
                 rights: action.rights,
@@ -407,6 +413,44 @@ function units(state = {
     }
 }
 
+function enginesettings(state = {
+    isFetching: false,
+    list: [],
+    isLoaded: false,
+}, action) {
+    switch (action.type) {
+        case ENGINESETTINGS_REQUEST:
+            return Object.assign({}, state, {
+                isFetching: true,
+                isLoaded: false,
+            });
+        case ENGINESETTINGS_LOADED:
+            return Object.assign({}, state, {
+                list: action.response.kbaEngineSettingsDtos,
+                isFetching: false,
+                isLoaded: true,
+            });
+        case ENGINESETTING_CREATED:
+            return Object.assign({}, state, {
+                isFetching: false,
+            });
+        case ENGINESETTING_UPDATED:
+            return Object.assign({}, state, {
+                isFetching: false,
+            });
+        case ENGINESETTING_DELETED:
+            return Object.assign({}, state, {
+                isFetching: false,
+            });
+        case ENGINESETTINGS_FAILURE:
+            return Object.assign({}, state, {
+                isFetching: false,
+            });
+        default:
+            return state;
+    }
+}
+
 
 // We combine the reducers here so that they
 // can be left split apart above
@@ -418,6 +462,7 @@ const kbaApp = combineReducers({
     unittypes,
     modals,
     units,
+    enginesettings,
 });
 
 export default kbaApp;
