@@ -48,6 +48,10 @@ export const UNIT_FAILURE = "UNIT_FAILURE";
 export const UNIT_SELECTED = "UNIT_SELECTED";
 export const UNIT_UPDATE_REQUEST = "UNIT_UPDATE_REQUEST";
 export const RESET_UNIT_UPDATE_STATUS = "RESET_UNIT_UPDATE_STATUS";
+export const SET_RIGHTS = "SET_RIGHTS";
+
+export const SET_EXPIRED_VALUE = "SET_EXPIRED_VALUE";
+export const PASSWORD_REQUEST = "PASSWORD_REQUEST";
 
 export const CATEGORY_REQUEST = "CATEGORY_REQUEST";
 export const CATEGORY_LOADED = "CATEGORY_LOADED";
@@ -106,9 +110,23 @@ export function selectUnit(unit) {
     };
 }
 
+export function setRights(rights) {
+    return {
+        type: SET_RIGHTS,
+        rights,
+    };
+}
+
 export function closeSelectIconModal() {
     return {
         type: CLOSE_SELECT_ICON_MODAL,
+    };
+}
+
+export function setExpiredValue() {
+    return {
+        type: SET_EXPIRED_VALUE,
+        expired: false,
     };
 }
 
@@ -274,7 +292,31 @@ export function updateUser(user) {
     };
 }
 
+export function updateUserPassword(user) {
+    return {
+        [CALL_API]: {
+            endpoint: `management/users/${user.loginName}`,
+            authenticated: true,
+            method: "PUT",
+            types: [PASSWORD_REQUEST, USER_UPDATED, USER_FAILURE],
+            json: JSON.stringify(user),
+        },
+    };
+}
+
 export function deleteUser(userName) {
+    return {
+        [CALL_API]: {
+            endpoint: `management/users/${userName}`,
+            authenticated: true,
+            method: "DELETE",
+            types: [USER_REQUEST, USER_DELETED, USER_FAILURE],
+            json: userName,
+        },
+    };
+}
+
+export function getUserPermissions(userName) {
     return {
         [CALL_API]: {
             endpoint: `management/users/${userName}`,

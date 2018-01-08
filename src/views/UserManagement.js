@@ -47,7 +47,6 @@ class UserManagement extends React.Component {
 
     render() {
         const {userList, userAreLoaded, currentUser} = this.props;
-
         return (
             <div className="usermanagement">
 
@@ -58,6 +57,7 @@ class UserManagement extends React.Component {
                 </div>
                 {(userList && currentUser) ?
                     <div>
+                        {(this.props.rights.users.post) &&
                         <div className="row">
                             <div className="col-xs-12">
                                 <button
@@ -71,8 +71,6 @@ class UserManagement extends React.Component {
                                     }
                                 </button>
                             </div>
-                        </div>
-                        <div className="row">
                             <div className="col-xs-12">
                                 <Collapse in={this.state.open}>
                                     <div>
@@ -81,11 +79,20 @@ class UserManagement extends React.Component {
                                 </Collapse>
                             </div>
                         </div>
+                        }
+                        {(this.props.rights.users.get) &&
                         <div className="row">
                             <div className="col-xs-12">
-                                {userAreLoaded && <UserManagementList currentUser={currentUser} users={userList} deleteUser={this.deleteUser} updateUser={this.updateUser} />}
+                                {userAreLoaded && this.props.rights.users.get &&
+                                <UserManagementList
+                                    currentUser={currentUser}
+                                    users={userList}
+                                    deleteUser={this.deleteUser}
+                                    updateUser={this.updateUser}
+                                />}
                             </div>
                         </div>
+                        }
                     </div>
                     :
                     <div className="loader">Loading...</div>
@@ -100,6 +107,7 @@ UserManagement.propTypes = {
     userList: PropTypes.array.isRequired,
     userAreLoaded: PropTypes.bool.isRequired,
     currentUser: PropTypes.object.isRequired,
+    rights: PropTypes.object.isRequired,
 };
 
 function mapStateToProps(state) {
@@ -107,12 +115,14 @@ function mapStateToProps(state) {
     const currentUser = auth.user;
     const userList = users.list;
     const userAreLoaded = users.isLoaded;
+    const {rights} = auth;
 
     return {
         userList,
         userAreLoaded,
         currentUser,
         auth,
+        rights,
     };
 }
 

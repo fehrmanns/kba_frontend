@@ -1,4 +1,5 @@
 import React from "react";
+import {connect} from "react-redux";
 import {FormattedMessage} from "react-intl";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
@@ -6,8 +7,8 @@ import "./../css/sitebar.css";
 
 class Sitebar extends React.Component {
     render() {
+        const {rights} = this.props;
         return (
-
             <div className={(this.props.show === true) ? "show sitebar" : "sitebar"}>
                 <ul>
                     <li>
@@ -40,12 +41,19 @@ class Sitebar extends React.Component {
                     <li>
                         <Link to="/importsettings"><FormattedMessage id="menu.sitebar.settings.import" /></Link>
                     </li>
+                    {rights.pathMapping.hasPermissionsForPath("usersettings") &&
                     <li>
                         <Link to="/usersettings"><FormattedMessage id="menu.sitebar.settings.user" /></Link>
                     </li>
+                    }
+                    {rights.pathMapping.hasPermissionsForPath("organisationsettings") &&
                     <li>
-                        <Link to="/organisationsettings"><FormattedMessage id="menu.sitebar.settings.organisation" /></Link>
+                        <Link to="/organisationsettings"><FormattedMessage
+                            id="menu.sitebar.settings.organisation"
+                        />
+                        </Link>
                     </li>
+                    }
                     <li>
                         <Link to="/categorysettings"><FormattedMessage id="menu.sitebar.settings.category" /></Link>
                     </li>
@@ -60,6 +68,16 @@ class Sitebar extends React.Component {
 
 Sitebar.propTypes = {
     show: PropTypes.bool.isRequired,
+    rights: PropTypes.object.isRequired,
 };
 
-export default Sitebar;
+function mapStateToProps(state) {
+    const {auth} = state;
+    const {rights} = auth;
+
+    return {
+        rights,
+    };
+}
+
+export default connect(mapStateToProps)(Sitebar);
