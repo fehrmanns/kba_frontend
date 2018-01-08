@@ -4,10 +4,7 @@
 .categorymanagement .highlight h3 {
     margin-top: 10px;
 }
-/* dirty table hack */
-.categorymanagement .table tr > td {
-    width: 18%;
-}
+
 .categorymanagement table input {
     box-sizing: border-box;
     display: block;
@@ -27,4 +24,16 @@
 .categorymanagement table .deactivated,
 .categorymanagement table .deactivated .btn-link {
     color: darkgray;
+}
+
+.category-list span.icon {
+    cursor: pointer;
+}
+.category-list .symbol {
+    width: 2em;
+    text-align: center;
+}
+.category-list .category-name,
+.category-list .edit-button {
+    width: 10em;
 }

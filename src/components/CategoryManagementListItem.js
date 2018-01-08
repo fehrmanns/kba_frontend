@@ -34,7 +34,7 @@ class CategoryManagementListItem extends React.Component {
     handleChange(event) {
         event.preventDefault();
         const targetName = event.target.id.replace("tableInput", "").replace(/\b[A-Z]/g, letter => letter.toLowerCase());
-        this.setState({ [targetName]: event.target.value });
+        this.setState({[targetName]: event.target.value});
         this.compareContent(targetName, event.target.value);
     }
 
@@ -83,7 +83,7 @@ class CategoryManagementListItem extends React.Component {
 
         return (
             <tr>
-                <td>
+                <td className="symbol">
                     {iconLocation ?
                         <IconItem icon={iconLocation} size={16} selectedItem={this.openIconModal} />
                         :
@@ -92,25 +92,23 @@ class CategoryManagementListItem extends React.Component {
                         </button>
                     }
                 </td>
-                <td>
+                <td className="category-name">
                     <input id="tableInputName" onChange={this.handleChange} value={name} />
                 </td>
                 <td>
                     <input id="tableInputDescription" onChange={this.handleChange} value={description} />
                 </td>
-                {modified ?
-                    <td className="text-center">
+                <td className="text-center edit-button">
+                    {modified ?
                         <button className="btn btn-xs btn-warning" onClick={this.handleUpdate}>
                             <FormattedMessage id="button.save" />
                         </button>
-                    </td>
-                    :
-                    <td className="text-center">
+                        :
                         <button className="btn btn-xs btn-danger" onClick={() => this.deleteCategory()}>
                             <FormattedMessage id="button.category.delete" />
                         </button>
-                    </td>
-                }
+                    }
+                </td>
             </tr>
         );
     }

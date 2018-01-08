@@ -24,7 +24,7 @@ class CategoryManagementList extends React.Component {
         const categoryList = this.props.bundle;
 
         return (
-            <div>
+            <div className="category-list">
                 <FormattedMessage tagName="h3" id="categorymanagement.list.headline" />
                 {categoryList ?
                     <table className="table table-hover">
