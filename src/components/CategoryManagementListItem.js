@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import {FormattedMessage} from "react-intl";
 import IconItem from "./IconItem";
-import {closeSelectIconModal, openSelectIconModal, getCategories, deleteCategory} from "../actions";
+import {closeSelectIconModal, openSelectIconModal, getCategories, updateCategory, deleteCategory} from "../actions";
 
 class CategoryManagementListItem extends React.Component {
     constructor(props) {
@@ -39,11 +39,20 @@ class CategoryManagementListItem extends React.Component {
     }
 
     handleUpdate() {
+        const oldName = this.props.item.name;
+        const changedType = {...this.state};
+        delete changedType.nameModified;
+        delete changedType.iconLocationModified;
+        delete changedType.descriptionModified;
+        console.log("changedType", this.props.item.name);
+
         this.setState({
             nameModified: false,
             iconLocationModified: false,
             descriptionModified: false,
         });
+
+        this.props.dispatch(updateCategory(oldName, changedType)).then(() => this.props.dispatch(getCategories()));
     }
 
     compareContent(name, value) {

@@ -473,10 +473,10 @@ export function addCategory(category) {
     };
 }
 
-export function updateCategory(category) {
+export function updateCategory(oldName, category) {
     return {
         [CALL_API]: {
-            endpoint: `categories/${category.name}`,
+            endpoint: `categories/${oldName}`,
             authenticated: true,
             method: "PUT",
             types: [CATEGORY_REQUEST, CATEGORY_UPDATED, CATEGORY_FAILURE],
