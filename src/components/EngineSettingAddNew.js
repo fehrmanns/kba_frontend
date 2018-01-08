@@ -5,7 +5,7 @@ import {Checkbox, MenuItem} from "react-bootstrap";
 import FormattedInput from "../components/i18n/FormattedInput";
 import FormattedDropDown from "../components/i18n/FormattedDropDown";
 import FormattedTextarea from "../components/i18n/FormattedTextarea";
-import {updateEngineSetting} from "../actions";
+import * as constants from "../utilities/constants";
 
 class EngineSettingAddNew extends React.Component {
     constructor(props) {
@@ -27,7 +27,7 @@ class EngineSettingAddNew extends React.Component {
     }
 
     handleStoragePolicySelection(event) {
-        this.setState({storagePolicy: event});
+        this.setState({storagePolicy: event, storagePolicyIsValid: true});
     }
 
     handleSpeakerSelection(event) {
@@ -63,19 +63,21 @@ class EngineSettingAddNew extends React.Component {
         event.preventDefault();
 
         const nameIsValid = !!this.state.name;
+        const storagePolicyIsValid = !!this.state.storagePolicy;
 
         this.setState({
             nameIsValid,
+            storagePolicyIsValid,
         });
 
-        if (!nameIsValid) return;
+        if (!nameIsValid || !storagePolicyIsValid) return;
 
         const newSetting = {
             name: this.state.name,
             description: this.state.description,
-            storagePolicy: this.state.storagePolicy,
+            storagePolicy: this.state.storagePolicy ? this.state.storagePolicy : null,
             keepPcmRawData: this.state.keepPcmRawData,
-            speakerNumRecognition: this.state.speakerNumRecognition,
+            speakerNumRecognition: this.state.speakerNumRecognition ? this.state.speakerNumRecognition : null,
         };
 
         this.props.sendData(newSetting);
@@ -91,22 +93,15 @@ class EngineSettingAddNew extends React.Component {
             keepPcmRawData: false,
             speakerNumRecognition: "",
             nameIsValid: true,
+            storagePolicyIsValid: true,
         });
     }
 
 
     render() {
         const nameError = !this.state.nameIsValid;
-        const storagePolicies = ["DONT_STORE_MEDIA",
-            "STORE_MODERATELY_COMPRESSED_MEDIA",
-            "STORE_STRONGLY_COMPRESSED_MEDIA",
-            "STORE_VERY_STRONGLY_COMPRESSED_MEDIA",
-            "STORE_UNMODIFIED_ORIGINAL"];
-        const speakerNumRecognition = ["ALWAYS_ONE_SPEAKER_PER_CHANNEL",
-            "ALWAYS_TWO_SPEAKERS_PER_CHANNEL",
-            "PRECISE_SPEAKER_COUNT_CHECK",
-            "FAST_SPEAKER_COUNT_CHECK",
-            "CLUSTERING_SPEAKER_COUNT_CHECK"];
+        const storagePolicyError = !this.state.storagePolicyIsValid;
+        const {storagePolicies, speakerNumRecognition} = constants;
 
         const storagepolicyDropDownTitleId = this.state.storagePolicy ? this.state.storagePolicy : "selection.storagepolicy";
         const speakerDropDownTitleId = this.state.speakerNumRecognition ? this.state.speakerNumRecognition : "selection.speaker";
@@ -134,13 +129,12 @@ class EngineSettingAddNew extends React.Component {
                             value={this.state.name}
                         />
                     </div>
-                    <div className="form-group col-md-2">
-                        <FormattedMessage
-                            tagName="label"
-                            id="input.storagepolicy"
-                            className="control-label"
-                            htmlFor="inputStoragepolicy"
-                        /><br />
+                    <div className={storagePolicyError ? "form-group has-error col-md-4" : "form-group col-md-4"}>
+                        <label className="control-label" htmlFor="inputStoragepolicy">
+                            <FormattedMessage id="input.storagepolicy" />&nbsp;
+                            {storagePolicyError && <FormattedMessage id="dropdown.error" />}
+                        </label>
+                        <br />
                         <FormattedDropDown
                             titleId={storagepolicyDropDownTitleId}
                             id="selection.storagepolicy"
@@ -178,7 +172,7 @@ class EngineSettingAddNew extends React.Component {
                     </div>
                 </div>
                 <div className="row">
-                    <div className="form-group col-md-3">
+                    <div className="form-group col-md-6">
                         <FormattedMessage
                             tagName="label"
                             id="input.speaker"

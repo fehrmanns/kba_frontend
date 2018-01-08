@@ -46,6 +46,7 @@
         "dropdown.role.admin": "Administrator",
         "dropdown.role.supervisor": "Aufsichtsperson",
         "dropdown.role.analyst": "Analytiker",
+        "dropdown.error": "bitte auswählen.",
 
         "input.username": "Nutzername",
         "input.loginNameError": "darf nicht leer sein.",
@@ -97,6 +98,7 @@
         "button.clear":"Zurücksetzen",
         "button.setting.create":"Verarbeitungsrichtlinie erstellen",
         "button.newsetting.open":"Neue Verarbeitungsrichtlinie",
+        "button.setting.delete":"Verarbeitungsrichtlinie löschen",
 
         "label.select.icon":"Icon",
 
@@ -182,6 +184,13 @@
         "enginesetting.addnew.headline":"Verarbeitungsrichtlinie erstellen",
         "selection.storagepolicy":"Bitte auswählen",
         "selection.speaker":"Bitte auswählen",
+        "enginesettings.list.headline": "Verarbeitungsrichtlinienübersicht",
+        "enginesettings.list.name": "Name",
+        "enginesettings.list.description": "Beschreibung",
+        "enginesettings.list.storagePolicy": "Speicherstrategie",
+        "enginesettings.list.accountsEnabled": "Benutzerkonten anlegen möglich",
+        "enginesettings.list.keepPcmRawData": "Unbearbeitete PCM behalten",
+        "enginesettings.list.speakerNumRecognition": "Strategie zur Erkennung der Sprecheranzahl",
 
         "":""
     }

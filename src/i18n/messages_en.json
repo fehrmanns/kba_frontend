@@ -46,6 +46,7 @@
         "dropdown.role.admin": "Admin",
         "dropdown.role.supervisor": "Supervisor",
         "dropdown.role.analyst": "Analyst",
+        "dropdown.error": "shouldn't be default.",
 
         "input.username": "User name",
         "input.loginNameError": "shouldn't be empty.",
@@ -97,6 +98,7 @@
         "button.clear":"Reset",
         "button.setting.create":"Create engine setting",
         "button.newsetting.open":"New engine setting",
+        "button.setting.delete":"Delete engine setting",
 
         "label.select.icon":"Icon",
 
@@ -182,6 +184,13 @@
         "enginesetting.addnew.headline":"Create engine setting",
         "selection.storagepolicy":"Please select",
         "selection.speaker":"Please select",
+        "enginesettings.list.headline": "Engine settings overview",
+        "enginesettings.list.name": "Name",
+        "enginesettings.list.description": "Description",
+        "enginesettings.list.storagePolicy": "Storage policy",
+        "enginesettings.list.accountsEnabled": "Speaker count detection policy",
+        "enginesettings.list.keepPcmRawData": "Keep raw PCM",
+        "enginesettings.list.speakerNumRecognition": "Speaker count detection policy",
 
         "":""
     }
