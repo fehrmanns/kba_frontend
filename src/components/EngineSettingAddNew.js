@@ -5,6 +5,7 @@ import {Checkbox, MenuItem} from "react-bootstrap";
 import FormattedInput from "../components/i18n/FormattedInput";
 import FormattedDropDown from "../components/i18n/FormattedDropDown";
 import FormattedTextarea from "../components/i18n/FormattedTextarea";
+import {updateEngineSetting} from "../actions";
 
 class EngineSettingAddNew extends React.Component {
     constructor(props) {
@@ -14,8 +15,8 @@ class EngineSettingAddNew extends React.Component {
             name: "",
             description: "",
             storagePolicy: "",
-            keepPcm: false,
-            speaker: "",
+            keepPcmRawData: false,
+            speakerNumRecognition: "",
             nameIsValid: true,
             storagePolicyIsValid: true,
         };
@@ -26,21 +27,39 @@ class EngineSettingAddNew extends React.Component {
     }
 
     handleStoragePolicySelection(event) {
-        console.log("event", event);
         this.setState({storagePolicy: event});
     }
 
     handleSpeakerSelection(event) {
-        console.log("event", event);
-        this.setState({speaker: event});
+        this.setState({speakerNumRecognition: event});
     }
 
     handleChange(event) {
         event.preventDefault();
+        const targetName = event.target.id.replace("input", "").replace(/\b[A-Z]/g, letter => letter.toLowerCase());
+
+        switch (targetName) {
+            case "name":
+                this.setState({
+                    [targetName]: event.target.value,
+                    nameIsValid: true,
+                });
+                break;
+            case "description":
+                this.setState({
+                    [targetName]: event.target.value,
+                });
+                break;
+            default:
+                this.setState({
+                    [targetName]: event.target.value,
+                });
+        }
     }
 
     sendData(event) {
         console.log("sendData", event);
+        console.log("state", this.state);
         event.preventDefault();
 
         const nameIsValid = !!this.state.name;
@@ -51,7 +70,15 @@ class EngineSettingAddNew extends React.Component {
 
         if (!nameIsValid) return;
 
-        // TODO
+        const newSetting = {
+            name: this.state.name,
+            description: this.state.description,
+            storagePolicy: this.state.storagePolicy,
+            keepPcmRawData: this.state.keepPcmRawData,
+            speakerNumRecognition: this.state.speakerNumRecognition,
+        };
+
+        this.props.sendData(newSetting);
 
         this.resetData();
     }
@@ -61,8 +88,8 @@ class EngineSettingAddNew extends React.Component {
             name: "",
             description: "",
             storagePolicy: "",
-            keepPcm: false,
-            speaker: "",
+            keepPcmRawData: false,
+            speakerNumRecognition: "",
             nameIsValid: true,
         });
     }
@@ -82,7 +109,7 @@ class EngineSettingAddNew extends React.Component {
             "CLUSTERING_SPEAKER_COUNT_CHECK"];
 
         const storagepolicyDropDownTitleId = this.state.storagePolicy ? this.state.storagePolicy : "selection.storagepolicy";
-        const speakerDropDownTitleId = this.state.speaker ? this.state.speaker : "selection.speaker";
+        const speakerDropDownTitleId = this.state.speakerNumRecognition ? this.state.speakerNumRecognition : "selection.speaker";
 
         // TODO: checkbox state should change when text is clicked
         return (
@@ -100,7 +127,7 @@ class EngineSettingAddNew extends React.Component {
                         </label>
                         <FormattedInput
                             type="text"
-                            id="inputSettingname"
+                            id="inputName"
                             className="form-control"
                             placeholder="input.settingname"
                             onChange={this.handleChange}
@@ -145,7 +172,7 @@ class EngineSettingAddNew extends React.Component {
                         />
                     </div>
                     <div className="form-group col-md-2">
-                        <Checkbox id="inputKeepPcm" onChange={() => this.setState({keepPcm: !this.state.keepPcm})} checked={this.state.keepPcm}>
+                        <Checkbox id="inputKeepPcm" onChange={() => this.setState({keepPcmRawData: !this.state.keepPcmRawData})} checked={this.state.keepPcmRawData}>
                             <FormattedMessage id="input.keepPcm" />
                         </Checkbox>
                     </div>
@@ -162,7 +189,7 @@ class EngineSettingAddNew extends React.Component {
                             titleId={speakerDropDownTitleId}
                             id="selection.speaker"
                             onSelect={this.handleSpeakerSelection}
-                            value={this.state.speaker}
+                            value={this.state.speakerNumRecognition}
                         >
                             {speakerNumRecognition.map(element => (
                                 <MenuItem eventKey={element} key={`dropdown.speaker.${element}`}>
@@ -184,5 +211,6 @@ class EngineSettingAddNew extends React.Component {
 }
 
 EngineSettingAddNew.propTypes = {
+    sendData: PropTypes.func.isRequired,
 };
 export default EngineSettingAddNew;

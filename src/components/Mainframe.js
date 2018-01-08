@@ -105,15 +105,12 @@ class Mainframe extends React.Component {
         );
 
         if (isAuthenticated === false || isAuthenticated === undefined) {
-            console.log(1);
             content = <Route component={Login} />;
         } else if (passwordExpired) {
 
-            console.log(2);
             content = <Route exact path="/" component={Home} />;
         } else {
 
-            console.log(3);
             content = (
                 <div className={(this.state.sitebar === true) ? "show container-fluid" : "container-fluid"}>
                     <Route exact path="/login" render={() => (<Redirect to="/" />)} />

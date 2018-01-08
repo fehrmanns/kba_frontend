@@ -4,6 +4,7 @@ import {connect} from "react-redux";
 import PropTypes from "prop-types";
 import { Collapse } from "react-bootstrap";
 import EngineSettingAddNew from "../components/EngineSettingAddNew";
+import {createEngineSetting} from "../actions";
 
 class Importsettings extends React.Component {
     constructor(props) {
@@ -13,6 +14,11 @@ class Importsettings extends React.Component {
         };
 
         this.toggleAddSetting = this.toggleAddSetting.bind(this);
+        this.createEngineSetting = this.createEngineSetting.bind(this);
+    }
+
+    createEngineSetting(newSetting) {
+        this.props.dispatch(createEngineSetting(newSetting)).then();
     }
 
     toggleAddSetting() {
@@ -39,7 +45,7 @@ class Importsettings extends React.Component {
                     <div className="col-xs-12">
                         <Collapse in={this.state.open}>
                             <div>
-                                <EngineSettingAddNew sendData={newType => this.addNewType(newType)} />
+                                <EngineSettingAddNew sendData={newType => this.createEngineSetting(newType)} />
                             </div>
                         </Collapse>
                     </div>
@@ -60,6 +66,7 @@ class Importsettings extends React.Component {
 }
 
 Importsettings.propTypes = {
+    dispatch: PropTypes.func.isRequired,
     rights: PropTypes.object.isRequired,
     settingsAreLoaded: PropTypes.bool.isRequired,
 };

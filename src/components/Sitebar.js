@@ -10,7 +10,6 @@ class Sitebar extends React.Component {
         const {rights} = this.props;
         return (
             <div className={(this.props.show === true) ? "show sitebar" : "sitebar"}>
-                {console.log("sitebar")}
                 <ul>
                     <li>
                         <Link to="/recordings"><FormattedMessage id="menu.sitebar.recordings" /></Link>
@@ -62,8 +61,6 @@ class Sitebar extends React.Component {
                         <Link to="/license"><FormattedMessage id="menu.sitebar.settings.license" /></Link>
                     </li>
                 </ul>
-
-                {console.log("sitebar_end")}
             </div>
         );
     }

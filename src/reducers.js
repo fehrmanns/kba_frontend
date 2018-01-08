@@ -36,15 +36,12 @@ function createDefaultRights() {
         importsettings: ["engine-settings"],
         recordings: ["imports"],
         hasPermissionsForPath(path) {
-            console.log("path", path);
             const length = this[path] ? this[path].length : 0;
             for (let i = 0; i < length; i += 1) {
                 if (rightsFormatted[this[path][i]].hasPermissions()) {
-                    console.log(true);
                     return true;
                 }
             }
-            console.log(false);
             return false;
         },
     };
@@ -215,7 +212,6 @@ function auth(state = {
                 rights: createDefaultRights(),
             });
         case SET_RIGHTS:
-            console.log("SET_RIGHTS", action.rights);
             return Object.assign({}, state, {
                 isFetching: false,
                 rights: action.rights,
