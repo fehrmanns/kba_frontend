@@ -6,8 +6,8 @@ import {
     USER_REQUEST, USER_LOADED, USER_DELETED, USER_ADDED, USER_UPDATED, USER_FAILURE,
     TYPE_REQUEST, TYPE_LOADED, TYPE_DELETED, TYPE_ADDED, TYPE_UPDATED, TYPE_BYNAME_LOADED, TYPE_FAILURE,
     OPEN_PASSWORD_MODAL, CLOSE_PASSWORD_MODAL, OPEN_SELECT_ICON_MODAL, CLOSE_SELECT_ICON_MODAL,
-    UNITS_REQUEST, UNITS_LOADED, UNIT_REQUEST, UNIT_ADDED, UNIT_DELETED, UNIT_UPDATE_REQUEST, RESET_UNIT_UPDATE_STATUS, UNIT_UPDATED, UNIT_FAILURE, UNIT_LOADED, UNIT_SELECTED, ROOTUNIT_LOADED,
-    SET_RIGHTS, SET_EXPIRED_VALUE, PASSWORD_REQUEST,
+    UNITS_REQUEST, UNITS_LOADED, UNIT_REQUEST, UNIT_ADDED, UNIT_DELETED, UNIT_UPDATE_REQUEST, RESET_UNIT_UPDATE_STATUS, UNIT_UPDATED, UNIT_FAILURE, UNIT_LOADED, UNIT_SELECTED, ROOTUNIT_LOADED, SET_RIGHTS, SET_EXPIRED_VALUE, PASSWORD_REQUEST,
+    CATEGORY_REQUEST, CATEGORY_LOADED, CATEGORY_ADDED, CATEGORY_UPDATED, CATEGORY_DELETED, CATEGORY_FAILURE,
     ENGINESETTINGS_REQUEST, ENGINESETTINGS_FAILURE, ENGINESETTINGS_LOADED, ENGINESETTING_CREATED, ENGINESETTING_UPDATED, ENGINESETTING_DELETED,
 } from "./actions";
 
@@ -409,6 +409,40 @@ function units(state = {
     }
 }
 
+function categories(state = {
+    isFetching: false,
+    bundle: [],
+}, action) {
+    switch (action.type) {
+        case CATEGORY_REQUEST:
+            return Object.assign({}, state, {
+                isFetching: true,
+            });
+        case CATEGORY_LOADED:
+            return Object.assign({}, state, {
+                isFetching: false,
+                bundle: action.response.kbaCategoryDtos,
+            });
+        case CATEGORY_ADDED:
+            return Object.assign({}, state, {
+                isFetching: false,
+            });
+        case CATEGORY_UPDATED:
+            return Object.assign({}, state, {
+                isFetching: false,
+            });
+        case CATEGORY_DELETED:
+            return Object.assign({}, state, {
+                isFetching: false,
+            });
+        case CATEGORY_FAILURE:
+            return Object.assign({}, state, {
+                isFetching: false,
+            });
+        default:
+            return state;
+    }
+}
 function enginesettings(state = {
     isFetching: false,
     list: [],
@@ -458,6 +492,7 @@ const kbaApp = combineReducers({
     unittypes,
     modals,
     units,
+    categories,
     enginesettings,
 });
 
