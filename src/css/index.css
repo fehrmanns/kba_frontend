@@ -79,6 +79,9 @@ table input {
 .label-margin {
     margin-top: calc(1em + 11px);
 }
+.highlight-margin {
+    margin-top: calc(2em + 7px);
+}
 
 .usermanagement .highlight, .organisationsettings .highlight {
     margin-top: 15px;

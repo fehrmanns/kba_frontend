@@ -168,9 +168,11 @@
         "unittypes.list.accountsEnabled": "Create user accounts enabled",
         "unittypes.list.artifactsEnabled": "Artifact assignable",
         "unittypes.list.childTypes": "subtypes",
+
         "unittypemanagement.addnew.headline": "Create new organizational unit types",
 
-        "unitmanagement.addnew.headline":"Create new organizational unit",
+        "unitmanagement.addnew.headline":"Create new unit",
+        "unitmanagement.tree.headline":"Overview",
         "unitmanagement.edit.headline":"Edit organizational unit",
 
         "":""

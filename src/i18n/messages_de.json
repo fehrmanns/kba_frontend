@@ -157,6 +157,7 @@
         "categorymanagement.list.headline":"Kategorieübersicht",
         "categorymanagement.list.icon":"Symbol",
         "categorymanagement.list.name": "Name",
+        "categorymanagement.list.description": "Beschreibung",
 
         "organisationsettings.administration.title": "Organisationsverwaltung",
         "organisationtypes.administration.title": "Organistationstypen",
@@ -167,10 +168,11 @@
         "unittypes.list.accountsEnabled": "Benutzerkonten anlegen möglich",
         "unittypes.list.artifactsEnabled": "Artefakte zuweisbar",
         "unittypes.list.childTypes": "Untertypen",
-        "unittypemanagement.addnew.headline": "Neuen Organisationseinheitstyp erstellen",
-        "categorymanagement.list.description": "Beschreibung",
 
-        "unitmanagement.addnew.headline":"Neue Organisationseinheit erstellen",
+        "unittypemanagement.addnew.headline": "Neuen Organisationseinheitstyp erstellen",
+
+        "unitmanagement.addnew.headline":"Neue Einheit erstellen",
+        "unitmanagement.tree.headline":"Übersicht",
         "unitmanagement.edit.headline":"Organisationseinheit bearbeiten",
         "":""
     }

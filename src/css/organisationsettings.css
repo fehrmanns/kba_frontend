@@ -84,6 +84,6 @@ ul.org-tree > li:first-child::after {
     top: 6px;
     left: 8px;
 }
-.org-tree .knot-name {
+.org-tree .icon + .knot-name {
     padding-left: 18px;
 }

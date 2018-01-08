@@ -88,6 +88,7 @@ class OrganizationUnitAddEdit extends React.Component {
     clear(event) {
         event.preventDefault();
         this.reset();
+        this.props.dispatch(selectUnit({}));
     }
 
     reset() {

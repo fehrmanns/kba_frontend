@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import {getRootUnit, getUnitTypes} from "../actions";
+import {FormattedMessage} from "react-intl";
 import OrganisationUnitTreeElement from "./OrganizationUnitTreeElement";
 
 class OrganizationUnitTreeView extends React.Component {
@@ -16,8 +17,8 @@ class OrganizationUnitTreeView extends React.Component {
         const {rootUnit} = this.props;
 
         return (
-            <div>
-                <h2>Baum?!</h2>
+            <div className="highlight-margin">
+                <FormattedMessage tagName="h3" id="unitmanagement.tree.headline" />
                 <ul className="org-tree">
                     {rootUnit && <OrganisationUnitTreeElement treeElement={rootUnit} />}
                 </ul>

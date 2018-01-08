@@ -30,6 +30,7 @@ class OrganizationUnitTreeElement extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
+        // SET ELEMENT WHEN THERE IS NO ELEMENT-NAME
         if ((!this.state.thisElement.name && nextProps.treeElement.name)) {
             this.setState({
                 thisElement: nextProps.treeElement,
@@ -37,7 +38,7 @@ class OrganizationUnitTreeElement extends React.Component {
             });
             this.getChildren(nextProps.treeElement.name);
         }
-
+        // SET NEW CHILDREN WHEN THEY ARE GIVEN AND THE UPDATE NAME IS THE SAME AS THE NAME FROM THE ELEMENT
         if (this.state.thisElement.name === nextProps.unitTree.name && nextProps.unitTree.childrenKbaOuDTOs) {
             const hasChildren = !!nextProps.unitTree.childrenKbaOuDTOs;
             this.setState({
@@ -46,14 +47,16 @@ class OrganizationUnitTreeElement extends React.Component {
                 hasChildren,
             });
         }
+        // SET ICON WHEN NON IS GIVEN
         if (!this.state.icon) {
             const icon = nextProps.treeElement.kbaOuTypeIconLocation;
             this.setState({
                 icon,
             });
         }
-
+        // DO UPDATE WHEN UPDATE-ELEMENT IS THIS ELEMENT AND THE UPDATE HAS HAPPEN
         if (nextProps.updateSuccess && (nextProps.orgUnitToUpdate === this.state.thisElement.name)) {
+            // SET NEW ICON WHEN THE TYPE-NAME HAS CHANGED
             if (nextProps.orgUnitUpdate.kbaOuTypeName !== this.state.thisElement.kbaOuTypeName) {
                 const iconType = nextProps.types.filter(type => type.name === nextProps.orgUnitUpdate.kbaOuTypeName);
                 const icon = (iconType.length > 0) ? iconType[0].iconLocation : "";
@@ -61,11 +64,14 @@ class OrganizationUnitTreeElement extends React.Component {
                     icon,
                 });
             }
+
+            // ADD ELEMENT UPDATE
             if (nextProps.orgUnitUpdate.name !== this.state.thisElement.name || nextProps.orgUnitUpdate.kbaOuTypeName !== this.state.thisElement.kbaOuTypeName) {
                 this.setState({
                     thisElement: Object.assign({}, this.state.thisElement, nextProps.orgUnitUpdate),
                 });
             }
+
             this.props.dispatch(resetUnitUpdateStatus());
         }
     }
