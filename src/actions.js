@@ -449,8 +449,8 @@ function addOrgUnit(unit) {
 function orgUnitToAdd(unitName, unit) {
     return {
         type: UNIT_ADD_REQUEST,
-        orgUnitToAdd: unitName,
-        orgUnitUpdate: unit,
+        orgUnitToUpdate: unitName,
+        orgUnitChildUpdate: unit,
     };
 }
 function orgUnitToUpdate(unitName, unit) {
@@ -464,7 +464,6 @@ function orgUnitToUpdate(unitName, unit) {
 export function createOrgUnit(unit) {
     return (dispatch) => {
         dispatch(orgUnitToAdd(unit.parentKbaOuName, unit));
-        console.log("createOrgUnit", unit);
         dispatch(addOrgUnit(unit));
     };
 }

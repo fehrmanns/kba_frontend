@@ -370,11 +370,10 @@ function units(state = {
                 unitTree: {},
             });
         case UNIT_ADD_REQUEST:
-            console.log("UNIT_ADD_REQUEST", action);
             return Object.assign({}, state, {
                 isFetching: true,
                 orgUnitToUpdate: action.orgUnitToUpdate,
-                orgUnitChildUpdate: action.orgUnitUpdate,
+                orgUnitChildUpdate: action.orgUnitChildUpdate,
                 updateSuccess: false,
             });
         case UNIT_ADDED:

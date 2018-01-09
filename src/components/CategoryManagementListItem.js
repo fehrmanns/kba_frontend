@@ -44,7 +44,6 @@ class CategoryManagementListItem extends React.Component {
         delete changedType.nameModified;
         delete changedType.iconLocationModified;
         delete changedType.descriptionModified;
-        console.log("changedType", this.props.item.name);
 
         this.setState({
             nameModified: false,
