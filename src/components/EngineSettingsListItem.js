@@ -4,8 +4,10 @@ import {connect} from "react-redux";
 import {FormattedMessage} from "react-intl";
 import {Checkbox, MenuItem} from "react-bootstrap";
 import FormattedDropDown from "../components/i18n/FormattedDropDown";
+import InputfieldWithTooltip from "../components/InputfieldWithTooltip";
 import * as constants from "../utilities/constants";
 import * as utilities from "../utilities/utilities";
+import * as validator from "../utilities/validator";
 
 class EngineSettingsListItem extends React.Component {
     constructor(props) {
@@ -29,12 +31,16 @@ class EngineSettingsListItem extends React.Component {
             previewPicturePercentModified: false,
             minScoreValueAudioModified: false,
             minScoreValueVideoModified: false,
+            previewPicturePercentIsValid: true,
+            minScoreValueAudioIsValid: true,
+            minScoreValueVideoIsValid: true,
         };
 
         this.handleUpdate = this.handleUpdate.bind(this);
         this.compareContent = this.compareContent.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleSelection = this.handleSelection.bind(this);
+        this.validateAndHandleChange = this.validateAndHandleChange.bind(this);
     }
 
     handleChange(event, strToCut) {
@@ -45,6 +51,21 @@ class EngineSettingsListItem extends React.Component {
             [targetName]: event.target.value,
         });
         this.compareContent(targetName, event.target.value);
+    }
+
+    validateRange(event, attribute, min, max) {
+        if (!validator.inRangeOrEmpty(event.target.value, min, max)) {
+            this.setState({[attribute]: false});
+            return false;
+        }
+        this.setState({[attribute]: true});
+        return true;
+    }
+
+    validateAndHandleChange(event, strToCut, attribute, min, max) {
+        console.log("event.target.value", event.target.value);
+        this.validateRange(event, attribute, min, max);
+        this.handleChange(event, strToCut);
     }
 
     handleSelection(name, event) {
@@ -58,6 +79,8 @@ class EngineSettingsListItem extends React.Component {
     }
 
     handleUpdate() {
+        if (!this.state.previewPicturePercentIsValid || !this.state.minScoreValueAudioIsValid || !this.state.minScoreValueVideoIsValid) return;
+
         const newSetting = {
             name: this.state.name,
             description: this.state.description,
@@ -83,6 +106,9 @@ class EngineSettingsListItem extends React.Component {
         const modified = this.state.nameModified || this.state.descriptionModified || this.state.storagePolicyModified || this.state.keepPcmRawDataModified || this.state.speakerNumRecognitionModified || this.state.previewPicturePercentModified || this.state.minScoreValueAudioModified || this.state.minScoreValueVideoModified;
 
         const {speakerNumRecognition, storagePolicies} = constants;
+        const tooltipVideo = this.state.minScoreValueVideoIsValid ? "" : "input.minScoreError";
+        const tooltipAudio = this.state.minScoreValueAudioIsValid ? "" : "input.minScoreError";
+        const tooltipPicture = this.state.previewPicturePercentIsValid ? "" : "input.picturePreviewError";
         return (
             <tr >
                 <td>
@@ -143,21 +169,21 @@ class EngineSettingsListItem extends React.Component {
                 </td>
                 <td>
                     {mayEdit ?
-                        <input id={`tableInputPreviewPicturePercent-preview${settingItem.name}`} onChange={event => this.handleChange(event, `preview${settingItem.name}`)} value={this.state.previewPicturePercent} type="number" min="0" max="100" step="0.01" />
+                        <InputfieldWithTooltip id={`tableInputPreviewPicturePercent-preview${settingItem.name}`} onChange={event => this.validateAndHandleChange(event, `preview${settingItem.name}`, "previewPicturePercentIsValid", 0, 100)} value={this.state.previewPicturePercent} type="number" min="0" max="100" step="0.01" textID={tooltipPicture} />
                         :
                         <span>{this.state.previewPicturePercent}</span>
                     }
                 </td>
                 <td>
                     {mayEdit ?
-                        <input id={`tableInputMinScoreValueAudio-audio${settingItem.name}`} onChange={event => this.handleChange(event, `audio${settingItem.name}`)} value={this.state.minScoreValueAudio} type="number" min="-16" max="16" />
+                        <InputfieldWithTooltip id={`tableInputMinScoreValueAudio-audio${settingItem.name}`} onChange={event => this.validateAndHandleChange(event, `audio${settingItem.name}`, "minScoreValueAudioIsValid", -16, 16)} value={this.state.minScoreValueAudio} type="number" min="-16" max="16" textID={tooltipAudio} />
                         :
                         <span>{this.state.minScoreValueAudio}</span>
                     }
                 </td>
                 <td>
                     {mayEdit ?
-                        <input id={`tableInputMinScoreValueVideo-video${settingItem.name}`} onChange={event => this.handleChange(event, `video${settingItem.name}`)} value={this.state.minScoreValueVideo} type="number" min="-16" max="16" />
+                        <InputfieldWithTooltip id={`tableInputMinScoreValueVideo-video${settingItem.name}`} onChange={event => this.validateAndHandleChange(event, `video${settingItem.name}`, "minScoreValueVideoIsValid", -16, 16)} value={this.state.minScoreValueVideo} type="number" min="-16" max="16" textID={tooltipVideo} className="textfield-error" />
                         :
                         <span>{this.state.minScoreValueVideo}</span>
                     }

@@ -90,3 +90,8 @@ table input {
 .icon-area [class*="iconexperience"] {
     cursor: pointer;
 }
+
+.textfield-error{
+    border-color: #a94442;
+    border: 1px;
+}
