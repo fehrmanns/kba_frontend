@@ -27,6 +27,9 @@ class EngineSettingList extends React.Component {
                                 </th>
                                 <th><FormattedMessage id="enginesettings.list.storagePolicy" /></th>
                                 <th><FormattedMessage id="enginesettings.list.speakerNumRecognition" /></th>
+                                <th><FormattedMessage id="enginesettings.list.previewPicturePercent" /></th>
+                                <th><FormattedMessage id="enginesettings.list.minScoreValueAudio" /></th>
+                                <th><FormattedMessage id="enginesettings.list.minScoreValueVideo" /></th>
 
                                 <th>{/* placeholder for button */}</th>
                             </tr>

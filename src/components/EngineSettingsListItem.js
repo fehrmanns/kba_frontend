@@ -13,17 +13,23 @@ class EngineSettingsListItem extends React.Component {
         super(props);
         const {settingItem} = this.props;
         this.state = {
-            name: settingItem.name,
-            description: settingItem.description,
-            storagePolicy: settingItem.storagePolicy,
+            name: settingItem.name ? settingItem.name : "",
+            description: settingItem.description ? settingItem.description : "",
+            storagePolicy: settingItem.storagePolicy ? settingItem.storagePolicy : null,
             keepPcmRawData: settingItem.keepPcmRawData,
-            speakerNumRecognition: settingItem.speakerNumRecognition,
+            speakerNumRecognition: settingItem.speakerNumRecognition ? settingItem.speakerNumRecognition : null,
+            previewPicturePercent: settingItem.previewPicturePercent ? settingItem.previewPicturePercent : "",
+            minScoreValueAudio: settingItem.minScoreValueAudio ? settingItem.minScoreValueAudio : "",
+            minScoreValueVideo: settingItem.minScoreValueVideo ? settingItem.minScoreValueVideo : "",
             notModifiedName: settingItem.name,
             nameModified: false,
             descriptionModified: false,
             storagePolicyModified: false,
             keepPcmRawDataModified: false,
             speakerNumRecognitionModified: false,
+            previewPicturePercentModified: false,
+            minScoreValueAudioModified: false,
+            minScoreValueVideoModified: false,
         };
 
         this.handleUpdate = this.handleUpdate.bind(this);
@@ -32,11 +38,10 @@ class EngineSettingsListItem extends React.Component {
         this.handleSelection = this.handleSelection.bind(this);
     }
 
-    handleChange(event) {
+    handleChange(event, strToCut) {
         event.preventDefault();
 
-        const targetName = event.target.id.replace("tableInput", "").replace(/\b[A-Z]/g, letter => letter.toLowerCase()).replace(`-${this.props.settingItem.name}`, "");
-
+        const targetName = event.target.id.replace("tableInput", "").replace(/\b[A-Z]/g, letter => letter.toLowerCase()).replace(`-${strToCut}`, "");
         this.setState({
             [targetName]: event.target.value,
         });
@@ -60,6 +65,9 @@ class EngineSettingsListItem extends React.Component {
             storagePolicy: this.state.storagePolicy,
             keepPcmRawData: this.state.keepPcmRawData,
             speakerNumRecognition: this.state.speakerNumRecognition,
+            previewPicturePercent: this.state.previewPicturePercent,
+            minScoreValueAudio: this.state.minScoreValueAudio,
+            minScoreValueVideo: this.state.minScoreValueVideo,
         };
 
         this.props.updateSetting(this.state.notModifiedName, newSetting);
@@ -73,28 +81,21 @@ class EngineSettingsListItem extends React.Component {
         const mayDelete = rights["engine-settings"].delete;
         const storagepolicyDropDownTitleId = this.state.storagePolicy ? this.state.storagePolicy : "selection.storagepolicy";
         const speakerDropDownTitleId = this.state.speakerNumRecognition ? this.state.speakerNumRecognition : "selection.speaker";
-        const modified = this.state.nameModified || this.state.descriptionModified || this.state.storagePolicyModified || this.state.keepPcmRawDataModified || this.state.speakerNumRecognitionModified;
+        const modified = this.state.nameModified || this.state.descriptionModified || this.state.storagePolicyModified || this.state.keepPcmRawDataModified || this.state.speakerNumRecognitionModified || this.state.previewPicturePercentModified || this.state.minScoreValueAudioModified || this.state.minScoreValueVideoModified;
 
         const {speakerNumRecognition, storagePolicies} = constants;
         return (
             <tr >
                 <td>
                     {mayEdit ?
-                        <input id={`tableInputName-${settingItem.name}`} onChange={this.handleChange} value={this.state.name} />
+                        <input id={`tableInputName-${settingItem.name}`} onChange={event => this.handleChange(event, settingItem.name)} value={this.state.name} />
                         :
                         <span>{this.state.name}</span>
                     }
                 </td>
                 <td>
                     {mayEdit ?
-                        <FormattedTextarea
-                            type="text"
-                            id="tableInputDescription"
-                            className="form-control"
-                            placeholder="input.description"
-                            onChange={this.handleChange}
-                            value={this.state.description}
-                        />
+                        <input id={`tableInputName-${settingItem.description}`} onChange={event => this.handleChange(event, settingItem.description)} value={this.state.description} />
                         :
                         <span>{this.state.description}</span>
                     }
@@ -140,6 +141,27 @@ class EngineSettingsListItem extends React.Component {
                                 <FormattedMessage tagName="label" id={element} className="control-label" key={element} />
                             </MenuItem>))}
                     </FormattedDropDown>
+                </td>
+                <td>
+                    {mayEdit ?
+                        <input id={`tableInputPreviewPicturePercent-preview${settingItem.name}`} onChange={event => this.handleChange(event, `preview${settingItem.name}`)} value={this.state.previewPicturePercent} type="number" min="0" max="100" step="0.01" />
+                        :
+                        <span>{this.state.previewPicturePercent}</span>
+                    }
+                </td>
+                <td>
+                    {mayEdit ?
+                        <input id={`tableInputMinScoreValueAudio-audio${settingItem.name}`} onChange={event => this.handleChange(event, `audio${settingItem.name}`)} value={this.state.minScoreValueAudio} type="number" min="-16" max="16" />
+                        :
+                        <span>{this.state.minScoreValueAudio}</span>
+                    }
+                </td>
+                <td>
+                    {mayEdit ?
+                        <input id={`tableInputMinScoreValueVideo-video${settingItem.name}`} onChange={event => this.handleChange(event, `video${settingItem.name}`)} value={this.state.minScoreValueVideo} type="number" min="-16" max="16" />
+                        :
+                        <span>{this.state.minScoreValueVideo}</span>
+                    }
                 </td>
 
                 {modified && mayEdit &&

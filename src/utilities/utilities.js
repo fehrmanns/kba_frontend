@@ -1,6 +1,7 @@
 export function determineModifiedValue(name, value, previousValue) {
     let result = false;
-    const compareItem = (previousValue === null) ? "" : previousValue;
-    (compareItem.toLowerCase() !== value) ? result = true : result = false;
+    let compareItem = (previousValue === null) ? "" : previousValue;
+    compareItem = (typeof compareItem === "string") ? compareItem.toLowerCase() : compareItem;
+    (compareItem !== value) ? result = true : result = false;
     return result;
 }

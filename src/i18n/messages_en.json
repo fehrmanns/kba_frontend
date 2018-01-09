@@ -80,6 +80,9 @@
         "input.keepPcm":"Keep raw PCM",
         "input.storagepolicy":"Storage policy",
         "input.speaker":"Speaker count detection policy",
+        "input.previewPicturePercent":"Percent of picture preview",
+        "input.minScoreValueVideo":"Minimum score for video",
+        "input.minScoreValueAudio":"Minimum score for audio",
 
         "button.submit": "Submit",
         "button.user.create": "Create user",
@@ -204,6 +207,9 @@
         "enginesettings.list.accountsEnabled": "Speaker count detection policy",
         "enginesettings.list.keepPcmRawData": "Keep raw PCM",
         "enginesettings.list.speakerNumRecognition": "Speaker count detection policy",
+        "enginesettings.list.previewPicturePercent":"Percent of picture preview",
+        "enginesettings.list.minScoreValueVideo":"Minimum score for video",
+        "enginesettings.list.minScoreValueAudio":"Minimum score for audio",
 
         "":""
     }
