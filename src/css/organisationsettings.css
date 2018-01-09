@@ -23,7 +23,7 @@
 }
 
 .org-tree ul {
-    padding-left: 22px;
+    padding-left: 28px;
 }
 
 .org-tree li {
@@ -85,5 +85,5 @@ ul.org-tree > li:first-child::after {
     left: 8px;
 }
 .org-tree .icon + .knot-name {
-    padding-left: 18px;
+    padding-left: 20px;
 }

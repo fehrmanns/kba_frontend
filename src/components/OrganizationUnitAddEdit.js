@@ -26,6 +26,7 @@ class OrganizationUnitAddEdit extends React.Component {
         this.sendData = this.sendData.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleUnitChange = this.handleUnitChange.bind(this);
+        this.createUnit = this.createUnit.bind(this);
         this.clear = this.clear.bind(this);
     }
 
@@ -37,10 +38,11 @@ class OrganizationUnitAddEdit extends React.Component {
                 name: nextProps.selectedUnit.name,
                 parentKbaOuName: nextProps.selectedUnit.parentKbaOuName,
                 selectedParentUnit: [],
-                nameIsValid: true,
-                typeIsValid: true,
-                parentIsValid: true,
+                nameIsValid: toEdit,
+                typeIsValid: toEdit,
+                parentIsValid: toEdit,
                 edit: toEdit,
+                showError: false,
             });
             if (nextProps.selectedUnit.kbaOuTypeName && this.state.selectedType[0] !== nextProps.selectedUnit.kbaOuTypeName) {
                 const selectedTypeArray = [];
@@ -59,22 +61,13 @@ class OrganizationUnitAddEdit extends React.Component {
 
     sendData(event) {
         event.preventDefault();
-
-        const nameIsValid = !!this.state.name;
-        const typeIsValid = !!(this.state.selectedType && this.state.selectedType.length > 0);
-        const parentIsValid = !!((this.state.selectedParentUnit && this.state.selectedParentUnit.length > 0) || this.state.parentKbaOuName);
-
-        this.setState({
-            nameIsValid,
-            typeIsValid,
-            parentIsValid,
-        });
-        if (!nameIsValid || !typeIsValid) return;
+        this.setState({showError: true});
+        if (!this.state.nameIsValid || !this.state.typeIsValid || !this.state.parentIsValid) return;
 
         const newUnit = {
             name: this.state.name,
             parentKbaOuName: this.state.edit ? this.state.parentKbaOuName : this.state.selectedParentUnit[0],
-            kbaOuTypeName: this.state.selectedType ? this.state.selectedType[0] : "",
+            kbaOuTypeName: this.state.selectedType[0],
         };
         if (this.state.edit) {
             this.updateUnit(this.state.nameNotModified, newUnit);
@@ -93,32 +86,18 @@ class OrganizationUnitAddEdit extends React.Component {
 
     reset() {
         this.setState({
+            showError: false,
             nameNotModified: "",
             name: "",
             parentKbaOuName: "",
-            nameIsValid: true,
             selectedType: [],
             selectedParentUnit: [],
-            typeIsValid: true,
-            parentIsValid: true,
             edit: false,
         });
     }
 
     updateUnit(unitName, unit) {
         this.props.dispatch(updateOrgUnit(unitName, unit));
-    }
-
-    handleUnitChange(item) {
-        this.setState({
-            selectedParentUnit: item,
-        });
-    }
-
-    handleTypeChange(item) {
-        this.setState({
-            selectedType: item,
-        });
     }
 
     // TODO: on Enter nothing is added here.
@@ -128,23 +107,38 @@ class OrganizationUnitAddEdit extends React.Component {
     }
 
     handleChange(event) {
-        this.setState({name: event.target.value});
+        this.setState({
+            name: event.target.value,
+            nameIsValid: !!event.target.value,
+        });
     }
 
-    // TODO: unit in tree has to be added
-    // TODO: unit list has to be updated
+    handleTypeChange(item) {
+        this.setState({
+            selectedType: item,
+            typeIsValid: !!item.length,
+        });
+    }
+
+    handleUnitChange(item) {
+        this.setState({
+            selectedParentUnit: item,
+            parentIsValid: !!item.length,
+        });
+    }
+
     createUnit(newUnit) {
-        this.props.dispatch(createOrgUnit(newUnit));
+        this.props.dispatch(createOrgUnit(newUnit)).then(() => this.props.dispatch(getAllOrgUnits()));
     }
 
     render() {
-        const nameError = !this.state.nameIsValid;
-        const typeError = !this.state.typeIsValid;
-        const parentError = !this.state.parentIsValid;
+        const {name, showError} = this.state;
+        const {rights} = this.props;
+        const nameError = !this.state.nameIsValid && showError;
+        const typeError = !this.state.typeIsValid && showError;
+        const parentError = !this.state.parentIsValid && showError;
         const types = this.props.types.map(item => item.name);
         const unitNames = this.props.unitList.map(item => item.name);
-        const {name} = this.state;
-        const {rights} = this.props;
 
         return (
             <form className="highlight" onSubmit={this.handleSubmit}>
@@ -159,10 +153,7 @@ class OrganizationUnitAddEdit extends React.Component {
                 </div>
                 <div className="row">
                     <div className="col-xs-12">
-                        <button
-                            className="btn btn-default pull-right "
-                            onClick={this.clear}
-                        >
+                        <button className="btn btn-default pull-right" onClick={this.clear}>
                             <FormattedMessage id="button.clear" />
                         </button>
                     </div>

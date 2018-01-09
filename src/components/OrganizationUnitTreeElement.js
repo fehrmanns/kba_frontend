@@ -16,7 +16,6 @@ class OrganizationUnitTreeElement extends React.Component {
             hasChildren: this.props.treeElement.leaf ? !this.props.treeElement.leaf : true,
             children: this.props.treeElement.childrenKbaOuDTOs,
             childLoadError: "",
-            isFetching: true,
         };
 
         this.onSelect = this.onSelect.bind(this);
@@ -43,7 +42,6 @@ class OrganizationUnitTreeElement extends React.Component {
             const hasChildren = !!nextProps.unitTree.childrenKbaOuDTOs;
             this.setState({
                 children: nextProps.unitTree.childrenKbaOuDTOs,
-                isFetching: false,
                 hasChildren,
             });
         }
@@ -60,6 +58,7 @@ class OrganizationUnitTreeElement extends React.Component {
             if (nextProps.updateSuccess && Object.getOwnPropertyNames(nextProps.orgUnitChildUpdate).length) {
                 this.getChildren(this.state.thisElement.name);
                 this.props.dispatch(resetUnitUpdateStatus());
+                this.setState({openKnot: true});
             }
             if (nextProps.updateSuccess && Object.getOwnPropertyNames(nextProps.orgUnitUpdate).length) {
                 // SET NEW ICON WHEN THE TYPE-NAME HAS CHANGED
@@ -110,7 +109,6 @@ class OrganizationUnitTreeElement extends React.Component {
             hasChildren,
             thisElement,
             children,
-            isFetching,
             childLoadError,
             icon,
         } = this.state;
@@ -127,12 +125,12 @@ class OrganizationUnitTreeElement extends React.Component {
                 <span className="btn-group">
                     {hasChildren &&
                         <button className="btn btn-sm btn-default" onKeyPress={this.onKeyPress} onClick={this.toggleView}>
-                            {isFetching ?
+                            {children ?
+                                <span className={toggleClass} />
+                                :
                                 <div className="loader-container">
                                     <span className="loader" />
                                 </div>
-                                :
-                                <span className={toggleClass} />
                             }
                         </button>
                     }

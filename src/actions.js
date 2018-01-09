@@ -464,7 +464,7 @@ function orgUnitToUpdate(unitName, unit) {
 export function createOrgUnit(unit) {
     return (dispatch) => {
         dispatch(orgUnitToAdd(unit.parentKbaOuName, unit));
-        dispatch(addOrgUnit(unit));
+        return dispatch(addOrgUnit(unit));
     };
 }
 
