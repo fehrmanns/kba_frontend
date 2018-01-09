@@ -108,7 +108,7 @@
         "button.category.delete": "Kategorie löschen",
         "button.setting.create":"Verarbeitungsrichtlinie erstellen",
         "button.newsetting.open":"Neue Verarbeitungsrichtlinie",
-        "button.setting.delete":"Verarbeitungsrichtlinie löschen",
+        "button.setting.delete":"Richtlinie löschen",
 
         "label.select.icon":"Icon",
 
@@ -205,10 +205,10 @@
         "enginesettings.list.description": "Beschreibung",
         "enginesettings.list.storagePolicy": "Speicherrichtlinie",
         "enginesettings.list.keepPcmRawData": "Rohdaten-PCM behalten",
-        "enginesettings.list.speakerNumRecognition": "Richtlinie zur Ermittlung der Sprecheranzahl",
+        "enginesettings.list.speakerNumRecognition": "Sprecheranzahlermittlung",
         "enginesettings.list.previewPicturePercent":"Prozentzahl für Bildvorschau",
-        "enginesettings.list.minScoreValueVideo":"Minimaler Score-Wert für Video",
-        "enginesettings.list.minScoreValueAudio":"Minimaler Score-Wert für Audio",
+        "enginesettings.list.minScoreValueVideo":"Min. Score Video",
+        "enginesettings.list.minScoreValueAudio":"Min. Score Audio",
 
         "":""
     }

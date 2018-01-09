@@ -159,30 +159,6 @@ class EngineSettingAddNew extends React.Component {
                                 </MenuItem>))}
                         </FormattedDropDown>
                     </div>
-
-                    <div className={speakerNumRecognitionError ? "form-group has-error col-md-3" : "form-group col-md-3"}>
-                        <label className="control-label" htmlFor="inputSpeaker">
-                            <FormattedMessage id="input.speaker" />&nbsp;
-                            {speakerNumRecognitionError && <FormattedMessage id="dropdown.error" />}
-                        </label>
-                        <br />
-                        <FormattedDropDown
-                            titleId={speakerDropDownTitleId}
-                            id="selection.speaker"
-                            onSelect={this.handleSpeakerSelection}
-                            value={this.state.speakerNumRecognition}
-                        >
-                            {speakerNumRecognition.map(element => (
-                                <MenuItem eventKey={element} key={`dropdown.speaker.${element}`}>
-                                    <FormattedMessage tagName="label" id={element} className="control-label" key={element} />
-                                </MenuItem>))}
-                        </FormattedDropDown>
-                    </div>
-                    <div className="form-group col-md-2">
-                        <Checkbox id="inputKeepPcm" onChange={() => this.setState({keepPcmRawData: !this.state.keepPcmRawData})} checked={this.state.keepPcmRawData} className="label-margin">
-                            <FormattedMessage id="input.keepPcm" />
-                        </Checkbox>
-                    </div>
                 </div>
                 <div className="row">
                     <div className="form-group col-md-4">
@@ -201,7 +177,32 @@ class EngineSettingAddNew extends React.Component {
                             value={this.state.description}
                         />
                     </div>
-                    <div className="form-group col-md-2">
+                    <div className={speakerNumRecognitionError ? "form-group has-error col-md-4" : "form-group col-md-4"}>
+                        <label className="control-label" htmlFor="inputSpeaker">
+                            <FormattedMessage id="input.speaker" />&nbsp;
+                            {speakerNumRecognitionError && <FormattedMessage id="dropdown.error" />}
+                        </label>
+                        <br />
+                        <FormattedDropDown
+                            titleId={speakerDropDownTitleId}
+                            id="selection.speaker"
+                            onSelect={this.handleSpeakerSelection}
+                            value={this.state.speakerNumRecognition}
+                        >
+                            {speakerNumRecognition.map(element => (
+                                <MenuItem eventKey={element} key={`dropdown.speaker.${element}`}>
+                                    <FormattedMessage tagName="label" id={element} className="control-label" key={element} />
+                                </MenuItem>))}
+                        </FormattedDropDown>
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="form-group col-md-3">
+                        <Checkbox id="inputKeepPcm" onChange={() => this.setState({keepPcmRawData: !this.state.keepPcmRawData})} checked={this.state.keepPcmRawData} className="label-margin">
+                            <FormattedMessage id="input.keepPcm" />
+                        </Checkbox>
+                    </div>
+                    <div className="form-group col-md-3">
                         <FormattedMessage id="input.previewPicturePercent" className="control-label" htmlFor="inputPreviewPicturePercent" tagName="label" />
                         <FormattedInput
                             id="inputPreviewPicturePercent"
@@ -215,7 +216,9 @@ class EngineSettingAddNew extends React.Component {
                             step="0.01"
                         />
                     </div>
-                    <div className="form-group col-md-2">
+                </div>
+                <div className="row">
+                    <div className="form-group col-md-3">
                         <FormattedMessage id="input.minScoreValueAudio" className="control-label" htmlFor="inputMinScoreValueAudio" tagName="label" />
                         <FormattedInput
                             id="inputMinScoreValueAudio"
@@ -228,7 +231,7 @@ class EngineSettingAddNew extends React.Component {
                             max="16"
                         />
                     </div>
-                    <div className="form-group col-md-2">
+                    <div className="form-group col-md-3">
                         <FormattedMessage id="input.minScoreValueVideo" className="control-label" htmlFor="inputMinScoreValueVideo" tagName="label" />
                         <FormattedInput
                             id="inputMinScoreValueVideo"
