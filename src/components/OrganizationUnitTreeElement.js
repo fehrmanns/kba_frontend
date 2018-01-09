@@ -55,24 +55,36 @@ class OrganizationUnitTreeElement extends React.Component {
             });
         }
         // DO UPDATE WHEN UPDATE-ELEMENT IS THIS ELEMENT AND THE UPDATE HAS HAPPEN
-        if (nextProps.updateSuccess && (nextProps.orgUnitToUpdate === this.state.thisElement.name)) {
-            // SET NEW ICON WHEN THE TYPE-NAME HAS CHANGED
-            if (nextProps.orgUnitUpdate.kbaOuTypeName !== this.state.thisElement.kbaOuTypeName) {
+        const {thisElement} = this.state;
+        if (nextProps.orgUnitToUpdate === thisElement.name) {
+            if (nextProps.updateSuccess && Object.getOwnPropertyNames(nextProps.orgUnitChildUpdate).length) {
+                console.log("this name (orgUnitChildUpdate)", this.state.thisElement.name);
+                console.log("orgUnitToUpdate", nextProps.orgUnitToUpdate);
+                console.log("orgUnitChildUpdate", Object.getOwnPropertyNames(nextProps.orgUnitChildUpdate).length);
+                this.props.dispatch(resetUnitUpdateStatus());
+            }
+            if (nextProps.updateSuccess && Object.getOwnPropertyNames(nextProps.orgUnitUpdate).length) {
+                console.log("this name (orgUnitUpdate)", this.state.thisElement.name);
+                console.log("orgUnitToUpdate", `${nextProps.orgUnitToUpdate} : ${nextProps.orgUnitUpdate}`);
+                console.log("orgUnitUpdate", Object.getOwnPropertyNames(nextProps.orgUnitUpdate).length);
+
+                // SET NEW ICON WHEN THE TYPE-NAME HAS CHANGED
+
                 const iconType = nextProps.types.filter(type => type.name === nextProps.orgUnitUpdate.kbaOuTypeName);
                 const icon = (iconType.length > 0) ? iconType[0].iconLocation : "";
                 this.setState({
                     icon,
                 });
-            }
 
-            // ADD ELEMENT UPDATE
-            if (nextProps.orgUnitUpdate.name !== this.state.thisElement.name || nextProps.orgUnitUpdate.kbaOuTypeName !== this.state.thisElement.kbaOuTypeName) {
-                this.setState({
-                    thisElement: Object.assign({}, this.state.thisElement, nextProps.orgUnitUpdate),
-                });
-            }
+                // ADD ELEMENT UPDATE
+                if (nextProps.orgUnitUpdate.name !== thisElement.name || nextProps.orgUnitUpdate.kbaOuTypeName !== thisElement.kbaOuTypeName) {
+                    this.setState({
+                        thisElement: Object.assign({}, thisElement, nextProps.orgUnitUpdate),
+                    });
+                }
 
-            this.props.dispatch(resetUnitUpdateStatus());
+                this.props.dispatch(resetUnitUpdateStatus());
+            }
         }
     }
 
@@ -167,12 +179,12 @@ OrganizationUnitTreeElement.propTypes = {
 function mapStateToProps(state) {
     const {units, unittypes} = state;
     const {
-        selectedUnit, unitTree, isFetching, orgUnitToUpdate, orgUnitUpdate, updateSuccess,
+        selectedUnit, unitTree, isFetching, orgUnitToUpdate, orgUnitUpdate, updateSuccess, orgUnitChildUpdate,
     } = units;
     const types = unittypes.list;
 
     return {
-        selectedUnit, unitTree, isFetching, orgUnitToUpdate, orgUnitUpdate, updateSuccess, types,
+        selectedUnit, unitTree, isFetching, orgUnitToUpdate, orgUnitUpdate, updateSuccess, types, orgUnitChildUpdate,
     };
 }
 

@@ -121,6 +121,7 @@ class OrganizationUnitAddEdit extends React.Component {
         });
     }
 
+    // TODO: on Enter nothing is added here.
     handleSubmit(event) {
         event.preventDefault();
         this.sendData();

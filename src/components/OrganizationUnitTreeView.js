@@ -1,8 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
-import {getRootUnit, getUnitTypes} from "../actions";
 import {FormattedMessage} from "react-intl";
+import {getRootUnit, getUnitTypes} from "../actions";
 import OrganisationUnitTreeElement from "./OrganizationUnitTreeElement";
 
 class OrganizationUnitTreeView extends React.Component {

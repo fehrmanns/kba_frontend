@@ -6,7 +6,7 @@ import {
     USER_REQUEST, USER_LOADED, USER_DELETED, USER_ADDED, USER_UPDATED, USER_FAILURE,
     TYPE_REQUEST, TYPE_LOADED, TYPE_DELETED, TYPE_ADDED, TYPE_UPDATED, TYPE_BYNAME_LOADED, TYPE_FAILURE,
     OPEN_PASSWORD_MODAL, CLOSE_PASSWORD_MODAL, OPEN_SELECT_ICON_MODAL, CLOSE_SELECT_ICON_MODAL,
-    UNITS_REQUEST, UNITS_LOADED, UNIT_REQUEST, UNIT_ADDED, UNIT_DELETED, UNIT_UPDATE_REQUEST, RESET_UNIT_UPDATE_STATUS, UNIT_UPDATED, UNIT_FAILURE, UNIT_LOADED, UNIT_SELECTED, ROOTUNIT_LOADED, SET_RIGHTS, SET_EXPIRED_VALUE, PASSWORD_REQUEST,
+    UNITS_REQUEST, UNITS_LOADED, UNIT_REQUEST, UNIT_ADD_REQUEST, UNIT_ADDED, UNIT_DELETED, UNIT_UPDATE_REQUEST, RESET_UNIT_UPDATE_STATUS, UNIT_UPDATED, UNIT_FAILURE, UNIT_LOADED, UNIT_SELECTED, ROOTUNIT_LOADED, SET_RIGHTS, SET_EXPIRED_VALUE, PASSWORD_REQUEST,
     CATEGORY_REQUEST, CATEGORY_LOADED, CATEGORY_ADDED, CATEGORY_UPDATED, CATEGORY_DELETED, CATEGORY_FAILURE,
 } from "./actions";
 
@@ -338,6 +338,9 @@ function units(state = {
     selectedUnit: {},
     typeNames: [],
     updateSuccess: false,
+    orgUnitToUpdate: "",
+    orgUnitUpdate: {},
+    orgUnitChildUpdate: {},
 }, action) {
     // TODO: define all types
     switch (action.type) {
@@ -366,9 +369,18 @@ function units(state = {
                 isFetching: true,
                 unitTree: {},
             });
+        case UNIT_ADD_REQUEST:
+            console.log("UNIT_ADD_REQUEST", action);
+            return Object.assign({}, state, {
+                isFetching: true,
+                orgUnitToUpdate: action.orgUnitToUpdate,
+                orgUnitChildUpdate: action.orgUnitUpdate,
+                updateSuccess: false,
+            });
         case UNIT_ADDED:
             return Object.assign({}, state, {
                 isFetching: false,
+                updateSuccess: true,
             });
         case UNIT_LOADED:
             return Object.assign({}, state, {
@@ -384,9 +396,9 @@ function units(state = {
         case UNIT_UPDATE_REQUEST:
             return Object.assign({}, state, {
                 isFetching: true,
+                updateSuccess: false,
                 orgUnitToUpdate: action.orgUnitToUpdate,
                 orgUnitUpdate: action.orgUnitUpdate,
-                updateSuccess: false,
             });
         case UNIT_UPDATED:
             return Object.assign({}, state, {
@@ -402,6 +414,9 @@ function units(state = {
             return Object.assign({}, state, {
                 isFetching: false,
                 updateSuccess: false,
+                orgUnitToUpdate: "",
+                orgUnitUpdate: {},
+                orgUnitChildUpdate: {},
             });
         default:
             return state;

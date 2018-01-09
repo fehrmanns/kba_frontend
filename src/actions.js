@@ -41,6 +41,7 @@ export const UNITS_LOADED = "UNITS_LOADED";
 export const ROOTUNIT_LOADED = "ROOTUNIT_LOADED";
 export const UNIT_REQUEST = "UNIT_REQUEST";
 export const UNIT_LOADED = "UNIT_LOADED";
+export const UNIT_ADD_REQUEST = "UNIT_ADD_REQUEST";
 export const UNIT_ADDED = "UNIT_ADDED";
 export const UNIT_DELETED = "UNIT_DELETED";
 export const UNIT_UPDATED = "UNIT_UPDATED";
@@ -433,7 +434,7 @@ export function deleteOrgUnit(unitName) {
     };
 }
 
-export function createOrgUnit(unit) {
+function addOrgUnit(unit) {
     return {
         [CALL_API]: {
             endpoint: "management/org-units/",
@@ -445,11 +446,26 @@ export function createOrgUnit(unit) {
     };
 }
 
+function orgUnitToAdd(unitName, unit) {
+    return {
+        type: UNIT_ADD_REQUEST,
+        orgUnitToAdd: unitName,
+        orgUnitUpdate: unit,
+    };
+}
 function orgUnitToUpdate(unitName, unit) {
     return {
         type: UNIT_UPDATE_REQUEST,
         orgUnitToUpdate: unitName,
         orgUnitUpdate: unit,
+    };
+}
+
+export function createOrgUnit(unit) {
+    return (dispatch) => {
+        dispatch(orgUnitToAdd(unit.parentKbaOuName, unit));
+        console.log("createOrgUnit", unit);
+        dispatch(addOrgUnit(unit));
     };
 }
 
