@@ -66,7 +66,7 @@ class EngineSettingAddNew extends React.Component {
 
         const nameIsValid = !!this.state.name;
         const storagePolicyIsValid = !!this.state.storagePolicy;
-        const speakerNumRecognitionIsValid = !!this.state.speakerNumRecognitionIsValid;
+        const speakerNumRecognitionIsValid = !!this.state.speakerNumRecognition;
 
         this.setState({
             nameIsValid,

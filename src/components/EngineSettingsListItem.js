@@ -95,7 +95,7 @@ class EngineSettingsListItem extends React.Component {
                 </td>
                 <td>
                     {mayEdit ?
-                        <input id={`tableInputName-${settingItem.description}`} onChange={event => this.handleChange(event, settingItem.description)} value={this.state.description} />
+                        <input id={`tableInputDescription-${settingItem.description}`} onChange={event => this.handleChange(event, settingItem.description)} value={this.state.description} />
                         :
                         <span>{this.state.description}</span>
                     }
