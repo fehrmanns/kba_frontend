@@ -83,6 +83,8 @@
         "input.previewPicturePercent":"Prozentzahl für Bildvorschau",
         "input.minScoreValueVideo":"Minimaler Score-Wert für Video",
         "input.minScoreValueAudio":"Minimaler Score-Wert für Audio",
+        "input.minScoreError":"Minimaler Score-Wert muss zwischen -16 und 16 liegen",
+        "input.picturePreviewError":"Der Wert muss zwischen 0 und 100 liegen",
 
         "button.submit": "Absenden",
         "button.user.create": "Benutzer anlegen",

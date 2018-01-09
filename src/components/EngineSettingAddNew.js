@@ -4,8 +4,8 @@ import {FormattedMessage} from "react-intl";
 import {Checkbox, MenuItem} from "react-bootstrap";
 import FormattedInput from "../components/i18n/FormattedInput";
 import FormattedDropDown from "../components/i18n/FormattedDropDown";
-import FormattedTextarea from "../components/i18n/FormattedTextarea";
 import * as constants from "../utilities/constants";
+import * as validator from "../utilities/validator";
 
 class EngineSettingAddNew extends React.Component {
     constructor(props) {
@@ -23,11 +23,15 @@ class EngineSettingAddNew extends React.Component {
             nameIsValid: true,
             storagePolicyIsValid: true,
             speakerNumRecognitionIsValid: true,
+            minScoreValueAudioIsValid: true,
+            minScoreValueVideoIsValid: true,
+            previewPicturePercentIsValid: true,
         };
         this.handleChange = this.handleChange.bind(this);
         this.sendData = this.sendData.bind(this);
         this.handleStoragePolicySelection = this.handleStoragePolicySelection.bind(this);
         this.handleSpeakerSelection = this.handleSpeakerSelection.bind(this);
+        this.validateRange = this.validateRange.bind(this);
     }
 
     handleStoragePolicySelection(event) {
@@ -74,7 +78,7 @@ class EngineSettingAddNew extends React.Component {
             speakerNumRecognitionIsValid,
         });
 
-        if (!nameIsValid || !storagePolicyIsValid || !speakerNumRecognitionIsValid) return;
+        if (!nameIsValid || !storagePolicyIsValid || !speakerNumRecognitionIsValid || !this.state.minScoreValueAudioIsValid || !this.state.minScoreValueVideoIsValid || !this.state.previewPicturePercentIsValid) return;
 
         const newSetting = {
             name: this.state.name,
@@ -105,7 +109,20 @@ class EngineSettingAddNew extends React.Component {
             nameIsValid: true,
             storagePolicyIsValid: true,
             speakerNumRecognitionIsValid: true,
+            minScoreValueAudioIsValid: true,
+            minScoreValueVideoIsValid: true,
+            previewPicturePercentIsValid: true,
         });
+    }
+
+    validateRange(event, attribute, min, max) {
+        console.log("event.target.value", event.target.value);
+        if (!validator.inRangeOrEmpty(event.target.value, min, max)) {
+            this.setState({[attribute]: false});
+            return false;
+        }
+        this.setState({[attribute]: true});
+        return true;
     }
 
 
@@ -117,6 +134,9 @@ class EngineSettingAddNew extends React.Component {
 
         const storagepolicyDropDownTitleId = this.state.storagePolicy ? this.state.storagePolicy : "selection.storagepolicy";
         const speakerDropDownTitleId = this.state.speakerNumRecognition ? this.state.speakerNumRecognition : "selection.speaker";
+        const scoreAudioError = !this.state.minScoreValueAudioIsValid;
+        const scoreVideoError = !this.state.minScoreValueVideoIsValid;
+        const picturePreviewError = !this.state.previewPicturePercentIsValid;
 
         // TODO: checkbox state should change when text is clicked
         return (
@@ -202,8 +222,13 @@ class EngineSettingAddNew extends React.Component {
                             <FormattedMessage id="input.keepPcm" />
                         </Checkbox>
                     </div>
-                    <div className="form-group col-md-3">
-                        <FormattedMessage id="input.previewPicturePercent" className="control-label" htmlFor="inputPreviewPicturePercent" tagName="label" />
+                    <div className={picturePreviewError ? "form-group has-error col-md-3" : "form-group col-md-3"}>
+                        <label className="control-label" htmlFor="inputPreviewPicturePercent" >
+                            {!picturePreviewError ?
+                                <FormattedMessage id="input.previewPicturePercent" />
+                                :
+                                <FormattedMessage id="input.picturePreviewError" />}
+                        </label>
                         <FormattedInput
                             id="inputPreviewPicturePercent"
                             className="form-control"
@@ -214,12 +239,18 @@ class EngineSettingAddNew extends React.Component {
                             min="0"
                             max="100"
                             step="0.01"
+                            onKeyUp={(event) => { this.validateRange(event, "previewPicturePercentIsValid", 0, 100); }}
                         />
                     </div>
                 </div>
                 <div className="row">
-                    <div className="form-group col-md-3">
-                        <FormattedMessage id="input.minScoreValueAudio" className="control-label" htmlFor="inputMinScoreValueAudio" tagName="label" />
+                    <div className={scoreAudioError ? "form-group has-error col-md-3" : "form-group col-md-3"}>
+                        <label className="control-label" htmlFor="inputMinScoreValueAudio" >
+                            {!scoreAudioError ?
+                                <FormattedMessage id="input.minScoreValueAudio" />
+                                :
+                                <FormattedMessage id="input.minScoreError" />}
+                        </label>
                         <FormattedInput
                             id="inputMinScoreValueAudio"
                             className="form-control"
@@ -229,10 +260,16 @@ class EngineSettingAddNew extends React.Component {
                             type="number"
                             min="-16"
                             max="16"
+                            onKeyUp={(event) => { this.validateRange(event, "minScoreValueAudioIsValid", -16, 16); }}
                         />
                     </div>
-                    <div className="form-group col-md-3">
-                        <FormattedMessage id="input.minScoreValueVideo" className="control-label" htmlFor="inputMinScoreValueVideo" tagName="label" />
+                    <div className={scoreVideoError ? "form-group has-error col-md-3" : "form-group col-md-3"}>
+                        <label className="control-label" htmlFor="inputMinScoreValueVideo" >
+                            {!scoreVideoError ?
+                                <FormattedMessage id="input.minScoreValueVideo" />
+                                :
+                                <FormattedMessage id="input.minScoreError" />}
+                        </label>
                         <FormattedInput
                             id="inputMinScoreValueVideo"
                             className="form-control"
@@ -242,6 +279,7 @@ class EngineSettingAddNew extends React.Component {
                             type="number"
                             min="-16"
                             max="16"
+                            onKeyUp={(event) => { this.validateRange(event, "minScoreValueVideoIsValid", -16, 16); }}
                         />
                     </div>
                 </div>

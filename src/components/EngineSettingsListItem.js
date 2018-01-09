@@ -4,7 +4,6 @@ import {connect} from "react-redux";
 import {FormattedMessage} from "react-intl";
 import {Checkbox, MenuItem} from "react-bootstrap";
 import FormattedDropDown from "../components/i18n/FormattedDropDown";
-import FormattedTextarea from "../components/i18n/FormattedTextarea";
 import * as constants from "../utilities/constants";
 import * as utilities from "../utilities/utilities";
 

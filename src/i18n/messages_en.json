@@ -83,6 +83,8 @@
         "input.previewPicturePercent":"Percent of picture preview",
         "input.minScoreValueVideo":"Minimum score for video",
         "input.minScoreValueAudio":"Minimum score for audio",
+        "input.minScoreError":"The minimal score value has to be between -16 and 16.",
+        "input.picturePreviewError":"The value has to be between 0 and 100.",
 
         "button.submit": "Submit",
         "button.user.create": "Create user",
