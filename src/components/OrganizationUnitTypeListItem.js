@@ -107,14 +107,14 @@ class OrganizationUnitTypeListItem extends React.Component {
             <tr >
                 <td>
                     {(rights["org-unit-types"].put) ?
-                        <input id="tableInputName" onChange={this.handleChange} value={this.state.name} />
+                        <input id="tableInputName" onChange={this.handleChange} value={this.state.name} className="form-control" />
                         :
                         <span>{this.state.name}</span>
                     }
                 </td>
                 <td>
                     {(rights["org-unit-types"].put) ?
-                        <input id="tableInputAbbreviation" onChange={this.handleChange} value={this.state.abbreviation} />
+                        <input id="tableInputAbbreviation" onChange={this.handleChange} value={this.state.abbreviation} className="form-control" />
                         :
                         <span>{this.state.abbreviation}</span>
                     }
