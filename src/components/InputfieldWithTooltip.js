@@ -8,7 +8,7 @@ class InputfieldWithTooltip extends React.Component {
         const { textID, ...rest } = this.props;
         const tooltip = <Tooltip id={`tooltip_${textID}`}> <FormattedMessage id={textID} /></Tooltip>;
         return (
-            <div>
+            <span>
                 {textID ?
                     <OverlayTrigger
                         overlay={tooltip}
@@ -21,7 +21,7 @@ class InputfieldWithTooltip extends React.Component {
                     :
                     <input {...rest} />
                 }
-            </div>
+            </span>
         );
     }
 }

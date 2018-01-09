@@ -6,6 +6,7 @@ import { Collapse } from "react-bootstrap";
 import EngineSettingAddNew from "../components/EngineSettingAddNew";
 import EngineSettingList from "../components/EngineSettingList";
 import {createEngineSetting, deleteEngineSetting, updateEngineSetting, getEngineSettings} from "../actions";
+import "./../css/importsettings.css";
 
 class Importsettings extends React.Component {
     constructor(props) {
@@ -41,7 +42,7 @@ class Importsettings extends React.Component {
     render() {
         const {rights, settingsAreLoaded} = this.props;
         return (
-            <div className="starter-template">
+            <div className="importsettings">
                 <h1><FormattedMessage id="view.importsettings.title" /></h1>
                 {rights["engine-settings"].post &&
                 <div className="row">

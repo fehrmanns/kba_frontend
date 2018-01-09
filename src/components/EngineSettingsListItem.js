@@ -109,6 +109,9 @@ class EngineSettingsListItem extends React.Component {
         const tooltipVideo = this.state.minScoreValueVideoIsValid ? "" : "input.minScoreError";
         const tooltipAudio = this.state.minScoreValueAudioIsValid ? "" : "input.minScoreError";
         const tooltipPicture = this.state.previewPicturePercentIsValid ? "" : "input.picturePreviewError";
+        const classNameVideo = this.state.minScoreValueVideoIsValid ? "" : "has-error";
+        const classNameAudio = this.state.minScoreValueAudioIsValid ? "" : "has-error";
+        const classNamePicture = this.state.previewPicturePercentIsValid ? "" : "has-error";
         return (
             <tr >
                 <td>
@@ -148,7 +151,7 @@ class EngineSettingsListItem extends React.Component {
                     >
                         {storagePolicies.map(element => (
                             <MenuItem eventKey={element} key={`dropdown.storagepolicy.${element}`}>
-                                <FormattedMessage tagName="label" id={element} className="control-label" key={element} />
+                                <FormattedMessage tagName="label" id={element} key={element} />
                             </MenuItem>))}
                     </FormattedDropDown>
                 </td>
@@ -163,27 +166,27 @@ class EngineSettingsListItem extends React.Component {
                     >
                         {speakerNumRecognition.map(element => (
                             <MenuItem eventKey={element} key={`dropdown.speaker.${element}`}>
-                                <FormattedMessage tagName="label" id={element} className="control-label" key={element} />
+                                <FormattedMessage tagName="label" id={element} key={element} />
                             </MenuItem>))}
                     </FormattedDropDown>
                 </td>
-                <td>
+                <td className={classNamePicture}>
                     {mayEdit ?
-                        <InputfieldWithTooltip id={`tableInputPreviewPicturePercent-preview${settingItem.name}`} onChange={event => this.validateAndHandleChange(event, `preview${settingItem.name}`, "previewPicturePercentIsValid", 0, 100)} value={this.state.previewPicturePercent} type="number" min="0" max="100" step="0.01" textID={tooltipPicture} />
+                        <InputfieldWithTooltip id={`tableInputPreviewPicturePercent-preview${settingItem.name}`} onChange={event => this.validateAndHandleChange(event, `preview${settingItem.name}`, "previewPicturePercentIsValid", 0, 100)} value={this.state.previewPicturePercent} type="number" min="0" max="100" step="0.01" textID={tooltipPicture} className="form-control" />
                         :
                         <span>{this.state.previewPicturePercent}</span>
                     }
                 </td>
-                <td>
+                <td className={classNameAudio}>
                     {mayEdit ?
-                        <InputfieldWithTooltip id={`tableInputMinScoreValueAudio-audio${settingItem.name}`} onChange={event => this.validateAndHandleChange(event, `audio${settingItem.name}`, "minScoreValueAudioIsValid", -16, 16)} value={this.state.minScoreValueAudio} type="number" min="-16" max="16" textID={tooltipAudio} />
+                        <InputfieldWithTooltip id={`tableInputMinScoreValueAudio-audio${settingItem.name}`} onChange={event => this.validateAndHandleChange(event, `audio${settingItem.name}`, "minScoreValueAudioIsValid", -16, 16)} value={this.state.minScoreValueAudio} type="number" min="-16" max="16" textID={tooltipAudio} className="form-control" />
                         :
                         <span>{this.state.minScoreValueAudio}</span>
                     }
                 </td>
-                <td>
+                <td className={classNameVideo}>
                     {mayEdit ?
-                        <InputfieldWithTooltip id={`tableInputMinScoreValueVideo-video${settingItem.name}`} onChange={event => this.validateAndHandleChange(event, `video${settingItem.name}`, "minScoreValueVideoIsValid", -16, 16)} value={this.state.minScoreValueVideo} type="number" min="-16" max="16" textID={tooltipVideo} className="textfield-error" />
+                        <InputfieldWithTooltip id={`tableInputMinScoreValueVideo-video${settingItem.name}`} onChange={event => this.validateAndHandleChange(event, `video${settingItem.name}`, "minScoreValueVideoIsValid", -16, 16)} value={this.state.minScoreValueVideo} type="number" min="-16" max="16" textID={tooltipVideo} className="form-control" />
                         :
                         <span>{this.state.minScoreValueVideo}</span>
                     }

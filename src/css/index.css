@@ -91,7 +91,14 @@ table input {
     cursor: pointer;
 }
 
-.textfield-error{
-    border-color: #a94442;
-    border: 1px;
+table .form-control{
+    border-width: 0px;
+    box-shadow: none;
+    line-height: 0;
+    background-color: inherit;
+    height: 100%;
+}
+
+table .has-error .form-control{
+    border-width: 1px;
 }
