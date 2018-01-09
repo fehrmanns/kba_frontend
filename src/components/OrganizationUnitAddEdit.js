@@ -13,9 +13,9 @@ class OrganizationUnitAddEdit extends React.Component {
             nameNotModified: "",
             name: "",
             parentKbaOuName: "",
-            nameIsValid: true,
             selectedType: [],
             selectedParentUnit: [],
+            nameIsValid: true,
             typeIsValid: true,
             parentIsValid: true,
             edit: false,
@@ -32,7 +32,7 @@ class OrganizationUnitAddEdit extends React.Component {
 
     componentWillReceiveProps(nextProps) {
         const toEdit = !!nextProps.selectedUnit.name;
-        if (this.props.rights["org-units"].put) {
+        if (this.props.rights["org-units"].put && toEdit) {
             this.setState({
                 nameNotModified: nextProps.selectedUnit.name,
                 name: nextProps.selectedUnit.name,
@@ -80,8 +80,8 @@ class OrganizationUnitAddEdit extends React.Component {
 
     clear(event) {
         event.preventDefault();
-        this.reset();
         this.props.dispatch(selectUnit({}));
+        this.reset();
     }
 
     reset() {
@@ -196,9 +196,7 @@ class OrganizationUnitAddEdit extends React.Component {
                                 <FormattedMessage id="input.parentKbaOuName" />
                             </label>
                             <div>
-                                <label className="control-label" htmlFor="parentKbaOuName">
-                                    <span>{this.state.parentKbaOuName}</span>
-                                </label>
+                                <p className="label label-primary">{this.state.parentKbaOuName}</p>
                             </div>
                         </div>
                         :
