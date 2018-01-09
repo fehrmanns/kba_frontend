@@ -5,6 +5,18 @@
         "KBA_OU_ALREADY_EXISTS":"Eine Organisationseinheit mit diesem Namen existiert bereits.",
         "MANDATORY_PARAMETER_NOT_SET":"Pflichtparameter nicht gesetzt.",
 
+        "DONT_STORE_MEDIA":"Medien nicht speichern",
+        "STORE_MODERATELY_COMPRESSED_MEDIA":"Moderat komprimierte Medien speichern",
+        "STORE_STRONGLY_COMPRESSED_MEDIA":"Stark komprimierte Medien speichern",
+        "STORE_VERY_STRONGLY_COMPRESSED_MEDIA":"Sehr stark komprimierte Medien speichern",
+        "STORE_UNMODIFIED_ORIGINAL":"Unverändertes Original speichern",
+
+        "ALWAYS_ONE_SPEAKER_PER_CHANNEL":"Immer ein Sprecher pro Kanal",
+        "ALWAYS_TWO_SPEAKERS_PER_CHANNEL":"Immer zwei Sprecher pro Kanal",
+        "PRECISE_SPEAKER_COUNT_CHECK":"Präziser Check, um die Sprecheranzahl zu ermitteln",
+        "FAST_SPEAKER_COUNT_CHECK":"Schneller Check, um Sprecheranzahl zu ermitteln",
+        "CLUSTERING_SPEAKER_COUNT_CHECK":"Sprecheranzahl über Clustering ermitteln",
+
         "alert.strong.message.success": "Sehr gut!",
         "alert.strong.message.info": "Information:",
         "alert.strong.message.warning": "Vorsicht.",
@@ -34,6 +46,7 @@
         "dropdown.role.admin": "Administrator",
         "dropdown.role.supervisor": "Aufsichtsperson",
         "dropdown.role.analyst": "Analytiker",
+        "dropdown.error": "bitte auswählen.",
 
         "input.username": "Nutzername",
         "input.loginNameError": "darf nicht leer sein.",
@@ -62,6 +75,16 @@
         "input.categoryname": "Kategorie",
         "input.categoryNameError": "darf nicht leer sein.",
         "input.categorydescription": "Beschreibung",
+        "input.settingname":"Name",
+        "input.description":"Beschreibung",
+        "input.keepPcm":"Rohdaten-PCM behalten",
+        "input.storagepolicy":"Speicherrichtlinie",
+        "input.speaker":"Richtlinie zur Ermittlung der Sprecheranzahl",
+        "input.previewPicturePercent":"Prozentzahl für Bildvorschau",
+        "input.minScoreValueVideo":"Minimaler Score-Wert für Video",
+        "input.minScoreValueAudio":"Minimaler Score-Wert für Audio",
+        "input.minScoreError":"Minimaler Score-Wert muss zwischen -16 und 16 liegen",
+        "input.picturePreviewError":"Der Wert muss zwischen 0 und 100 liegen",
 
         "button.submit": "Absenden",
         "button.user.create": "Benutzer anlegen",
@@ -85,6 +108,9 @@
         "button.category.openform": "Neue Kategorie",
         "button.category.create": "Kategorie erstellen",
         "button.category.delete": "Kategorie löschen",
+        "button.setting.create":"Verarbeitungsrichtlinie erstellen",
+        "button.newsetting.open":"Neue Verarbeitungsrichtlinie",
+        "button.setting.delete":"Richtlinie löschen",
 
         "label.select.icon":"Icon",
 
@@ -172,6 +198,20 @@
 
         "unitmanagement.addnew.headline":"Neue Organisationseinheit erstellen",
         "unitmanagement.edit.headline":"Organisationseinheit bearbeiten",
+
+        "enginesetting.addnew.headline":"Verarbeitungsrichtlinie erstellen",
+        "selection.storagepolicy":"Bitte auswählen",
+        "selection.speaker":"Bitte auswählen",
+        "enginesettings.list.headline": "Verarbeitungsrichtlinienübersicht",
+        "enginesettings.list.name": "Name",
+        "enginesettings.list.description": "Beschreibung",
+        "enginesettings.list.storagePolicy": "Speicherrichtlinie",
+        "enginesettings.list.keepPcmRawData": "Rohdaten-PCM behalten",
+        "enginesettings.list.speakerNumRecognition": "Sprecheranzahlermittlung",
+        "enginesettings.list.previewPicturePercent":"Prozentzahl für Bildvorschau",
+        "enginesettings.list.minScoreValueVideo":"Min. Score Video",
+        "enginesettings.list.minScoreValueAudio":"Min. Score Audio",
+
         "":""
     }
 }

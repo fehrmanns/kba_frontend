@@ -90,3 +90,15 @@ table input {
 .icon-area [class*="iconexperience"] {
     cursor: pointer;
 }
+
+table .form-control{
+    border-width: 0px;
+    box-shadow: none;
+    line-height: 0;
+    background-color: inherit;
+    height: 100%;
+}
+
+table .has-error .form-control{
+    border-width: 1px;
+}
