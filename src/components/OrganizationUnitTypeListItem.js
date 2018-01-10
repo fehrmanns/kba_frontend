@@ -135,30 +135,31 @@ class OrganizationUnitTypeListItem extends React.Component {
                         }
                     </div>
                 </td>
-                <td><Checkbox
-                    id="containsUsers"
-                    onChange={() => {
-                        this.setState({containsUsers: !this.state.containsUsers});
-                        this.compareBool("containsUsers", !this.state.containsUsers);
-                    }}
-                    checked={this.state.containsUsers}
-                    disabled={!rights["org-unit-types"].put}
-                />
+                <td>
+                    <Checkbox
+                        id="containsUsers"
+                        onChange={() => {
+                            this.setState({containsUsers: !this.state.containsUsers});
+                            this.compareBool("containsUsers", !this.state.containsUsers);
+                        }}
+                        checked={this.state.containsUsers}
+                        disabled={!rights["org-unit-types"].put}
+                    />
                 </td>
-                <td><Checkbox
-                    id="containsArtifacts"
-                    onChange={() => {
-                        this.setState({containsArtifacts: !this.state.containsArtifacts});
-                        this.compareBool("containsArtifacts", !this.state.containsArtifacts);
-                    }}
-                    checked={this.state.containsArtifacts}
-                    disabled={!rights["org-unit-types"].put}
-                />
+                <td>
+                    <Checkbox
+                        id="containsArtifacts"
+                        onChange={() => {
+                            this.setState({containsArtifacts: !this.state.containsArtifacts});
+                            this.compareBool("containsArtifacts", !this.state.containsArtifacts);
+                        }}
+                        checked={this.state.containsArtifacts}
+                        disabled={!rights["org-unit-types"].put}
+                    />
                 </td>
                 <td>
                     <FormattedTypeahead
                         id="childrenKbaOuTypeNamesSelection"
-                        clearButton
                         labelKey="name"
                         multiple
                         placeholder="input.childrenKbaOuTypeNamesSelection"

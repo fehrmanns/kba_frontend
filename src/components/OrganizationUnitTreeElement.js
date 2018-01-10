@@ -53,7 +53,7 @@ class OrganizationUnitTreeElement extends React.Component {
             });
         }
         // REPLACE ICON WHEN IT HAS CHANGED AND SO DO IN THE CHILDREN
-        if (this.state.icon !== nextProps.treeElement.kbaOuTypeIconLocation) {
+        if ((this.props.treeElement !== nextProps.treeElement) && (this.state.icon !== nextProps.treeElement.kbaOuTypeIconLocation)) {
             this.setState({
                 icon: nextProps.treeElement.kbaOuTypeIconLocation,
             });
@@ -63,22 +63,26 @@ class OrganizationUnitTreeElement extends React.Component {
         // DO UPDATE WHEN UPDATE-ELEMENT IS THIS ELEMENT AND THE UPDATE HAS HAPPEN
         const {thisElement} = this.state;
         if (nextProps.orgUnitToUpdate === thisElement.name) {
+            // UPDATE ELEMENT WHEN NEW CHILD ITEM WAS ADDED
             if (nextProps.updateSuccess && Object.getOwnPropertyNames(nextProps.orgUnitChildUpdate).length) {
                 this.getChildren(this.state.thisElement.name);
                 this.props.dispatch(resetUnitUpdateStatus());
                 this.setState({openKnot: true});
             }
+            // UPDATE ELEMENT WHEN ELEMENT WAS CHANGED
             if (nextProps.updateSuccess && Object.getOwnPropertyNames(nextProps.orgUnitUpdate).length) {
-                // SET NEW ICON WHEN THE TYPE-NAME HAS CHANGED
-                const iconType = nextProps.types.filter(type => type.name === nextProps.orgUnitUpdate.kbaOuTypeName);
-                const icon = (iconType.length > 0) ? iconType[0].iconLocation : "";
-                this.setState({
-                    icon,
-                });
                 // ADD ELEMENT UPDATE
                 if (nextProps.orgUnitUpdate.name !== thisElement.name || nextProps.orgUnitUpdate.kbaOuTypeName !== thisElement.kbaOuTypeName) {
                     this.setState({
                         thisElement: Object.assign({}, thisElement, nextProps.orgUnitUpdate),
+                    });
+                }
+                // SET NEW ICON WHEN THE TYPE-NAME HAS CHANGED
+                if (nextProps.orgUnitUpdate.kbaOuTypeName !== thisElement.kbaOuTypeName) {
+                    const iconType = nextProps.types.filter(type => type.name === nextProps.orgUnitUpdate.kbaOuTypeName);
+                    const icon = (iconType.length > 0) ? iconType[0].iconLocation : "";
+                    this.setState({
+                        icon,
                     });
                 }
                 this.props.dispatch(resetUnitUpdateStatus());

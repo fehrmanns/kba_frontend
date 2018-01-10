@@ -87,7 +87,7 @@ class CategoryManagementListItem extends React.Component {
                     {iconLocation ?
                         <IconItem icon={iconLocation} size={16} selectedItem={this.openIconModal} />
                         :
-                        <button className="btn btn-default" onClick={this.openIconModal}>
+                        <button className="btn btn-xs btn-default" onClick={this.openIconModal}>
                             <FormattedMessage id="button.select.icon" />
                         </button>
                     }

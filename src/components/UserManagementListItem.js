@@ -137,7 +137,6 @@ class UserManagementListItem extends React.Component {
                 <td className="typeahead-td">
                     <FormattedTypeahead
                         id="childrenKbaOuTypeNamesSelection"
-                        clearButton
                         labelKey="name"
                         multiple
                         disabled={(user.loginName === currentUser.loginName) || !this.props.rights.users.put}

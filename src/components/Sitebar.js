@@ -1,6 +1,6 @@
 import React from "react";
 import {connect} from "react-redux";
-import {FormattedMessage} from "react-intl";
+import {FormattedMessage, injectIntl} from "react-intl";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import "./../css/sitebar.css";
@@ -80,4 +80,4 @@ function mapStateToProps(state) {
     };
 }
 
-export default connect(mapStateToProps)(Sitebar);
+export default injectIntl(connect(mapStateToProps)(Sitebar));

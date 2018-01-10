@@ -30,7 +30,7 @@ class CategoryManagementList extends React.Component {
                     <table className="table table-hover">
                         <thead>
                             <tr>
-                                <th><FormattedMessage id="categorymanagement.list.icon" /></th>
+                                <th className="text-center"><FormattedMessage id="categorymanagement.list.icon" /></th>
                                 <th><FormattedMessage id="categorymanagement.list.name" /></th>
                                 <th><FormattedMessage id="categorymanagement.list.description" /></th>
                                 {/*
