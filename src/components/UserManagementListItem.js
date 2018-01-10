@@ -107,6 +107,7 @@ class UserManagementListItem extends React.Component {
                             id={`tableInputFirstName-${user.loginName}`}
                             onChange={this.handleChange}
                             value={this.state.firstName}
+                            className="form-control"
                         />
                         :
                         <span>{this.state.firstName}</span>
@@ -117,6 +118,7 @@ class UserManagementListItem extends React.Component {
                         id={`tableInputLastName-${user.loginName}`}
                         onChange={this.handleChange}
                         value={this.state.lastName}
+                        className="form-control"
                     />
                     : <span>{this.state.firstName}</span>
                 }

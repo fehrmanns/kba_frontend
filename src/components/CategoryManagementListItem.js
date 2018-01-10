@@ -92,10 +92,10 @@ class CategoryManagementListItem extends React.Component {
                     }
                 </td>
                 <td className="category-name">
-                    <input id="tableInputName" onChange={this.handleChange} value={name} />
+                    <input id="tableInputName" onChange={this.handleChange} value={name} className="form-control" />
                 </td>
                 <td>
-                    <input id="tableInputDescription" onChange={this.handleChange} value={description} />
+                    <input id="tableInputDescription" onChange={this.handleChange} value={description} className="form-control" />
                 </td>
                 <td className="text-center edit-button">
                     {modified ?

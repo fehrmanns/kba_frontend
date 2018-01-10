@@ -5,15 +5,6 @@
     margin-top: 10px;
 }
 
-.categorymanagement table input {
-    box-sizing: border-box;
-    display: block;
-    width: 100%;
-    border: 0;
-    background: transparent;
-    padding: 0.1em 0.35em;
-    margin: 0;
-}
 .categorymanagement table .date {
     min-width: 8em;
 }

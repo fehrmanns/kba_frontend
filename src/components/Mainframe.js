@@ -107,8 +107,10 @@ class Mainframe extends React.Component {
         if (isAuthenticated === false || isAuthenticated === undefined) {
             content = <Route component={Login} />;
         } else if (passwordExpired) {
+
             content = <Route exact path="/" component={Home} />;
         } else {
+
             content = (
                 <div className={(this.state.sitebar === true) ? "show container-fluid" : "container-fluid"}>
                     <Route exact path="/login" render={() => (<Redirect to="/" />)} />
@@ -127,7 +129,6 @@ class Mainframe extends React.Component {
                 </div>
             );
         }
-
         return (
             <IntlProvider locale={this.state.lang} messages={langMsg}>
                 <Router>
@@ -151,6 +152,7 @@ class Mainframe extends React.Component {
                 </Router>
             </IntlProvider>
         );
+
     }
 }
 
