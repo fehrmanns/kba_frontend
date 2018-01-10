@@ -1,26 +1,18 @@
 body {
     margin: 0;
-    padding: 50px 0 0;
+    padding: 70px 0 0;
     font-family: sans-serif;
-    background-color: transparent;
-}
-
-body::after {
-    content: "";
     background: url(./../media/bg-strange-bulleye.png) repeat;
-    opacity: 0.5;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    position: absolute;
-    z-index: -1;
 }
 
 .navbar-brand,
 .navbar-toggle {
     float: left;
     display: block !important;
+}
+
+.navbar-static-top, .navbar-fixed-top, .navbar-fixed-bottom {
+    border-bottom: 0;
 }
 
 @media (max-width:768px) {

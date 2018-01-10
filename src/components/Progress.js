@@ -9,7 +9,7 @@ class Progress extends React.Component {
         this.props.isFetching && (progressClass += " progress-bar-striped active");
 
         return (
-            <div className="row progress">
+            <div className="progress">
                 <div className={progressClass} role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" />
             </div>
         );

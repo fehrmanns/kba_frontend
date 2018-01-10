@@ -12,7 +12,6 @@ import Sitebar from "./Sitebar";
 import Notifications from "./Notifications";
 import en from "../i18n/messages_en.json";
 import de from "../i18n/messages_de.json";
-import Progress from "./Progress";
 import Home from "./../views/Home";
 import Login from "./../views/Login";
 import Recordings from "./../views/Recordings";
@@ -141,7 +140,6 @@ class Mainframe extends React.Component {
                             logoutUser={() => dispatch(logoutUser())}
                             toggleMenu={() => this.toggleMenu()}
                         />
-                        <Progress />
                         {(showNavigation) && <Sitebar show={this.state.sitebar} />}
 
                         {content}

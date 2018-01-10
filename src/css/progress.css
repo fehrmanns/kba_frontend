@@ -1,5 +1,6 @@
 .progress {
-    height: 5px
+    height: 5px;
+    margin-bottom: 0;
 }
 .progress-bar {
     width: 100%

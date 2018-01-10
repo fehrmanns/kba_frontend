@@ -4,6 +4,7 @@ import {connect} from "react-redux";
 import {injectIntl, intlShape, FormattedMessage} from "react-intl";
 import {Link} from "react-router-dom";
 import {MenuItem} from "react-bootstrap";
+import Progress from "./Progress";
 import {openPasswordModal} from "./../actions";
 import {getLoginName} from "./../utilities/storage";
 import FormattedDropDown from "./i18n/FormattedDropDown";
@@ -49,6 +50,7 @@ class Header extends React.Component {
                         {renderOnLogin && <button className="btn btn-link" onClick={() => this.props.logoutUser()}><FormattedMessage id="header.button.logout" /></button>}
                     </div>
                 </div>
+                <Progress />
             </nav>
         );
     }
