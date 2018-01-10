@@ -256,7 +256,10 @@ export function probeToken() {
         [CALL_API]: {
             endpoint,
             pathParam: loginName,
-            queryParams: ["inclPrivs=true"],
+            queryParams: [{
+                name: "inclPrivs",
+                value: true,
+            }],
             authenticated: true,
             method: "GET",
             types: [TOKEN_REQUEST, TOKEN_SUCCESS, TOKEN_FAILURE],
@@ -503,7 +506,10 @@ export function getRootUnit() {
     return {
         [CALL_API]: {
             endpoint: "management/org-units",
-            queryParams: ["rootNodeOnly=true"],
+            queryParams: [{
+                name: "rootNodeOnly",
+                value: true,
+            }],
             authenticated: true,
             method: "GET",
             types: [UNITS_REQUEST, ROOTUNIT_LOADED, UNIT_FAILURE],

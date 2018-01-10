@@ -2,8 +2,12 @@ import {logoutUser} from "./../actions";
 /* Login Uniform Resource Identifier */
 const LURI = "http://localhost:8080/befe/rest/";
 
-function fixedEncodeURIComponent(str) {
+function encodePathParam(str) {
     return encodeURIComponent(str).replace(/[!'()*]/g, c => `%${c.charCodeAt(0).toString(16)}`);
+}
+
+function encodeQueryParam(str) {
+    return encodeURIComponent(str).replace(/%20/g, () => "+");
 }
 
 function callApi(endpoint, authenticated, method, json, store) {
@@ -76,18 +80,19 @@ function callApi(endpoint, authenticated, method, json, store) {
 
 export const CALL_API = Symbol("Call API");
 
-function formatEndpoint(endpoint, pathParam, queryParam) {
+function formatEndpoint(endpoint, pathParam, queryParams) {
     let formattedEndpoint = endpoint;
     if (pathParam) {
-        const pathParamEncoded = fixedEncodeURIComponent(pathParam);
+        const pathParamEncoded = encodePathParam(pathParam);
         formattedEndpoint = formattedEndpoint.concat("/", pathParamEncoded);
     }
 
-    if (queryParam && queryParam.length > 0) {
+    if (queryParams && queryParams.length > 0) {
         formattedEndpoint += "?";
-        for (let i = 0; i < queryParam.length; i += 1) {
-            formattedEndpoint += queryParam[i];
-            if (i < queryParam.length - 1) {
+        for (let i = 0; i < queryParams.length; i += 1) {
+            const queryParam = `${queryParams[i].name}=${encodeQueryParam(queryParams[i].value)}`;
+            formattedEndpoint += queryParam;
+            if (i < queryParams.length - 1) {
                 formattedEndpoint += "&";
             }
         }
