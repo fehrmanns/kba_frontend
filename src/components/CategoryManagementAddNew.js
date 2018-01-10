@@ -130,7 +130,7 @@ class CategoryManagementAddNew extends React.Component {
                             id="label.select.icon"
                             className="control-label"
                         />
-                        <div className="icon-area">
+                        <div>
                             {this.state.iconLocation ?
                                 <IconItem icon={this.state.iconLocation} size={32} titleId="button.select.icon" selectedItem={this.openIconModal} />
                                 :

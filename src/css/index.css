@@ -82,6 +82,15 @@ table input {
     margin-top: 10px;
 }
 
+.collapsing .highlight,
+.collapse .highlight {
+    margin-top: 15px;
+}
+.collapsing .highlight h3,
+.collapse .highlight h3 {
+    margin-top: 10px;
+}
+
 .icon-area {
     text-align: center;
 }
@@ -97,6 +106,10 @@ table .form-control{
     line-height: 0;
     background-color: inherit;
     height: 100%;
+}
+
+table .number-value {
+    width: 5em;
 }
 
 table .has-error .form-control{

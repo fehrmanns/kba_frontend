@@ -2,6 +2,7 @@ import * as React from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import {FormattedMessage} from "react-intl";
+import FormattedIcon from './i18n/FormattedIcon';
 import IconWithTooltip from "./IconWithTooltip";
 import EngineSettingListItem from "./EngineSettingsListItem";
 
@@ -27,10 +28,15 @@ class EngineSettingList extends React.Component {
                                 </th>
                                 <th><FormattedMessage id="enginesettings.list.storagePolicy" /></th>
                                 <th><FormattedMessage id="enginesettings.list.speakerNumRecognition" /></th>
-                                <th><FormattedMessage id="enginesettings.list.previewPicturePercent" /></th>
-                                <th><FormattedMessage id="enginesettings.list.minScoreValueAudio" /></th>
-                                <th><FormattedMessage id="enginesettings.list.minScoreValueVideo" /></th>
-
+                                <th className="number-value">
+                                    % <FormattedIcon title="enginesettings.list.previewPicturePercent" className="glyphicon glyphicon-picture" />
+                                </th>
+                                <th className="number-value">
+                                    min. <FormattedIcon title="enginesettings.list.minScoreValueAudio" className="glyphicon glyphicon-music" />
+                                </th>
+                                <th className="number-value">
+                                    min. <FormattedIcon title="enginesettings.list.minScoreValueVideo" className="glyphicon glyphicon-film" />
+                                </th>
                                 <th>{/* placeholder for button */}</th>
                             </tr>
                         </thead>

@@ -5,6 +5,7 @@ import {FormattedMessage} from "react-intl";
 import {Checkbox, MenuItem} from "react-bootstrap";
 import FormattedDropDown from "../components/i18n/FormattedDropDown";
 import InputfieldWithTooltip from "../components/InputfieldWithTooltip";
+import FormattedButton from "./i18n/FormattedButton";
 import * as constants from "../utilities/constants";
 import * as utilities from "../utilities/utilities";
 import * as validator from "../utilities/validator";
@@ -151,7 +152,7 @@ class EngineSettingsListItem extends React.Component {
                     >
                         {storagePolicies.map(element => (
                             <MenuItem eventKey={element} key={`dropdown.storagepolicy.${element}`}>
-                                <FormattedMessage tagName="label" id={element} key={element} />
+                                <FormattedMessage id={element} key={element} />
                             </MenuItem>))}
                     </FormattedDropDown>
                 </td>
@@ -166,7 +167,7 @@ class EngineSettingsListItem extends React.Component {
                     >
                         {speakerNumRecognition.map(element => (
                             <MenuItem eventKey={element} key={`dropdown.speaker.${element}`}>
-                                <FormattedMessage tagName="label" id={element} key={element} />
+                                <FormattedMessage id={element} key={element} />
                             </MenuItem>))}
                     </FormattedDropDown>
                 </td>
@@ -201,9 +202,9 @@ class EngineSettingsListItem extends React.Component {
                 }
                 {!modified && mayDelete &&
                 <td className="text-center">
-                    <button className="btn btn-xs btn-danger" onClick={() => deleteSetting(this.state.name)}>
-                        <FormattedMessage id="button.setting.delete" />
-                    </button>
+                    <FormattedButton title="button.setting.delete" className="btn btn-xs btn-danger" onClick={() => deleteSetting(this.state.name)}>
+                        <span className="glyphicon glyphicon-trash" />
+                    </FormattedButton>
                 </td>
                 }
             </tr>
