@@ -2,6 +2,10 @@ import {logoutUser} from "./../actions";
 /* Login Uniform Resource Identifier */
 const LURI = "http://localhost:8080/befe/rest/";
 
+function fixedEncodeURIComponent(str) {
+    return encodeURIComponent(str).replace(/[!'()*]/g, c => `%${c.charCodeAt(0).toString(16)}`);
+}
+
 function callApi(endpoint, authenticated, method, json, store) {
     const token = localStorage.getItem("auth_token") || null;
     const loginHeader = new Headers();
@@ -72,22 +76,43 @@ function callApi(endpoint, authenticated, method, json, store) {
 
 export const CALL_API = Symbol("Call API");
 
+function formatEndpoint(endpoint, pathParam, queryParam) {
+    let formattedEndpoint = endpoint;
+    if (pathParam) {
+        const pathParamEncoded = fixedEncodeURIComponent(pathParam);
+        formattedEndpoint = formattedEndpoint.concat("/", pathParamEncoded);
+    }
+
+    if (queryParam && queryParam.length > 0) {
+        formattedEndpoint += "?";
+        for (let i = 0; i < queryParam.length; i += 1) {
+            formattedEndpoint += queryParam[i];
+            if (i < queryParam.length - 1) {
+                formattedEndpoint += "&";
+            }
+        }
+    }
+    console.log("formattedEndpoint", formattedEndpoint);
+    return formattedEndpoint;
+}
+
 export default store => next => (action) => {
     const callAPI = action[CALL_API];
 
     // So the middleware doesn't get applied to every single action
     if (typeof callAPI === "undefined") { return next(action); }
     const {
-        endpoint, types, authenticated, method, json,
+        endpoint, pathParam, queryParams, types, authenticated, method, json,
     } = callAPI;
 
     const [requestType, successType, errorType] = types;
+    const formattedEndpoint = formatEndpoint(endpoint, pathParam, queryParams);
 
     next({
         type: requestType,
     });
 
-    return callApi(endpoint, authenticated, method, json, store).then(
+    return callApi(formattedEndpoint, authenticated, method, json, store).then(
         response =>
             next({
                 response,

@@ -250,11 +250,13 @@ export function loginUser(creds) {
 
 export function probeToken() {
     const loginName = getLoginName();
-    const endpoint = `management/users/${loginName}?inclPrivs=true`;
-
+    const endpoint = "management/users";
+    console.log("probeToken");
     return {
         [CALL_API]: {
             endpoint,
+            pathParam: loginName,
+            queryParams: ["inclPrivs=true"],
             authenticated: true,
             method: "GET",
             types: [TOKEN_REQUEST, TOKEN_SUCCESS, TOKEN_FAILURE],
@@ -291,7 +293,8 @@ export function addUser(user) {
 export function updateUser(user) {
     return {
         [CALL_API]: {
-            endpoint: `management/users/${user.loginName}`,
+            endpoint: "management/users",
+            pathParam: user.loginName,
             authenticated: true,
             method: "PUT",
             types: [USER_REQUEST, USER_UPDATED, USER_FAILURE],
@@ -303,7 +306,8 @@ export function updateUser(user) {
 export function updateUserPassword(user) {
     return {
         [CALL_API]: {
-            endpoint: `management/users/${user.loginName}`,
+            endpoint: "management/users",
+            pathParam: user.loginName,
             authenticated: true,
             method: "PUT",
             types: [PASSWORD_REQUEST, USER_UPDATED, USER_FAILURE],
@@ -315,7 +319,8 @@ export function updateUserPassword(user) {
 export function deleteUser(userName) {
     return {
         [CALL_API]: {
-            endpoint: `management/users/${userName}`,
+            endpoint: "management/users",
+            pathParam: userName,
             authenticated: true,
             method: "DELETE",
             types: [USER_REQUEST, USER_DELETED, USER_FAILURE],
@@ -327,7 +332,8 @@ export function deleteUser(userName) {
 export function getUserPermissions(userName) {
     return {
         [CALL_API]: {
-            endpoint: `management/users/${userName}`,
+            endpoint: "management/users",
+            pathParam: userName,
             authenticated: true,
             method: "DELETE",
             types: [USER_REQUEST, USER_DELETED, USER_FAILURE],
@@ -348,10 +354,12 @@ export function addUnitType(unitType) {
     };
 }
 
+
 export function updateUnitType(typeName, unitType) {
     return {
         [CALL_API]: {
-            endpoint: `management/org-unit-types/${typeName}`,
+            endpoint: "management/org-unit-types",
+            pathParam: typeName,
             authenticated: true,
             method: "PUT",
             types: [TYPE_REQUEST, TYPE_UPDATED, TYPE_FAILURE],
@@ -363,7 +371,8 @@ export function updateUnitType(typeName, unitType) {
 export function deleteUnitType(unitType) {
     return {
         [CALL_API]: {
-            endpoint: `management/org-unit-types/${unitType}`,
+            endpoint: "management/org-unit-types",
+            pathParam: unitType,
             authenticated: true,
             method: "DELETE",
             types: [TYPE_REQUEST, TYPE_DELETED, TYPE_FAILURE],
@@ -375,7 +384,8 @@ export function deleteUnitType(unitType) {
 export function getUnitType(typeName) {
     return {
         [CALL_API]: {
-            endpoint: `management/org-unit-types/${typeName}`,
+            endpoint: "management/org-unit-types",
+            pathParam: typeName,
             authenticated: true,
             method: "GET",
             types: [TYPE_REQUEST, TYPE_BYNAME_LOADED, TYPE_FAILURE],
@@ -420,7 +430,8 @@ export function getOrgUnit(unitName) {
     requestOrgUnit();
     return {
         [CALL_API]: {
-            endpoint: `management/org-units/${unitName}`,
+            endpoint: "management/org-units",
+            pathParam: unitName,
             authenticated: true,
             method: "GET",
             types: [UNITS_REQUEST, UNIT_LOADED, UNIT_FAILURE],
@@ -432,7 +443,8 @@ export function getOrgUnit(unitName) {
 export function deleteOrgUnit(unitName) {
     return {
         [CALL_API]: {
-            endpoint: `management/org-units/${unitName}`,
+            endpoint: "management/org-units",
+            pathParam: unitName,
             authenticated: true,
             method: "DELETE",
             types: [UNITS_REQUEST, UNIT_DELETED, UNIT_FAILURE],
@@ -464,7 +476,8 @@ function orgUnitToUpdate(unitName, unit) {
 function sendOrgUnitUpdate(unitName, unit) {
     return {
         [CALL_API]: {
-            endpoint: `management/org-units/${unitName}`,
+            endpoint: "management/org-units",
+            pathParam: unitName,
             authenticated: true,
             method: "PUT",
             types: [UNITS_REQUEST, UNIT_UPDATED, UNIT_FAILURE],
@@ -489,7 +502,8 @@ export function resetUnitUpdateStatus() {
 export function getRootUnit() {
     return {
         [CALL_API]: {
-            endpoint: "management/org-units?rootNodeOnly=true",
+            endpoint: "management/org-units",
+            queryParams: ["rootNodeOnly=true"],
             authenticated: true,
             method: "GET",
             types: [UNITS_REQUEST, ROOTUNIT_LOADED, UNIT_FAILURE],
@@ -526,7 +540,8 @@ export function addCategory(category) {
 export function updateCategory(oldName, category) {
     return {
         [CALL_API]: {
-            endpoint: `categories/${oldName}`,
+            endpoint: "categories",
+            pathParam: oldName,
             authenticated: true,
             method: "PUT",
             types: [CATEGORY_REQUEST, CATEGORY_UPDATED, CATEGORY_FAILURE],
@@ -538,7 +553,8 @@ export function updateCategory(oldName, category) {
 export function deleteCategory(categoryName) {
     return {
         [CALL_API]: {
-            endpoint: `categories/${categoryName}`,
+            endpoint: "categories",
+            pathParam: categoryName,
             authenticated: true,
             method: "DELETE",
             types: [CATEGORY_REQUEST, CATEGORY_DELETED, CATEGORY_FAILURE],
@@ -574,7 +590,8 @@ export function createEngineSetting(setting) {
 export function updateEngineSetting(setting, name) {
     return {
         [CALL_API]: {
-            endpoint: `engine-settings/${name}`,
+            endpoint: "engine-settings",
+            pathParam: name,
             authenticated: true,
             method: "PUT",
             types: [ENGINESETTINGS_REQUEST, ENGINESETTING_UPDATED, ENGINESETTINGS_FAILURE],
@@ -586,7 +603,8 @@ export function updateEngineSetting(setting, name) {
 export function deleteEngineSetting(settingname) {
     return {
         [CALL_API]: {
-            endpoint: `engine-settings/${settingname}`,
+            endpoint: "engine-settings",
+            pathParam: settingname,
             authenticated: true,
             method: "DELETE",
             types: [ENGINESETTINGS_REQUEST, ENGINESETTING_DELETED, ENGINESETTINGS_FAILURE],
