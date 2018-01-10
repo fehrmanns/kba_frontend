@@ -25,6 +25,7 @@ class CategoryManagementListItem extends React.Component {
     }
 
     onSelectIcon(icon) {
+        this.compareContent("iconLocation", icon);
         this.setState({
             iconLocation: icon,
         });

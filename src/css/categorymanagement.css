@@ -19,6 +19,7 @@
 
 .category-list span.icon {
     cursor: pointer;
+    margin-top: 4px;
 }
 .category-list .symbol {
     width: 2em;

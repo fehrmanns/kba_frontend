@@ -84,10 +84,11 @@ table input {
 
 .icon-area [class*="iconexperience"] {
     cursor: pointer;
+    margin-top: 4px;
 }
 
 table .form-control{
-    border-width: 0px;
+    border-width: 0;
     box-shadow: none;
     line-height: 0;
     background-color: inherit;
