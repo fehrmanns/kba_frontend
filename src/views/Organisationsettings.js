@@ -2,16 +2,16 @@ import React from "react";
 import PropTypes from "prop-types";
 import {FormattedMessage} from "react-intl";
 import { connect } from "react-redux";
-import { Tabs, Tab, Collapse } from "react-bootstrap";
+import { Collapse, Nav, NavItem } from "react-bootstrap";
 import {
-    getUnitTypes, deleteUnitType, addUnitType, updateUnitType,
+    getUnitTypes, deleteUnitType, addUnitType, updateUnitType, getAllOrgUnits,
 } from "../actions";
+import { getItem, toggleItem } from "../utilities/storage";
 import OrganizationUnitTypeList from "../components/OrganizationUnitTypeList";
 import OrganizationUnitTypeAddNew from "../components/OrganizationUnitTypeAddNew";
-import "./../css/organisationsettings.css";
-import { getItem, toggleItem } from "../utilities/storage";
 import OrganizationUnitTreeView from "../components/OrganizationUnitTreeView";
 import OrganizationUnitAddEdit from "../components/OrganizationUnitAddEdit";
+import "./../css/organisationsettings.css";
 
 class Organisationsettings extends React.Component {
     constructor(props) {
@@ -19,14 +19,15 @@ class Organisationsettings extends React.Component {
 
         this.state = {
             open: getItem("add_type_open"),
+            activeKey: 1,
         };
         this.props.dispatch(getUnitTypes());
-        // this.props.dispatch(getAllOrgUnits());
 
         this.deleteType = this.deleteType.bind(this);
         this.addNewType = this.addNewType.bind(this);
         this.updateType = this.updateType.bind(this);
         this.toggleAddType = this.toggleAddType.bind(this);
+        this.toggleView = this.toggleView.bind(this);
     }
 
     deleteType(type) {
@@ -36,12 +37,14 @@ class Organisationsettings extends React.Component {
 
     addNewType(type) {
         this.props.dispatch(addUnitType(type))
-            .then(() => this.props.dispatch(getUnitTypes()));
+            .then(() => this.props.dispatch(getUnitTypes()))
+            .then(() => this.props.dispatch(getAllOrgUnits()));
     }
 
     updateType(typeName, newType) {
         this.props.dispatch(updateUnitType(typeName, newType))
-            .then(() => this.props.dispatch(getUnitTypes()));
+            .then(() => this.props.dispatch(getUnitTypes()))
+            .then(() => this.props.dispatch(getAllOrgUnits()));
     }
 
     toggleAddType() {
@@ -50,42 +53,53 @@ class Organisationsettings extends React.Component {
             open: getItem("add_type_open"),
         });
     }
-
+    toggleView(selectedKey) {
+        this.setState({
+            activeKey: selectedKey,
+        });
+    }
 
     render() {
         const {
             typeList, typesAreLoaded, dispatch, allUnits, rights,
         } = this.props;
+        const {activeKey} = this.state;
 
-        // TODO: Tab titles
         return (
-            <div className="organisationsettings starter-template">
-                <Tabs defaultActiveKey={1} animation={false} id="noanim-tab-example">
-                    {rights["org-units"].get &&
-                    <Tab eventKey={1} title="Organisationsverwaltung">
-                        <div className="row">
-                            <div className="col-md-6">
-                                <OrganizationUnitTreeView allUnits={allUnits} />
-                            </div>
-                            {(rights["org-units"].post || rights["org-units"].put) &&
-                            <div className="col-md-6">
-                                <OrganizationUnitAddEdit />
-                            </div>
-                            }
+            <div className="organisationsettings">
+                <nav className="navbar">
+                    <Nav bsStyle="pills" activeKey={activeKey} onSelect={this.toggleView}>
+                        <NavItem eventKey={1}>
+                            <FormattedMessage id="organisationsettings.administration.title" />
+                        </NavItem>
+                        <NavItem eventKey={2}>
+                            <FormattedMessage id="organisationtypes.administration.title" />
+                        </NavItem>
+                    </Nav>
+                </nav>
+                {activeKey === 1 ?
+                    <div className="row">
+                        {rights["org-units"].get &&
+                        <div className="col-md-6">
+                            <OrganizationUnitTreeView allUnits={allUnits} />
                         </div>
-                    </Tab>
-                    }
-                    {rights["org-unit-types"].get &&
-                    <Tab eventKey={2} title="Organisationstypen">
+                        }
+                        {(rights["org-units"].post || rights["org-units"].put) &&
+                        <div className="col-md-6">
+                            <OrganizationUnitAddEdit />
+                        </div>
+                        }
+                    </div>
+                    :
+                    <div>
                         {rights["org-unit-types"].post &&
                         <div className="row">
                             <div className="col-xs-12">
-                                <button
-                                    className="btn btn-primary pull-right "
-                                    onClick={() => this.toggleAddType()}
-                                >
-                                    {this.state.open ? <FormattedMessage id="button.input.close" />
-                                        : <FormattedMessage id="button.newtype.open" />
+                                <button className="btn btn-primary pull-right" onClick={() => this.toggleAddType()}>
+                                    {this.state.open ?
+                                        <FormattedMessage id="button.input.close" />
+                                        :
+                                        <FormattedMessage id="button.newtype.open" />
                                     }
                                 </button>
                             </div>
@@ -113,9 +127,8 @@ class Organisationsettings extends React.Component {
                                 />}
                             </div>
                         </div>
-                    </Tab>
-                    }
-                </Tabs>
+                    </div>
+                }
             </div>
         );
     }

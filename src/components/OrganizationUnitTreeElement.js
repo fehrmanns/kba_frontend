@@ -52,6 +52,14 @@ class OrganizationUnitTreeElement extends React.Component {
                 icon,
             });
         }
+        // REPLACE ICON WHEN IT HAS CHANGED AND SO DO IN THE CHILDREN
+        if (this.state.icon !== nextProps.treeElement.kbaOuTypeIconLocation) {
+            this.setState({
+                icon: nextProps.treeElement.kbaOuTypeIconLocation,
+            });
+            this.state.thisElement.name && this.getChildren(this.state.thisElement.name);
+        }
+
         // DO UPDATE WHEN UPDATE-ELEMENT IS THIS ELEMENT AND THE UPDATE HAS HAPPEN
         const {thisElement} = this.state;
         if (nextProps.orgUnitToUpdate === thisElement.name) {
