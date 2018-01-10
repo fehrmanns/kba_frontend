@@ -342,7 +342,6 @@ function units(state = {
     orgUnitUpdate: {},
     orgUnitChildUpdate: {},
 }, action) {
-    console.log("action.type:", action.type);
     switch (action.type) {
         case ROOTUNIT_LOADED:
             return Object.assign({}, state, {
