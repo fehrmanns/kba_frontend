@@ -6,7 +6,7 @@ import { Collapse, Nav, NavItem } from "react-bootstrap";
 import {
     getUnitTypes, deleteUnitType, addUnitType, updateUnitType, getAllOrgUnits,
 } from "../actions";
-import { getItem, toggleItem } from "../utilities/storage";
+import { getItem, setItem, toggleItem } from "../utilities/storage";
 import OrganizationUnitTypeList from "../components/OrganizationUnit/OrganizationUnitTypeList";
 import OrganizationUnitTypeAddNew from "../components/OrganizationUnit/OrganizationUnitTypeAddNew";
 import OrganizationUnitTreeView from "../components/OrganizationUnit/OrganizationUnitTreeView";
@@ -19,7 +19,7 @@ class Organisationsettings extends React.Component {
 
         this.state = {
             open: getItem("add_type_open"),
-            activeKey: 1,
+            activeKey: getItem("organisation_activeKey") ? getItem("organisation_activeKey") : 1,
         };
         this.props.dispatch(getUnitTypes());
 
@@ -54,6 +54,7 @@ class Organisationsettings extends React.Component {
         });
     }
     toggleView(selectedKey) {
+        setItem("organisation_activeKey", selectedKey);
         this.setState({
             activeKey: selectedKey,
         });
@@ -67,26 +68,31 @@ class Organisationsettings extends React.Component {
 
         return (
             <div className="organisationsettings">
-                <nav className="navbar">
-                    <Nav bsStyle="pills" activeKey={activeKey} onSelect={this.toggleView}>
-                        <NavItem eventKey={1}>
-                            <FormattedMessage id="organisationsettings.administration.title" />
-                        </NavItem>
-                        <NavItem eventKey={2}>
-                            <FormattedMessage id="organisationtypes.administration.title" />
-                        </NavItem>
-                    </Nav>
-                </nav>
+                <div className="row">
+                    <div className="col-md-6">
+                        <FormattedMessage tagName="h1" id="view.organisation.title" />
+                    </div>
+                    <nav className="navbar col-md-6">
+                        <Nav bsStyle="pills navbar-right" activeKey={activeKey} onSelect={this.toggleView}>
+                            <NavItem eventKey={1}>
+                                <FormattedMessage id="organisationsettings.administration.title" />
+                            </NavItem>
+                            <NavItem eventKey={2}>
+                                <FormattedMessage id="organisationtypes.administration.title" />
+                            </NavItem>
+                        </Nav>
+                    </nav>
+                </div>
                 {activeKey === 1 ?
                     <div className="row">
-                        {rights["org-units"].get &&
-                        <div className="col-md-6">
-                            <OrganizationUnitTreeView allUnits={allUnits} />
+                        {(rights["org-units"].post || rights["org-units"].put) &&
+                        <div className="col-sm-6 col-sm-push-6">
+                            <OrganizationUnitAddEdit />
                         </div>
                         }
-                        {(rights["org-units"].post || rights["org-units"].put) &&
-                        <div className="col-md-6">
-                            <OrganizationUnitAddEdit />
+                        {rights["org-units"].get &&
+                        <div className="col-sm-6 col-sm-pull-6">
+                            <OrganizationUnitTreeView allUnits={allUnits} />
                         </div>
                         }
                     </div>
@@ -95,7 +101,7 @@ class Organisationsettings extends React.Component {
                         {rights["org-unit-types"].post &&
                         <div className="row">
                             <div className="col-xs-12">
-                                <button className="btn btn-primary pull-right" onClick={() => this.toggleAddType()}>
+                                <button className="btn btn-default pull-right" onClick={() => this.toggleAddType()}>
                                     {this.state.open ?
                                         <FormattedMessage id="button.input.close" />
                                         :
@@ -103,7 +109,7 @@ class Organisationsettings extends React.Component {
                                     }
                                 </button>
                             </div>
-                            <div className="col-xs-12">
+                            <div className="col-xs-12 col-lg-offset-2 col-lg-8">
                                 <Collapse in={this.state.open}>
                                     <div>
                                         <OrganizationUnitTypeAddNew

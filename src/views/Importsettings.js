@@ -43,12 +43,16 @@ class Importsettings extends React.Component {
         const {rights, settingsAreLoaded} = this.props;
         return (
             <div className="importsettings">
-                <h1><FormattedMessage id="view.importsettings.title" /></h1>
+                <div className="row">
+                    <div className="col-xs-12">
+                        <FormattedMessage tagName="h1" id="view.importsettings.title" />
+                    </div>
+                </div>
                 {rights["engine-settings"].post &&
                 <div className="row">
                     <div className="col-xs-12">
                         <button
-                            className="btn btn-primary pull-right "
+                            className="btn btn-default pull-right "
                             onClick={() => this.toggleAddSetting()}
                         >
                             {this.state.open ? <FormattedMessage id="button.input.close" />
