@@ -2,7 +2,7 @@ import * as React from "react";
 import {connect} from "react-redux";
 import PropTypes from "prop-types";
 import IconItem from "./IconItem";
-import "../css/icondialog.css";
+import "../../css/icondialog.css";
 
 class IconDialog extends React.Component {
     constructor(props) {

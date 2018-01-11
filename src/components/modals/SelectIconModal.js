@@ -2,7 +2,7 @@ import React from "react";
 import {connect} from "react-redux";
 import PropTypes from "prop-types";
 import {Modal} from "react-bootstrap";
-import IconDialog from "./../IconDialog";
+import IconDialog from "../Icon/IconDialog";
 import {closeSelectIconModal} from "./../../actions";
 
 class PasswordChangeModal extends React.Component {

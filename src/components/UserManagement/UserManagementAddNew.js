@@ -3,9 +3,9 @@ import {connect} from "react-redux";
 import PropTypes from "prop-types";
 import {FormattedMessage} from "react-intl";
 import {MenuItem} from "react-bootstrap";
-import FormattedInput from "../components/i18n/FormattedInput";
-import FormattedTypeahead from "../components/i18n/FormattedTypeahead";
-import FormattedDropDown from "./i18n/FormattedDropDown";
+import FormattedInput from "../i18n/FormattedInput";
+import FormattedTypeahead from "../i18n/FormattedTypeahead";
+import FormattedDropDown from "../i18n/FormattedDropDown";
 
 class UserManagementAddNew extends React.Component {
     constructor(props) {

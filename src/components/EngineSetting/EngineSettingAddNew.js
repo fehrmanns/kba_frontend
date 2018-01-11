@@ -2,10 +2,10 @@ import * as React from "react";
 import PropTypes from "prop-types";
 import {FormattedMessage} from "react-intl";
 import {Checkbox, MenuItem} from "react-bootstrap";
-import FormattedInput from "../components/i18n/FormattedInput";
-import FormattedDropDown from "../components/i18n/FormattedDropDown";
-import * as constants from "../utilities/constants";
-import * as validator from "../utilities/validator";
+import FormattedInput from "../i18n/FormattedInput";
+import FormattedDropDown from "../i18n/FormattedDropDown";
+import * as constants from "../../utilities/constants";
+import * as validator from "../../utilities/validator";
 
 class EngineSettingAddNew extends React.Component {
     constructor(props) {
@@ -199,31 +199,26 @@ class EngineSettingAddNew extends React.Component {
                         />
                     </div>
                     <div className={speakerNumRecognitionError ? "form-group has-error col-md-6" : "form-group col-md-6"}>
-                        <label className="control-label">
+                        <label className="control-label" htmlFor="selection.speaker">
                             <FormattedMessage id="input.speaker" />&nbsp;
                             {speakerNumRecognitionError && <FormattedMessage id="dropdown.error" />}
-                            <br />
-                            <FormattedDropDown
-                                titleId={speakerDropDownTitleId}
-                                id="selection.speaker"
-                                onSelect={this.handleSpeakerSelection}
-                                value={this.state.speakerNumRecognition}
-                            >
-                                {speakerNumRecognition.map(element => (
-                                    <MenuItem eventKey={element} key={`dropdown.speaker.${element}`}>
-                                        <FormattedMessage id={element} className="control-label" key={element} />
-                                    </MenuItem>))}
-                            </FormattedDropDown>
                         </label>
+                        <br />
+                        <FormattedDropDown
+                            titleId={speakerDropDownTitleId}
+                            id="selection.speaker"
+                            onSelect={this.handleSpeakerSelection}
+                            value={this.state.speakerNumRecognition}
+                        >
+                            {speakerNumRecognition.map(element => (
+                                <MenuItem eventKey={element} key={`dropdown.speaker.${element}`}>
+                                    <FormattedMessage id={element} className="control-label" key={element} />
+                                </MenuItem>))}
+                        </FormattedDropDown>
                     </div>
                 </div>
                 <div className="row">
-                    <div className="form-group col-md-6">
-                        <Checkbox id="inputKeepPcm" onChange={() => this.setState({keepPcmRawData: !this.state.keepPcmRawData})} checked={this.state.keepPcmRawData} className="label-margin">
-                            <FormattedMessage id="input.keepPcm" />
-                        </Checkbox>
-                    </div>
-                    <div className={picturePreviewError ? "form-group has-error col-md-6" : "form-group col-md-6"}>
+                    <div className={picturePreviewError ? "form-group has-error col-md-3" : "form-group col-md-3"}>
                         <label className="control-label">
                             {!picturePreviewError ?
                                 <FormattedMessage id="input.previewPicturePercent" />
@@ -244,9 +239,7 @@ class EngineSettingAddNew extends React.Component {
                             />
                         </label>
                     </div>
-                </div>
-                <div className="row">
-                    <div className={scoreAudioError ? "form-group has-error col-md-6" : "form-group col-md-6"}>
+                    <div className={scoreAudioError ? "form-group has-error col-md-3" : "form-group col-md-3"}>
                         <label className="control-label" htmlFor="inputMinScoreValueAudio" >
                             {!scoreAudioError ?
                                 <FormattedMessage id="input.minScoreValueAudio" />
@@ -265,7 +258,7 @@ class EngineSettingAddNew extends React.Component {
                             onKeyUp={(event) => { this.validateRange(event, "minScoreValueAudioIsValid", -16, 16); }}
                         />
                     </div>
-                    <div className={scoreVideoError ? "form-group has-error col-md-6" : "form-group col-md-6"}>
+                    <div className={scoreVideoError ? "form-group has-error col-md-3" : "form-group col-md-3"}>
                         <label className="control-label" htmlFor="inputMinScoreValueVideo" >
                             {!scoreVideoError ?
                                 <FormattedMessage id="input.minScoreValueVideo" />
@@ -283,6 +276,11 @@ class EngineSettingAddNew extends React.Component {
                             max="16"
                             onKeyUp={(event) => { this.validateRange(event, "minScoreValueVideoIsValid", -16, 16); }}
                         />
+                    </div>
+                    <div className="form-group col-md-3">
+                        <Checkbox id="inputKeepPcm" onChange={() => this.setState({keepPcmRawData: !this.state.keepPcmRawData})} checked={this.state.keepPcmRawData} className="label-margin">
+                            <FormattedMessage id="input.keepPcm" />
+                        </Checkbox>
                     </div>
                 </div>
                 <div className="row">

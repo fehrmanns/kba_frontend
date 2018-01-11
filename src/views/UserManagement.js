@@ -4,8 +4,8 @@ import {connect} from "react-redux";
 import {FormattedMessage} from "react-intl";
 import {Collapse} from "react-bootstrap";
 import {addUser, getUsers, updateUser, deleteUser, getAllOrgUnits} from "../actions";
-import UserManagementAddNew from "../components/UserManagementAddNew";
-import UserManagementList from "../components/UserManagementList";
+import UserManagementAddNew from "../components/UserManagement/UserManagementAddNew";
+import UserManagementList from "../components/UserManagement/UserManagementList";
 import {toggleItem, getItem} from "./../utilities/storage";
 import "./../css/usermanagement.css";
 

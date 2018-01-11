@@ -7,10 +7,10 @@ import {
     getUnitTypes, deleteUnitType, addUnitType, updateUnitType, getAllOrgUnits,
 } from "../actions";
 import { getItem, toggleItem } from "../utilities/storage";
-import OrganizationUnitTypeList from "../components/OrganizationUnitTypeList";
-import OrganizationUnitTypeAddNew from "../components/OrganizationUnitTypeAddNew";
-import OrganizationUnitTreeView from "../components/OrganizationUnitTreeView";
-import OrganizationUnitAddEdit from "../components/OrganizationUnitAddEdit";
+import OrganizationUnitTypeList from "../components/OrganizationUnit/OrganizationUnitTypeList";
+import OrganizationUnitTypeAddNew from "../components/OrganizationUnit/OrganizationUnitTypeAddNew";
+import OrganizationUnitTreeView from "../components/OrganizationUnit/OrganizationUnitTreeView";
+import OrganizationUnitAddEdit from "../components/OrganizationUnit/OrganizationUnitAddEdit";
 import "./../css/organisationsettings.css";
 
 class Organisationsettings extends React.Component {

@@ -3,17 +3,16 @@ import {FormattedMessage} from "react-intl";
 import {connect} from "react-redux";
 import PropTypes from "prop-types";
 import { Collapse } from "react-bootstrap";
-import EngineSettingAddNew from "../components/EngineSettingAddNew";
-import EngineSettingList from "../components/EngineSettingList";
+import {toggleItem, getItem} from "./../utilities/storage";
+import EngineSettingAddNew from "../components/EngineSetting/EngineSettingAddNew";
+import EngineSettingList from "../components/EngineSetting/EngineSettingList";
 import {createEngineSetting, deleteEngineSetting, updateEngineSetting, getEngineSettings} from "../actions";
 import "./../css/importsettings.css";
 
 class Importsettings extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            open: false,
-        };
+        this.state = { open: getItem("add_import_settings_open") };
 
         this.props.dispatch(getEngineSettings());
 
@@ -36,7 +35,8 @@ class Importsettings extends React.Component {
     }
 
     toggleAddSetting() {
-        this.setState({open: !this.state.open});
+        toggleItem("add_import_settings_open");
+        this.setState({ open: getItem("add_import_settings_open") });
     }
 
     render() {
@@ -56,7 +56,7 @@ class Importsettings extends React.Component {
                             }
                         </button>
                     </div>
-                    <div className="col-xs-12">
+                    <div className="col-xs-12 col-lg-offset-2 col-lg-8">
                         <Collapse in={this.state.open}>
                             <div>
                                 <EngineSettingAddNew sendData={newSetting => this.createEngineSetting(newSetting)} />

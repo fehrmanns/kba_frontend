@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import {FormattedMessage} from "react-intl";
-import {getOrgUnit, selectUnit, resetUnitUpdateStatus} from "../actions";
+import {getOrgUnit, selectUnit, resetUnitUpdateStatus} from "../../actions";
 import OrganisationUnitTreeElement from "./OrganizationUnitTreeElement";
 
 class OrganizationUnitTreeElement extends React.Component {

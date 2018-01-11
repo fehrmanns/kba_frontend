@@ -3,7 +3,7 @@ import {connect} from "react-redux";
 import PropTypes from "prop-types";
 import {FormattedMessage} from "react-intl";
 import CategoryManagementListItem from "./CategoryManagementListItem";
-import {getCategories} from "./../actions";
+import {getCategories} from "../../actions";
 
 class CategoryManagementList extends React.Component {
     constructor(props) {

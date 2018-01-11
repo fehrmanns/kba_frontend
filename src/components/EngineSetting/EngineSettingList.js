@@ -2,9 +2,9 @@ import * as React from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import {FormattedMessage} from "react-intl";
-import FormattedIcon from './i18n/FormattedIcon';
-import IconWithTooltip from "./IconWithTooltip";
-import EngineSettingListItem from "./EngineSettingsListItem";
+import FormattedIcon from '../i18n/FormattedIcon';
+import IconWithTooltip from "../Icon/IconWithTooltip";
+import EngineSettingListItem from "./EngineSettingListItem";
 
 class EngineSettingList extends React.Component {
     render() {

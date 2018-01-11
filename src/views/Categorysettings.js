@@ -4,8 +4,8 @@ import PropTypes from "prop-types";
 import {FormattedMessage} from "react-intl";
 import {Collapse} from "react-bootstrap";
 import {toggleItem, getItem} from "./../utilities/storage";
-import CategoryManagementAddNew from "../components/CategoryManagementAddNew";
-import CategoryManagementList from "../components/CategoryManagementList";
+import CategoryManagementAddNew from "../components/CategoryManagement/CategoryManagementAddNew";
+import CategoryManagementList from "../components/CategoryManagement/CategoryManagementList";
 import "./../css/categorymanagement.css";
 
 class Categorysettings extends React.Component {

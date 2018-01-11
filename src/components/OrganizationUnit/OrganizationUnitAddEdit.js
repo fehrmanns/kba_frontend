@@ -2,9 +2,9 @@ import * as React from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import {FormattedMessage} from "react-intl";
-import FormattedInput from "../components/i18n/FormattedInput";
-import FormattedTypeahead from "../components/i18n/FormattedTypeahead";
-import {updateOrgUnit, createOrgUnit, getAllOrgUnits, selectUnit} from "../actions";
+import FormattedInput from "../i18n/FormattedInput";
+import FormattedTypeahead from "../i18n/FormattedTypeahead";
+import {updateOrgUnit, createOrgUnit, getAllOrgUnits, selectUnit} from "../../actions";
 
 class OrganizationUnitAddEdit extends React.Component {
     constructor(props) {

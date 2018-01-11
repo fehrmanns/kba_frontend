@@ -3,10 +3,10 @@ import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import {MenuItem} from "react-bootstrap";
 import {FormattedDate, FormattedMessage} from "react-intl";
-import {openPasswordModal} from "./../actions";
-import FormattedDropDown from "./i18n/FormattedDropDown";
-import FormattedButton from "./i18n/FormattedButton";
-import FormattedTypeahead from "./i18n/FormattedTypeahead";
+import {openPasswordModal} from "../../actions";
+import FormattedDropDown from "../i18n/FormattedDropDown";
+import FormattedButton from "../i18n/FormattedButton";
+import FormattedTypeahead from "../i18n/FormattedTypeahead";
 
 
 class UserManagementListItem extends React.Component {

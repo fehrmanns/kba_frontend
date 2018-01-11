@@ -3,10 +3,10 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import {Checkbox} from "react-bootstrap";
 import { FormattedMessage} from "react-intl";
-import IconItem from "./IconItem";
-import FormattedButton from "./i18n/FormattedButton";
-import { closeSelectIconModal, openSelectIconModal } from "../actions";
-import FormattedTypeahead from "./i18n/FormattedTypeahead";
+import IconItem from "../Icon/IconItem";
+import FormattedButton from "../i18n/FormattedButton";
+import { closeSelectIconModal, openSelectIconModal } from "../../actions";
+import FormattedTypeahead from "../i18n/FormattedTypeahead";
 
 class OrganizationUnitTypeListItem extends React.Component {
     constructor(props) {
