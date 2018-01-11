@@ -15,7 +15,7 @@ class EngineSettingList extends React.Component {
         return (
             <div>
                 <FormattedMessage tagName="h3" id="enginesettings.list.headline" />
-                <div>
+                <div className="table-responsive">
                     <table className="table table-hover">
                         <thead>
                             <tr>

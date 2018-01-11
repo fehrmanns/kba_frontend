@@ -37,6 +37,7 @@ body {
 .mainframe .container-fluid {
     animation: hide-menu-content 0.225s ease-out;
     margin-left: 0;
+    margin-bottom: 15px;
     background: rgba(255,255,255,0.85);
     border-radius: 6px;
     border: 1px solid #ddd;

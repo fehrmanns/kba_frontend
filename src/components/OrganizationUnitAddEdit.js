@@ -174,7 +174,7 @@ class OrganizationUnitAddEdit extends React.Component {
                         />
                     </div>
                     <div className={typeError ? "form-group has-error col-lg-6" : "form-group col-lg-6"}>
-                        <label className="control-label" htmlFor="inputName">
+                        <label className="control-label" htmlFor="kbaOuTypeNameSelection">
                             <FormattedMessage id="input.kbaOuTypeName" />&nbsp;
                             {typeError && <FormattedMessage id="input.notempty" />}
                         </label>
