@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import {Checkbox} from "react-bootstrap";
 import { FormattedMessage} from "react-intl";
 import IconItem from "./IconItem";
+import FormattedButton from "./i18n/FormattedButton";
 import { closeSelectIconModal, openSelectIconModal } from "../actions";
 import FormattedTypeahead from "./i18n/FormattedTypeahead";
 
@@ -171,16 +172,16 @@ class OrganizationUnitTypeListItem extends React.Component {
                 </td>
                 {modified && rights["org-unit-types"].put &&
                 <td className="text-center">
-                    <button className="btn btn-xs btn-warning" onClick={this.handleUpdate}>
-                        <FormattedMessage id="button.save" />
-                    </button>
+                    <FormattedButton title="button.save" className="btn btn-xs btn-success" onClick={this.handleUpdate}>
+                        <span className="glyphicon glyphicon-pencil" />
+                    </FormattedButton>
                 </td>
                 }
                 {!modified && rights["org-unit-types"].delete &&
                     <td className="text-center">
-                        <button className="btn btn-xs btn-danger" onClick={() => this.props.deleteType(type.name)}>
-                            <FormattedMessage id="button.type.delete" />
-                        </button>
+                        <FormattedButton title="button.type.delete" className="btn btn-xs btn-danger" onClick={() => this.props.deleteType(type.name)}>
+                            <span className="glyphicon glyphicon-trash" />
+                        </FormattedButton>
                     </td>
                 }
             </tr>

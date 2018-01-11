@@ -195,9 +195,9 @@ class EngineSettingsListItem extends React.Component {
 
                 {modified && mayEdit &&
                 <td className="text-center">
-                    <button className="btn btn-xs btn-warning" onClick={this.handleUpdate}>
-                        <FormattedMessage id="button.save" />
-                    </button>
+                    <FormattedButton title="button.save" className="btn btn-xs btn-success" onClick={this.handleUpdate}>
+                        <span className="glyphicon glyphicon-pencil" />
+                    </FormattedButton>
                 </td>
                 }
                 {!modified && mayDelete &&

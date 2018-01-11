@@ -100,6 +100,7 @@ table input {
 }
 
 table .form-control{
+    margin-left: -5px;
     padding: 4px 6px;
     border-width: 0;
     box-shadow: none;
@@ -109,7 +110,7 @@ table .form-control{
 }
 
 table .number-value {
-    width: 5em;
+    min-width: 4.5em;
 }
 
 table .has-error .form-control{

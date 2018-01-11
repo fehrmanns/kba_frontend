@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import {FormattedMessage} from "react-intl";
 import IconItem from "./IconItem";
+import FormattedButton from "./i18n/FormattedButton";
 import {closeSelectIconModal, openSelectIconModal, getCategories, updateCategory, deleteCategory} from "../actions";
 
 class CategoryManagementListItem extends React.Component {
@@ -100,13 +101,13 @@ class CategoryManagementListItem extends React.Component {
                 </td>
                 <td className="text-center edit-button">
                     {modified ?
-                        <button className="btn btn-xs btn-warning" onClick={this.handleUpdate}>
-                            <FormattedMessage id="button.save" />
-                        </button>
+                        <FormattedButton title="button.save" className="btn btn-xs btn-success" onClick={this.handleUpdate}>
+                            <span className="glyphicon glyphicon-pencil" />
+                        </FormattedButton>
                         :
-                        <button className="btn btn-xs btn-danger" onClick={() => this.deleteCategory()}>
-                            <FormattedMessage id="button.category.delete" />
-                        </button>
+                        <FormattedButton title="button.category.delete" className="btn btn-xs btn-danger" onClick={() => this.deleteCategory()}>
+                            <span className="glyphicon glyphicon-trash" />
+                        </FormattedButton>
                     }
                 </td>
             </tr>

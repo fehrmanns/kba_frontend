@@ -139,6 +139,7 @@ class EngineSettingAddNew extends React.Component {
         const picturePreviewError = !this.state.previewPicturePercentIsValid;
 
         // TODO: checkbox state should change when text is clicked
+        // TODO: change layout here (>1200px)
         return (
             <form className="highlight" onSubmit={this.sendData}>
                 <div className="row">
