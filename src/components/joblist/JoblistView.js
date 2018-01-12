@@ -8,6 +8,7 @@ import {isInclusivelyBeforeDay, isInclusivelyAfterDay } from "react-dates";
 import JobTable from "./JobTable";
 import {getItem} from "../../utilities/storage";
 import FormattedSingleDatePicker from "../../components/i18n/FormattedSingleDatePicker";
+import "./../../css/react_dates_overrides.css";
 
 
 class JoblistView extends React.Component {
