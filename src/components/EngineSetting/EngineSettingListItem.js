@@ -3,12 +3,12 @@ import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import {FormattedMessage} from "react-intl";
 import {Checkbox, MenuItem} from "react-bootstrap";
-import FormattedDropDown from "../components/i18n/FormattedDropDown";
-import InputfieldWithTooltip from "../components/InputfieldWithTooltip";
-import FormattedButton from "./i18n/FormattedButton";
-import * as constants from "../utilities/constants";
-import * as utilities from "../utilities/utilities";
-import * as validator from "../utilities/validator";
+import FormattedDropDown from "../i18n/FormattedDropDown";
+import InputfieldWithTooltip from "../../utilities/InputfieldWithTooltip";
+import FormattedButton from "../i18n/FormattedButton";
+import * as constants from "../../utilities/constants";
+import * as utilities from "../../utilities/utilities";
+import * as validator from "../../utilities/validator";
 
 class EngineSettingsListItem extends React.Component {
     constructor(props) {

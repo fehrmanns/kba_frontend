@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import {FormattedMessage} from "react-intl";
 import OrganizationUnitTypeListItem from "./OrganizationUnitTypeListItem";
-import IconWithTooltip from "./IconWithTooltip";
+import IconWithTooltip from "../Icon/IconWithTooltip";
 
 export default class OrganizationUnitTypeList extends React.Component {
     render() {

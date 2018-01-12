@@ -2,6 +2,9 @@
     margin: 2px 0 0;
 }
 
+.organisationsettings .navbar .navbar-right{
+    margin-right: 0;
+}
 .organisationsettings .navbar,
 .organisationsettings .tab-content{
     margin-top: 15px;

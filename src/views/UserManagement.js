@@ -4,8 +4,8 @@ import {connect} from "react-redux";
 import {FormattedMessage} from "react-intl";
 import {Collapse} from "react-bootstrap";
 import {addUser, getUsers, updateUser, deleteUser, getAllOrgUnits} from "../actions";
-import UserManagementAddNew from "../components/UserManagementAddNew";
-import UserManagementList from "../components/UserManagementList";
+import UserManagementAddNew from "../components/UserManagement/UserManagementAddNew";
+import UserManagementList from "../components/UserManagement/UserManagementList";
 import {toggleItem, getItem} from "./../utilities/storage";
 import "./../css/usermanagement.css";
 
@@ -61,7 +61,7 @@ class UserManagement extends React.Component {
                         <div className="row">
                             <div className="col-xs-12">
                                 <button
-                                    className="btn btn-primary pull-right"
+                                    className="btn btn-default pull-right"
                                     onClick={() => this.toggleAddUser()}
                                 >
                                     {this.state.open ?
@@ -71,7 +71,7 @@ class UserManagement extends React.Component {
                                     }
                                 </button>
                             </div>
-                            <div className="col-xs-12">
+                            <div className="col-xs-12 col-lg-offset-2 col-lg-8">
                                 <Collapse in={this.state.open}>
                                     <div>
                                         <UserManagementAddNew sendData={newUser => this.addNewUser(newUser)} />

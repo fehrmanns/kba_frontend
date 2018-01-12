@@ -1,9 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {FormattedMessage} from "react-intl";
-import IconItem from "./IconItem";
-import FormattedButton from "./i18n/FormattedButton";
-import {closeSelectIconModal, openSelectIconModal, getCategories, updateCategory, deleteCategory} from "../actions";
+import IconItem from "../Icon/IconItem";
+import FormattedButton from "../i18n/FormattedButton";
+import {closeSelectIconModal, openSelectIconModal, getCategories, updateCategory, deleteCategory} from "../../actions";
 
 class CategoryManagementListItem extends React.Component {
     constructor(props) {

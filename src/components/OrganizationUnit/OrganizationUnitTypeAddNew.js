@@ -2,10 +2,10 @@ import * as React from "react";
 import PropTypes from "prop-types";
 import {FormattedMessage} from "react-intl";
 import {Checkbox} from "react-bootstrap";
-import {openSelectIconModal, closeSelectIconModal} from "./../actions";
-import FormattedInput from "../components/i18n/FormattedInput";
-import FormattedTypeahead from "../components/i18n/FormattedTypeahead";
-import IconItem from "./IconItem";
+import {openSelectIconModal, closeSelectIconModal} from "../../actions";
+import FormattedInput from "../i18n/FormattedInput";
+import FormattedTypeahead from "../i18n/FormattedTypeahead";
+import IconItem from "../Icon/IconItem";
 
 class OrganizationUnitTypeAddNew extends React.Component {
     constructor(props) {

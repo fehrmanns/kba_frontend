@@ -10,7 +10,7 @@ import {logoutUser, openPasswordModal, probeToken} from "../actions";
 import {getToken, getItem, setItem, toggleItem} from "./../utilities/storage";
 import Header from "./Header";
 import Sitebar from "./Sitebar";
-import Notifications from "./Notifications";
+import Notifications from "./Notification/Notifications";
 import en from "../i18n/messages_en.json";
 import de from "../i18n/messages_de.json";
 import Home from "./../views/Home";
@@ -28,7 +28,7 @@ import Categorysettings from "./../views/Categorysettings";
 import License from "./../views/License";
 import PasswordChangeModal from "./modals/PasswordChangeModal";
 import SelectIconModal from "./../components/modals/SelectIconModal";
-import RightManagement from "./../components/RightManagement";
+import RightManagement from "../utilities/RightManagement";
 
 addLocaleData([...intlEN, ...intlDE]);
 

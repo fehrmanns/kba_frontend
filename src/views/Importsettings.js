@@ -3,17 +3,16 @@ import {FormattedMessage} from "react-intl";
 import {connect} from "react-redux";
 import PropTypes from "prop-types";
 import { Collapse } from "react-bootstrap";
-import EngineSettingAddNew from "../components/EngineSettingAddNew";
-import EngineSettingList from "../components/EngineSettingList";
+import {toggleItem, getItem} from "./../utilities/storage";
+import EngineSettingAddNew from "../components/EngineSetting/EngineSettingAddNew";
+import EngineSettingList from "../components/EngineSetting/EngineSettingList";
 import {createEngineSetting, deleteEngineSetting, updateEngineSetting, getEngineSettings} from "../actions";
 import "./../css/importsettings.css";
 
 class Importsettings extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            open: false,
-        };
+        this.state = { open: getItem("add_import_settings_open") };
 
         this.props.dispatch(getEngineSettings());
 
@@ -36,19 +35,24 @@ class Importsettings extends React.Component {
     }
 
     toggleAddSetting() {
-        this.setState({open: !this.state.open});
+        toggleItem("add_import_settings_open");
+        this.setState({ open: getItem("add_import_settings_open") });
     }
 
     render() {
         const {rights, settingsAreLoaded} = this.props;
         return (
             <div className="importsettings">
-                <h1><FormattedMessage id="view.importsettings.title" /></h1>
+                <div className="row">
+                    <div className="col-xs-12">
+                        <FormattedMessage tagName="h1" id="view.importsettings.title" />
+                    </div>
+                </div>
                 {rights["engine-settings"].post &&
                 <div className="row">
                     <div className="col-xs-12">
                         <button
-                            className="btn btn-primary pull-right "
+                            className="btn btn-default pull-right "
                             onClick={() => this.toggleAddSetting()}
                         >
                             {this.state.open ? <FormattedMessage id="button.input.close" />
@@ -56,7 +60,7 @@ class Importsettings extends React.Component {
                             }
                         </button>
                     </div>
-                    <div className="col-xs-12">
+                    <div className="col-xs-12 col-lg-offset-2 col-lg-8">
                         <Collapse in={this.state.open}>
                             <div>
                                 <EngineSettingAddNew sendData={newSetting => this.createEngineSetting(newSetting)} />

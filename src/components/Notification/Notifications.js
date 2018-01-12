@@ -1,9 +1,9 @@
 import React from "react";
 import {connect} from "react-redux";
 import PropTypes from "prop-types";
-import {resetError} from './../actions';
+import {resetError} from '../../actions';
 import NotificationItem from "./NotificationItem";
-import "../css/notifications.css";
+import "../../css/notifications.css";
 
 class Notifications extends React.Component {
     constructor(props) {

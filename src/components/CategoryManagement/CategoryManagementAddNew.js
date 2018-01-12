@@ -2,9 +2,9 @@ import React from "react";
 import {connect} from "react-redux";
 import PropTypes from "prop-types";
 import {FormattedMessage} from "react-intl";
-import {openSelectIconModal, closeSelectIconModal, addCategory, getCategories} from "./../actions";
-import FormattedInput from "../components/i18n/FormattedInput";
-import IconItem from "./IconItem";
+import {openSelectIconModal, closeSelectIconModal, addCategory, getCategories} from "../../actions";
+import FormattedInput from "../i18n/FormattedInput";
+import IconItem from "../Icon/IconItem";
 
 class CategoryManagementAddNew extends React.Component {
     constructor(props) {
