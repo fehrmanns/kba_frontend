@@ -16,6 +16,8 @@ class Joblist extends React.Component {
         };
 
         this.toggleView = this.toggleView.bind(this);
+        this.fetchAdminJobs = this.fetchAdminJobs.bind(this);
+        this.fetchOwnJobs = this.fetchOwnJobs.bind(this);
     }
 
     toggleView(selectedKey) {
@@ -24,14 +26,12 @@ class Joblist extends React.Component {
         });
     }
 
-    fetchAdminJobs(event) {
+    fetchAdminJobs() {
         // TODO use date values
-        event.preventDefault();
         this.props.dispatch(getAdminJobs());
     }
-    fetchOwnJobs(event) {
+    fetchOwnJobs() {
         // TODO use date values
-        event.preventDefault();
         this.props.dispatch(getOwnJobs());
     }
 

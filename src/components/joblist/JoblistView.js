@@ -37,8 +37,7 @@ class JoblistView extends React.Component {
 
     getJobs(event) {
         // TODO use date values
-        console.log("fromDate", this.state.fromDate);
-        console.log("toDate", this.state.toDate);
+        console.log("event", event);
         event.preventDefault();
         this.props.fetchJobs();
     }
