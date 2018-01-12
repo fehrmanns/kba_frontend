@@ -19,6 +19,7 @@
     padding: 0;
 }
 .usermanagement .table .deactivated,
-.usermanagement .table .deactivated .btn-link {
+.usermanagement .table .deactivated .btn-link,
+.usermanagement .table .deactivated .form-control{
     color: darkgray;
 }

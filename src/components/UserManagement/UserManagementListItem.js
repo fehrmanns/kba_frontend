@@ -99,7 +99,7 @@ class UserManagementListItem extends React.Component {
         const unitNames = unitList.map(item => item.name);
 
         return (
-            <tr className={!activeUser && "deactivated"}>
+            <tr className={!activeUser ? "deactivated" : ""}>
                 <td><span>{user.loginName}</span></td>
                 <td>
                     {this.props.rights.users.put ?
