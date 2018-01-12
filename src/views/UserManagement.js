@@ -13,7 +13,6 @@ class UserManagement extends React.Component {
     constructor(props) {
         super(props);
         this.state = {open: getItem("add_user_open")};
-        this.props.dispatch(getUsers());
         this.props.dispatch(getAllOrgUnits());
         this.addNewUser = this.addNewUser.bind(this);
         this.updateUser = this.updateUser.bind(this);
@@ -83,10 +82,9 @@ class UserManagement extends React.Component {
                         {(this.props.rights.users.get) &&
                         <div className="row">
                             <div className="col-xs-12">
-                                {userAreLoaded && this.props.rights.users.get &&
+                                {this.props.rights.users.get &&
                                 <UserManagementList
                                     currentUser={currentUser}
-                                    users={userList}
                                     deleteUser={this.deleteUser}
                                     updateUser={this.updateUser}
                                 />}
