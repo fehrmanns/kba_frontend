@@ -77,7 +77,7 @@ UserManagementList.propTypes = {
     updateUser: PropTypes.func.isRequired,
     deleteUser: PropTypes.func.isRequired,
     dispatch: PropTypes.func.isRequired,
-    userList: PropTypes.func.isRequired,
+    userList: PropTypes.array.isRequired,
 };
 
 
