@@ -6,7 +6,6 @@ import moment from "moment";
 import "moment/locale/de";
 import {isInclusivelyBeforeDay, isInclusivelyAfterDay } from "react-dates";
 import JobTable from "./JobTable";
-import {getItem} from "../../utilities/storage";
 import FormattedSingleDatePicker from "../../components/i18n/FormattedSingleDatePicker";
 import "./../../css/react_dates_overrides.css";
 
@@ -14,15 +13,11 @@ import "./../../css/react_dates_overrides.css";
 class JoblistView extends React.Component {
     constructor(props) {
         super(props);
-
-        const language = getItem("language");
-
         this.state = {
             fromDate: null,
             toDate: null,
             toDateFocused: false,
             fromDateFocused: false,
-            language,
         };
 
         this.getJobs = this.getJobs.bind(this);
@@ -36,10 +31,10 @@ class JoblistView extends React.Component {
     }
 
     getJobs(event) {
-        // TODO use date values
-        console.log("event", event);
         event.preventDefault();
-        this.props.fetchJobs();
+        const dateFrom = !this.state.fromDate ? "" : this.state.fromDate.startOf('day').format();
+        const dateTo = !this.state.toDate ? "" : this.state.toDate.endOf('day').format();
+        this.props.fetchJobs(dateFrom, dateTo);
     }
 
     updateFromDateRange(day) {
@@ -110,7 +105,6 @@ class JoblistView extends React.Component {
         );
     }
 }
-
 
 JoblistView.propTypes = {
     fetchJobs: PropTypes.func.isRequired,

@@ -26,13 +26,13 @@ class Joblist extends React.Component {
         });
     }
 
-    fetchAdminJobs() {
+    fetchAdminJobs(fromDate, toDate) {
         // TODO use date values
-        this.props.dispatch(getAdminJobs());
+        this.props.dispatch(getAdminJobs(fromDate, toDate));
     }
-    fetchOwnJobs() {
+    fetchOwnJobs(fromDate, toDate) {
         // TODO use date values
-        this.props.dispatch(getOwnJobs());
+        this.props.dispatch(getOwnJobs(fromDate, toDate));
     }
 
 

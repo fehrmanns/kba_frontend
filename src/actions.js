@@ -642,10 +642,28 @@ export function deleteEngineSetting(settingname) {
     };
 }
 
-export function getOwnJobs() {
+function createSearchDateQueryParams(fromDate, toDate) {
+    const queryParams = [];
+    if (fromDate) {
+        queryParams.push({
+            name: "fromDts",
+            value: fromDate,
+        });
+    } if (toDate) {
+        queryParams.push({
+            name: "toDts",
+            value: toDate,
+        });
+    }
+    return queryParams;
+}
+
+export function getOwnJobs(fromDate, toDate) {
+    const queryParams = createSearchDateQueryParams(fromDate, toDate);
     return {
         [CALL_API]: {
             endpoint: "own-jobs",
+            queryParams,
             authenticated: true,
             method: "GET",
             types: [OWNJOBLIST_REQUEST, OWNJOBLIST_LOADED, OWNJOBLIST_FAILURE],
@@ -654,17 +672,12 @@ export function getOwnJobs() {
     };
 }
 
-export function getAdminJobs(fromDts, toDts) {
+export function getAdminJobs(fromDate, toDate) {
+    const queryParams = createSearchDateQueryParams(fromDate, toDate);
     return {
         [CALL_API]: {
             endpoint: "jobs",
-/*            queryParams: [{
-                name: "fromDts",
-                value: fromDts,
-            }, {
-                name: "toDts",
-                value: toDts,
-            }],*/
+            queryParams,
             authenticated: true,
             method: "GET",
             types: [ADMINJOBLIST_REQUEST, ADMINJOBLIST_LOADED, ADMINJOBLIST_FAILURE],
