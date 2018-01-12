@@ -17,6 +17,8 @@
         "FAST_SPEAKER_COUNT_CHECK":"Quick speaker count check",
         "CLUSTERING_SPEAKER_COUNT_CHECK":"Clustering speaker count check",
 
+        "date.format":"DD/MM/YYYY",
+
         "alert.strong.message.success": "Very good!",
         "alert.strong.message.info": "Information:",
         "alert.strong.message.warning": "Warning.",
@@ -85,6 +87,8 @@
         "input.minScoreValueAudio":"Minimum score for audio",
         "input.minScoreError":"The minimal score value has to be between -16 and 16.",
         "input.picturePreviewError":"The value has to be between 0 and 100.",
+        "input.dateTo":"Start date",
+        "input.dateFrom":"End date",
 
         "button.submit": "Submit",
         "button.user.create": "Create user",
@@ -111,6 +115,7 @@
         "button.setting.create":"Create engine setting",
         "button.newsetting.open":"New engine setting",
         "button.setting.delete":"Delete engine setting",
+        "button.job.filter":"Search jobs",
 
         "label.select.icon":"Icon",
 
@@ -214,6 +219,9 @@
         "enginesettings.list.previewPicturePercent":"Percent of picture preview",
         "enginesettings.list.minScoreValueVideo":"Minimum score for video",
         "enginesettings.list.minScoreValueAudio":"Minimum score for audio",
+
+        "joblist.user.title":"Job list overview",
+        "joblist.administration.title":"Overviews of all jobs",
 
         "":""
     }

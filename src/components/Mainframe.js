@@ -5,6 +5,7 @@ import {BrowserRouter as Router, Route, Redirect} from "react-router-dom";
 import {addLocaleData, IntlProvider} from "react-intl";
 import intlEN from "react-intl/locale-data/en";
 import intlDE from "react-intl/locale-data/de";
+import 'react-dates/initialize';
 import {logoutUser, openPasswordModal, probeToken} from "../actions";
 import {getToken, getItem, setItem, toggleItem} from "./../utilities/storage";
 import Header from "./Header";

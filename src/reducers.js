@@ -9,10 +9,11 @@ import {
     UNITS_REQUEST, UNITS_LOADED, UNIT_REQUEST, UNIT_ADD_REQUEST, UNIT_ADDED, UNIT_DELETED, UNIT_UPDATE_REQUEST, RESET_UNIT_UPDATE_STATUS, UNIT_UPDATED, UNIT_FAILURE, UNIT_LOADED, UNIT_SELECTED, ROOTUNIT_LOADED, SET_RIGHTS, SET_EXPIRED_VALUE, PASSWORD_REQUEST,
     CATEGORY_REQUEST, CATEGORY_LOADED, CATEGORY_ADDED, CATEGORY_UPDATED, CATEGORY_DELETED, CATEGORY_FAILURE,
     ENGINESETTINGS_REQUEST, ENGINESETTINGS_FAILURE, ENGINESETTINGS_LOADED, ENGINESETTING_CREATED, ENGINESETTING_UPDATED, ENGINESETTING_DELETED,
+    ADMINJOBLIST_REQUEST, ADMINJOBLIST_LOADED, ADMINJOBLIST_FAILURE, OWNJOBLIST_REQUEST, OWNJOBLIST_LOADED, OWNJOBLIST_FAILURE,
 } from "./actions";
 
 function createDefaultRights() {
-    const paths = ["users", "org-unit-types", "org-units", "categories", "engine-settings", "imports"];
+    const paths = ["users", "org-unit-types", "org-units", "categories", "engine-settings", "imports", "own-jobs", "jobs"];
 
     const rightsFormatted = {
     };
@@ -35,6 +36,7 @@ function createDefaultRights() {
         categorysettings: ["categories"],
         importsettings: ["engine-settings"],
         recordings: ["imports"],
+        joblist: ["own-jobs", "jobs"],
         hasPermissionsForPath(path) {
             const length = this[path] ? this[path].length : 0;
             for (let i = 0; i < length; i += 1) {
@@ -494,6 +496,58 @@ function enginesettings(state = {
     }
 }
 
+function ownjoblist(state = {
+    isFetching: false,
+    joblist: [],
+    isLoaded: false,
+}, action) {
+    switch (action.type) {
+        case OWNJOBLIST_REQUEST:
+            return Object.assign({}, state, {
+                isFetching: true,
+                isLoaded: false,
+            });
+        case OWNJOBLIST_LOADED:
+            return Object.assign({}, state, {
+                joblist: action.response.kbaJobDtos,
+                isFetching: false,
+                isLoaded: true,
+            });
+        case OWNJOBLIST_FAILURE:
+            return Object.assign({}, state, {
+                isFetching: false,
+            });
+        default:
+            return state;
+    }
+}
+
+function adminjoblist(state = {
+    isFetching: false,
+    joblist: [],
+    isLoaded: false,
+}, action) {
+    switch (action.type) {
+        case ADMINJOBLIST_REQUEST:
+            return Object.assign({}, state, {
+                isFetching: true,
+                isLoaded: false,
+            });
+        case ADMINJOBLIST_LOADED:
+            return Object.assign({}, state, {
+                joblist: action.response.kbaJobDtos,
+                isFetching: false,
+                isLoaded: true,
+            });
+        case ADMINJOBLIST_FAILURE:
+            return Object.assign({}, state, {
+                isFetching: false,
+            });
+        default:
+            return state;
+    }
+}
+
 
 // We combine the reducers here so that they
 // can be left split apart above
@@ -507,6 +561,8 @@ const kbaApp = combineReducers({
     units,
     categories,
     enginesettings,
+    ownjoblist,
+    adminjoblist,
 });
 
 export default kbaApp;

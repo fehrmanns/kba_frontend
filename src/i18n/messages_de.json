@@ -17,6 +17,8 @@
         "FAST_SPEAKER_COUNT_CHECK":"Schneller Check, um Sprecheranzahl zu ermitteln",
         "CLUSTERING_SPEAKER_COUNT_CHECK":"Sprecheranzahl über Clustering ermitteln",
 
+        "date.format":"DD.MM.YYYY",
+
         "alert.strong.message.success": "Sehr gut!",
         "alert.strong.message.info": "Information:",
         "alert.strong.message.warning": "Vorsicht.",
@@ -85,6 +87,8 @@
         "input.minScoreValueAudio":"Minimaler Score-Wert für Audio",
         "input.minScoreError":"Minimaler Score-Wert muss zwischen -16 und 16 liegen",
         "input.picturePreviewError":"Der Wert muss zwischen 0 und 100 liegen",
+        "input.dateTo":"Startdatum",
+        "input.dateFrom":"Enddatum",
 
         "button.submit": "Absenden",
         "button.user.create": "Benutzer anlegen",
@@ -111,6 +115,7 @@
         "button.setting.create":"Verarbeitungsrichtlinie erstellen",
         "button.newsetting.open":"Neue Verarbeitungsrichtlinie",
         "button.setting.delete":"Richtlinie löschen",
+        "button.job.filter":"Aufträge suchen",
 
         "label.select.icon":"Icon",
 
@@ -213,6 +218,9 @@
         "enginesettings.list.previewPicturePercent":"Prozentzahl für Bildvorschau",
         "enginesettings.list.minScoreValueVideo":"Min. Score Video",
         "enginesettings.list.minScoreValueAudio":"Min. Score Audio",
+
+        "joblist.user.title":"Auftragsübersicht",
+        "joblist.administration.title":"Übersicht über alle Aufträge",
 
         "":""
     }

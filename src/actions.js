@@ -69,6 +69,14 @@ export const CATEGORY_UPDATED = "CATEGORY_UPDATED";
 export const CATEGORY_DELETED = "CATEGORY_DELETED";
 export const CATEGORY_FAILURE = "CATEGORY_FAILURE";
 
+export const OWNJOBLIST_REQUEST = "OWNJOBLIST_REQUEST";
+export const OWNJOBLIST_LOADED = "OWNJOBLIST_LOADED";
+export const OWNJOBLIST_FAILURE = "OWNJOBLIST_FAILURE";
+
+export const ADMINJOBLIST_REQUEST = "ADMINJOBLIST_REQUEST";
+export const ADMINJOBLIST_LOADED = "ADMINJOBLIST_LOADED";
+export const ADMINJOBLIST_FAILURE = "ADMINJOBLIST_FAILURE";
+
 function serverError(message) {
     return {
         type: SERVER_ERROR,
@@ -629,6 +637,37 @@ export function deleteEngineSetting(settingname) {
             authenticated: true,
             method: "DELETE",
             types: [ENGINESETTINGS_REQUEST, ENGINESETTING_DELETED, ENGINESETTINGS_FAILURE],
+            json: {},
+        },
+    };
+}
+
+export function getOwnJobs() {
+    return {
+        [CALL_API]: {
+            endpoint: "own-jobs",
+            authenticated: true,
+            method: "GET",
+            types: [OWNJOBLIST_REQUEST, OWNJOBLIST_LOADED, OWNJOBLIST_FAILURE],
+            json: {},
+        },
+    };
+}
+
+export function getAdminJobs(fromDts, toDts) {
+    return {
+        [CALL_API]: {
+            endpoint: "jobs",
+/*            queryParams: [{
+                name: "fromDts",
+                value: fromDts,
+            }, {
+                name: "toDts",
+                value: toDts,
+            }],*/
+            authenticated: true,
+            method: "GET",
+            types: [ADMINJOBLIST_REQUEST, ADMINJOBLIST_LOADED, ADMINJOBLIST_FAILURE],
             json: {},
         },
     };

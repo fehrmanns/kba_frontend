@@ -1,13 +1,86 @@
 import React from "react";
+import PropTypes from "prop-types";
 import {FormattedMessage} from "react-intl";
+import { connect } from "react-redux";
 
-export default class Joblist extends React.Component {
+import {Nav, NavItem } from "react-bootstrap";
+import "./../css/joblist.css";
+import JoblistView from "../components/joblist/JoblistView";
+import { getAdminJobs, getOwnJobs } from '../actions';
+
+class Joblist extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            activeKey: 1,
+        };
+
+        this.toggleView = this.toggleView.bind(this);
+    }
+
+    toggleView(selectedKey) {
+        this.setState({
+            activeKey: selectedKey,
+        });
+    }
+
+    fetchAdminJobs(event) {
+        // TODO use date values
+        event.preventDefault();
+        this.props.dispatch(getAdminJobs());
+    }
+    fetchOwnJobs(event) {
+        // TODO use date values
+        event.preventDefault();
+        this.props.dispatch(getOwnJobs());
+    }
+
+
     render() {
+        const {activeKey} = this.state;
+        const {rights} = this.props;
         return (
-            <div className="starter-template">
-                <h1><FormattedMessage id="view.joblist.title" /></h1>
-                <p className="lead"><FormattedMessage id="view.joblist.body" /></p>
+            <div className="joblist">
+                <nav className="navbar">
+                    <Nav bsStyle="pills" activeKey={activeKey} onSelect={this.toggleView}>
+                        { rights["own-jobs"].get &&
+                            <NavItem eventKey={1}>
+                                <FormattedMessage id="joblist.user.title" />
+                            </NavItem>
+                        }
+                        {rights.jobs.get &&
+                            <NavItem eventKey={2}>
+                                <FormattedMessage id="joblist.administration.title" />
+                            </NavItem>
+                        }
+                    </Nav>
+                </nav>
+
+                { activeKey === 1 ?
+                    <div>
+                        <JoblistView fetchJobs={this.fetchOwnJobs} />
+                    </div>
+                    :
+                    <div>
+                        <JoblistView fetchJobs={this.fetchAdminJobs} />
+                    </div>
+                }
             </div>
         );
     }
 }
+
+Joblist.propTypes = {
+    rights: PropTypes.object.isRequired,
+    dispatch: PropTypes.func.isRequired,
+};
+
+function mapStateToProps(state) {
+    const {auth} = state;
+    const {rights} = auth;
+    return {
+        rights,
+    };
+}
+
+export default connect(mapStateToProps)(Joblist);

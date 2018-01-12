@@ -1,0 +1,119 @@
+import React from "react";
+import PropTypes from "prop-types";
+import {FormattedMessage} from "react-intl";
+import "react-dates/lib/css/_datepicker.css";
+import moment from "moment";
+import "moment/locale/de";
+import {isInclusivelyBeforeDay, isInclusivelyAfterDay } from "react-dates";
+import JobTable from "./JobTable";
+import {getItem} from "../../utilities/storage";
+import FormattedSingleDatePicker from "../../components/i18n/FormattedSingleDatePicker";
+
+
+class JoblistView extends React.Component {
+    constructor(props) {
+        super(props);
+
+        const language = getItem("language");
+
+        this.state = {
+            fromDate: null,
+            toDate: null,
+            toDateFocused: false,
+            fromDateFocused: false,
+            language,
+        };
+
+        this.getJobs = this.getJobs.bind(this);
+        this.onFocusChanged = this.onFocusChanged.bind(this);
+        this.updateFromDateRange = this.updateFromDateRange.bind(this);
+        this.updateToDateRange = this.updateToDateRange.bind(this);
+    }
+
+    onFocusChanged(focused, prop) {
+        this.setState({ [prop]: focused.focused});
+    }
+
+    getJobs(event) {
+        // TODO use date values
+        console.log("fromDate", this.state.fromDate);
+        console.log("toDate", this.state.toDate);
+        event.preventDefault();
+        this.props.fetchJobs();
+    }
+
+    updateFromDateRange(day) {
+        const {toDate} = this.state;
+        const maxDate = toDate || moment();
+        return !isInclusivelyBeforeDay(day, maxDate);
+    }
+
+    updateToDateRange(day) {
+        const {fromDate} = this.state;
+        if (fromDate) {
+            return !isInclusivelyBeforeDay(day, moment()) || !isInclusivelyAfterDay(day, fromDate);
+        }
+        return !isInclusivelyBeforeDay(day, moment());
+    }
+
+    render() {
+        moment.locale(this.state.language);
+        return (
+            <div>
+                <form className="highlight">
+                    <div className="row">
+                        <div className="form-group col-sm-4">
+                            <FormattedMessage
+                                tagName="label"
+                                id="input.dateFrom"
+                                className="control-label"
+                            />
+                            <FormattedSingleDatePicker
+                                date={this.state.fromDate}
+                                onDateChange={fromDate => this.setState({ fromDate })}
+                                focused={this.state.fromDateFocused}
+                                onFocusChange={focused => this.onFocusChanged(focused, "fromDateFocused")}
+                                displayFormat={() => moment.localeData(this.state.language).longDateFormat("L")}
+                                numberOfMonths={1}
+                                hideKeyboardShortcutsPanel
+                                isOutsideRange={day => this.updateFromDateRange(day)}
+                                placeholder="input.dateFrom"
+                            />
+                        </div>
+                        <div className="form-group col-sm-4">
+                            <FormattedMessage
+                                tagName="label"
+                                id="input.dateTo"
+                                className="control-label"
+                            />
+                            <FormattedSingleDatePicker
+                                date={this.state.toDate}
+                                onDateChange={toDate => this.setState({ toDate })}
+                                focused={this.state.toDateFocused}
+                                onFocusChange={focused => this.onFocusChanged(focused, "toDateFocused")}
+                                displayFormat={() => moment.localeData(this.state.language).longDateFormat("L")}
+                                numberOfMonths={1}
+                                hideKeyboardShortcutsPanel
+                                isOutsideRange={day => this.updateToDateRange(day)}
+                                placeholder="input.dateTo"
+                            />
+                        </div>
+                        <div className="form-group col-sm-4">
+                            <button className="btn btn-primary pull-right label-margin" id="filterButton" onClick={this.getJobs}>
+                                <FormattedMessage id="button.job.filter" />
+                            </button>
+                        </div>
+                    </div>
+                </form>
+                <JobTable />
+            </div>
+        );
+    }
+}
+
+
+JoblistView.propTypes = {
+    fetchJobs: PropTypes.func.isRequired,
+};
+
+export default JoblistView;
