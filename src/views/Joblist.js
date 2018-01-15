@@ -6,7 +6,8 @@ import { connect } from "react-redux";
 import {Nav, NavItem } from "react-bootstrap";
 import "./../css/joblist.css";
 import JoblistView from "../components/joblist/JoblistView";
-import { getAdminJobs, getOwnJobs } from '../actions';
+import JobTable from "../components/joblist/JobTable";
+import { getAdminJobs, getOwnJobs } from "../actions";
 
 class Joblist extends React.Component {
     constructor(props) {
@@ -59,10 +60,12 @@ class Joblist extends React.Component {
                 { activeKey === 1 ?
                     <div>
                         <JoblistView fetchJobs={this.fetchOwnJobs} />
+                        <JobTable jobs={this.props.listOwnJobs} />
                     </div>
                     :
                     <div>
                         <JoblistView fetchJobs={this.fetchAdminJobs} />
+                        <JobTable jobs={this.props.listAdminJobs} />
                     </div>
                 }
             </div>
@@ -73,13 +76,17 @@ class Joblist extends React.Component {
 Joblist.propTypes = {
     rights: PropTypes.object.isRequired,
     dispatch: PropTypes.func.isRequired,
+    listOwnJobs: PropTypes.array.isRequired,
+    listAdminJobs: PropTypes.array.isRequired,
 };
 
 function mapStateToProps(state) {
-    const {auth} = state;
+    const {auth, ownjoblist, adminjoblist} = state;
     const {rights} = auth;
+    const listOwnJobs = ownjoblist.joblist;
+    const listAdminJobs = adminjoblist.joblist;
     return {
-        rights,
+        rights, listOwnJobs, listAdminJobs,
     };
 }
 

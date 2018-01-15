@@ -17,6 +17,22 @@
         "FAST_SPEAKER_COUNT_CHECK":"Quick speaker count check",
         "CLUSTERING_SPEAKER_COUNT_CHECK":"Clustering speaker count check",
 
+        "MANUAL_IMPORT":"Manual import",
+        "K2_IMPORT":"K2 import",
+        "MATCHING_JOB":"Matching job",
+
+        "INITIALIZED":"Initialized",
+        "EN_ROUTE_TO_QUEUE":"En route to queue",
+        "DEQUEUED":"Dequeued",
+        "EN_ROUTE_TO_FFMPEG":"En route to FFMPEG",
+        "EN_ROUTE_TO_BS3_AUDIO":"En route to BS3 Audio",
+        "EN_ROUTE_TO_BS3_NO_AUDIO":"En route to BS3 No Audio",
+        "FAILED":"Failed",
+        "PARTIALLY_COMPLETED":"Partially completed",
+        "COMPLETED":"Completed",
+        "RUNNING":"In progress",
+
+
         "date.format":"DD/MM/YYYY",
 
         "alert.strong.message.success": "Very good!",
@@ -222,6 +238,13 @@
 
         "joblist.user.title":"Job list overview",
         "joblist.administration.title":"Overviews of all jobs",
+        "categorymanagement.list.name":"Name",
+        "categorymanagement.list.files":"#Files",
+        "categorymanagement.list.enginesetting":"Enginesetting",
+        "categorymanagement.list.importdate":"Import date",
+        "categorymanagement.list.progress":"Progress",
+        "categorymanagement.list.status":"State",
+        "categorymanagement.list.jobtype":"Job type",
 
         "":""
     }

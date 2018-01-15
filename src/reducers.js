@@ -496,6 +496,9 @@ function enginesettings(state = {
     }
 }
 
+
+
+
 function ownjoblist(state = {
     isFetching: false,
     joblist: [],
@@ -510,6 +513,7 @@ function ownjoblist(state = {
         case OWNJOBLIST_LOADED:
             return Object.assign({}, state, {
                 joblist: action.response.kbaJobDtos,
+                /* joblist: action.response.kbaJobDtos, */
                 isFetching: false,
                 isLoaded: true,
             });
@@ -536,6 +540,9 @@ function adminjoblist(state = {
         case ADMINJOBLIST_LOADED:
             return Object.assign({}, state, {
                 joblist: action.response.kbaJobDtos,
+                /*
+                joblist: action.response.kbaJobDtos,
+*/
                 isFetching: false,
                 isLoaded: true,
             });

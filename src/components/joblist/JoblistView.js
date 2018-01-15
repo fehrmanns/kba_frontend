@@ -100,7 +100,6 @@ class JoblistView extends React.Component {
                         </div>
                     </div>
                 </form>
-                <JobTable />
             </div>
         );
     }

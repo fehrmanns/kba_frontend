@@ -17,6 +17,22 @@
         "FAST_SPEAKER_COUNT_CHECK":"Schneller Check, um Sprecheranzahl zu ermitteln",
         "CLUSTERING_SPEAKER_COUNT_CHECK":"Sprecheranzahl über Clustering ermitteln",
 
+        "MANUAL_IMPORT":"Manueller Import",
+        "K2_IMPORT":"K2 Import",
+        "MATCHING_JOB":"Matching Job",
+
+        "INITIALIZED":"Initialisiert",
+        "EN_ROUTE_TO_QUEUE":"Unterwegs zur Warteschlange",
+        "DEQUEUED":"Aus Warteschlange entfernt",
+        "EN_ROUTE_TO_FFMPEG":"Unterwegs zu FFMPEG",
+        "EN_ROUTE_TO_BS3_AUDIO":"Unterwegs zu BS3 Audio",
+        "EN_ROUTE_TO_BS3_NO_AUDIO":"Unterwegs zu BS3 No Audio",
+        "FAILED":"Fehlgeschlagen",
+        "PARTIALLY_COMPLETED":"Teilweise abgeschlossen",
+        "COMPLETED":"Abgeschlossen",
+        "RUNNING":"In Arbeit",
+
+
         "date.format":"DD.MM.YYYY",
 
         "alert.strong.message.success": "Sehr gut!",
@@ -221,6 +237,13 @@
 
         "joblist.user.title":"Auftragsübersicht",
         "joblist.administration.title":"Übersicht über alle Aufträge",
+        "categorymanagement.list.name":"Name",
+        "categorymanagement.list.files":"#Dateien",
+        "categorymanagement.list.enginesetting":"Verarbeitungsrichtlinie",
+        "categorymanagement.list.importdate":"Importdatum",
+        "categorymanagement.list.progress":"Fortschritt",
+        "categorymanagement.list.status":"Status",
+        "categorymanagement.list.jobtype":"Auftragstyp",
 
         "":""
     }
