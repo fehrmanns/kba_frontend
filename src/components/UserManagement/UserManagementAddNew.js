@@ -134,7 +134,7 @@ class UserManagementAddNew extends React.Component {
         const passwordEqualError = !this.state.passwordIsEqual;
         const kbaOuNamesError = !this.state.kbaOuNamesIsValid;
         const {unitList} = this.props;
-        const unitNames = unitList.map(item => item.name);
+        const unitNames = unitList.filter(item => item.containsUsers).map(item => item.name);
 
         return (
             <form className="highlight">

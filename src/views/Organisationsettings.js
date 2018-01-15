@@ -21,7 +21,6 @@ class Organisationsettings extends React.Component {
             open: getItem("add_type_open"),
             activeKey: getItem("organisation_activeKey") ? getItem("organisation_activeKey") : 1,
         };
-        this.props.dispatch(getUnitTypes());
 
         this.deleteType = this.deleteType.bind(this);
         this.addNewType = this.addNewType.bind(this);
@@ -62,7 +61,7 @@ class Organisationsettings extends React.Component {
 
     render() {
         const {
-            typeList, typesAreLoaded, dispatch, allUnits, rights,
+            typeList, dispatch, allUnits, rights,
         } = this.props;
         const {activeKey} = this.state;
 
@@ -124,13 +123,10 @@ class Organisationsettings extends React.Component {
                         }
                         <div className="row">
                             <div className="col-xs-12">
-                                {typesAreLoaded &&
                                 <OrganizationUnitTypeList
-                                    dispatch={dispatch}
-                                    types={typeList}
                                     deleteType={this.deleteType}
                                     updateType={this.updateType}
-                                />}
+                                />
                             </div>
                         </div>
                     </div>
@@ -143,7 +139,6 @@ class Organisationsettings extends React.Component {
 Organisationsettings.propTypes = {
     dispatch: PropTypes.func.isRequired,
     typeList: PropTypes.array.isRequired,
-    typesAreLoaded: PropTypes.bool.isRequired,
     allUnits: PropTypes.array.isRequired,
     rights: PropTypes.object.isRequired,
 };
@@ -151,12 +146,11 @@ Organisationsettings.propTypes = {
 function mapStateToProps(state) {
     const {unittypes, units, auth} = state;
     const typeList = unittypes.list;
-    const typesAreLoaded = unittypes.isLoaded;
     const allUnits = units.list;
     const {rights} = auth;
 
     return {
-        unittypes, typeList, typesAreLoaded, allUnits, rights,
+        unittypes, typeList, allUnits, rights,
     };
 }
 

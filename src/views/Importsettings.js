@@ -14,8 +14,6 @@ class Importsettings extends React.Component {
         super(props);
         this.state = { open: getItem("add_import_settings_open") };
 
-        this.props.dispatch(getEngineSettings());
-
         this.toggleAddSetting = this.toggleAddSetting.bind(this);
         this.createEngineSetting = this.createEngineSetting.bind(this);
         this.deleteSetting = this.deleteSetting.bind(this);
@@ -40,7 +38,7 @@ class Importsettings extends React.Component {
     }
 
     render() {
-        const {rights, settingsAreLoaded} = this.props;
+        const {rights} = this.props;
         return (
             <div className="importsettings">
                 <div className="row">
@@ -72,13 +70,10 @@ class Importsettings extends React.Component {
                 {rights["engine-settings"].get &&
                 <div className="row">
                     <div className="col-xs-12">
-                        {settingsAreLoaded &&
                         <EngineSettingList
-                            settings={this.props.settingsList}
                             deleteSetting={this.deleteSetting}
                             updateSetting={this.updateSetting}
                         />
-                        }
                     </div>
                 </div>
                 }
@@ -90,15 +85,13 @@ class Importsettings extends React.Component {
 Importsettings.propTypes = {
     dispatch: PropTypes.func.isRequired,
     rights: PropTypes.object.isRequired,
-    settingsAreLoaded: PropTypes.bool.isRequired,
-    settingsList: PropTypes.array.isRequired,
 };
+
 function mapStateToProps(state) {
     const {auth, enginesettings} = state;
-    const settingsAreLoaded = enginesettings.isLoaded;
     const settingsList = enginesettings.list;
     const {rights} = auth;
-    return {rights, settingsAreLoaded, settingsList};
+    return {rights, settingsList};
 }
 
 export default connect(mapStateToProps)(Importsettings);

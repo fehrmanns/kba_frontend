@@ -13,7 +13,6 @@ class UserManagement extends React.Component {
     constructor(props) {
         super(props);
         this.state = {open: getItem("add_user_open")};
-        this.props.dispatch(getUsers());
         this.props.dispatch(getAllOrgUnits());
         this.addNewUser = this.addNewUser.bind(this);
         this.updateUser = this.updateUser.bind(this);
@@ -46,7 +45,7 @@ class UserManagement extends React.Component {
 
 
     render() {
-        const {userList, userAreLoaded, currentUser} = this.props;
+        const {userList, currentUser} = this.props;
         return (
             <div className="usermanagement">
 
@@ -83,10 +82,9 @@ class UserManagement extends React.Component {
                         {(this.props.rights.users.get) &&
                         <div className="row">
                             <div className="col-xs-12">
-                                {userAreLoaded && this.props.rights.users.get &&
+                                {this.props.rights.users.get &&
                                 <UserManagementList
                                     currentUser={currentUser}
-                                    users={userList}
                                     deleteUser={this.deleteUser}
                                     updateUser={this.updateUser}
                                 />}
@@ -105,7 +103,6 @@ class UserManagement extends React.Component {
 UserManagement.propTypes = {
     dispatch: PropTypes.func.isRequired,
     userList: PropTypes.array.isRequired,
-    userAreLoaded: PropTypes.bool.isRequired,
     currentUser: PropTypes.object.isRequired,
     rights: PropTypes.object.isRequired,
 };
@@ -114,12 +111,10 @@ function mapStateToProps(state) {
     const {users, auth} = state;
     const currentUser = auth.user;
     const userList = users.list;
-    const userAreLoaded = users.isLoaded;
     const {rights} = auth;
 
     return {
         userList,
-        userAreLoaded,
         currentUser,
         auth,
         rights,

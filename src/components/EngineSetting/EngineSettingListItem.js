@@ -76,6 +76,7 @@ class EngineSettingsListItem extends React.Component {
 
     compareContent(name, value) {
         const propName = `${name}Modified`;
+        console.log("modified", propName);
         this.setState({[propName]: utilities.determineModifiedValue(name, value, this.state[name])});
     }
 
@@ -94,6 +95,20 @@ class EngineSettingsListItem extends React.Component {
         };
 
         this.props.updateSetting(this.state.notModifiedName, newSetting);
+
+        this.setState({
+            nameModified: false,
+            descriptionModified: false,
+            storagePolicyModified: false,
+            keepPcmRawDataModified: false,
+            speakerNumRecognitionModified: false,
+            previewPicturePercentModified: false,
+            minScoreValueAudioModified: false,
+            minScoreValueVideoModified: false,
+            previewPicturePercentIsValid: true,
+            minScoreValueAudioIsValid: true,
+            minScoreValueVideoIsValid: true,
+        });
     }
 
     render() {

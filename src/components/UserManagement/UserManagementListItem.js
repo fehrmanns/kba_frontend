@@ -96,10 +96,10 @@ class UserManagementListItem extends React.Component {
         const activeUser = this.state.active;
         const roleDropDownTitleId = `dropdown.role.${this.state.roleName}`;
         const modified = this.state.firstNameModified || this.state.lastNameModified || this.state.roleNameModified || this.state.kbaOuNamesModified;
-        const unitNames = unitList.map(item => item.name);
+        const unitNames = unitList.filter(item => item.containsUsers).map(item => item.name);
 
         return (
-            <tr className={!activeUser && "deactivated"}>
+            <tr className={!activeUser ? "deactivated" : ""}>
                 <td><span>{user.loginName}</span></td>
                 <td>
                     {this.props.rights.users.put ?
