@@ -45,7 +45,7 @@ class UserManagement extends React.Component {
 
 
     render() {
-        const {userList, userAreLoaded, currentUser} = this.props;
+        const {userList, currentUser} = this.props;
         return (
             <div className="usermanagement">
 
@@ -103,7 +103,6 @@ class UserManagement extends React.Component {
 UserManagement.propTypes = {
     dispatch: PropTypes.func.isRequired,
     userList: PropTypes.array.isRequired,
-    userAreLoaded: PropTypes.bool.isRequired,
     currentUser: PropTypes.object.isRequired,
     rights: PropTypes.object.isRequired,
 };
@@ -112,12 +111,10 @@ function mapStateToProps(state) {
     const {users, auth} = state;
     const currentUser = auth.user;
     const userList = users.list;
-    const userAreLoaded = users.isLoaded;
     const {rights} = auth;
 
     return {
         userList,
-        userAreLoaded,
         currentUser,
         auth,
         rights,

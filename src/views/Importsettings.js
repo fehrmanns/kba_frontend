@@ -38,7 +38,7 @@ class Importsettings extends React.Component {
     }
 
     render() {
-        const {rights, settingsAreLoaded} = this.props;
+        const {rights} = this.props;
         return (
             <div className="importsettings">
                 <div className="row">
@@ -85,14 +85,13 @@ class Importsettings extends React.Component {
 Importsettings.propTypes = {
     dispatch: PropTypes.func.isRequired,
     rights: PropTypes.object.isRequired,
-    settingsAreLoaded: PropTypes.bool.isRequired,
 };
+
 function mapStateToProps(state) {
     const {auth, enginesettings} = state;
-    const settingsAreLoaded = enginesettings.isLoaded;
     const settingsList = enginesettings.list;
     const {rights} = auth;
-    return {rights, settingsAreLoaded, settingsList};
+    return {rights, settingsList};
 }
 
 export default connect(mapStateToProps)(Importsettings);
