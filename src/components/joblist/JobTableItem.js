@@ -8,18 +8,6 @@ class JobTableItem extends React.Component {
     constructor(props) {
         super(props);
         this.showInfo = this.showInfo.bind(this);
-        this.state = {
-            groupProgressPercent: 0,
-            groupState: "",
-        };
-    }
-
-    componentWillReceiveProps(nextProps) {
-
-        console.log("cw");
-        if (!nextProps.item.groupName) {
-            this.determineGroupProgress(nextProps);
-        }
     }
 
     showInfo() {
@@ -30,8 +18,8 @@ class JobTableItem extends React.Component {
         const {item} = this.props;
         const isGroup = !!item.groupName;
         const fileNo = isGroup ? item.groupCount : 1;
-        const progress = isGroup ? this.state.groupProgressPercent : item.progressInPercent;
-        const state = isGroup ? this.state.groupState : item.kbaJobStatus;
+        const progress = isGroup ? item.groupProgressPercent : item.progressInPercent;
+        const state = isGroup ? item.groupState : item.kbaJobStatus;
         return (
             <tr>
                 <td>
@@ -52,10 +40,10 @@ class JobTableItem extends React.Component {
                     <span>{`${progress}%`}</span>
                 </td>
                 <td>
-                    <span><FormattedMessage id={state} /></span>
+                    <span>{state ? <FormattedMessage id={state} /> : ""}</span>
                 </td>
                 <td>
-                    <span><FormattedMessage id={item.kbaJobType} /></span>
+                    <span>{item.kbaJobType ? <FormattedMessage id={item.kbaJobType} /> : ""}</span>
                 </td>
                 <td className="button-td">
                     <FormattedButton title="button.info" className="btn btn-xs btn-default" onClick={this.showInfo}>
@@ -68,7 +56,7 @@ class JobTableItem extends React.Component {
 }
 
 JobTableItem.propTypes = {
-    item: PropTypes.array.isRequired,
+    item: PropTypes.object.isRequired,
 };
 
 export default JobTableItem;

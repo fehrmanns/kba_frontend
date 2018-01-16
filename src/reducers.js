@@ -496,7 +496,77 @@ function enginesettings(state = {
     }
 }
 
+function determineGroupProgress(list) {
+    console.log("list", list);
+    const joblist = [...list];
 
+    const listLength = list.length;
+    for (let i = 0; i < listLength; i += 1) {
+        if (joblist[i].groupName) {
+            const statusList = joblist[i].kbaJobStatusCountDtoList;
+            const statusListLength = statusList.length;
+            let hasFailedJobs = false;
+            let hasCompletedJobs = false;
+            let hasRunningJobs = false;
+            let value = 0;
+            for (let j = 0; j < statusListLength; j += 1) {
+                switch (statusList[j].groupedKbaJobStatus) {
+                    case "INITIALIZED":
+                        hasRunningJobs = true;
+                        value += 5 * statusList[j].count;
+                        break;
+                    case "EN_ROUTE_TO_QUEUE":
+                        hasRunningJobs = true;
+                        value += 20 * statusList[j].count;
+                        break;
+                    case "DEQUEUED":
+                        hasRunningJobs = true;
+                        value += 35 * statusList[j].count;
+                        break;
+                    case "EN_ROUTE_TO_FFMPEG":
+                        hasRunningJobs = true;
+                        value += 50 * statusList[j].count;
+                        break;
+                    case "EN_ROUTE_TO_BS3_AUDIO":
+                        hasRunningJobs = true;
+                        value += 65 * statusList[j].count;
+                        break;
+                    case "EN_ROUTE_TO_BS3_NO_AUDIO":
+                        hasRunningJobs = true;
+                        value += 80 * statusList[j].count;
+                        break;
+                    case "PARTIALLY_COMPLETED":
+                        hasRunningJobs = true;
+                        value += 100 * statusList[j].count;
+                        break;
+                    case "FAILED":
+                        hasFailedJobs = true;
+                        value += 100 * statusList[j].count;
+                        break;
+                    case "COMPLETED":
+                        hasCompletedJobs = true;
+                        value += 100 * statusList[j].count;
+                        break;
+                    default:
+                        break;
+                }
+            }
+            const groupProgressPercent = value / joblist[i].groupCount;
+            let groupState = "COMPLETED";
+            if (hasRunningJobs && (hasCompletedJobs || hasFailedJobs)) {
+                groupState = "PARTIALLY_COMPLETED";
+            } else if (hasRunningJobs) {
+                groupState = "RUNNING";
+            } else if (hasFailedJobs) {
+                groupState = "FAILED";
+            }
+
+            joblist[i].groupProgressPercent = groupProgressPercent;
+            joblist[i].groupState = groupState;
+        }
+    }
+    return joblist;
+}
 
 
 function ownjoblist(state = {
@@ -512,7 +582,7 @@ function ownjoblist(state = {
             });
         case OWNJOBLIST_LOADED:
             return Object.assign({}, state, {
-                joblist: action.response.kbaJobDtos,
+                joblist: determineGroupProgress(action.response.kbaJobDtos),
                 /* joblist: action.response.kbaJobDtos, */
                 isFetching: false,
                 isLoaded: true,
@@ -539,7 +609,7 @@ function adminjoblist(state = {
             });
         case ADMINJOBLIST_LOADED:
             return Object.assign({}, state, {
-                joblist: action.response.kbaJobDtos,
+                joblist: determineGroupProgress(action.response.kbaJobDtos),
                 /*
                 joblist: action.response.kbaJobDtos,
 */

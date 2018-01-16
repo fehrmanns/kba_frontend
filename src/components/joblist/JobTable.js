@@ -51,7 +51,6 @@ class JobTable extends React.Component {
 }
 
 JobTable.propTypes = {
-    dispatch: PropTypes.func.isRequired,
     jobs: PropTypes.array.isRequired,
 };
 
