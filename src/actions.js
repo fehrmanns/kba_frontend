@@ -72,10 +72,14 @@ export const CATEGORY_FAILURE = "CATEGORY_FAILURE";
 export const OWNJOBLIST_REQUEST = "OWNJOBLIST_REQUEST";
 export const OWNJOBLIST_LOADED = "OWNJOBLIST_LOADED";
 export const OWNJOBLIST_FAILURE = "OWNJOBLIST_FAILURE";
+export const OWN_GROUPJOBS_LOADED = "OWN_GROUPJOBS_LOADED";
+export const OWN_GROUP = "OWN_GROUP";
 
 export const ADMINJOBLIST_REQUEST = "ADMINJOBLIST_REQUEST";
 export const ADMINJOBLIST_LOADED = "ADMINJOBLIST_LOADED";
 export const ADMINJOBLIST_FAILURE = "ADMINJOBLIST_FAILURE";
+export const ADMIN_GROUPJOBS_LOADED = "ADMIN_GROUPJOBS_LOADED";
+export const ADMIN_GROUP = "ADMIN_GROUP";
 
 function serverError(message) {
     return {
@@ -685,3 +689,32 @@ export function getAdminJobs(fromDate, toDate) {
         },
     };
 }
+
+export function fetchGroupJobsForUser(fromDate, toDate, groupname) {
+    const queryParams = createSearchDateQueryParams(fromDate, toDate);
+    return {
+        [CALL_API]: {
+            endpoint: `jobs-own/job-groups/${groupname}`,
+            queryParams,
+            authenticated: true,
+            method: "GET",
+            types: [OWNJOBLIST_REQUEST, OWN_GROUPJOBS_LOADED, OWNJOBLIST_FAILURE],
+            json: {},
+        },
+    };
+}
+
+export function fetchGroupJobsForAdmin(fromDate, toDate, groupname) {
+    const queryParams = createSearchDateQueryParams(fromDate, toDate);
+    return {
+        [CALL_API]: {
+            endpoint: `jobs/job-groups/${groupname}`,
+            queryParams,
+            authenticated: true,
+            method: "GET",
+            types: [OWNJOBLIST_REQUEST, ADMIN_GROUPJOBS_LOADED, OWNJOBLIST_FAILURE],
+            json: {},
+        },
+    };
+}
+

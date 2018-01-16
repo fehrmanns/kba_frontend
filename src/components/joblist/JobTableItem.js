@@ -8,10 +8,20 @@ class JobTableItem extends React.Component {
     constructor(props) {
         super(props);
         this.showInfo = this.showInfo.bind(this);
+        this.toggleGroup = this.toggleGroup.bind(this);
+        this.state = {
+            openGroup: false,
+        };
     }
 
     showInfo() {
 
+    }
+
+    toggleGroup() {
+        this.setState({
+            openGroup: !this.state.openGroup,
+        });
     }
 
     render() {
@@ -20,9 +30,15 @@ class JobTableItem extends React.Component {
         const fileNo = isGroup ? item.groupCount : 1;
         const progress = isGroup ? item.groupProgressPercent : item.progressInPercent;
         const state = isGroup ? item.groupState : item.kbaJobStatus;
+        const toggleClass = this.state.openGroup ? "glyphicon glyphicon-menu-down" : "glyphicon glyphicon-menu-right";
         return (
             <tr>
                 <td>
+                    {isGroup &&
+                        <button className="btn btn-link" onKeyPress={this.onKeyPress} onClick={this.toggleGroup}>
+                            <span className={toggleClass} />
+                        </button>
+                    }
                     <span>{item.name}</span>
                 </td>
                 <td>

@@ -36,6 +36,15 @@ class Joblist extends React.Component {
         this.props.dispatch(getOwnJobs(fromDate, toDate));
     }
 
+    fetchGroupJobsForAdmin(fromDate, toDate, group) {
+        // TODO use date values
+        this.props.dispatch(getAdminJobs(fromDate, toDate));
+    }
+    fetchGroupJobsForUser(fromDate, toDate, group) {
+        // TODO use date values
+        this.props.dispatch(getOwnJobs(fromDate, toDate));
+    }
+
 
     render() {
         const {activeKey} = this.state;

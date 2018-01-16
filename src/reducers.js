@@ -9,7 +9,7 @@ import {
     UNITS_REQUEST, UNITS_LOADED, UNIT_REQUEST, UNIT_ADD_REQUEST, UNIT_ADDED, UNIT_DELETED, UNIT_UPDATE_REQUEST, RESET_UNIT_UPDATE_STATUS, UNIT_UPDATED, UNIT_FAILURE, UNIT_LOADED, UNIT_SELECTED, ROOTUNIT_LOADED, SET_RIGHTS, SET_EXPIRED_VALUE, PASSWORD_REQUEST,
     CATEGORY_REQUEST, CATEGORY_LOADED, CATEGORY_ADDED, CATEGORY_UPDATED, CATEGORY_DELETED, CATEGORY_FAILURE,
     ENGINESETTINGS_REQUEST, ENGINESETTINGS_FAILURE, ENGINESETTINGS_LOADED, ENGINESETTING_CREATED, ENGINESETTING_UPDATED, ENGINESETTING_DELETED,
-    ADMINJOBLIST_REQUEST, ADMINJOBLIST_LOADED, ADMINJOBLIST_FAILURE, OWNJOBLIST_REQUEST, OWNJOBLIST_LOADED, OWNJOBLIST_FAILURE,
+    ADMINJOBLIST_REQUEST, ADMINJOBLIST_LOADED, ADMINJOBLIST_FAILURE, OWNJOBLIST_REQUEST, OWNJOBLIST_LOADED, OWNJOBLIST_FAILURE, OWN_GROUPJOBS_LOADED, ADMIN_GROUPJOBS_LOADED,
 } from "./actions";
 
 function createDefaultRights() {
@@ -568,11 +568,24 @@ function determineGroupProgress(list) {
     return joblist;
 }
 
+function addChildrenToGroup(groupToFetch, children, list) {
+    const joblist = [...list];
+
+    const listLength = list.length;
+    for (let i = 0; i < listLength; i += 1) {
+        if (joblist[i].groupName === groupToFetch) {
+            joblist[i].children = children;
+            return joblist;
+        }
+    }
+    return joblist;
+}
 
 function ownjoblist(state = {
     isFetching: false,
     joblist: [],
     isLoaded: false,
+    groupToFetch: "",
 }, action) {
     switch (action.type) {
         case OWNJOBLIST_REQUEST:
@@ -583,9 +596,13 @@ function ownjoblist(state = {
         case OWNJOBLIST_LOADED:
             return Object.assign({}, state, {
                 joblist: determineGroupProgress(action.response.kbaJobDtos),
-                /* joblist: action.response.kbaJobDtos, */
                 isFetching: false,
                 isLoaded: true,
+            });
+        case OWN_GROUPJOBS_LOADED:
+            return Object.assign({}, state, {
+                joblist: Object.assign({}, state.joblist, addChildrenToGroup(state.groupToFetch, action.response.kbaJobDtos, state.joblist)),
+                isFetching: false,
             });
         case OWNJOBLIST_FAILURE:
             return Object.assign({}, state, {
@@ -600,6 +617,7 @@ function adminjoblist(state = {
     isFetching: false,
     joblist: [],
     isLoaded: false,
+    groupToFetch: "",
 }, action) {
     switch (action.type) {
         case ADMINJOBLIST_REQUEST:
@@ -610,11 +628,19 @@ function adminjoblist(state = {
         case ADMINJOBLIST_LOADED:
             return Object.assign({}, state, {
                 joblist: determineGroupProgress(action.response.kbaJobDtos),
-                /*
-                joblist: action.response.kbaJobDtos,
-*/
                 isFetching: false,
                 isLoaded: true,
+            });
+        case ADMIN_GROUPJOBS_LOADED:
+            return Object.assign({}, state, {
+                joblist: Object.assign({}, state.joblist, addChildrenToGroup(state.groupToFetch, action.response.kbaJobDtos, state.joblist)),
+                isFetching: false,
+                groupToFetch: "",
+            });
+
+            case ADMIN_GROUP:
+            return Object.assign({}, state, {
+                groupToFetch: "",
             });
         case ADMINJOBLIST_FAILURE:
             return Object.assign({}, state, {
