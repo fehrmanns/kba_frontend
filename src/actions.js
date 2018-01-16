@@ -507,7 +507,7 @@ function sendOrgUnitUpdate(unitName, unit) {
 export function updateOrgUnit(unitName, unit) {
     return (dispatch) => {
         dispatch(orgUnitToUpdate(unitName, unit));
-        dispatch(sendOrgUnitUpdate(unitName, unit));
+        return dispatch(sendOrgUnitUpdate(unitName, unit));
     };
 }
 

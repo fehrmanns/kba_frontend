@@ -72,7 +72,7 @@ class Organisationsettings extends React.Component {
                         <FormattedMessage tagName="h1" id="view.organisation.title" />
                     </div>
                     <nav className="navbar col-md-6">
-                        <Nav bsStyle="pills navbar-right" activeKey={activeKey} onSelect={this.toggleView}>
+                        <Nav bsStyle="pills" className="navbar-right" activeKey={activeKey} onSelect={this.toggleView}>
                             <NavItem eventKey={1}>
                                 <FormattedMessage id="organisationsettings.administration.title" />
                             </NavItem>

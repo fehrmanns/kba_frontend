@@ -292,7 +292,6 @@ function unittypes(state = {
     list: [],
     loadedType: {},
 }, action) {
-    // TODO: define all types
     switch (action.type) {
         case TYPE_REQUEST:
             return Object.assign({}, state, {
@@ -300,6 +299,7 @@ function unittypes(state = {
                 isLoaded: false,
             });
         case TYPE_LOADED:
+            console.log("TYPE_LOADED", action.response.kbaOuTypeDtos);
             return Object.assign({}, state, {
                 isFetching: false,
                 isLoaded: true,
