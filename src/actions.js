@@ -693,7 +693,7 @@ export function getAdminJobs(fromDate, toDate) {
 function fetchGroupJobsUser(groupname) {
     return {
         [CALL_API]: {
-            endpoint: `jobs-own/job-groups/${groupname}`,
+            endpoint: `own-jobs/job-groups/${groupname}`,
             authenticated: true,
             method: "GET",
             types: [OWNJOBLIST_REQUEST, OWN_GROUPJOBS_LOADED, OWNJOBLIST_FAILURE],
