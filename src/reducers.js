@@ -9,7 +9,7 @@ import {
     UNITS_REQUEST, UNITS_LOADED, UNIT_REQUEST, UNIT_ADD_REQUEST, UNIT_ADDED, UNIT_DELETED, UNIT_UPDATE_REQUEST, RESET_UNIT_UPDATE_STATUS, UNIT_UPDATED, UNIT_FAILURE, UNIT_LOADED, UNIT_SELECTED, ROOTUNIT_LOADED, SET_RIGHTS, SET_EXPIRED_VALUE, PASSWORD_REQUEST,
     CATEGORY_REQUEST, CATEGORY_LOADED, CATEGORY_ADDED, CATEGORY_UPDATED, CATEGORY_DELETED, CATEGORY_FAILURE,
     ENGINESETTINGS_REQUEST, ENGINESETTINGS_FAILURE, ENGINESETTINGS_LOADED, ENGINESETTING_CREATED, ENGINESETTING_UPDATED, ENGINESETTING_DELETED,
-    ADMINJOBLIST_REQUEST, ADMINJOBLIST_LOADED, ADMINJOBLIST_FAILURE, OWNJOBLIST_REQUEST, OWNJOBLIST_LOADED, OWNJOBLIST_FAILURE, OWN_GROUPJOBS_LOADED, ADMIN_GROUPJOBS_LOADED,
+    ADMINJOBLIST_REQUEST, ADMINJOBLIST_LOADED, ADMINJOBLIST_FAILURE, OWNJOBLIST_REQUEST, OWNJOBLIST_LOADED, OWNJOBLIST_FAILURE, OWN_GROUPJOBS_LOADED, ADMIN_GROUPJOBS_LOADED, OWN_GROUP, ADMIN_GROUP,
 } from "./actions";
 
 function createDefaultRights() {
@@ -601,8 +601,13 @@ function ownjoblist(state = {
             });
         case OWN_GROUPJOBS_LOADED:
             return Object.assign({}, state, {
-                joblist: Object.assign({}, state.joblist, addChildrenToGroup(state.groupToFetch, action.response.kbaJobDtos, state.joblist)),
+                joblist: addChildrenToGroup(state.groupToFetch, action.response.kbaJobDtos, state.joblist),
                 isFetching: false,
+                groupToFetch: "",
+            });
+        case OWN_GROUP:
+            return Object.assign({}, state, {
+                groupToFetch: action.groupToFetch,
             });
         case OWNJOBLIST_FAILURE:
             return Object.assign({}, state, {
@@ -633,14 +638,13 @@ function adminjoblist(state = {
             });
         case ADMIN_GROUPJOBS_LOADED:
             return Object.assign({}, state, {
-                joblist: Object.assign({}, state.joblist, addChildrenToGroup(state.groupToFetch, action.response.kbaJobDtos, state.joblist)),
+                joblist: addChildrenToGroup(state.groupToFetch, action.response.kbaJobDtos, state.joblist),
                 isFetching: false,
                 groupToFetch: "",
             });
-
-            case ADMIN_GROUP:
+        case ADMIN_GROUP:
             return Object.assign({}, state, {
-                groupToFetch: "",
+                groupToFetch: action.groupToFetch,
             });
         case ADMINJOBLIST_FAILURE:
             return Object.assign({}, state, {

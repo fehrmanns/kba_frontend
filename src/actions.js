@@ -690,12 +690,10 @@ export function getAdminJobs(fromDate, toDate) {
     };
 }
 
-export function fetchGroupJobsForUser(fromDate, toDate, groupname) {
-    const queryParams = createSearchDateQueryParams(fromDate, toDate);
+function fetchGroupJobsUser(groupname) {
     return {
         [CALL_API]: {
             endpoint: `jobs-own/job-groups/${groupname}`,
-            queryParams,
             authenticated: true,
             method: "GET",
             types: [OWNJOBLIST_REQUEST, OWN_GROUPJOBS_LOADED, OWNJOBLIST_FAILURE],
@@ -704,12 +702,10 @@ export function fetchGroupJobsForUser(fromDate, toDate, groupname) {
     };
 }
 
-export function fetchGroupJobsForAdmin(fromDate, toDate, groupname) {
-    const queryParams = createSearchDateQueryParams(fromDate, toDate);
+function fetchGroupJobsAdmin(groupname) {
     return {
         [CALL_API]: {
             endpoint: `jobs/job-groups/${groupname}`,
-            queryParams,
             authenticated: true,
             method: "GET",
             types: [OWNJOBLIST_REQUEST, ADMIN_GROUPJOBS_LOADED, OWNJOBLIST_FAILURE],
@@ -717,4 +713,33 @@ export function fetchGroupJobsForAdmin(fromDate, toDate, groupname) {
         },
     };
 }
+
+function addGroupForFetchOwn(groupname) {
+    return {
+        type: OWN_GROUP,
+        groupToFetch: groupname,
+    };
+}
+
+export function fetchGroupJobsForUser(groupname) {
+    return (dispatch) => {
+        dispatch(addGroupForFetchOwn(groupname));
+        return dispatch(fetchGroupJobsUser(groupname));
+    };
+}
+
+function addGroupForFetchAdmin(groupname) {
+    return {
+        type: ADMIN_GROUP,
+        groupToFetch: groupname,
+    };
+}
+
+export function fetchGroupJobsForAdmin(groupname) {
+    return (dispatch) => {
+        dispatch(addGroupForFetchAdmin(groupname));
+        return dispatch(fetchGroupJobsAdmin(groupname));
+    };
+}
+
 

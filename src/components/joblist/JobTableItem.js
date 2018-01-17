@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {FormattedDate, FormattedMessage} from "react-intl";
+import {FormattedDate, FormattedMessage, FormattedTime} from "react-intl";
 import FormattedButton from "./../i18n/FormattedButton";
 
 
@@ -12,6 +12,8 @@ class JobTableItem extends React.Component {
         this.state = {
             openGroup: false,
         };
+
+        this.renderElements = this.renderElements.bind(this);
     }
 
     showInfo() {
@@ -22,23 +24,24 @@ class JobTableItem extends React.Component {
         this.setState({
             openGroup: !this.state.openGroup,
         });
+        this.props.fetchGroupJobs(this.props.item.groupName);
     }
 
-    render() {
-        const {item} = this.props;
-        const isGroup = !!item.groupName;
+    createRow(item, isGroup, rowStyle) {
         const fileNo = isGroup ? item.groupCount : 1;
         const progress = isGroup ? item.groupProgressPercent : item.progressInPercent;
         const state = isGroup ? item.groupState : item.kbaJobStatus;
         const toggleClass = this.state.openGroup ? "glyphicon glyphicon-menu-down" : "glyphicon glyphicon-menu-right";
-        return (
-            <tr>
+        const row = (
+            <tr className={rowStyle}>
                 <td>
                     {isGroup &&
-                        <button className="btn btn-link" onKeyPress={this.onKeyPress} onClick={this.toggleGroup}>
-                            <span className={toggleClass} />
-                        </button>
+                    <button className="btn btn-link" onKeyPress={this.onKeyPress} onClick={this.toggleGroup}>
+                        <span className={toggleClass} />
+                    </button>
                     }
+                </td>
+                <td>
                     <span>{item.name}</span>
                 </td>
                 <td>
@@ -49,7 +52,7 @@ class JobTableItem extends React.Component {
                 </td>
                 <td className="date">
                     <span>
-                        {!!item.created && <FormattedDate value={item.created} day="2-digit" month="short" year="numeric" />}
+                        {!!item.created && <span><FormattedDate value={item.created} day="2-digit" month="2-digit" year="numeric" /> <FormattedTime value={item.created} hour="numeric" minute="numeric" second="numeric" /></span>}
                     </span>
                 </td>
                 <td>
@@ -68,10 +71,41 @@ class JobTableItem extends React.Component {
                 </td>
             </tr>
         );
+        return row;
+    }
+
+    renderElements() {
+        const content = [];
+        const {item} = this.props;
+        const isGroup = !!item.groupName;
+        const groupRow = this.createRow(item, isGroup);
+        content.push(groupRow);
+
+        if (isGroup && this.state.openGroup && item.children) {
+            const childrenNo = item.children.length;
+            for (let i = 0; i < childrenNo; i += 1) {
+                const child = item.children[i];
+                let rowStyle = "";
+                if (i === childrenNo - 1) {
+                    rowStyle = "lastRow";
+                }
+                const newRow = this.createRow(child, false, rowStyle);
+                content.push(newRow);
+            }
+        }
+        return content.map(entry => entry);
+    }
+
+
+    render() {
+        return (
+            this.renderElements()
+        );
     }
 }
 
 JobTableItem.propTypes = {
+    fetchGroupJobs: PropTypes.func.isRequired,
     item: PropTypes.object.isRequired,
 };
 

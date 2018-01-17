@@ -1,4 +1,12 @@
 .joblist .navbar, .joblist .tab-content {
     margin-top: 15px;
 }
+.joblist .lastRow {
+    border-bottom: 3px solid #808080;
+}
+
+.joblist .btn-link{
+    padding: 0px;
+}
+
 

@@ -7,7 +7,7 @@ import {Nav, NavItem } from "react-bootstrap";
 import "./../css/joblist.css";
 import JoblistView from "../components/joblist/JoblistView";
 import JobTable from "../components/joblist/JobTable";
-import { getAdminJobs, getOwnJobs } from "../actions";
+import { getAdminJobs, getOwnJobs, fetchGroupJobsForAdmin, fetchGroupJobsForUser } from "../actions";
 
 class Joblist extends React.Component {
     constructor(props) {
@@ -19,6 +19,8 @@ class Joblist extends React.Component {
         this.toggleView = this.toggleView.bind(this);
         this.fetchAdminJobs = this.fetchAdminJobs.bind(this);
         this.fetchOwnJobs = this.fetchOwnJobs.bind(this);
+        this.fetchGroupJobsForAdmin = this.fetchGroupJobsForAdmin.bind(this);
+        this.fetchGroupJobsForUser = this.fetchGroupJobsForUser.bind(this);
     }
 
     toggleView(selectedKey) {
@@ -28,21 +30,17 @@ class Joblist extends React.Component {
     }
 
     fetchAdminJobs(fromDate, toDate) {
-        // TODO use date values
         this.props.dispatch(getAdminJobs(fromDate, toDate));
     }
     fetchOwnJobs(fromDate, toDate) {
-        // TODO use date values
         this.props.dispatch(getOwnJobs(fromDate, toDate));
     }
 
-    fetchGroupJobsForAdmin(fromDate, toDate, group) {
-        // TODO use date values
-        this.props.dispatch(getAdminJobs(fromDate, toDate));
+    fetchGroupJobsForAdmin(group) {
+        this.props.dispatch(fetchGroupJobsForAdmin(group));
     }
-    fetchGroupJobsForUser(fromDate, toDate, group) {
-        // TODO use date values
-        this.props.dispatch(getOwnJobs(fromDate, toDate));
+    fetchGroupJobsForUser(group) {
+        this.props.dispatch(fetchGroupJobsForUser(group));
     }
 
 
@@ -69,12 +67,12 @@ class Joblist extends React.Component {
                 { activeKey === 1 ?
                     <div>
                         <JoblistView fetchJobs={this.fetchOwnJobs} />
-                        <JobTable jobs={this.props.listOwnJobs} />
+                        <JobTable jobs={this.props.listOwnJobs} fetchGroupJobs={this.fetchGroupJobsForUser} />
                     </div>
                     :
                     <div>
                         <JoblistView fetchJobs={this.fetchAdminJobs} />
-                        <JobTable jobs={this.props.listAdminJobs} />
+                        <JobTable jobs={this.props.listAdminJobs} fetchGroupJobs={this.fetchGroupJobsForAdmin} />
                     </div>
                 }
             </div>

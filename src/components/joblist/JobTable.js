@@ -26,6 +26,7 @@ class JobTable extends React.Component {
                     <table className="table table-hover">
                         <thead>
                             <tr>
+                                <th>{/* placeholder for expand group icon */}</th>
                                 <th><FormattedMessage id="categorymanagement.list.name" /></th>
                                 <th><FormattedMessage id="categorymanagement.list.files" /></th>
                                 <th><FormattedMessage id="categorymanagement.list.enginesetting" /></th>
@@ -38,7 +39,7 @@ class JobTable extends React.Component {
                         </thead>
                         <tbody>
                             {
-                                jobList.map(item => <JobTableItem item={item} key={`JobItem.${item.name.replace(/\b[a-z]/g, letter => letter.toUpperCase()).replace(" ", "")}`} />)
+                                jobList.map(item => <JobTableItem item={item} key={`JobItem.${item.name.replace(/\b[a-z]/g, letter => letter.toUpperCase()).replace(" ", "")}`} fetchGroupJobs={this.props.fetchGroupJobs} />)
                             }
                         </tbody>
                     </table>
@@ -51,6 +52,7 @@ class JobTable extends React.Component {
 }
 
 JobTable.propTypes = {
+    fetchGroupJobs: PropTypes.func.isRequired,
     jobs: PropTypes.array.isRequired,
 };
 
