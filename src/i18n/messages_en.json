@@ -134,6 +134,16 @@
         "button.job.filter":"Search jobs",
         "button.info":"Info",
 
+        "label.name":"Name:",
+        "label.enginesetting":"Engine setting:",
+        "label.organisation":"Organisation:",
+        "label.filename":"File name:",
+        "label.createdby":"Created by:",
+        "label.created":"Created:",
+        "label.state":"State:",
+        "label.description":"Description:",
+        "label.journal":"Admin journal:",
+
         "label.select.icon":"Icon",
 
         "modal.heading.icon":"Icon selection",
@@ -239,13 +249,15 @@
 
         "joblist.user.title":"Job list overview",
         "joblist.administration.title":"Overviews of all jobs",
-        "categorymanagement.list.name":"Name",
-        "categorymanagement.list.files":"#Files",
-        "categorymanagement.list.enginesetting":"Enginesetting",
-        "categorymanagement.list.importdate":"Import date",
-        "categorymanagement.list.progress":"Progress",
-        "categorymanagement.list.status":"State",
-        "categorymanagement.list.jobtype":"Job type",
+        "joblist.list.name":"Name",
+        "joblist.list.files":"#Files",
+        "joblist.list.enginesetting":"Enginesetting",
+        "joblist.list.importdate":"Import date",
+        "joblist.list.creator":"Creator",
+        "joblist.list.progress":"Progress",
+        "joblist.list.status":"State",
+        "joblist.list.jobtype":"Job type",
+        "joblist.jobinfo.headline":"Job information",
 
         "":""
     }

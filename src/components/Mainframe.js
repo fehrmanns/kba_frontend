@@ -28,6 +28,7 @@ import Categorysettings from "./../views/Categorysettings";
 import License from "./../views/License";
 import PasswordChangeModal from "./modals/PasswordChangeModal";
 import SelectIconModal from "./../components/modals/SelectIconModal";
+import JobInfoModal from "./../components/modals/JobInfoModal";
 import RightManagement from "../utilities/RightManagement";
 
 addLocaleData([...intlEN, ...intlDE]);
@@ -144,6 +145,7 @@ class Mainframe extends React.Component {
                         {content}
                         <PasswordChangeModal modal={showPasswordModal} />
                         <SelectIconModal />
+                        <JobInfoModal />
                         <RightManagement />
                     </div>
                 </Router>

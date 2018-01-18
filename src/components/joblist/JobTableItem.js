@@ -14,10 +14,22 @@ class JobTableItem extends React.Component {
         };
 
         this.renderElements = this.renderElements.bind(this);
+        this.createRow = this.createRow.bind(this);
+        this.toggleGroup = this.toggleGroup.bind(this);
+        this.showInfo = this.showInfo.bind(this);
     }
 
-    showInfo() {
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.item !== this.props.item && this.state.openGroup) {
+            this.setState({
+                openGroup: !this.state.openGroup,
+            });
+        }
+    }
 
+    showInfo(event) {
+        event.preventDefault();
+        this.props.showInfo(this.props.item);
     }
 
     toggleGroup() {
@@ -33,7 +45,7 @@ class JobTableItem extends React.Component {
         const state = isGroup ? item.groupState : item.kbaJobStatus;
         const toggleClass = this.state.openGroup ? "glyphicon glyphicon-menu-down" : "glyphicon glyphicon-menu-right";
         const row = (
-            <tr className={rowStyle}>
+            <tr key={item.name} className={rowStyle}>
                 <td>
                     {isGroup &&
                     <button className="btn btn-link" onKeyPress={this.onKeyPress} onClick={this.toggleGroup}>
@@ -54,6 +66,9 @@ class JobTableItem extends React.Component {
                     <span>
                         {!!item.created && <span><FormattedDate value={item.created} day="2-digit" month="2-digit" year="numeric" /> <FormattedTime value={item.created} hour="numeric" minute="numeric" second="numeric" /></span>}
                     </span>
+                </td>
+                <td>
+                    <span>{item.createdBy}</span>
                 </td>
                 <td>
                     <span>{`${progress}%`}</span>
@@ -106,6 +121,7 @@ class JobTableItem extends React.Component {
 
 JobTableItem.propTypes = {
     fetchGroupJobs: PropTypes.func.isRequired,
+    showInfo: PropTypes.func.isRequired,
     item: PropTypes.object.isRequired,
 };
 

@@ -5,7 +5,6 @@ import "react-dates/lib/css/_datepicker.css";
 import moment from "moment";
 import "moment/locale/de";
 import {isInclusivelyBeforeDay, isInclusivelyAfterDay } from "react-dates";
-import JobTable from "./JobTable";
 import FormattedSingleDatePicker from "../../components/i18n/FormattedSingleDatePicker";
 import "./../../css/react_dates_overrides.css";
 
@@ -14,8 +13,8 @@ class JoblistView extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            fromDate: null,
-            toDate: null,
+            fromDate: moment().subtract(14, 'day'),
+            toDate: moment(),
             toDateFocused: false,
             fromDateFocused: false,
         };

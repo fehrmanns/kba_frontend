@@ -9,4 +9,15 @@
     padding: 0px;
 }
 
+.jobinfo span{
+    word-wrap: break-word;
+    word-break: break-all;
+}
 
+textarea.journal{
+    word-wrap: break-word;
+}
+
+textarea.journal:disabled{
+    background-color: #f5f5f5;
+}

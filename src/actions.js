@@ -35,6 +35,8 @@ export const OPEN_PASSWORD_MODAL = "OPEN_PASSWORD_MODAL";
 export const CLOSE_PASSWORD_MODAL = "CLOSE_PASSWORD_MODAL";
 export const OPEN_SELECT_ICON_MODAL = "OPEN_SELECT_ICON_MODAL";
 export const CLOSE_SELECT_ICON_MODAL = "CLOSE_SELECT_ICON_MODAL";
+export const OPEN_JOB_INFO_MODAL = "OPEN_JOB_INFO_MODAL";
+export const CLOSE_JOB_INFO_MODAL = "CLOSE_JOB_INFO_MODAL";
 
 export const UNITS_REQUEST = "UNITS_REQUEST";
 export const UNITS_LOADED = "UNITS_LOADED";
@@ -141,6 +143,20 @@ export function setRights(rights) {
 export function closeSelectIconModal() {
     return {
         type: CLOSE_SELECT_ICON_MODAL,
+    };
+}
+
+export function openJobInfoModal(job) {
+    return {
+        type: OPEN_JOB_INFO_MODAL,
+        backdrop: true,
+        job,
+    };
+}
+
+export function closeJobInfoModal() {
+    return {
+        type: CLOSE_JOB_INFO_MODAL,
     };
 }
 

@@ -27,19 +27,20 @@ class JobTable extends React.Component {
                         <thead>
                             <tr>
                                 <th>{/* placeholder for expand group icon */}</th>
-                                <th><FormattedMessage id="categorymanagement.list.name" /></th>
-                                <th><FormattedMessage id="categorymanagement.list.files" /></th>
-                                <th><FormattedMessage id="categorymanagement.list.enginesetting" /></th>
-                                <th><FormattedMessage id="categorymanagement.list.importdate" /></th>
-                                <th><FormattedMessage id="categorymanagement.list.progress" /></th>
-                                <th><FormattedMessage id="categorymanagement.list.status" /></th>
-                                <th><FormattedMessage id="categorymanagement.list.jobtype" /></th>
+                                <th><FormattedMessage id="joblist.list.name" /></th>
+                                <th><FormattedMessage id="joblist.list.files" /></th>
+                                <th><FormattedMessage id="joblist.list.enginesetting" /></th>
+                                <th><FormattedMessage id="joblist.list.importdate" /></th>
+                                <th><FormattedMessage id="joblist.list.creator" /></th>
+                                <th><FormattedMessage id="joblist.list.progress" /></th>
+                                <th><FormattedMessage id="joblist.list.status" /></th>
+                                <th><FormattedMessage id="joblist.list.jobtype" /></th>
                                 <th>{/* placeholder for button */}</th>
                             </tr>
                         </thead>
                         <tbody>
                             {
-                                jobList.map(item => <JobTableItem item={item} key={`JobItem.${item.name.replace(/\b[a-z]/g, letter => letter.toUpperCase()).replace(" ", "")}`} fetchGroupJobs={this.props.fetchGroupJobs} />)
+                                jobList.map(item => <JobTableItem item={item} key={`JobItem.${item.name.replace(/\b[a-z]/g, letter => letter.toUpperCase()).replace(" ", "")}`} fetchGroupJobs={this.props.fetchGroupJobs} showInfo={this.props.showInfo} />)
                             }
                         </tbody>
                     </table>
@@ -53,6 +54,7 @@ class JobTable extends React.Component {
 
 JobTable.propTypes = {
     fetchGroupJobs: PropTypes.func.isRequired,
+    showInfo: PropTypes.func.isRequired,
     jobs: PropTypes.array.isRequired,
 };
 

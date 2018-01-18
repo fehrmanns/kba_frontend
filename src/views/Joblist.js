@@ -7,7 +7,7 @@ import {Nav, NavItem } from "react-bootstrap";
 import "./../css/joblist.css";
 import JoblistView from "../components/joblist/JoblistView";
 import JobTable from "../components/joblist/JobTable";
-import { getAdminJobs, getOwnJobs, fetchGroupJobsForAdmin, fetchGroupJobsForUser } from "../actions";
+import { getAdminJobs, getOwnJobs, fetchGroupJobsForAdmin, fetchGroupJobsForUser, openJobInfoModal } from "../actions";
 
 class Joblist extends React.Component {
     constructor(props) {
@@ -21,6 +21,7 @@ class Joblist extends React.Component {
         this.fetchOwnJobs = this.fetchOwnJobs.bind(this);
         this.fetchGroupJobsForAdmin = this.fetchGroupJobsForAdmin.bind(this);
         this.fetchGroupJobsForUser = this.fetchGroupJobsForUser.bind(this);
+        this.showInfo = this.showInfo.bind(this);
     }
 
     toggleView(selectedKey) {
@@ -41,6 +42,9 @@ class Joblist extends React.Component {
     }
     fetchGroupJobsForUser(group) {
         this.props.dispatch(fetchGroupJobsForUser(group));
+    }
+    showInfo(item) {
+        this.props.dispatch(openJobInfoModal(item));
     }
 
 
@@ -67,12 +71,12 @@ class Joblist extends React.Component {
                 { activeKey === 1 ?
                     <div>
                         <JoblistView fetchJobs={this.fetchOwnJobs} />
-                        <JobTable jobs={this.props.listOwnJobs} fetchGroupJobs={this.fetchGroupJobsForUser} />
+                        <JobTable jobs={this.props.listOwnJobs} fetchGroupJobs={this.fetchGroupJobsForUser} showInfo={this.showInfo} />
                     </div>
                     :
                     <div>
                         <JoblistView fetchJobs={this.fetchAdminJobs} />
-                        <JobTable jobs={this.props.listAdminJobs} fetchGroupJobs={this.fetchGroupJobsForAdmin} />
+                        <JobTable jobs={this.props.listAdminJobs} fetchGroupJobs={this.fetchGroupJobsForAdmin} showInfo={this.showInfo} />
                     </div>
                 }
             </div>

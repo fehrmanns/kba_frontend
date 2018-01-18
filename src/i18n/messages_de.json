@@ -134,6 +134,16 @@
         "button.job.filter":"Aufträge suchen",
         "button.info":"Info",
 
+        "label.name":"Name:",
+        "label.enginesetting":"Verarbeitungsrichtlinie:",
+        "label.organisation":"Organisation:",
+        "label.filename":"Dateiname:",
+        "label.createdby":"Erstellt von:",
+        "label.created":"Erstellt am:",
+        "label.state":"Status:",
+        "label.description":"Beschreibung:",
+        "label.journal":"Admin Journal:",
+
         "label.select.icon":"Icon",
 
         "modal.heading.icon":"Iconauswahl",
@@ -238,13 +248,15 @@
 
         "joblist.user.title":"Auftragsübersicht",
         "joblist.administration.title":"Übersicht über alle Aufträge",
-        "categorymanagement.list.name":"Name",
-        "categorymanagement.list.files":"#Dateien",
-        "categorymanagement.list.enginesetting":"Verarbeitungsrichtlinie",
-        "categorymanagement.list.importdate":"Importdatum",
-        "categorymanagement.list.progress":"Fortschritt",
-        "categorymanagement.list.status":"Status",
-        "categorymanagement.list.jobtype":"Auftragstyp",
+        "joblist.list.name":"Name",
+        "joblist.list.files":"#Dateien",
+        "joblist.list.enginesetting":"Verarbeitungsrichtlinie",
+        "joblist.list.importdate":"Importdatum",
+        "joblist.list.creator":"Auftraggeber",
+        "joblist.list.progress":"Fortschritt",
+        "joblist.list.status":"Status",
+        "joblist.list.jobtype":"Auftragstyp",
+        "joblist.jobinfo.headline":"Auftragsinformationen",
 
         "":""
     }

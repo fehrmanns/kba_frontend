@@ -6,11 +6,16 @@ import {
     USER_REQUEST, USER_LOADED, USER_DELETED, USER_ADDED, USER_UPDATED, USER_FAILURE,
     TYPE_REQUEST, TYPE_LOADED, TYPE_DELETED, TYPE_ADDED, TYPE_UPDATED, TYPE_BYNAME_LOADED, TYPE_FAILURE,
     OPEN_PASSWORD_MODAL, CLOSE_PASSWORD_MODAL, OPEN_SELECT_ICON_MODAL, CLOSE_SELECT_ICON_MODAL,
-    UNITS_REQUEST, UNITS_LOADED, UNIT_REQUEST, UNIT_ADD_REQUEST, UNIT_ADDED, UNIT_DELETED, UNIT_UPDATE_REQUEST, RESET_UNIT_UPDATE_STATUS, UNIT_UPDATED, UNIT_FAILURE, UNIT_LOADED, UNIT_SELECTED, ROOTUNIT_LOADED, SET_RIGHTS, SET_EXPIRED_VALUE, PASSWORD_REQUEST,
+    UNITS_REQUEST, UNITS_LOADED, UNIT_REQUEST, UNIT_ADD_REQUEST, UNIT_ADDED, UNIT_DELETED, UNIT_UPDATE_REQUEST,
+    RESET_UNIT_UPDATE_STATUS, UNIT_UPDATED, UNIT_FAILURE, UNIT_LOADED, UNIT_SELECTED, ROOTUNIT_LOADED, SET_RIGHTS,
+    SET_EXPIRED_VALUE, PASSWORD_REQUEST,
     CATEGORY_REQUEST, CATEGORY_LOADED, CATEGORY_ADDED, CATEGORY_UPDATED, CATEGORY_DELETED, CATEGORY_FAILURE,
-    ENGINESETTINGS_REQUEST, ENGINESETTINGS_FAILURE, ENGINESETTINGS_LOADED, ENGINESETTING_CREATED, ENGINESETTING_UPDATED, ENGINESETTING_DELETED,
-    ADMINJOBLIST_REQUEST, ADMINJOBLIST_LOADED, ADMINJOBLIST_FAILURE, OWNJOBLIST_REQUEST, OWNJOBLIST_LOADED, OWNJOBLIST_FAILURE, OWN_GROUPJOBS_LOADED, ADMIN_GROUPJOBS_LOADED, OWN_GROUP, ADMIN_GROUP,
-} from "./actions";
+    ENGINESETTINGS_REQUEST, ENGINESETTINGS_FAILURE, ENGINESETTINGS_LOADED, ENGINESETTING_CREATED, ENGINESETTING_UPDATED,
+    ENGINESETTING_DELETED,
+    ADMINJOBLIST_REQUEST, ADMINJOBLIST_LOADED, ADMINJOBLIST_FAILURE, OWNJOBLIST_REQUEST, OWNJOBLIST_LOADED,
+    OWNJOBLIST_FAILURE, OWN_GROUPJOBS_LOADED, ADMIN_GROUPJOBS_LOADED, OWN_GROUP, ADMIN_GROUP, OPEN_JOB_INFO_MODAL,
+    CLOSE_JOB_INFO_MODAL,
+} from './actions'
 
 function createDefaultRights() {
     const paths = ["users", "org-unit-types", "org-units", "categories", "engine-settings", "imports", "own-jobs", "jobs"];
@@ -116,7 +121,9 @@ function modals(state = {
     setIcon: () => {},
     showPasswordModal: false,
     showSelectIconModal: false,
+    showJobInfoModal: false,
     backdrop: true,
+    job: {},
 }, action) {
     switch (action.type) {
         case OPEN_PASSWORD_MODAL:
@@ -142,6 +149,18 @@ function modals(state = {
                 setIcon: () => {},
                 showSelectIconModal: false,
                 backdrop: true,
+            });
+        case OPEN_JOB_INFO_MODAL:
+            return Object.assign({}, state, {
+                job: action.job,
+                showJobInfoModal: true,
+                backdrop: true,
+            });
+        case CLOSE_JOB_INFO_MODAL:
+            return Object.assign({}, state, {
+                showJobInfoModal: false,
+                backdrop: true,
+                job: {},
             });
         default:
             return state;

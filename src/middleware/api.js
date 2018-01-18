@@ -97,7 +97,6 @@ function formatEndpoint(endpoint, pathParam, queryParams) {
             }
         }
     }
-    console.log("formattedEndpoint", formattedEndpoint);
     return formattedEndpoint;
 }
 
