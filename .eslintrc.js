@@ -4,8 +4,16 @@ module.exports = {
     "plugins":[
         "react",
         "jsx-a11y",
-        "import"
     ],
+
+    "parser": "babel-eslint",
+    "parserOptions": {
+        "ecmaVersion": 2016,
+        "sourceType": "module",
+        "ecmaFeatures": {
+            "jsx": true
+        }
+    },
 
     "rules":{
     "object-curly-spacing":0,
@@ -29,5 +37,9 @@ module.exports = {
 
     "env":{
         "browser":true,
+        "es6": true,
+        "node": true,
+        "jest": true,
+        "mocha": true
     }
 };
