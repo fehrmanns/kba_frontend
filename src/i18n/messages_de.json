@@ -19,6 +19,8 @@
         "FAST_SPEAKER_COUNT_CHECK":"Schneller Check, um Sprecheranzahl zu ermitteln",
         "CLUSTERING_SPEAKER_COUNT_CHECK":"Sprecheranzahl über Clustering ermitteln",
 
+        "timeSeperator":" um ",
+
         "alert.strong.message.success": "Sehr gut!",
         "alert.strong.message.info": "Information:",
         "alert.strong.message.warning": "Vorsicht.",

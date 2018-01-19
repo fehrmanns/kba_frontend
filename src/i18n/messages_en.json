@@ -19,6 +19,8 @@
         "FAST_SPEAKER_COUNT_CHECK":"Quick speaker count check",
         "CLUSTERING_SPEAKER_COUNT_CHECK":"Clustering speaker count check",
 
+        "timeSeperator":" at ",
+
         "alert.strong.message.success": "Very good!",
         "alert.strong.message.info": "Information:",
         "alert.strong.message.warning": "Warning.",

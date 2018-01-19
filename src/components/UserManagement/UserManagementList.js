@@ -42,10 +42,7 @@ class UserManagementList extends React.Component {
                                     <th><FormattedMessage id="usermanagement.list.roleName" /></th>
                                     <th><FormattedMessage id="usermanagement.list.unit" /></th>
                                     <th><FormattedMessage id="usermanagement.list.created" /></th>
-                                    {/*
-                                    <th><FormattedMessage id="usermanagement.list.modified"/></th>
-                                    <th><FormattedMessage id="usermanagement.list.modifiedBy"/></th>
-                                */}
+                                    <th><FormattedMessage id="usermanagement.list.modified" /></th>
                                     <th>{/* placeholder for button */}</th>
                                     <th>{/* placeholder for button */}</th>
                                     <th>{/* placeholder for button */}</th>
