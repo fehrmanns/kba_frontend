@@ -52,6 +52,7 @@
         "dropdown.role.analyst": "Analytiker",
         "dropdown.error": "bitte auswählen.",
 
+
         "input.username": "Nutzername",
         "input.loginNameError": "darf nicht leer sein.",
         "input.firstname":"Vorname",
@@ -89,6 +90,7 @@
         "input.minScoreValueAudio":"Minimaler Score-Wert für Audio",
         "input.minScoreError":"Minimaler Score-Wert muss zwischen -16 und 16 liegen",
         "input.picturePreviewError":"Der Wert muss zwischen 0 und 100 liegen",
+        "input.priority":"Priorität",
 
         "button.submit": "Absenden",
         "button.user.create": "Benutzer anlegen",
@@ -208,6 +210,7 @@
         "enginesetting.addnew.headline":"Verarbeitungsrichtlinie erstellen",
         "selection.storagepolicy":"Bitte auswählen",
         "selection.speaker":"Bitte auswählen",
+        "selection.policy":"Bitte auswählen",
         "enginesettings.list.headline": "Verarbeitungsrichtlinienübersicht",
         "enginesettings.list.name": "Name",
         "enginesettings.list.description": "Beschreibung",
@@ -217,6 +220,10 @@
         "enginesettings.list.previewPicturePercent":"Prozentzahl für Bildvorschau",
         "enginesettings.list.minScoreValueVideo":"Min. Score Video",
         "enginesettings.list.minScoreValueAudio":"Min. Score Audio",
+        "enginesettings.list.priority":"Priorität",
+        "dropdown.priority.0":"Niedrig",
+        "dropdown.priority.4":"Normal",
+        "dropdown.priority.9":"Hoch",
 
         "":""
     }

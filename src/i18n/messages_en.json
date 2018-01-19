@@ -89,6 +89,7 @@
         "input.minScoreValueAudio":"Minimum score for audio",
         "input.minScoreError":"The minimal score value has to be between -16 and 16.",
         "input.picturePreviewError":"The value has to be between 0 and 100.",
+        "input.priority":"Priority",
 
         "button.submit": "Submit",
         "button.user.create": "Create user",
@@ -208,6 +209,7 @@
         "enginesetting.addnew.headline":"Create engine setting",
         "selection.storagepolicy":"Please select",
         "selection.speaker":"Please select",
+        "selection.policy":"Please select",
         "enginesettings.list.headline": "Engine settings overview",
         "enginesettings.list.name": "Name",
         "enginesettings.list.description": "Description",
@@ -218,6 +220,10 @@
         "enginesettings.list.previewPicturePercent":"Percent of picture preview",
         "enginesettings.list.minScoreValueVideo":"Minimum score for video",
         "enginesettings.list.minScoreValueAudio":"Minimum score for audio",
+        "enginesettings.list.priority":"Priority",
+        "dropdown.priority.0":"Low",
+        "dropdown.priority.4":"Normal",
+        "dropdown.priority.9":"High",
 
         "":""
     }

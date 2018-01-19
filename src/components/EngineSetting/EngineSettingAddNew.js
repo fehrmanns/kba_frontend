@@ -20,17 +20,20 @@ class EngineSettingAddNew extends React.Component {
             previewPicturePercent: 0,
             minScoreValueAudio: 0,
             minScoreValueVideo: 0,
+            priority: null,
             nameIsValid: true,
             storagePolicyIsValid: true,
             speakerNumRecognitionIsValid: true,
             minScoreValueAudioIsValid: true,
             minScoreValueVideoIsValid: true,
             previewPicturePercentIsValid: true,
+            priorityIsValid: true,
         };
         this.handleChange = this.handleChange.bind(this);
         this.sendData = this.sendData.bind(this);
         this.handleStoragePolicySelection = this.handleStoragePolicySelection.bind(this);
         this.handleSpeakerSelection = this.handleSpeakerSelection.bind(this);
+        this.handlePrioritySelection = this.handlePrioritySelection.bind(this);
         this.validateRange = this.validateRange.bind(this);
     }
 
@@ -40,6 +43,10 @@ class EngineSettingAddNew extends React.Component {
 
     handleSpeakerSelection(event) {
         this.setState({speakerNumRecognition: event});
+    }
+
+    handlePrioritySelection(event) {
+        this.setState({priority: event});
     }
 
     handleChange(event) {
@@ -71,14 +78,15 @@ class EngineSettingAddNew extends React.Component {
         const nameIsValid = !!this.state.name;
         const storagePolicyIsValid = !!this.state.storagePolicy;
         const speakerNumRecognitionIsValid = !!this.state.speakerNumRecognition;
-
+        const priorityIsValid = !(!this.state.priority && this.state.priority !== 0);
         this.setState({
             nameIsValid,
             storagePolicyIsValid,
             speakerNumRecognitionIsValid,
+            priorityIsValid,
         });
 
-        if (!nameIsValid || !storagePolicyIsValid || !speakerNumRecognitionIsValid || !this.state.minScoreValueAudioIsValid || !this.state.minScoreValueVideoIsValid || !this.state.previewPicturePercentIsValid) return;
+        if (!nameIsValid || !storagePolicyIsValid || !speakerNumRecognitionIsValid || !this.state.minScoreValueAudioIsValid || !this.state.minScoreValueVideoIsValid || !this.state.previewPicturePercentIsValid || !priorityIsValid) return;
 
         const newSetting = {
             name: this.state.name,
@@ -86,6 +94,7 @@ class EngineSettingAddNew extends React.Component {
             storagePolicy: this.state.storagePolicy ? this.state.storagePolicy : null,
             keepPcmRawData: this.state.keepPcmRawData,
             speakerNumRecognition: this.state.speakerNumRecognition ? this.state.speakerNumRecognition : null,
+            priority: this.state.priority || this.state.priority === 0 ? this.state.priority : null,
             previewPicturePercent: this.state.previewPicturePercent,
             minScoreValueAudio: this.state.minScoreValueAudio,
             minScoreValueVideo: this.state.minScoreValueVideo,
@@ -106,17 +115,18 @@ class EngineSettingAddNew extends React.Component {
             previewPicturePercent: 0,
             minScoreValueAudio: 0,
             minScoreValueVideo: 0,
+            priority: null,
             nameIsValid: true,
             storagePolicyIsValid: true,
             speakerNumRecognitionIsValid: true,
             minScoreValueAudioIsValid: true,
             minScoreValueVideoIsValid: true,
             previewPicturePercentIsValid: true,
+            priorityIsValid: true,
         });
     }
 
     validateRange(event, attribute, min, max) {
-        console.log("event.target.value", event.target.value);
         if (!validator.inRangeOrEmpty(event.target.value, min, max)) {
             this.setState({[attribute]: false});
             return false;
@@ -130,13 +140,15 @@ class EngineSettingAddNew extends React.Component {
         const nameError = !this.state.nameIsValid;
         const storagePolicyError = !this.state.storagePolicyIsValid;
         const speakerNumRecognitionError = !this.state.speakerNumRecognitionIsValid;
-        const {storagePolicies, speakerNumRecognition} = constants;
+        const {storagePolicies, speakerNumRecognition, priorities} = constants;
 
         const storagepolicyDropDownTitleId = this.state.storagePolicy ? this.state.storagePolicy : "selection.storagepolicy";
         const speakerDropDownTitleId = this.state.speakerNumRecognition ? this.state.speakerNumRecognition : "selection.speaker";
+        const priorityDropDownTitleId = this.state.priority || this.state.priority === 0 ? `dropdown.priority.${this.state.priority}` : "selection.policy";
         const scoreAudioError = !this.state.minScoreValueAudioIsValid;
         const scoreVideoError = !this.state.minScoreValueVideoIsValid;
         const picturePreviewError = !this.state.previewPicturePercentIsValid;
+        const priorityError = !this.state.priorityIsValid;
 
         // TODO: checkbox state should change when text is clicked
         // TODO: change layout here (>1200px)
@@ -277,10 +289,30 @@ class EngineSettingAddNew extends React.Component {
                             onKeyUp={(event) => { this.validateRange(event, "minScoreValueVideoIsValid", -16, 16); }}
                         />
                     </div>
+                </div>
+                <div className="row">
                     <div className="form-group col-md-3">
                         <Checkbox id="inputKeepPcm" onChange={() => this.setState({keepPcmRawData: !this.state.keepPcmRawData})} checked={this.state.keepPcmRawData} className="label-margin">
                             <FormattedMessage id="input.keepPcm" />
                         </Checkbox>
+                    </div>
+                    <div className={priorityError ? "form-group has-error col-md-6" : "form-group col-md-6"}>
+                        <label className="control-label" htmlFor="selection.priority">
+                            <FormattedMessage id="input.priority" />&nbsp;
+                            {priorityError && <FormattedMessage id="dropdown.error" />}
+                        </label>
+                        <br />
+                        <FormattedDropDown
+                            titleId={priorityDropDownTitleId}
+                            id="selection.priority"
+                            onSelect={this.handlePrioritySelection}
+                            value={this.state.priority}
+                        >
+                            {priorities.map(element => (
+                                <MenuItem eventKey={element} key={`dropdown.priority.${element}`}>
+                                    <FormattedMessage id={`dropdown.priority.${element}`} className="control-label" key={element} />
+                                </MenuItem>))}
+                        </FormattedDropDown>
                     </div>
                 </div>
                 <div className="row">
