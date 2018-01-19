@@ -40,7 +40,7 @@ export function determineProgressForGroup(group, listWithStates) {
                 break;
             case "PARTIALLY_COMPLETED":
                 hasRunningJobs = true;
-                value += 100 * statusList[j].count;
+                value += 90 * statusList[j].count;
                 break;
             case "FAILED":
                 hasFailedJobs = true;
