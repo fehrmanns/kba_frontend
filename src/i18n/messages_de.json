@@ -4,6 +4,8 @@
         "KBA_OU_TYPE_ALREADY_EXISTS":"Ein Organisationstype mit diesem Namen existiert bereits.",
         "KBA_OU_ALREADY_EXISTS":"Eine Organisationseinheit mit diesem Namen existiert bereits.",
         "MANDATORY_PARAMETER_NOT_SET":"Pflichtparameter nicht gesetzt.",
+        "KBA_CATEGORY_ALREADY_EXISTS":"Eine Kategorie mit diesem Namen existiert bereits.",
+        "KBA_ENGINE_SETTINGS_ALREADY_EXISTS":"Eine Verarbeitungsrichtlinie mit diesem Namen existiert bereits.",
 
         "DONT_STORE_MEDIA":"Medien nicht speichern",
         "STORE_MODERATELY_COMPRESSED_MEDIA":"Moderat komprimierte Medien speichern",

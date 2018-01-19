@@ -4,6 +4,8 @@
         "KBA_OU_TYPE_ALREADY_EXISTS":"A organizational unit type with this name already exists.",
         "KBA_OU_ALREADY_EXISTS":"A organizational unit with this name already exists.",
         "MANDATORY_PARAMETER_NOT_SET":"Mandatory parameter not set.",
+        "KBA_CATEGORY_ALREADY_EXISTS":"A category with this name already exists.",
+        "KBA_ENGINE_SETTINGS_ALREADY_EXISTS":"An engine setting with this name already exists.",
 
         "DONT_STORE_MEDIA":"Do not store media data",
         "STORE_MODERATELY_COMPRESSED_MEDIA":"Store moderate compressed media",
