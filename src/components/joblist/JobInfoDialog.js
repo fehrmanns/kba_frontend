@@ -122,7 +122,7 @@ class JobInfoDialog extends React.Component {
                     </div>
                     <div className="col-sm-8">
                         {job.journal ?
-                            <textarea rows="10" cols="50" className="journal" disabled="true">{job.journal}</textarea>
+                            <textarea rows="10" cols="50" className="journal" disabled="true" value={job.journal} />
                             :
                             <span />
                         }

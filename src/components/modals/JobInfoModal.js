@@ -12,8 +12,6 @@ class JobInfoModal extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        console.log("nextprops", nextProps.showJobInfoModal);
-        console.log("state", this.state.show);
         if (this.state.show !== nextProps.showJobInfoModal) {
             this.setState({show: nextProps.showJobInfoModal});
         }
@@ -23,8 +21,6 @@ class JobInfoModal extends React.Component {
         const close = () => {
             this.props.dispatch(closeJobInfoModal());
         };
-        console.log("state", this.state.show);
-
         const {backdrop} = this.props;
         return (
             <div className="modal-container">

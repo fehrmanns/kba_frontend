@@ -7,23 +7,51 @@ import FormattedButton from "./../i18n/FormattedButton";
 class JobTableItem extends React.Component {
     constructor(props) {
         super(props);
-        this.showInfo = this.showInfo.bind(this);
-        this.toggleGroup = this.toggleGroup.bind(this);
         this.state = {
             openGroup: false,
         };
-
+        this.showInfo = this.showInfo.bind(this);
+        this.toggleGroup = this.toggleGroup.bind(this);
         this.renderElements = this.renderElements.bind(this);
         this.createRow = this.createRow.bind(this);
         this.toggleGroup = this.toggleGroup.bind(this);
         this.showInfo = this.showInfo.bind(this);
     }
 
+    componentDidMount() {
+        const {item} = this.props;
+        const isGroup = !!item.groupName;
+        if (isGroup && !this.state.openGroup) {
+            this.timer = setInterval(() => this.refreshGroup(), 10000);
+        } else if (isGroup && this.state.openGroup) {
+            this.timer = setInterval(() => this.refreshGroupJobs(), 10000);
+        } else if (!isGroup) {
+            this.timer = setInterval(() => this.refreshJob(), 10000);
+        }
+    }
+
     componentWillReceiveProps(nextProps) {
-        if (nextProps.item !== this.props.item && this.state.openGroup) {
+        if (nextProps.item !== this.props.item && this.state.openGroup && !nextProps.item.children) {
             this.setState({
                 openGroup: !this.state.openGroup,
             });
+        }
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.timer);
+    }
+
+    refreshGroupJobs() {
+        if (this.childRefreshNeeded()) {
+            this.refreshChildren();
+        }
+    }
+
+    refreshJob() {
+        const {item} = this.props;
+        if (this.refreshNeeded(item.progressInPercent)) {
+            this.props.refreshJob(item.name);
         }
     }
 
@@ -32,11 +60,53 @@ class JobTableItem extends React.Component {
         this.props.showInfo(this.props.item);
     }
 
+    childRefreshNeeded() {
+        const {children} = this.props.item;
+        const filteredChildren = children.filter(child => child.progressInPercent < 100);
+        if (filteredChildren.length === 0) {
+            clearInterval(this.timer);
+            return false;
+        }
+        return true;
+    }
+
+    refreshNeeded(progress) {
+        if (progress === 100) {
+            clearInterval(this.timer);
+            return false;
+        }
+        return true;
+    }
+
+    refreshChildren() {
+        const {children} = this.props.item;
+        const childrenNo = children.length;
+        for (let i = 0; i < childrenNo; i += 1) {
+            if (children[i].progressInPercent < 100) {
+                this.props.refreshJob(children[i].name);
+            }
+        }
+    }
+
+    refreshGroup() {
+        const {item} = this.props;
+        if (this.refreshNeeded(item.groupProgressPercent)) {
+            this.props.refreshGroup(item.groupName);
+        }
+    }
+
     toggleGroup() {
+        clearInterval(this.timer);
+        const newOpenGroupState = !this.state.openGroup;
         this.setState({
             openGroup: !this.state.openGroup,
         });
-        this.props.fetchGroupJobs(this.props.item.groupName);
+        if (newOpenGroupState) {
+            this.props.fetchGroupJobs(this.props.item.groupName);
+            this.timer = setInterval(() => this.refreshGroupJobs(), 10000);
+        } else {
+            this.timer = setInterval(() => this.refreshGroup(), 10000);
+        }
     }
 
     createRow(item, isGroup, rowStyle) {
@@ -121,6 +191,8 @@ class JobTableItem extends React.Component {
 
 JobTableItem.propTypes = {
     fetchGroupJobs: PropTypes.func.isRequired,
+    refreshJob: PropTypes.func.isRequired,
+    refreshGroup: PropTypes.func.isRequired,
     showInfo: PropTypes.func.isRequired,
     item: PropTypes.object.isRequired,
 };

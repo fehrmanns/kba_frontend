@@ -12,10 +12,12 @@ import {
     CATEGORY_REQUEST, CATEGORY_LOADED, CATEGORY_ADDED, CATEGORY_UPDATED, CATEGORY_DELETED, CATEGORY_FAILURE,
     ENGINESETTINGS_REQUEST, ENGINESETTINGS_FAILURE, ENGINESETTINGS_LOADED, ENGINESETTING_CREATED, ENGINESETTING_UPDATED,
     ENGINESETTING_DELETED,
-    ADMINJOBLIST_REQUEST, ADMINJOBLIST_LOADED, ADMINJOBLIST_FAILURE, OWNJOBLIST_REQUEST, OWNJOBLIST_LOADED,
+    ADMINJOBLIST_LOADED, ADMINJOBLIST_FAILURE, OWNJOBLIST_REQUEST, OWNJOBLIST_LOADED,
     OWNJOBLIST_FAILURE, OWN_GROUPJOBS_LOADED, ADMIN_GROUPJOBS_LOADED, OWN_GROUP, ADMIN_GROUP, OPEN_JOB_INFO_MODAL,
-    CLOSE_JOB_INFO_MODAL,
-} from './actions'
+    CLOSE_JOB_INFO_MODAL, ADMINJOB_LOADED, OWNJOB_LOADED, ADMINJOBLIST_REQUEST, OWNGROUP_LOADED, ADMINGROUP_LOADED,
+} from "./actions";
+
+import * as joblistUtilities from "./utilities/reducer/joblistUtilities";
 
 function createDefaultRights() {
     const paths = ["users", "org-unit-types", "org-units", "categories", "engine-settings", "imports", "own-jobs", "jobs"];
@@ -515,91 +517,6 @@ function enginesettings(state = {
     }
 }
 
-function determineGroupProgress(list) {
-    console.log("list", list);
-    const joblist = [...list];
-
-    const listLength = list.length;
-    for (let i = 0; i < listLength; i += 1) {
-        if (joblist[i].groupName) {
-            const statusList = joblist[i].kbaJobStatusCountDtoList;
-            const statusListLength = statusList.length;
-            let hasFailedJobs = false;
-            let hasCompletedJobs = false;
-            let hasRunningJobs = false;
-            let value = 0;
-            for (let j = 0; j < statusListLength; j += 1) {
-                switch (statusList[j].groupedKbaJobStatus) {
-                    case "INITIALIZED":
-                        hasRunningJobs = true;
-                        value += 5 * statusList[j].count;
-                        break;
-                    case "EN_ROUTE_TO_QUEUE":
-                        hasRunningJobs = true;
-                        value += 20 * statusList[j].count;
-                        break;
-                    case "DEQUEUED":
-                        hasRunningJobs = true;
-                        value += 35 * statusList[j].count;
-                        break;
-                    case "EN_ROUTE_TO_FFMPEG":
-                        hasRunningJobs = true;
-                        value += 50 * statusList[j].count;
-                        break;
-                    case "EN_ROUTE_TO_BS3_AUDIO":
-                        hasRunningJobs = true;
-                        value += 65 * statusList[j].count;
-                        break;
-                    case "EN_ROUTE_TO_BS3_NO_AUDIO":
-                        hasRunningJobs = true;
-                        value += 80 * statusList[j].count;
-                        break;
-                    case "PARTIALLY_COMPLETED":
-                        hasRunningJobs = true;
-                        value += 100 * statusList[j].count;
-                        break;
-                    case "FAILED":
-                        hasFailedJobs = true;
-                        value += 100 * statusList[j].count;
-                        break;
-                    case "COMPLETED":
-                        hasCompletedJobs = true;
-                        value += 100 * statusList[j].count;
-                        break;
-                    default:
-                        break;
-                }
-            }
-            const groupProgressPercent = value / joblist[i].groupCount;
-            let groupState = "COMPLETED";
-            if (hasRunningJobs && (hasCompletedJobs || hasFailedJobs)) {
-                groupState = "PARTIALLY_COMPLETED";
-            } else if (hasRunningJobs) {
-                groupState = "RUNNING";
-            } else if (hasFailedJobs) {
-                groupState = "FAILED";
-            }
-
-            joblist[i].groupProgressPercent = groupProgressPercent;
-            joblist[i].groupState = groupState;
-        }
-    }
-    return joblist;
-}
-
-function addChildrenToGroup(groupToFetch, children, list) {
-    const joblist = [...list];
-
-    const listLength = list.length;
-    for (let i = 0; i < listLength; i += 1) {
-        if (joblist[i].groupName === groupToFetch) {
-            joblist[i].children = children;
-            return joblist;
-        }
-    }
-    return joblist;
-}
-
 function ownjoblist(state = {
     isFetching: false,
     joblist: [],
@@ -614,19 +531,27 @@ function ownjoblist(state = {
             });
         case OWNJOBLIST_LOADED:
             return Object.assign({}, state, {
-                joblist: determineGroupProgress(action.response.kbaJobDtos),
+                joblist: joblistUtilities.determineGroupProgress(action.response.kbaJobDtos),
                 isFetching: false,
                 isLoaded: true,
             });
         case OWN_GROUPJOBS_LOADED:
             return Object.assign({}, state, {
-                joblist: addChildrenToGroup(state.groupToFetch, action.response.kbaJobDtos, state.joblist),
+                joblist: joblistUtilities.addChildrenToGroup(state.groupToFetch, action.response.kbaJobDtos, state.joblist),
                 isFetching: false,
                 groupToFetch: "",
             });
         case OWN_GROUP:
             return Object.assign({}, state, {
                 groupToFetch: action.groupToFetch,
+            });
+        case OWNJOB_LOADED:
+            return Object.assign({}, state, {
+                joblist: joblistUtilities.refreshJob(action.response, state.joblist, false),
+            });
+        case OWNGROUP_LOADED:
+            return Object.assign({}, state, {
+                joblist: joblistUtilities.refreshJob(joblistUtilities.determineGroupProgress(action.response.kbaJobDtos)[0], state.joblist, true),
             });
         case OWNJOBLIST_FAILURE:
             return Object.assign({}, state, {
@@ -651,19 +576,27 @@ function adminjoblist(state = {
             });
         case ADMINJOBLIST_LOADED:
             return Object.assign({}, state, {
-                joblist: determineGroupProgress(action.response.kbaJobDtos),
+                joblist: joblistUtilities.determineGroupProgress(action.response.kbaJobDtos),
                 isFetching: false,
                 isLoaded: true,
             });
         case ADMIN_GROUPJOBS_LOADED:
             return Object.assign({}, state, {
-                joblist: addChildrenToGroup(state.groupToFetch, action.response.kbaJobDtos, state.joblist),
+                joblist: joblistUtilities.addChildrenToGroup(state.groupToFetch, action.response.kbaJobDtos, state.joblist),
                 isFetching: false,
                 groupToFetch: "",
             });
         case ADMIN_GROUP:
             return Object.assign({}, state, {
                 groupToFetch: action.groupToFetch,
+            });
+        case ADMINJOB_LOADED:
+            return Object.assign({}, state, {
+                joblist: joblistUtilities.refreshJob(action.response, state.joblist, false),
+            });
+        case ADMINGROUP_LOADED:
+            return Object.assign({}, state, {
+                joblist: joblistUtilities.refreshJob(joblistUtilities.determineGroupProgress(action.response.kbaJobDtos)[0], state.joblist, true),
             });
         case ADMINJOBLIST_FAILURE:
             return Object.assign({}, state, {

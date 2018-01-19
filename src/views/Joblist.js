@@ -7,7 +7,7 @@ import {Nav, NavItem } from "react-bootstrap";
 import "./../css/joblist.css";
 import JoblistView from "../components/joblist/JoblistView";
 import JobTable from "../components/joblist/JobTable";
-import { getAdminJobs, getOwnJobs, fetchGroupJobsForAdmin, fetchGroupJobsForUser, openJobInfoModal } from "../actions";
+import { getAdminJobs, getOwnJobs, fetchGroupJobsForAdmin, fetchGroupJobsForUser, openJobInfoModal, refreshJobAdmin, refreshJobOwn, refreshGroupAdmin, refreshGroupOwn } from "../actions";
 
 class Joblist extends React.Component {
     constructor(props) {
@@ -22,6 +22,10 @@ class Joblist extends React.Component {
         this.fetchGroupJobsForAdmin = this.fetchGroupJobsForAdmin.bind(this);
         this.fetchGroupJobsForUser = this.fetchGroupJobsForUser.bind(this);
         this.showInfo = this.showInfo.bind(this);
+        this.refreshJobAdmin = this.refreshJobAdmin.bind(this);
+        this.refreshJobOwn = this.refreshJobOwn.bind(this);
+        this.refreshGroupAdmin = this.refreshGroupAdmin.bind(this);
+        this.refreshGroupOwn = this.refreshGroupOwn.bind(this);
     }
 
     toggleView(selectedKey) {
@@ -47,6 +51,20 @@ class Joblist extends React.Component {
         this.props.dispatch(openJobInfoModal(item));
     }
 
+    refreshJobAdmin(job) {
+        this.props.dispatch(refreshJobAdmin(job));
+    }
+
+    refreshJobOwn(job) {
+        this.props.dispatch(refreshJobOwn(job));
+    }
+    refreshGroupAdmin(group) {
+        this.props.dispatch(refreshGroupAdmin(group));
+    }
+
+    refreshGroupOwn(group) {
+        this.props.dispatch(refreshGroupOwn(group));
+    }
 
     render() {
         const {activeKey} = this.state;
@@ -71,12 +89,12 @@ class Joblist extends React.Component {
                 { activeKey === 1 ?
                     <div>
                         <JoblistView fetchJobs={this.fetchOwnJobs} />
-                        <JobTable jobs={this.props.listOwnJobs} fetchGroupJobs={this.fetchGroupJobsForUser} showInfo={this.showInfo} />
+                        <JobTable jobs={this.props.listOwnJobs} fetchGroupJobs={this.fetchGroupJobsForUser} showInfo={this.showInfo} refreshJob={this.refreshJobOwn} refreshGroup={this.refreshGroupOwn} />
                     </div>
                     :
                     <div>
                         <JoblistView fetchJobs={this.fetchAdminJobs} />
-                        <JobTable jobs={this.props.listAdminJobs} fetchGroupJobs={this.fetchGroupJobsForAdmin} showInfo={this.showInfo} />
+                        <JobTable jobs={this.props.listAdminJobs} fetchGroupJobs={this.fetchGroupJobsForAdmin} showInfo={this.showInfo} refreshJob={this.refreshJobAdmin} refreshGroup={this.refreshGroupAdmin} />
                     </div>
                 }
             </div>

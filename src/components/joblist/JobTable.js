@@ -40,7 +40,7 @@ class JobTable extends React.Component {
                         </thead>
                         <tbody>
                             {
-                                jobList.map(item => <JobTableItem item={item} key={`JobItem.${item.name.replace(/\b[a-z]/g, letter => letter.toUpperCase()).replace(" ", "")}`} fetchGroupJobs={this.props.fetchGroupJobs} showInfo={this.props.showInfo} />)
+                                jobList.map(item => <JobTableItem item={item} key={`JobItem.${item.name.replace(/\b[a-z]/g, letter => letter.toUpperCase()).replace(" ", "")}`} fetchGroupJobs={this.props.fetchGroupJobs} showInfo={this.props.showInfo} refreshJob={this.props.refreshJob} refreshGroup={this.props.refreshGroup} />)
                             }
                         </tbody>
                     </table>
@@ -54,6 +54,8 @@ class JobTable extends React.Component {
 
 JobTable.propTypes = {
     fetchGroupJobs: PropTypes.func.isRequired,
+    refreshJob: PropTypes.func.isRequired,
+    refreshGroup: PropTypes.func.isRequired,
     showInfo: PropTypes.func.isRequired,
     jobs: PropTypes.array.isRequired,
 };
