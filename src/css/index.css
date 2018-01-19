@@ -132,3 +132,7 @@ table .has-error .form-control{
 .btn-xs, .btn-group-xs > .btn {
     padding: 2px 6px;
 }
+
+.p0 {
+    padding: 0;
+}
