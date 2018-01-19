@@ -1,0 +1,59 @@
+.recording-row {
+    width: 100%;
+    display: flex;
+    padding: 15px;
+    transition: background-color .2s ease-in;
+}
+
+.recording-row:nth-child(2n) {
+    background-color: rgba(100, 100, 100, .1);
+}
+
+.recording-row:hover {
+    background-color: rgba(100, 100, 100, .3) !important;
+    cursor: pointer;
+}
+
+.recording-item {
+    width: 100%;
+}
+
+.recording-item .recording-item-info {
+    display: inline-block;
+}
+
+.recording-item-info span {
+    font-size: 11px;
+}
+
+.recording-item-info .info-line {
+    display: block;
+}
+
+.recording-item-info i,
+.recording-item-info .glyphicon,
+.recording-item-info .fa {
+    margin-right: 4px;
+    color: rgb(100, 100, 100);
+}
+
+.recording-item > img {
+    width: 30%;
+    margin-right: 10px;
+    vertical-align: top;
+    position: relative;
+}
+
+.empty-container {
+    background-color: #555555;
+    -webkit-background-clip: text;
+    -moz-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: rgba(255, 255, 255, 0.5) 0 3px 3px;
+    min-height: 50vh;
+    line-height: 50vh;
+    text-align: center;
+    font-size: 2.8rem;
+    font-weight: 600;
+}
