@@ -266,6 +266,8 @@
         "joblist.list.jobtype":"Auftragstyp",
         "joblist.jobinfo.headline":"Auftragsinformationen",
 
+        "recordings.messages.selectRecording": "Bitte wählen Sie einen Datensatz aus",
+
         "":""
     }
 }
