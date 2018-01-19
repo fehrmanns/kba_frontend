@@ -15,7 +15,7 @@ import en from "../i18n/messages_en.json";
 import de from "../i18n/messages_de.json";
 import Home from "./../views/Home";
 import Login from "./../views/Login";
-import Recordings from "./../views/Recordings";
+import Recordings from "../views/Recordings";
 import BiometricProfiles from "./../views/BiometricProfiles";
 import Matchlist from "./../views/Matchlist";
 import Matchall from "./../views/Matchall";
@@ -151,7 +151,6 @@ class Mainframe extends React.Component {
                 </Router>
             </IntlProvider>
         );
-
     }
 }
 
