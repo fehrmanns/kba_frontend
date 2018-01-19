@@ -20,9 +20,9 @@ class EngineSettingsListItem extends React.Component {
             storagePolicy: settingItem.storagePolicy ? settingItem.storagePolicy : null,
             keepPcmRawData: settingItem.keepPcmRawData,
             speakerNumRecognition: settingItem.speakerNumRecognition ? settingItem.speakerNumRecognition : null,
-            previewPicturePercent: settingItem.previewPicturePercent ? settingItem.previewPicturePercent : "",
-            minScoreValueAudio: settingItem.minScoreValueAudio ? settingItem.minScoreValueAudio : "",
-            minScoreValueVideo: settingItem.minScoreValueVideo ? settingItem.minScoreValueVideo : "",
+            previewPicturePercent: settingItem.previewPicturePercent || settingItem.previewPicturePercent === 0 ? settingItem.previewPicturePercent : "",
+            minScoreValueAudio: settingItem.minScoreValueAudio || settingItem.minScoreValueAudio === 0 ? settingItem.minScoreValueAudio : "",
+            minScoreValueVideo: settingItem.minScoreValueVideo || settingItem.minScoreValueVideo === 0 ? settingItem.minScoreValueVideo : "",
             notModifiedName: settingItem.name,
             nameModified: false,
             descriptionModified: false,
@@ -64,7 +64,6 @@ class EngineSettingsListItem extends React.Component {
     }
 
     validateAndHandleChange(event, strToCut, attribute, min, max) {
-        console.log("event.target.value", event.target.value);
         this.validateRange(event, attribute, min, max);
         this.handleChange(event, strToCut);
     }
@@ -76,7 +75,6 @@ class EngineSettingsListItem extends React.Component {
 
     compareContent(name, value) {
         const propName = `${name}Modified`;
-        console.log("modified", propName);
         this.setState({[propName]: utilities.determineModifiedValue(name, value, this.state[name])});
     }
 
