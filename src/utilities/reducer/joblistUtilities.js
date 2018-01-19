@@ -120,7 +120,7 @@ export function refreshJob(reloadedJob, list, refreshOnlyGroup) {
     const joblist = [...list];
 
     const listLength = list.length;
-    if (reloadedJob.groupName && !refreshOnlyGroup) {
+    if (reloadedJob.groupName && !refreshOnlyGroup) {//refresh group child
         for (let i = 0; i < listLength; i += 1) {
             if (joblist[i].groupName === reloadedJob.groupName) {
                 const children = [...joblist[i].children];
@@ -128,6 +128,7 @@ export function refreshJob(reloadedJob, list, refreshOnlyGroup) {
                 for (let j = 0; j < childrenNo; j += 1) {
                     if (children[j].name === reloadedJob.name) {
                         children[j] = reloadedJob;
+                        break;
                     }
                 }
                 joblist[i].children = children;
@@ -136,7 +137,7 @@ export function refreshJob(reloadedJob, list, refreshOnlyGroup) {
                 return joblist;
             }
         }
-    } else {
+    } else {//refresh single job or group
         for (let i = 0; i < listLength; i += 1) {
             if (joblist[i].name === reloadedJob.name) {
                 joblist[i] = reloadedJob;

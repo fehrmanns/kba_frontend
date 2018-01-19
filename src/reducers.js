@@ -20,7 +20,7 @@ import {
 import * as joblistUtilities from "./utilities/reducer/joblistUtilities";
 
 function createDefaultRights() {
-    const paths = ["users", "org-unit-types", "org-units", "categories", "engine-settings", "imports", "own-jobs", "jobs"];
+    const paths = ["users", "org-unit-types", "org-units", "categories", "engine-settings", "imports", "own-jobs", "/own-jobs/job-groups", "jobs", "/jobs/job-groups"];
 
     const rightsFormatted = {
     };
@@ -43,7 +43,7 @@ function createDefaultRights() {
         categorysettings: ["categories"],
         importsettings: ["engine-settings"],
         recordings: ["imports"],
-        joblist: ["own-jobs", "jobs"],
+        joblist: ["own-jobs", "jobs", "/own-jobs/job-groups", "/jobs/job-groups"],
         hasPermissionsForPath(path) {
             const length = this[path] ? this[path].length : 0;
             for (let i = 0; i < length; i += 1) {
