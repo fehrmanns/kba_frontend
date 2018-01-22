@@ -5,7 +5,7 @@ import {Modal} from "react-bootstrap";
 import IconDialog from "../Icon/IconDialog";
 import {closeSelectIconModal} from "./../../actions";
 
-class PasswordChangeModal extends React.Component {
+class SelectIconModal extends React.Component {
     constructor(props) {
         super(props);
         this.state = { show: props.showSelectIconModal };
@@ -41,7 +41,7 @@ class PasswordChangeModal extends React.Component {
     }
 }
 
-PasswordChangeModal.propTypes = {
+SelectIconModal.propTypes = {
     dispatch: PropTypes.func.isRequired,
     showSelectIconModal: PropTypes.bool.isRequired,
 };
@@ -56,4 +56,4 @@ function mapStateToProps(state) {
     };
 }
 
-export default connect(mapStateToProps)(PasswordChangeModal);
+export default connect(mapStateToProps)(SelectIconModal);
