@@ -55,9 +55,9 @@ class JobTableItem extends React.Component {
         }
     }
 
-    showInfo(event) {
+    showInfo(event, job) {
         event.preventDefault();
-        this.props.showInfo(this.props.item);
+        this.props.showInfo(job);
     }
 
     childRefreshNeeded() {
@@ -150,7 +150,7 @@ class JobTableItem extends React.Component {
                     <span>{item.kbaJobType ? <FormattedMessage id={item.kbaJobType} /> : ""}</span>
                 </td>
                 <td className="button-td">
-                    <FormattedButton title="button.info" className="btn btn-xs btn-default" onClick={this.showInfo}>
+                    <FormattedButton title="button.info" className="btn btn-xs btn-default" onClick={(event) => this.showInfo(event, item)}>
                         <span className="glyphicon glyphicon-info-sign" />
                     </FormattedButton>
                 </td>
