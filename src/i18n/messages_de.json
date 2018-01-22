@@ -246,7 +246,8 @@
         "enginesettings.list.minScoreValueVideo":"Min. Score Video",
         "enginesettings.list.minScoreValueAudio":"Min. Score Audio",
 
-        "joblist.user.title":"Auftragsübersicht",
+        "view.joblist.title":"Auftragsübersicht",
+        "joblist.user.title":"Übersicht über eigene Aufträge",
         "joblist.administration.title":"Übersicht über alle Aufträge",
         "joblist.list.name":"Name",
         "joblist.list.files":"#Dateien",

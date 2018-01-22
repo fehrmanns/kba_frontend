@@ -539,6 +539,7 @@ function ownjoblist(state = {
             return Object.assign({}, state, {
                 joblist: joblistUtilities.addChildrenToGroup(state.groupToFetch, action.response.kbaJobDtos, state.joblist),
                 isFetching: false,
+                isLoaded: true,
                 groupToFetch: "",
             });
         case OWN_GROUP:
@@ -548,10 +549,14 @@ function ownjoblist(state = {
         case OWNJOB_LOADED:
             return Object.assign({}, state, {
                 joblist: joblistUtilities.refreshJob(action.response, state.joblist, false),
+                isFetching: false,
+                isLoaded: true,
             });
         case OWNGROUP_LOADED:
             return Object.assign({}, state, {
                 joblist: joblistUtilities.refreshJob(joblistUtilities.determineGroupProgress(action.response.kbaJobDtos)[0], state.joblist, true),
+                isFetching: false,
+                isLoaded: true,
             });
         case OWNJOBLIST_FAILURE:
             return Object.assign({}, state, {
@@ -584,6 +589,7 @@ function adminjoblist(state = {
             return Object.assign({}, state, {
                 joblist: joblistUtilities.addChildrenToGroup(state.groupToFetch, action.response.kbaJobDtos, state.joblist),
                 isFetching: false,
+                isLoaded: true,
                 groupToFetch: "",
             });
         case ADMIN_GROUP:
@@ -593,10 +599,14 @@ function adminjoblist(state = {
         case ADMINJOB_LOADED:
             return Object.assign({}, state, {
                 joblist: joblistUtilities.refreshJob(action.response, state.joblist, false),
+                isFetching: false,
+                isLoaded: true,
             });
         case ADMINGROUP_LOADED:
             return Object.assign({}, state, {
                 joblist: joblistUtilities.refreshJob(joblistUtilities.determineGroupProgress(action.response.kbaJobDtos)[0], state.joblist, true),
+                isFetching: false,
+                isLoaded: true,
             });
         case ADMINJOBLIST_FAILURE:
             return Object.assign({}, state, {

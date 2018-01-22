@@ -8,12 +8,14 @@ import "./../css/joblist.css";
 import JoblistView from "../components/joblist/JoblistView";
 import JobTable from "../components/joblist/JobTable";
 import { getAdminJobs, getOwnJobs, fetchGroupJobsForAdmin, fetchGroupJobsForUser, openJobInfoModal, refreshJobAdmin, refreshJobOwn, refreshGroupAdmin, refreshGroupOwn } from "../actions";
+import { getItem, setItem } from '../utilities/storage';
 
 class Joblist extends React.Component {
     constructor(props) {
         super(props);
+
         this.state = {
-            activeKey: 1,
+            activeKey: getItem("joblist_activeKey") ? getItem("joblist_activeKey") : 1,
         };
 
         this.toggleView = this.toggleView.bind(this);
@@ -29,6 +31,7 @@ class Joblist extends React.Component {
     }
 
     toggleView(selectedKey) {
+        setItem("joblist_activeKey", selectedKey);
         this.setState({
             activeKey: selectedKey,
         });
@@ -71,21 +74,27 @@ class Joblist extends React.Component {
         const {rights} = this.props;
         return (
             <div className="joblist">
-                <nav className="navbar">
-                    <Nav bsStyle="pills" activeKey={activeKey} onSelect={this.toggleView}>
-                        { rights["own-jobs"].get &&
+                <div className="row">
+                    <div className="col-md-12">
+                        <FormattedMessage tagName="h1" id="view.joblist.title" />
+                    </div>
+                </div>
+                <div className="row">
+                    <nav className="navbar nav-content col-md-12">
+                        <Nav bsStyle="pills" activeKey={activeKey} onSelect={this.toggleView}>
+                            { rights["own-jobs"].get &&
                             <NavItem eventKey={1}>
                                 <FormattedMessage id="joblist.user.title" />
                             </NavItem>
-                        }
-                        {rights.jobs.get &&
+                            }
+                            {rights.jobs.get &&
                             <NavItem eventKey={2}>
                                 <FormattedMessage id="joblist.administration.title" />
                             </NavItem>
-                        }
-                    </Nav>
-                </nav>
-
+                            }
+                        </Nav>
+                    </nav>
+                </div>
                 { activeKey === 1 ?
                     <div>
                         <JoblistView fetchJobs={this.fetchOwnJobs} />

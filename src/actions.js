@@ -76,24 +76,16 @@ export const OWNJOBLIST_LOADED = "OWNJOBLIST_LOADED";
 export const OWNJOBLIST_FAILURE = "OWNJOBLIST_FAILURE";
 export const OWN_GROUPJOBS_LOADED = "OWN_GROUPJOBS_LOADED";
 export const OWN_GROUP = "OWN_GROUP";
-export const OWNJOB_REQUEST = "OWNJOB_REQUEST";
 export const OWNJOB_LOADED = "OWNJOB_LOADED";
-export const OWNJOB_FAILURE = "OWNJOB_FAILURE";
-export const OWNGROUP_REQUEST = "OWNGROUP_REQUEST";
 export const OWNGROUP_LOADED = "OWNGROUP_LOADED";
-export const OWNGROUP_FAILURE = "OWNGROUP_FAILURE";
 
 export const ADMINJOBLIST_REQUEST = "ADMINJOBLIST_REQUEST";
 export const ADMINJOBLIST_LOADED = "ADMINJOBLIST_LOADED";
 export const ADMINJOBLIST_FAILURE = "ADMINJOBLIST_FAILURE";
 export const ADMIN_GROUPJOBS_LOADED = "ADMIN_GROUPJOBS_LOADED";
 export const ADMIN_GROUP = "ADMIN_GROUP";
-export const ADMINJOB_REQUEST = "ADMINJOB_REQUEST";
 export const ADMINJOB_LOADED = "ADMINJOB_LOADED";
-export const ADMINJOB_FAILURE = "ADMINJOB_FAILURE";
-export const ADMINGROUP_REQUEST = "ADMINGROUP_REQUEST";
 export const ADMINGROUP_LOADED = "ADMINGROUP_LOADED";
-export const ADMINGROUP_FAILURE = "ADMINGROUP_FAILURE";
 
 function serverError(message) {
     return {
@@ -777,7 +769,7 @@ export function refreshJobOwn(jobname) {
             endpoint: `own-jobs/${jobname}`,
             authenticated: true,
             method: "GET",
-            types: [OWNJOB_REQUEST, OWNJOB_LOADED, OWNJOB_FAILURE],
+            types: [OWNJOBLIST_REQUEST, OWNJOB_LOADED, OWNJOBLIST_FAILURE],
             json: {},
         },
     };
@@ -789,7 +781,7 @@ export function refreshJobAdmin(jobname) {
             endpoint: `jobs/${jobname}`,
             authenticated: true,
             method: "GET",
-            types: [ADMINJOB_REQUEST, ADMINJOB_LOADED, ADMINJOB_FAILURE],
+            types: [ADMINJOBLIST_REQUEST, ADMINJOB_LOADED, ADMINJOBLIST_FAILURE],
             json: {},
         },
     };
@@ -805,7 +797,7 @@ export function refreshGroupOwn(groupname) {
             }],
             authenticated: true,
             method: "GET",
-            types: [OWNGROUP_REQUEST, OWNGROUP_LOADED, OWNGROUP_FAILURE],
+            types: [OWNJOBLIST_REQUEST, OWNGROUP_LOADED, OWNJOBLIST_FAILURE],
             json: {},
         },
     };
@@ -821,7 +813,7 @@ export function refreshGroupAdmin(groupname) {
             }],
             authenticated: true,
             method: "GET",
-            types: [ADMINGROUP_REQUEST, ADMINGROUP_LOADED, ADMINGROUP_FAILURE],
+            types: [ADMINJOBLIST_REQUEST, ADMINGROUP_LOADED, ADMINJOBLIST_FAILURE],
             json: {},
         },
     };

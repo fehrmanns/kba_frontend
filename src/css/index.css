@@ -15,6 +15,17 @@ body {
     border-bottom: 0;
 }
 
+.nav-content .nav-pills > li.active > a, .nav-content .nav-pills > li.active > a:hover, .nav-content .nav-pills > li.active > a:focus{
+    color: #337ab7;
+    background-color: transparent;
+    border: 1px solid #337ab7;
+}
+
+.nav-content .nav > li > a {
+    border: 1px solid transparent;
+    padding: 5px;
+}
+
 @media (max-width:768px) {
     .navbar-toggle {
         margin-left: 15px;
