@@ -223,6 +223,7 @@ export function logoutUser() {
         localStorage.removeItem("auth_token");
         localStorage.removeItem("refresh_token");
         dispatch(receiveLogout());
+        window.location.reload();
     };
 }
 
