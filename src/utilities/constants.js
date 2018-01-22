@@ -15,3 +15,4 @@ define("speakerNumRecognition", ["ALWAYS_ONE_SPEAKER_PER_CHANNEL",
     "PRECISE_SPEAKER_COUNT_CHECK",
     "FAST_SPEAKER_COUNT_CHECK",
     "CLUSTERING_SPEAKER_COUNT_CHECK"]);
+define("priorities", [0, 4, 9]);

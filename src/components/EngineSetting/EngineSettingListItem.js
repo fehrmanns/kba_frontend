@@ -20,16 +20,18 @@ class EngineSettingsListItem extends React.Component {
             storagePolicy: settingItem.storagePolicy ? settingItem.storagePolicy : null,
             keepPcmRawData: settingItem.keepPcmRawData,
             speakerNumRecognition: settingItem.speakerNumRecognition ? settingItem.speakerNumRecognition : null,
-            previewPicturePercent: settingItem.previewPicturePercent ? settingItem.previewPicturePercent : "",
-            minScoreValueAudio: settingItem.minScoreValueAudio ? settingItem.minScoreValueAudio : "",
-            minScoreValueVideo: settingItem.minScoreValueVideo ? settingItem.minScoreValueVideo : "",
+            previewPicturePercent: settingItem.previewPicturePercent || settingItem.previewPicturePercent === 0 ? settingItem.previewPicturePercent : "",
+            minScoreValueAudio: settingItem.minScoreValueAudio || settingItem.minScoreValueAudio === 0 ? settingItem.minScoreValueAudio : "",
+            minScoreValueVideo: settingItem.minScoreValueVideo || settingItem.minScoreValueVideo === 0 ? settingItem.minScoreValueVideo : "",
             notModifiedName: settingItem.name,
+            priority: settingItem.priority || settingItem.priority === 0 ? settingItem.priority : null,
             nameModified: false,
             descriptionModified: false,
             storagePolicyModified: false,
             keepPcmRawDataModified: false,
             speakerNumRecognitionModified: false,
             previewPicturePercentModified: false,
+            priorityModified: false,
             minScoreValueAudioModified: false,
             minScoreValueVideoModified: false,
             previewPicturePercentIsValid: true,
@@ -64,7 +66,6 @@ class EngineSettingsListItem extends React.Component {
     }
 
     validateAndHandleChange(event, strToCut, attribute, min, max) {
-        console.log("event.target.value", event.target.value);
         this.validateRange(event, attribute, min, max);
         this.handleChange(event, strToCut);
     }
@@ -76,7 +77,6 @@ class EngineSettingsListItem extends React.Component {
 
     compareContent(name, value) {
         const propName = `${name}Modified`;
-        console.log("modified", propName);
         this.setState({[propName]: utilities.determineModifiedValue(name, value, this.state[name])});
     }
 
@@ -92,6 +92,7 @@ class EngineSettingsListItem extends React.Component {
             previewPicturePercent: this.state.previewPicturePercent,
             minScoreValueAudio: this.state.minScoreValueAudio,
             minScoreValueVideo: this.state.minScoreValueVideo,
+            priority: this.state.priority || this.state.priority === 0 ? this.state.priority : null,
         };
 
         this.props.updateSetting(this.state.notModifiedName, newSetting);
@@ -105,6 +106,7 @@ class EngineSettingsListItem extends React.Component {
             previewPicturePercentModified: false,
             minScoreValueAudioModified: false,
             minScoreValueVideoModified: false,
+            priorityModified: false,
             previewPicturePercentIsValid: true,
             minScoreValueAudioIsValid: true,
             minScoreValueVideoIsValid: true,
@@ -119,9 +121,10 @@ class EngineSettingsListItem extends React.Component {
         const mayDelete = rights["engine-settings"].delete;
         const storagepolicyDropDownTitleId = this.state.storagePolicy ? this.state.storagePolicy : "selection.storagepolicy";
         const speakerDropDownTitleId = this.state.speakerNumRecognition ? this.state.speakerNumRecognition : "selection.speaker";
-        const modified = this.state.nameModified || this.state.descriptionModified || this.state.storagePolicyModified || this.state.keepPcmRawDataModified || this.state.speakerNumRecognitionModified || this.state.previewPicturePercentModified || this.state.minScoreValueAudioModified || this.state.minScoreValueVideoModified;
+        const priorityDropDownTitleId = this.state.priority || this.state.priority === 0 ? `dropdown.priority.${this.state.priority}` : "selection.priority";
+        const modified = this.state.nameModified || this.state.descriptionModified || this.state.storagePolicyModified || this.state.keepPcmRawDataModified || this.state.speakerNumRecognitionModified || this.state.previewPicturePercentModified || this.state.minScoreValueAudioModified || this.state.minScoreValueVideoModified || this.state.priorityModified;
 
-        const {speakerNumRecognition, storagePolicies} = constants;
+        const {speakerNumRecognition, storagePolicies, priorities} = constants;
         const tooltipVideo = this.state.minScoreValueVideoIsValid ? "" : "input.minScoreError";
         const tooltipAudio = this.state.minScoreValueAudioIsValid ? "" : "input.minScoreError";
         const tooltipPicture = this.state.previewPicturePercentIsValid ? "" : "input.picturePreviewError";
@@ -183,6 +186,21 @@ class EngineSettingsListItem extends React.Component {
                         {speakerNumRecognition.map(element => (
                             <MenuItem eventKey={element} key={`dropdown.speaker.${element}`}>
                                 <FormattedMessage id={element} key={element} />
+                            </MenuItem>))}
+                    </FormattedDropDown>
+                </td>
+                <td>
+                    <FormattedDropDown
+                        bsStyle="link"
+                        titleId={priorityDropDownTitleId}
+                        id="selection.priority"
+                        onSelect={event => this.handleSelection("priority", event)}
+                        value={this.state.priority}
+                        disabled={!mayEdit}
+                    >
+                        {priorities.map(element => (
+                            <MenuItem eventKey={element} key={`dropdown.priority.${element}`}>
+                                <FormattedMessage id={`dropdown.priority.${element}`} key={element} />
                             </MenuItem>))}
                     </FormattedDropDown>
                 </td>

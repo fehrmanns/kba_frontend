@@ -4,6 +4,8 @@
         "KBA_OU_TYPE_ALREADY_EXISTS":"Ein Organisationstype mit diesem Namen existiert bereits.",
         "KBA_OU_ALREADY_EXISTS":"Eine Organisationseinheit mit diesem Namen existiert bereits.",
         "MANDATORY_PARAMETER_NOT_SET":"Pflichtparameter nicht gesetzt.",
+        "KBA_CATEGORY_ALREADY_EXISTS":"Eine Kategorie mit diesem Namen existiert bereits.",
+        "KBA_ENGINE_SETTINGS_ALREADY_EXISTS":"Eine Verarbeitungsrichtlinie mit diesem Namen existiert bereits.",
 
         "DONT_STORE_MEDIA":"Medien nicht speichern",
         "STORE_MODERATELY_COMPRESSED_MEDIA":"Moderat komprimierte Medien speichern",
@@ -32,8 +34,8 @@
         "COMPLETED":"Abgeschlossen",
         "RUNNING":"In Arbeit",
 
-
         "date.format":"DD.MM.YYYY",
+        "timeSeperator":" um ",
 
         "alert.strong.message.success": "Sehr gut!",
         "alert.strong.message.info": "Information:",
@@ -105,6 +107,7 @@
         "input.picturePreviewError":"Der Wert muss zwischen 0 und 100 liegen",
         "input.dateTo":"Startdatum",
         "input.dateFrom":"Enddatum",
+        "input.priority":"Priorität",
 
         "button.submit": "Absenden",
         "button.user.create": "Benutzer anlegen",
@@ -143,7 +146,6 @@
         "label.state":"Status:",
         "label.description":"Beschreibung:",
         "label.journal":"Admin Journal:",
-
         "label.select.icon":"Icon",
 
         "modal.heading.icon":"Iconauswahl",
@@ -236,6 +238,7 @@
         "enginesetting.addnew.headline":"Verarbeitungsrichtlinie erstellen",
         "selection.storagepolicy":"Bitte auswählen",
         "selection.speaker":"Bitte auswählen",
+        "selection.policy":"Bitte auswählen",
         "enginesettings.list.headline": "Verarbeitungsrichtlinienübersicht",
         "enginesettings.list.name": "Name",
         "enginesettings.list.description": "Beschreibung",
@@ -245,6 +248,10 @@
         "enginesettings.list.previewPicturePercent":"Prozentzahl für Bildvorschau",
         "enginesettings.list.minScoreValueVideo":"Min. Score Video",
         "enginesettings.list.minScoreValueAudio":"Min. Score Audio",
+        "enginesettings.list.priority":"Priorität",
+        "dropdown.priority.0":"Niedrig",
+        "dropdown.priority.4":"Normal",
+        "dropdown.priority.9":"Hoch",
 
         "view.joblist.title":"Auftragsübersicht",
         "joblist.user.title":"Übersicht über eigene Aufträge",

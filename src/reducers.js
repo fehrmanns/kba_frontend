@@ -66,6 +66,8 @@ function error(state = {
     unit: {},
     user: {},
     unittypes: {},
+    categories: {},
+    enginesettings: {},
     errorMessage: "",
 }, action) {
     switch (action.type) {
@@ -98,6 +100,20 @@ function error(state = {
         case TYPE_FAILURE:
             return Object.assign({}, state, {
                 unittypes: {
+                    message: action.message,
+                    status: action.status,
+                },
+            });
+        case CATEGORY_FAILURE:
+            return Object.assign({}, state, {
+                categories: {
+                    message: action.message,
+                    status: action.status,
+                },
+            });
+        case ENGINESETTINGS_FAILURE:
+            return Object.assign({}, state, {
+                enginesettings: {
                     message: action.message,
                     status: action.status,
                 },
