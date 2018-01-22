@@ -20,14 +20,7 @@ class JobTableItem extends React.Component {
 
     componentDidMount() {
         const {item} = this.props;
-        const isGroup = !!item.groupName;
-        if (isGroup && !this.state.openGroup) {
-            this.timer = setInterval(() => this.refreshGroup(), 10000);
-        } else if (isGroup && this.state.openGroup) {
-            this.timer = setInterval(() => this.refreshGroupJobs(), 10000);
-        } else if (!isGroup) {
-            this.timer = setInterval(() => this.refreshJob(), 10000);
-        }
+        this.initializeTimer(item, this.state.openGroup);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -35,11 +28,24 @@ class JobTableItem extends React.Component {
             this.setState({
                 openGroup: !this.state.openGroup,
             });
+            clearInterval(this.timer);
+            this.initializeTimer(nextProps.item, !this.state.openGroup);
         }
     }
 
     componentWillUnmount() {
         clearInterval(this.timer);
+    }
+
+    initializeTimer(item, openGroupState) {
+        const isGroup = !!item.groupName;
+        if (isGroup && !openGroupState) {
+            this.timer = setInterval(() => this.refreshGroup(), 3000);
+        } else if (isGroup && openGroupState) {
+            this.timer = setInterval(() => this.refreshGroupJobs(), 3000);
+        } else if (!isGroup) {
+            this.timer = setInterval(() => this.refreshJob(), 3000);
+        }
     }
 
     refreshGroupJobs() {
@@ -150,7 +156,7 @@ class JobTableItem extends React.Component {
                     <span>{item.kbaJobType ? <FormattedMessage id={item.kbaJobType} /> : ""}</span>
                 </td>
                 <td className="button-td">
-                    <FormattedButton title="button.info" className="btn btn-xs btn-default" onClick={(event) => this.showInfo(event, item)}>
+                    <FormattedButton title="button.info" className="btn btn-xs btn-default" onClick={event => this.showInfo(event, item)}>
                         <span className="glyphicon glyphicon-info-sign" />
                     </FormattedButton>
                 </td>
