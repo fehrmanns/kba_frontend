@@ -40,11 +40,11 @@ class JobTableItem extends React.Component {
     initializeTimer(item, openGroupState) {
         const isGroup = !!item.groupName;
         if (isGroup && !openGroupState) {
-            this.timer = setInterval(() => this.refreshGroup(), 3000);
+            this.timer = setInterval(() => this.refreshGroup(), 10000);
         } else if (isGroup && openGroupState) {
-            this.timer = setInterval(() => this.refreshGroupJobs(), 3000);
+            this.timer = setInterval(() => this.refreshGroupJobs(), 10000);
         } else if (!isGroup) {
-            this.timer = setInterval(() => this.refreshJob(), 3000);
+            this.timer = setInterval(() => this.refreshJob(), 10000);
         }
     }
 
