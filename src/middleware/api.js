@@ -1,6 +1,9 @@
 import {logoutUser} from "./../actions";
 /* Login Uniform Resource Identifier */
-const LURI = "http://localhost:8080/befe/rest/";
+
+const API_URL = process.env.REACT_APP_API_HOST;
+const API_PORT = process.env.REACT_APP_API_BEFE_PORT;
+const LURI = `${API_URL}:${API_PORT}/befe/rest/`;
 
 function encodePathParam(str) {
     return encodeURIComponent(str).replace(/[!'()*]/g, c => `%${c.charCodeAt(0).toString(16)}`);

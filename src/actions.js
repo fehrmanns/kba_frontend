@@ -240,7 +240,9 @@ export function loginUser(creds) {
         // We dispatch requestLogin to kickoff the call to the API
         dispatch(requestLogin(creds));
 
-        return fetch("http://localhost:8080/befe/rest/login", config)
+        const API_URL = process.env.REACT_APP_API_HOST;
+        const API_PORT = process.env.REACT_APP_API_BEFE_PORT;
+        return fetch(`${API_URL}:${API_PORT}/befe/rest/login`, config)
             .then((response) => {
                 switch (response.status) {
                     // TODO: add correct messages
