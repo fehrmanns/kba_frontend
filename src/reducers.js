@@ -6,13 +6,21 @@ import {
     USER_REQUEST, USER_LOADED, USER_DELETED, USER_ADDED, USER_UPDATED, USER_FAILURE,
     TYPE_REQUEST, TYPE_LOADED, TYPE_DELETED, TYPE_ADDED, TYPE_UPDATED, TYPE_BYNAME_LOADED, TYPE_FAILURE,
     OPEN_PASSWORD_MODAL, CLOSE_PASSWORD_MODAL, OPEN_SELECT_ICON_MODAL, CLOSE_SELECT_ICON_MODAL,
-    UNITS_REQUEST, UNITS_LOADED, UNIT_REQUEST, UNIT_ADD_REQUEST, UNIT_ADDED, UNIT_DELETED, UNIT_UPDATE_REQUEST, RESET_UNIT_UPDATE_STATUS, UNIT_UPDATED, UNIT_FAILURE, UNIT_LOADED, UNIT_SELECTED, ROOTUNIT_LOADED, SET_RIGHTS, SET_EXPIRED_VALUE, PASSWORD_REQUEST,
+    UNITS_REQUEST, UNITS_LOADED, UNIT_REQUEST, UNIT_ADD_REQUEST, UNIT_ADDED, UNIT_DELETED, UNIT_UPDATE_REQUEST,
+    RESET_UNIT_UPDATE_STATUS, UNIT_UPDATED, UNIT_FAILURE, UNIT_LOADED, UNIT_SELECTED, ROOTUNIT_LOADED, SET_RIGHTS,
+    SET_EXPIRED_VALUE, PASSWORD_REQUEST,
     CATEGORY_REQUEST, CATEGORY_LOADED, CATEGORY_ADDED, CATEGORY_UPDATED, CATEGORY_DELETED, CATEGORY_FAILURE,
-    ENGINESETTINGS_REQUEST, ENGINESETTINGS_FAILURE, ENGINESETTINGS_LOADED, ENGINESETTING_CREATED, ENGINESETTING_UPDATED, ENGINESETTING_DELETED,
+    ENGINESETTINGS_REQUEST, ENGINESETTINGS_FAILURE, ENGINESETTINGS_LOADED, ENGINESETTING_CREATED, ENGINESETTING_UPDATED,
+    ENGINESETTING_DELETED,
+    ADMINJOBLIST_LOADED, ADMINJOBLIST_FAILURE, OWNJOBLIST_REQUEST, OWNJOBLIST_LOADED,
+    OWNJOBLIST_FAILURE, OWN_GROUPJOBS_LOADED, ADMIN_GROUPJOBS_LOADED, OWN_GROUP, ADMIN_GROUP, OPEN_JOB_INFO_MODAL,
+    CLOSE_JOB_INFO_MODAL, ADMINJOB_LOADED, OWNJOB_LOADED, ADMINJOBLIST_REQUEST, OWNGROUP_LOADED, ADMINGROUP_LOADED,
 } from "./actions";
 
+import * as joblistUtilities from "./utilities/reducer/joblistUtilities";
+
 function createDefaultRights() {
-    const paths = ["users", "org-unit-types", "org-units", "categories", "engine-settings", "imports"];
+    const paths = ["users", "org-unit-types", "org-units", "categories", "engine-settings", "imports", "own-jobs", "/own-jobs/job-groups", "jobs", "/jobs/job-groups"];
 
     const rightsFormatted = {
     };
@@ -35,6 +43,7 @@ function createDefaultRights() {
         categorysettings: ["categories"],
         importsettings: ["engine-settings"],
         recordings: ["imports"],
+        joblist: ["own-jobs", "jobs", "/own-jobs/job-groups", "/jobs/job-groups"],
         hasPermissionsForPath(path) {
             const length = this[path] ? this[path].length : 0;
             for (let i = 0; i < length; i += 1) {
@@ -57,6 +66,8 @@ function error(state = {
     unit: {},
     user: {},
     unittypes: {},
+    categories: {},
+    enginesettings: {},
     errorMessage: "",
 }, action) {
     switch (action.type) {
@@ -93,6 +104,20 @@ function error(state = {
                     status: action.status,
                 },
             });
+        case CATEGORY_FAILURE:
+            return Object.assign({}, state, {
+                categories: {
+                    message: action.message,
+                    status: action.status,
+                },
+            });
+        case ENGINESETTINGS_FAILURE:
+            return Object.assign({}, state, {
+                enginesettings: {
+                    message: action.message,
+                    status: action.status,
+                },
+            });
         case ERROR_RESET:
             return Object.assign({}, state, {
                 server: {},
@@ -114,7 +139,9 @@ function modals(state = {
     setIcon: () => {},
     showPasswordModal: false,
     showSelectIconModal: false,
+    showJobInfoModal: false,
     backdrop: true,
+    job: {},
 }, action) {
     switch (action.type) {
         case OPEN_PASSWORD_MODAL:
@@ -140,6 +167,18 @@ function modals(state = {
                 setIcon: () => {},
                 showSelectIconModal: false,
                 backdrop: true,
+            });
+        case OPEN_JOB_INFO_MODAL:
+            return Object.assign({}, state, {
+                job: action.job,
+                showJobInfoModal: true,
+                backdrop: true,
+            });
+        case CLOSE_JOB_INFO_MODAL:
+            return Object.assign({}, state, {
+                showJobInfoModal: false,
+                backdrop: true,
+                job: {},
             });
         default:
             return state;
@@ -492,6 +531,106 @@ function enginesettings(state = {
     }
 }
 
+function ownjoblist(state = {
+    isFetching: false,
+    joblist: [],
+    isLoaded: false,
+    groupToFetch: "",
+}, action) {
+    switch (action.type) {
+        case OWNJOBLIST_REQUEST:
+            return Object.assign({}, state, {
+                isFetching: true,
+                isLoaded: false,
+            });
+        case OWNJOBLIST_LOADED:
+            return Object.assign({}, state, {
+                joblist: joblistUtilities.determineGroupProgress(action.response.kbaJobDtos),
+                isFetching: false,
+                isLoaded: true,
+            });
+        case OWN_GROUPJOBS_LOADED:
+            return Object.assign({}, state, {
+                joblist: joblistUtilities.addChildrenToGroup(state.groupToFetch, action.response.kbaJobDtos, state.joblist),
+                isFetching: false,
+                isLoaded: true,
+                groupToFetch: "",
+            });
+        case OWN_GROUP:
+            return Object.assign({}, state, {
+                groupToFetch: action.groupToFetch,
+            });
+        case OWNJOB_LOADED:
+            return Object.assign({}, state, {
+                joblist: joblistUtilities.refreshJob(action.response, state.joblist, false),
+                isFetching: false,
+                isLoaded: true,
+            });
+        case OWNGROUP_LOADED:
+            return Object.assign({}, state, {
+                joblist: joblistUtilities.refreshJob(joblistUtilities.determineGroupProgress(action.response.kbaJobDtos)[0], state.joblist, true),
+                isFetching: false,
+                isLoaded: true,
+            });
+        case OWNJOBLIST_FAILURE:
+            return Object.assign({}, state, {
+                isFetching: false,
+            });
+        default:
+            return state;
+    }
+}
+
+function adminjoblist(state = {
+    isFetching: false,
+    joblist: [],
+    isLoaded: false,
+    groupToFetch: "",
+}, action) {
+    switch (action.type) {
+        case ADMINJOBLIST_REQUEST:
+            return Object.assign({}, state, {
+                isFetching: true,
+                isLoaded: false,
+            });
+        case ADMINJOBLIST_LOADED:
+            return Object.assign({}, state, {
+                joblist: joblistUtilities.determineGroupProgress(action.response.kbaJobDtos),
+                isFetching: false,
+                isLoaded: true,
+            });
+        case ADMIN_GROUPJOBS_LOADED:
+            return Object.assign({}, state, {
+                joblist: joblistUtilities.addChildrenToGroup(state.groupToFetch, action.response.kbaJobDtos, state.joblist),
+                isFetching: false,
+                isLoaded: true,
+                groupToFetch: "",
+            });
+        case ADMIN_GROUP:
+            return Object.assign({}, state, {
+                groupToFetch: action.groupToFetch,
+            });
+        case ADMINJOB_LOADED:
+            return Object.assign({}, state, {
+                joblist: joblistUtilities.refreshJob(action.response, state.joblist, false),
+                isFetching: false,
+                isLoaded: true,
+            });
+        case ADMINGROUP_LOADED:
+            return Object.assign({}, state, {
+                joblist: joblistUtilities.refreshJob(joblistUtilities.determineGroupProgress(action.response.kbaJobDtos)[0], state.joblist, true),
+                isFetching: false,
+                isLoaded: true,
+            });
+        case ADMINJOBLIST_FAILURE:
+            return Object.assign({}, state, {
+                isFetching: false,
+            });
+        default:
+            return state;
+    }
+}
+
 
 // We combine the reducers here so that they
 // can be left split apart above
@@ -505,6 +644,8 @@ const kbaApp = combineReducers({
     units,
     categories,
     enginesettings,
+    ownjoblist,
+    adminjoblist,
 });
 
 export default kbaApp;

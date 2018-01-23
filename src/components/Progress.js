@@ -28,9 +28,12 @@ function mapStateToProps(state) {
         unittypes,
         units,
         categories,
+        enginesettings,
+        ownjoblist,
+        adminjoblist,
     } = state;
 
-    const isFetching = auth.isFetching || token.isFetching || users.isFetching || unittypes.isFetching || units.isFetching || categories.isFetching;
+    const isFetching = auth.isFetching || token.isFetching || users.isFetching || unittypes.isFetching || units.isFetching || categories.isFetching || enginesettings.isFetching || ownjoblist.isFetching || adminjoblist.isFetching;
 
     return {
         isFetching,

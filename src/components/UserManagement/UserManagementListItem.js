@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import {MenuItem} from "react-bootstrap";
-import {FormattedDate, FormattedMessage} from "react-intl";
+import {FormattedDate, FormattedMessage, FormattedTime} from "react-intl";
 import {openPasswordModal} from "../../actions";
 import FormattedDropDown from "../i18n/FormattedDropDown";
 import FormattedButton from "../i18n/FormattedButton";
@@ -148,21 +148,14 @@ class UserManagementListItem extends React.Component {
                 </td>
                 <td className="date">
                     <span>
-                        {!!user.created && <FormattedDate value={user.created} day="2-digit" month="short" year="numeric" />}
-                    </span>
-                </td>
-                {/*
-                <td className="date">
-                    <span>
-                    {!!user.modified && <FormattedDate value={user.modified} day="2-digit" month="short" year="numeric" /> }
+                        {!!user.created && <span><FormattedDate value={user.created} day="2-digit" month="short" year="numeric" /><FormattedMessage id="timeSeperator" /><FormattedTime value={user.created} hour="numeric" minute="numeric" second="numeric" /></span>}
                     </span>
                 </td>
                 <td className="date">
                     <span>
-                    {!!user.modifiedBy && user.modifiedBy}
+                        {!!user.modified && <span><FormattedDate value={user.modified} day="2-digit" month="short" year="numeric" /><FormattedMessage id="timeSeperator" /><FormattedTime value={user.modified} hour="numeric" minute="numeric" second="numeric" /></span>}
                     </span>
                 </td>
-                */}
                 <td className="button-td">
                     {this.props.rights.users.put &&
                     <FormattedButton

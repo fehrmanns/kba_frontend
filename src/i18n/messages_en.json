@@ -4,6 +4,8 @@
         "KBA_OU_TYPE_ALREADY_EXISTS":"A organizational unit type with this name already exists.",
         "KBA_OU_ALREADY_EXISTS":"A organizational unit with this name already exists.",
         "MANDATORY_PARAMETER_NOT_SET":"Mandatory parameter not set.",
+        "KBA_CATEGORY_ALREADY_EXISTS":"A category with this name already exists.",
+        "KBA_ENGINE_SETTINGS_ALREADY_EXISTS":"An engine setting with this name already exists.",
 
         "DONT_STORE_MEDIA":"Do not store media data",
         "STORE_MODERATELY_COMPRESSED_MEDIA":"Store moderate compressed media",
@@ -16,6 +18,24 @@
         "PRECISE_SPEAKER_COUNT_CHECK":"Precise speaker count check",
         "FAST_SPEAKER_COUNT_CHECK":"Quick speaker count check",
         "CLUSTERING_SPEAKER_COUNT_CHECK":"Clustering speaker count check",
+
+        "MANUAL_IMPORT":"Manual import",
+        "K2_IMPORT":"K2 import",
+        "MATCHING_JOB":"Matching job",
+
+        "INITIALIZED":"Initialized",
+        "EN_ROUTE_TO_QUEUE":"En route to queue",
+        "DEQUEUED":"Dequeued",
+        "EN_ROUTE_TO_FFMPEG":"En route to FFMPEG",
+        "EN_ROUTE_TO_BS3_AUDIO":"En route to BS3 Audio",
+        "EN_ROUTE_TO_BS3_NO_AUDIO":"En route to BS3 No Audio",
+        "FAILED":"Failed",
+        "PARTIALLY_COMPLETED":"Partially completed",
+        "COMPLETED":"Completed",
+        "RUNNING":"In progress",
+
+        "date.format":"DD/MM/YYYY",
+        "timeSeperator":" at ",
 
         "alert.strong.message.success": "Very good!",
         "alert.strong.message.info": "Information:",
@@ -85,6 +105,9 @@
         "input.minScoreValueAudio":"Minimum score for audio",
         "input.minScoreError":"The minimal score value has to be between -16 and 16.",
         "input.picturePreviewError":"The value has to be between 0 and 100.",
+        "input.dateTo":"Start date",
+        "input.dateFrom":"End date",
+        "input.priority":"Priority",
 
         "button.submit": "Submit",
         "button.user.create": "Create user",
@@ -111,6 +134,18 @@
         "button.setting.create":"Create engine setting",
         "button.newsetting.open":"New engine setting",
         "button.setting.delete":"Delete engine setting",
+        "button.job.filter":"Search jobs",
+        "button.info":"Info",
+
+        "label.name":"Name:",
+        "label.enginesetting":"Engine setting:",
+        "label.organisation":"Organisation:",
+        "label.filename":"File name:",
+        "label.createdby":"Created by:",
+        "label.created":"Created:",
+        "label.state":"State:",
+        "label.description":"Description:",
+        "label.journal":"Admin journal:",
 
         "label.select.icon":"Icon",
 
@@ -204,6 +239,7 @@
         "enginesetting.addnew.headline":"Create engine setting",
         "selection.storagepolicy":"Please select",
         "selection.speaker":"Please select",
+        "selection.policy":"Please select",
         "enginesettings.list.headline": "Engine settings overview",
         "enginesettings.list.name": "Name",
         "enginesettings.list.description": "Description",
@@ -214,6 +250,23 @@
         "enginesettings.list.previewPicturePercent":"Percent of picture preview",
         "enginesettings.list.minScoreValueVideo":"Minimum score for video",
         "enginesettings.list.minScoreValueAudio":"Minimum score for audio",
+        "enginesettings.list.priority":"Priority",
+        "dropdown.priority.0":"Low",
+        "dropdown.priority.4":"Normal",
+        "dropdown.priority.9":"High",
+
+        "view.joblist.title":"Job list overview",
+        "joblist.user.title":"Overviews of own jobs",
+        "joblist.administration.title":"Overviews of all jobs",
+        "joblist.list.name":"Name",
+        "joblist.list.files":"#Files",
+        "joblist.list.enginesetting":"Enginesetting",
+        "joblist.list.importdate":"Import date",
+        "joblist.list.creator":"Creator",
+        "joblist.list.progress":"Progress",
+        "joblist.list.status":"State",
+        "joblist.list.jobtype":"Job type",
+        "joblist.jobinfo.headline":"Job information",
 
         "":""
     }

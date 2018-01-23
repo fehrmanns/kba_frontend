@@ -47,6 +47,7 @@ class EngineSettingList extends React.Component {
                                     </th>
                                     <th><FormattedMessage id="enginesettings.list.storagePolicy" /></th>
                                     <th><FormattedMessage id="enginesettings.list.speakerNumRecognition" /></th>
+                                    <th><FormattedMessage id="enginesettings.list.priority" /></th>
                                     <th className="number-value">
                                     % <FormattedIcon title="enginesettings.list.previewPicturePercent" className="glyphicon glyphicon-picture" />
                                     </th>

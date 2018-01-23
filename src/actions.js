@@ -35,6 +35,8 @@ export const OPEN_PASSWORD_MODAL = "OPEN_PASSWORD_MODAL";
 export const CLOSE_PASSWORD_MODAL = "CLOSE_PASSWORD_MODAL";
 export const OPEN_SELECT_ICON_MODAL = "OPEN_SELECT_ICON_MODAL";
 export const CLOSE_SELECT_ICON_MODAL = "CLOSE_SELECT_ICON_MODAL";
+export const OPEN_JOB_INFO_MODAL = "OPEN_JOB_INFO_MODAL";
+export const CLOSE_JOB_INFO_MODAL = "CLOSE_JOB_INFO_MODAL";
 
 export const UNITS_REQUEST = "UNITS_REQUEST";
 export const UNITS_LOADED = "UNITS_LOADED";
@@ -68,6 +70,22 @@ export const CATEGORY_ADDED = "CATEGORY_ADDED";
 export const CATEGORY_UPDATED = "CATEGORY_UPDATED";
 export const CATEGORY_DELETED = "CATEGORY_DELETED";
 export const CATEGORY_FAILURE = "CATEGORY_FAILURE";
+
+export const OWNJOBLIST_REQUEST = "OWNJOBLIST_REQUEST";
+export const OWNJOBLIST_LOADED = "OWNJOBLIST_LOADED";
+export const OWNJOBLIST_FAILURE = "OWNJOBLIST_FAILURE";
+export const OWN_GROUPJOBS_LOADED = "OWN_GROUPJOBS_LOADED";
+export const OWN_GROUP = "OWN_GROUP";
+export const OWNJOB_LOADED = "OWNJOB_LOADED";
+export const OWNGROUP_LOADED = "OWNGROUP_LOADED";
+
+export const ADMINJOBLIST_REQUEST = "ADMINJOBLIST_REQUEST";
+export const ADMINJOBLIST_LOADED = "ADMINJOBLIST_LOADED";
+export const ADMINJOBLIST_FAILURE = "ADMINJOBLIST_FAILURE";
+export const ADMIN_GROUPJOBS_LOADED = "ADMIN_GROUPJOBS_LOADED";
+export const ADMIN_GROUP = "ADMIN_GROUP";
+export const ADMINJOB_LOADED = "ADMINJOB_LOADED";
+export const ADMINGROUP_LOADED = "ADMINGROUP_LOADED";
 
 function serverError(message) {
     return {
@@ -132,6 +150,20 @@ export function closeSelectIconModal() {
     };
 }
 
+export function openJobInfoModal(job) {
+    return {
+        type: OPEN_JOB_INFO_MODAL,
+        backdrop: true,
+        job,
+    };
+}
+
+export function closeJobInfoModal() {
+    return {
+        type: CLOSE_JOB_INFO_MODAL,
+    };
+}
+
 export function setExpiredValue() {
     return {
         type: SET_EXPIRED_VALUE,
@@ -191,6 +223,7 @@ export function logoutUser() {
         localStorage.removeItem("auth_token");
         localStorage.removeItem("refresh_token");
         dispatch(receiveLogout());
+        window.location.reload();
     };
 }
 
@@ -631,3 +664,157 @@ export function deleteEngineSetting(settingname) {
         },
     };
 }
+
+function createSearchDateQueryParams(fromDate, toDate) {
+    const queryParams = [];
+    if (fromDate) {
+        queryParams.push({
+            name: "fromDts",
+            value: fromDate,
+        });
+    } if (toDate) {
+        queryParams.push({
+            name: "toDts",
+            value: toDate,
+        });
+    }
+    return queryParams;
+}
+
+export function getOwnJobs(fromDate, toDate) {
+    const queryParams = createSearchDateQueryParams(fromDate, toDate);
+    return {
+        [CALL_API]: {
+            endpoint: "own-jobs",
+            queryParams,
+            authenticated: true,
+            method: "GET",
+            types: [OWNJOBLIST_REQUEST, OWNJOBLIST_LOADED, OWNJOBLIST_FAILURE],
+            json: {},
+        },
+    };
+}
+
+export function getAdminJobs(fromDate, toDate) {
+    const queryParams = createSearchDateQueryParams(fromDate, toDate);
+    return {
+        [CALL_API]: {
+            endpoint: "jobs",
+            queryParams,
+            authenticated: true,
+            method: "GET",
+            types: [ADMINJOBLIST_REQUEST, ADMINJOBLIST_LOADED, ADMINJOBLIST_FAILURE],
+            json: {},
+        },
+    };
+}
+
+function fetchGroupJobsUser(groupname) {
+    return {
+        [CALL_API]: {
+            endpoint: `own-jobs/job-groups/${groupname}`,
+            authenticated: true,
+            method: "GET",
+            types: [OWNJOBLIST_REQUEST, OWN_GROUPJOBS_LOADED, OWNJOBLIST_FAILURE],
+            json: {},
+        },
+    };
+}
+
+function fetchGroupJobsAdmin(groupname) {
+    return {
+        [CALL_API]: {
+            endpoint: `jobs/job-groups/${groupname}`,
+            authenticated: true,
+            method: "GET",
+            types: [ADMINJOBLIST_REQUEST, ADMIN_GROUPJOBS_LOADED, ADMINJOBLIST_FAILURE],
+            json: {},
+        },
+    };
+}
+
+function addGroupForFetchOwn(groupname) {
+    return {
+        type: OWN_GROUP,
+        groupToFetch: groupname,
+    };
+}
+
+export function fetchGroupJobsForUser(groupname) {
+    return (dispatch) => {
+        dispatch(addGroupForFetchOwn(groupname));
+        return dispatch(fetchGroupJobsUser(groupname));
+    };
+}
+
+function addGroupForFetchAdmin(groupname) {
+    return {
+        type: ADMIN_GROUP,
+        groupToFetch: groupname,
+    };
+}
+
+export function fetchGroupJobsForAdmin(groupname) {
+    return (dispatch) => {
+        dispatch(addGroupForFetchAdmin(groupname));
+        return dispatch(fetchGroupJobsAdmin(groupname));
+    };
+}
+
+
+export function refreshJobOwn(jobname) {
+    return {
+        [CALL_API]: {
+            endpoint: `own-jobs/${jobname}`,
+            authenticated: true,
+            method: "GET",
+            types: [OWNJOBLIST_REQUEST, OWNJOB_LOADED, OWNJOBLIST_FAILURE],
+            json: {},
+        },
+    };
+}
+
+export function refreshJobAdmin(jobname) {
+    return {
+        [CALL_API]: {
+            endpoint: `jobs/${jobname}`,
+            authenticated: true,
+            method: "GET",
+            types: [ADMINJOBLIST_REQUEST, ADMINJOB_LOADED, ADMINJOBLIST_FAILURE],
+            json: {},
+        },
+    };
+}
+
+export function refreshGroupOwn(groupname) {
+    return {
+        [CALL_API]: {
+            endpoint: `own-jobs/job-groups/${groupname}`,
+            queryParams: [{
+                name: "aggregation",
+                value: true,
+            }],
+            authenticated: true,
+            method: "GET",
+            types: [OWNJOBLIST_REQUEST, OWNGROUP_LOADED, OWNJOBLIST_FAILURE],
+            json: {},
+        },
+    };
+}
+
+export function refreshGroupAdmin(groupname) {
+    return {
+        [CALL_API]: {
+            endpoint: `jobs/job-groups/${groupname}`,
+            queryParams: [{
+                name: "aggregation",
+                value: true,
+            }],
+            authenticated: true,
+            method: "GET",
+            types: [ADMINJOBLIST_REQUEST, ADMINGROUP_LOADED, ADMINJOBLIST_FAILURE],
+            json: {},
+        },
+    };
+}
+

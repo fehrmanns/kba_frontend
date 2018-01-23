@@ -5,6 +5,7 @@ import {BrowserRouter as Router, Route, Redirect} from "react-router-dom";
 import {addLocaleData, IntlProvider} from "react-intl";
 import intlEN from "react-intl/locale-data/en";
 import intlDE from "react-intl/locale-data/de";
+import 'react-dates/initialize';
 import {logoutUser, openPasswordModal, probeToken} from "../actions";
 import {getToken, getItem, setItem, toggleItem} from "./../utilities/storage";
 import Header from "./Header";
@@ -27,6 +28,7 @@ import Categorysettings from "./../views/Categorysettings";
 import License from "./../views/License";
 import PasswordChangeModal from "./modals/PasswordChangeModal";
 import SelectIconModal from "./../components/modals/SelectIconModal";
+import JobInfoModal from "./../components/modals/JobInfoModal";
 import RightManagement from "../utilities/RightManagement";
 
 addLocaleData([...intlEN, ...intlDE]);
@@ -143,6 +145,7 @@ class Mainframe extends React.Component {
                         {content}
                         <PasswordChangeModal modal={showPasswordModal} />
                         <SelectIconModal />
+                        <JobInfoModal />
                         <RightManagement />
                     </div>
                 </Router>

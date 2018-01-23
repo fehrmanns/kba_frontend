@@ -30,6 +30,8 @@ class Notifications extends React.Component {
 
         (nextProps.usersErrorMsg.message) && this.setError(nextProps.usersErrorMsg);
         (nextProps.unittypeError.message) && this.setError(nextProps.unittypeError);
+        (nextProps.categoriesError.message) && this.setError(nextProps.categoriesError);
+        (nextProps.enginesettingsError.message) && this.setError(nextProps.enginesettingsError);
         (nextProps.unitError.message) && this.setError(nextProps.unitError);
 
         if (this.state.resetErrorMsgs) {
@@ -133,6 +135,8 @@ Notifications.propTypes = {
     usersErrorMsg: PropTypes.object.isRequired,
     dispatch: PropTypes.func.isRequired,
     unittypeError: PropTypes.object.isRequired,
+    categoriesError: PropTypes.object.isRequired,
+    enginesettingsError: PropTypes.object.isRequired,
     unitError: PropTypes.object.isRequired,
 };
 
@@ -143,6 +147,8 @@ function mapStateToProps(state) {
     const serverError = error.server;
     const usersErrorMsg = error.user;
     const unittypeError = error.unittypes;
+    const categoriesError = error.categories;
+    const enginesettingsError = error.enginesettings;
     const unitError = error.unit;
 
     return {
@@ -151,6 +157,8 @@ function mapStateToProps(state) {
         serverError,
         usersErrorMsg,
         unittypeError,
+        categoriesError,
+        enginesettingsError,
         unitError,
     };
 }

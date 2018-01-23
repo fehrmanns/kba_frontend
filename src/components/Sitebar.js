@@ -32,15 +32,19 @@ class Sitebar extends React.Component {
                     <li>
                         <Link to="/"><FormattedMessage id="menu.sitebar.import.k2" /></Link>
                     </li>
+                    {rights.pathMapping.hasPermissionsForPath("joblist") &&
                     <li>
                         <Link to="/joblist"><FormattedMessage id="menu.sitebar.import.jobs" /></Link>
                     </li>
+                    }
                 </ul>
                 <hr />
                 <ul>
+                    {rights.pathMapping.hasPermissionsForPath("importsettings") &&
                     <li>
                         <Link to="/importsettings"><FormattedMessage id="menu.sitebar.settings.import" /></Link>
                     </li>
+                    }
                     {rights.pathMapping.hasPermissionsForPath("usersettings") &&
                     <li>
                         <Link to="/usersettings"><FormattedMessage id="menu.sitebar.settings.user" /></Link>
