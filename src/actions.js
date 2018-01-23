@@ -252,7 +252,6 @@ export function loginUser(creds) {
 export function probeToken() {
     const loginName = getLoginName();
     const endpoint = "management/users";
-    console.log("probeToken");
     return {
         [CALL_API]: {
             endpoint,
@@ -430,7 +429,6 @@ function requestOrgUnit() {
 }
 
 export function getOrgUnit(unitName) {
-    // TODO: make it work.
     requestOrgUnit();
     return {
         [CALL_API]: {

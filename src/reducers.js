@@ -299,7 +299,6 @@ function unittypes(state = {
                 isLoaded: false,
             });
         case TYPE_LOADED:
-            console.log("TYPE_LOADED", action.response.kbaOuTypeDtos);
             return Object.assign({}, state, {
                 isFetching: false,
                 isLoaded: true,
@@ -385,7 +384,6 @@ function units(state = {
             return Object.assign({}, state, {
                 unitTree: action.response,
                 isFetching: false,
-                selectedUnit: {},
                 typeNames: [action.response.kbaOuTypeName],
             });
         case UNIT_DELETED:

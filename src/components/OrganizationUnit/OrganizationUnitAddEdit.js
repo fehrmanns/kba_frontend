@@ -53,11 +53,6 @@ class OrganizationUnitAddEdit extends React.Component {
                 });
             }
         }
-        console.log("nextProps", nextProps);
-        if (nextProps.unitList !== this.props.unitList) {
-            console.log("unitList", nextProps.unitList);
-            console.log("unitList", this.props.unitList);
-        }
     }
 
     getAllUnits() {
