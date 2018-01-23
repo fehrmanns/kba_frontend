@@ -24,12 +24,13 @@ class OrganizationUnitTreeElement extends React.Component {
 
     componentWillMount() {
         if (this.state.thisElement.name && !this.state.thisElement.childrenKbaOuDTOs) {
-            this.getChildren(this.state.thisElement.name);
+            // this.getChildren(this.state.thisElement.name);
         }
     }
 
     componentWillReceiveProps(nextProps) {
         // SET ELEMENT WHEN THERE IS NO ELEMENT-NAME
+        const {thisElement} = this.state;
         if ((!this.state.thisElement.name && nextProps.treeElement.name)) {
             this.setState({
                 thisElement: nextProps.treeElement,
@@ -61,7 +62,6 @@ class OrganizationUnitTreeElement extends React.Component {
         }
 
         // DO UPDATE WHEN UPDATE-ELEMENT IS THIS ELEMENT AND THE UPDATE HAS HAPPEN
-        const {thisElement} = this.state;
         if (nextProps.orgUnitToUpdate === thisElement.name) {
             // UPDATE ELEMENT WHEN NEW CHILD ITEM WAS ADDED
             if (nextProps.updateSuccess && Object.getOwnPropertyNames(nextProps.orgUnitChildUpdate).length) {
@@ -76,6 +76,12 @@ class OrganizationUnitTreeElement extends React.Component {
                     this.setState({
                         thisElement: Object.assign({}, thisElement, nextProps.orgUnitUpdate),
                     });
+                    if (this.state.children) {
+                        const updatedChildren = this.state.children.map(child => Object.assign({}, child, {parentKbaOuName: nextProps.orgUnitUpdate.name}));
+                        this.setState({
+                            children: updatedChildren,
+                        });
+                    }
                 }
                 // SET NEW ICON WHEN THE TYPE-NAME HAS CHANGED
                 if (nextProps.orgUnitUpdate.kbaOuTypeName !== thisElement.kbaOuTypeName) {
@@ -87,6 +93,20 @@ class OrganizationUnitTreeElement extends React.Component {
                 }
                 this.props.dispatch(resetUnitUpdateStatus());
             }
+            if (nextProps.orgUnitUpdate.name !== nextProps.selectedUnit) {
+                this.props.dispatch(selectUnit(nextProps.orgUnitUpdate));
+            }
+        }
+        // UPDATE CHILD NAME WHEN THE NAME WAS CHANGED
+        if (Object.keys(nextProps.orgUnitUpdate).length && nextProps.treeElement.childrenKbaOuDTOs) {
+            const childToRename = this.state.thisElement.childrenKbaOuDTOs.filter(element => element.name === nextProps.orgUnitToUpdate);
+            if (childToRename.length > 0) {
+                this.getChildren(this.state.thisElement.name);
+            }
+        }
+        // UPDATE PARENT NAME WHEN THE NAME WAS CHANGED
+        if (nextProps.orgUnitToUpdate === thisElement.parentKbaOuName) {
+            this.setState({ thisElement: Object.assign({}, thisElement, {parentKbaOuName: nextProps.orgUnitUpdate.name}) });
         }
     }
 
@@ -108,6 +128,7 @@ class OrganizationUnitTreeElement extends React.Component {
     toggleView(e) {
         e.preventDefault();
         e.stopPropagation();
+        !this.state.openKnot && this.getChildren(this.state.thisElement.name);
 
         this.setState({
             openKnot: !this.state.openKnot,

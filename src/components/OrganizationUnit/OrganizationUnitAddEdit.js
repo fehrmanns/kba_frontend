@@ -4,7 +4,7 @@ import {connect} from "react-redux";
 import {FormattedMessage} from "react-intl";
 import FormattedInput from "../i18n/FormattedInput";
 import FormattedTypeahead from "../i18n/FormattedTypeahead";
-import {updateOrgUnit, createOrgUnit, getAllOrgUnits, selectUnit} from "../../actions";
+import {updateOrgUnit, createOrgUnit, getAllOrgUnits, selectUnit, getUnitTypes} from "../../actions";
 
 class OrganizationUnitAddEdit extends React.Component {
     constructor(props) {
@@ -97,7 +97,9 @@ class OrganizationUnitAddEdit extends React.Component {
     }
 
     updateUnit(unitName, unit) {
-        this.props.dispatch(updateOrgUnit(unitName, unit));
+        this.props.dispatch(updateOrgUnit(unitName, unit))
+            .then(() => this.props.dispatch(getAllOrgUnits()))
+            .then(() => this.props.dispatch(getUnitTypes()));
     }
 
     // TODO: on Enter nothing is added here.
@@ -128,7 +130,9 @@ class OrganizationUnitAddEdit extends React.Component {
     }
 
     createUnit(newUnit) {
-        this.props.dispatch(createOrgUnit(newUnit)).then(() => this.props.dispatch(getAllOrgUnits()));
+        this.props.dispatch(createOrgUnit(newUnit))
+            .then(() => this.props.dispatch(getAllOrgUnits()))
+            .then(() => this.props.dispatch(getUnitTypes()));
     }
 
     render() {
