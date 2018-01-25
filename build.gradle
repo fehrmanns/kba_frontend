@@ -1,0 +1,30 @@
+defaultTasks 'clean', 'copyApp'
+
+clean {
+   File target = new File(project.rootDir.getAbsolutePath() + "/docker/kba-frontend/app/");
+   print target
+   delete fileTree(target){
+      include '**'
+   }
+}
+
+task copyApp {
+   doLast {
+      File target = new File(project.rootDir.getAbsolutePath() + "/docker/kba-frontend/app/");
+      copy {
+         from (project.rootDir.getAbsolutePath() + "/kba_frontend") {
+            include 'src/**'
+            include 'public/**'
+            include 'package.json'
+         }
+         into(target)
+      }
+   }
+}
+
+test {
+    jacoco {
+        append = false
+        destinationFile = file("jacocoFrontendUnitTest.exec")
+    }
+}
